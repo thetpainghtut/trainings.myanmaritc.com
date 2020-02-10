@@ -61,3 +61,7 @@ Route::resource('grading','GradingController');
 
 Route::get('/export/{id}', 'ExportController@export')->name('export');
 
+//Income
+Route::resource('/incomes','IncomeController');
+//Expense
+Route::resource('/expenses','ExpenseController');
