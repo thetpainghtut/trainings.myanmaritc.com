@@ -17,7 +17,6 @@ class CreateSubjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name',100);
             $table->unsignedBigInteger('course_id');
-            
             $table->timestamps();
         });
     }
