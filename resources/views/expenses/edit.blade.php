@@ -2,7 +2,7 @@
 
 @section('content')
   <h2 class="d-inline-block">Edit Expense</h2>
-  <a href="{{route('expenses.index')}}" class="btn btn-info float-right">Go Back</a>
+  <a href="{{route('expenses.index')}}" class="btn btn-info float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
   @if ($errors->any())
     <div class="alert alert-danger">
       <ul>

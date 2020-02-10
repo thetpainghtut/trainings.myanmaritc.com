@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Expense;
+use Auth;
 
 class ExpenseController extends Controller
 {
@@ -15,6 +16,8 @@ class ExpenseController extends Controller
     public function index()
     {
         //
+        $expenses = Expense::all();
+        return view('expenses.index',compact('expenses'));
     }
 
     /**
@@ -39,25 +42,48 @@ class ExpenseController extends Controller
         //
 
         $this->validate($request, [
-                'attachments' => 'required',
-                'attachments.*' => 'mimes:doc,pdf,docx,zip'
+                'image' => 'required',
+                'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'type' => 'required',
+                'amount' => 'required',
+                'description' => 'required',
+                'date' => 'required'
+
         ]);
 
 
-        if($request->hasfile('attachments'))
+       /* if($request->hasfile('image'))
          {
-            foreach($request->file('attachments') as $file)
+            foreach($request->file('image') as $file)
             {
                 $name = time().'.'.$file->extension();
-                $file->move(public_path().'/files/', $name);  
+                $file->move(public_path().'/expenseimages/', $name);  
                 $data[] = $name;  
             }
-         }
+         }*/
+         $data=[];
+        if ($request->hasfile('image')) {
+            foreach($request->file('image') as $image)
+            {
+                $name=$image->getClientOriginalName();
+                $image->move(public_path().'/expenseimages/', $name);  
+                $filename = '/expenseimages/'.$name; 
+                array_push($data, $filename); 
+            }
+        }
+        $photoString = implode(',', $data);
 
 
-         $file= new File();
-         $file->filenames=json_encode($data);
-         $file->save();
+         $expense= new Expense();
+         $expense->type = request('type');
+         $expense->amount = request('amount');
+         $expense->description = request('description');
+         $expense->date = request('date');
+         $expense->user_id = Auth::user()->id;
+         $expense->attachment=$photoString;
+         $expense->save();
+
+         return redirect()->route('expenses.index');
     }
 
     /**
@@ -105,5 +131,9 @@ class ExpenseController extends Controller
     public function destroy($id)
     {
         //
+        $expense = Expense::find($id);
+        $expense->delete();
+
+        return redirect()->route('expenses.index');
     }
 }
