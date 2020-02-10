@@ -19,8 +19,8 @@ class CreateInquiresTable extends Migration
             $table->string('receiveno');
             $table->string('name');
             $table->string('gender');
-            $table->string('phno');
-            $table->string('installmentdate');
+            $table->string('phone');
+            $table->date('installmentdate');
             $table->string('installmentamount')->default(0);
             $table->longText('knowledge')->nullable();
             $table->string('camp');
