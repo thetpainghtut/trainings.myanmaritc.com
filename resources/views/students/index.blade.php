@@ -1,7 +1,9 @@
 @extends('backendtemplate')
 @section('content')
   <h2 class="d-inline-block">All Student List</h2>
-  <a href="{{route('students.create')}}" class="btn btn-info float-right">Add New</a>
+  <a href="{{route('students.create')}}" class="btn btn-info float-right">
+     <i class="fas fa-plus"></i>
+  Add New</a>
 
   <form method="get" action="{{route('students.index')}}">
     <div class="form-row">
@@ -28,7 +30,7 @@
       </div>
 
       <div class="form-group col-md-2 text-right mt-2">
-        <a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>
+        {{--<a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>--}}
       </div>
     </div>
   </form>

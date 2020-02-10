@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use Illuminate\Http\Request;
+use App\Course;
 
 class SubjectController extends Controller
 {
@@ -24,8 +25,9 @@ class SubjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('subjects.create');
+    {   
+        $courses = Course::all();
+        return view('subjects.create',compact('courses'));
     }
 
     /**
@@ -37,12 +39,14 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:100'
+            'name' => 'required|max:100',
+            'course_id'=>'required',
         ]);
 
         $subject = new Subject;
 
         $subject->name = request('name');
+        $subject->course_id=request('course_id');
         $subject->save();
 
         return redirect()->route('subjects.index');
@@ -66,8 +70,9 @@ class SubjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Subject $subject)
-    {
-        return view('subjects.edit',compact('subject'));
+    {   
+        $courses=Course::all();
+        return view('subjects.edit',compact('subject','courses'));
     }
 
     /**
@@ -80,10 +85,12 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $request->validate([
-            'name' => 'required|max:100'
+            'name' => 'required|max:100',
+            'course_id' => 'required'
         ]);
 
         $subject->name = request('name');
+        $subject->course_id=request('course_id');
         $subject->save();
 
         return redirect()->route('subjects.index');

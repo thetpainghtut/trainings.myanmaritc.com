@@ -1,0 +1,49 @@
+	Income->city(admin)
+	 			=>id,name,user_id
+
+		  ->location(admin)
+		  		=>id,name,city_id,user_id
+
+		  ->township(admin)
+		  		=>id,name,city_id,user_id
+
+		  ->education(admin)
+		   		=>id,name,user_id
+
+		  ->income
+		  		=>id,amount,des,date,location_id,user_id
+
+		  ->expense
+		  		=>type,amount,desc,date,attach(file),user_id
+
+ 	Staff -> staff
+ 				=>ph,dob,nrc,photo,startdate,leavedate(nullable),user_id,fathername,location_id,status
+
+ 		  -> teacher
+ 		  		=>staff_id,course_id,degree
+
+ 	Batch -> batch
+ 	      -> batch_teacher	
+ 	      				=>batch_id,teacher_id,user_id
+
+ 	Inquire ->Inquire
+ 				=>inquire_no <auto generate> ,recieve_no,name,gender,ph,township_id,camp,education_id,accept_year,knowledeg,installment_date,installment_amount,batch_id,user_id,township_id
+
+
+
+
+
+
+city
+township
+location
+education
+subject
+course
+staff
+teacher
+batch
+batch_teacher
+inquire
+student
+student_subject

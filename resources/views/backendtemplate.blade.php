@@ -55,7 +55,7 @@
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="{{route('courses.index')}}">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fab fa-discourse"></i>
           <span>Courses</span></a>
       </li>
 
@@ -79,6 +79,17 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Subjects</span></a>
       </li>
+
+
+      <hr class="sidebar-divider">
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('staffs.index')}}">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Staffs</span></a>
+      </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider">

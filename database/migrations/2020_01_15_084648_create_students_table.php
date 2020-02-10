@@ -34,6 +34,7 @@ class CreateStudentsTable extends Migration
             $table->string('p2_phone',100);
             $table->string('p2_relationship',100);
             $table->text('because');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
