@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Expense;
 
 class ExpenseController extends Controller
 {
@@ -24,6 +25,7 @@ class ExpenseController extends Controller
     public function create()
     {
         //
+        return view('expenses.create');
     }
 
     /**
@@ -35,6 +37,27 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request, [
+                'attachments' => 'required',
+                'attachments.*' => 'mimes:doc,pdf,docx,zip'
+        ]);
+
+
+        if($request->hasfile('attachments'))
+         {
+            foreach($request->file('attachments') as $file)
+            {
+                $name = time().'.'.$file->extension();
+                $file->move(public_path().'/files/', $name);  
+                $data[] = $name;  
+            }
+         }
+
+
+         $file= new File();
+         $file->filenames=json_encode($data);
+         $file->save();
     }
 
     /**
@@ -57,6 +80,8 @@ class ExpenseController extends Controller
     public function edit($id)
     {
         //
+        $expense = Expense::find($id);
+        return view('expenses.edit',compact('expense'));
     }
 
     /**
