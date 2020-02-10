@@ -62,7 +62,14 @@ Route::resource('grading','GradingController');
 Route::get('/export/{id}', 'ExportController@export')->name('export');
 
 
+// nyiyelin
 Route::resource('staffs','StaffController')->middleware('role:Admin');
+
+//Income
+Route::resource('/incomes','IncomeController');
+
+//Expense
+Route::resource('/expenses','ExpenseController');
 
 ///Honey
 Route::resource('inquires','InquireController');

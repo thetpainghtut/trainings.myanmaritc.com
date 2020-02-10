@@ -75,6 +75,20 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
+        <a class="nav-link" href="{{route('incomes.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Incomes</span></a>
+      </li>
+
+       <!-- Nav Item - Tables -->
+       <li class="nav-item">
+        <a class="nav-link" href="{{route('expenses.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Expenses</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
         <a class="nav-link" href="{{route('subjects.index')}}">
           <i class="fas fa-fw fa-table"></i>
           <span>Subjects</span></a>
