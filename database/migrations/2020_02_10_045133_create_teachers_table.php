@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBatchesTable extends Migration
+class CreateTeachersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,19 @@ class CreateBatchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title',100);
-            $table->date('startdate');
-            $table->date('enddate');
-            $table->string('time',100);
+            $table->unsignedBigInteger('staff_id');
+
+            //course
             $table->unsignedBigInteger('course_id');
+
+            //user
+            $table->text('degree'); 
+
+
             $table->timestamps();
         });
-
-        
     }
 
     /**
@@ -33,6 +35,6 @@ class CreateBatchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('teachers');
     }
 }
