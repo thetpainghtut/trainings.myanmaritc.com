@@ -61,3 +61,5 @@ Route::resource('grading','GradingController');
 
 Route::get('/export/{id}', 'ExportController@export')->name('export');
 
+///Honey
+Route::resource('inquires','InquireController');
