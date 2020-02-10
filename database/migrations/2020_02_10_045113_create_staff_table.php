@@ -21,7 +21,7 @@ class CreateStaffTable extends Migration
             $table->string('phone');
             $table->longText('photo');
             $table->date('joineddate');
-            $table->date('leavedate');
+            $table->date('leavedate')->nullable();
             $table->boolean('status')->default(false);
 
             //location
