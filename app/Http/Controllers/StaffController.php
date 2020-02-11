@@ -105,7 +105,7 @@ class StaffController extends Controller
             $staff->save();
 
 
-            if(request('role')=="Teacher"||"Mentor")
+            if(request('role')=="Teacher"|| request('role')=="Mentor")
             {
                 $staff_id=$staff->id;
                 $role=request('role');
