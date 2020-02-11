@@ -64,6 +64,10 @@ Route::get('/export/{id}', 'ExportController@export')->name('export');
 
 // nyiyelin
 Route::resource('staffs','StaffController')->middleware('role:Admin');
+Route::post('all_staff','StaffController@all_staff')->name('all_staff')->middleware('role:Admin');
+
+Route::resource('teacher','TeacherController')->middleware('role:Admin');
+
 
 //Income
 Route::resource('/incomes','IncomeController');
