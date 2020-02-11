@@ -42,7 +42,7 @@ class StaffController extends Controller
         // dd($request);
         $nrc=1||2||3||4||5||6||7||8||9||10||11||12||13||14;
         for ($nrc_no=1; $i <=14 ; $i++) { 
-            $nrc=$nrc.'/'.(a)
+            $nrc=$nrc.'/'.(a);
         }
         echo $nrc;
         die();
