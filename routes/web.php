@@ -77,3 +77,12 @@ Route::resource('/expenses','ExpenseController');
 
 ///Honey
 Route::resource('inquires','InquireController');
+
+
+//Report
+Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');
+Route::get('/report', 'ReportController@report')->name('report');
+Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
+Route::get('/attendances/collection', 'AttendanceController@attendanceCollect')->name('attendances.collect');
+Route::get('/attendances/reports', 'AttendanceController@attendanceReport')->name('attendances.reports');
+Route::get('/attendances/export/{section_id}','AttendanceController@Export');

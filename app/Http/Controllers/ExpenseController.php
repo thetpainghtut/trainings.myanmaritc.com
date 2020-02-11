@@ -120,6 +120,42 @@ class ExpenseController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+                'type' => 'required',
+                'amount' => 'required',
+                'description' => 'required',
+                'date' => 'required'
+        ]);
+        
+       
+        $data=[];
+        if ($request->hasfile('image')) {
+            foreach($request->file('image') as $image)
+            {
+                $name=$image->getClientOriginalName();
+                $image->move(public_path().'/expenseimages/', $name);  
+                $filename = '/expenseimages/'.$name; 
+                array_push($data, $filename); 
+                $photoString = implode(',', $data);
+            }
+        }
+        else{
+            $photoString = request('oldfile');
+        }
+        
+
+
+
+         $expense= Expense::find($id);
+         $expense->type = request('type');
+         $expense->amount = request('amount');
+         $expense->description = request('description');
+         $expense->date = request('date');
+         $expense->user_id = Auth::user()->id;
+         $expense->attachment=$photoString;
+         $expense->save();
+
+         return redirect()->route('expenses.index');
     }
 
     /**
