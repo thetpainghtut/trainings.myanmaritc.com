@@ -76,7 +76,7 @@ Route::resource('inquires','InquireController');
 
 
 //Report
-Route::get('/export/{month}/{year}', 'ExportController@export');
+Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');
 Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 Route::get('/attendances/collection', 'AttendanceController@attendanceCollect')->name('attendances.collect');

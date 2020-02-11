@@ -102,41 +102,50 @@
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-});
-    function Search()
-    {
-      var month = $('#month').val();
-      var year = $('#year').val();
-      $('#monthly').text(month);
-      $('#yearly').text(year);
+  });
+  function Search()
+  {
+    var month = $('#month').val();
+    var year = $('#year').val();
+    $('#monthly').text(month);
+    $('#yearly').text(year);
 
-       $.ajax({
-        url: "detailsearch",
-        type: "post",
-        data: { month : month,year:year },
-        success: function(data){
-          var j=1; var html=""; var sum = 0; let sum1=0;  let sub = 0;
-          $.each(data.result,function(i,v){
-            var type = v.type;
-            var description = v.description;
-            var date = v.date;
-            var amount = v.amount;
-             sum += parseInt(amount);
-            html+= `<tr><td class="resultid">${j++}</td><td class="resultid">${type}</td><td class="resultid">${description}</td><td class="resultid">${date}</td><td class="resultid">${amount}</td></tr>`;
-          })
-          html+=`<tr><th colspan="4" class="resultid">Total Expense</th><td class="resultid">${sum}</td></tr>`;
+     $.ajax({
+      url: "detailsearch",
+      type: "post",
+      data: { month : month,year:year },
+      success: function(data){
+        var j=1; var html=""; var sum = 0; let sum1=0;  let sub = 0;
+        $.each(data.result,function(i,v){
+          var type = v.type;
+          var description = v.description;
+          var date = v.date;
+          var amount = v.amount;
+           sum += parseInt(amount);
+          html+= `<tr><td class="resultid">${j++}</td><td class="resultid">${type}</td><td class="resultid">${description}</td><td class="resultid">${date}</td><td class="resultid">${amount}</td></tr>`;
+        })
+        html+=`<tr><th colspan="4" class="resultid">Total Expense</th><td class="resultid">${sum}</td></tr>`;
 
-          $.each(data.iresult,function(i,v){
-            sum1 += (parseFloat(v.amount));
-          })
-          html+=`<tr><th colspan="4" class="resultid">Total Income</th><td class="resultid">${sum1}</td></tr>`;
-          sub = sum1-sum;
-          html+=`<tr><th colspan="4" class="resultid">Balance</th><td class="resultid">${sub}</td></tr>`;
-          $('#detailexport').html(html);
+        $.each(data.iresult,function(i,v){
+          sum1 += (parseFloat(v.amount));
+        })
+        html+=`<tr><th colspan="4" class="resultid">Total Income</th><td class="resultid">${sum1}</td></tr>`;
+        sub = sum1-sum;
+        html+=`<tr><th colspan="4" class="resultid">Balance</th><td class="resultid">${sub}</td></tr>`;
+        if(data.result.length>0){
+          html+=`<tr><td colspan="5" align="center"><input type="button" value="Report" class="btn btn-primary report"></td></tr>`;
         }
-      });
+        $('#detailexport').html(html);
+      }
+    });
 
-    }
+  }
+
+  $('#detailexport').on('click','.report',function(){
+    var month = $('#month').val();
+    var year = $('#year').val();
+    window.location.href="/export/" + month + '/' + year;
+  })
 
 </script>
 @endsection

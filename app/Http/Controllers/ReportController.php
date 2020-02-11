@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
+use App\Expense;
+use Auth;
+use App\Income;
+
 class ReportController extends Controller
 {
     //
@@ -83,7 +87,10 @@ class ReportController extends Controller
         //dd($startdate);
         $enddate = $year.'-'.$month.'-31';
         //dd($enddate);
-        $result = DB::table('expenses')
+        $result = Expense::with('user')->whereBetween('date',[$startdate,$enddate])->get();
+        $iresult = Income::with('user')->whereBetween('date',[$startdate,$enddate])->get();
+       // dd($iresult);
+       /* $result = DB::table('expenses')
                     ->join('users','users.id','=','expenses.user_id')
                     ->select('expenses.*','users.name as uname')
                     ->whereBetween('date',[$startdate,$enddate])
@@ -93,7 +100,7 @@ class ReportController extends Controller
                     ->join('users','users.id','=','incomes.user_id')
                     ->select('incomes.*','users.name as iuname')
                     ->whereBetween('date',[$startdate,$enddate])
-                    ->get();
+                    ->get();*/
                     //dd($iresult);
                     /*dd($result);*/
          return response()->json([
