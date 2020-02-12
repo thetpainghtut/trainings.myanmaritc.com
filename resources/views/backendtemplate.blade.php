@@ -127,6 +127,13 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
+        <a class="nav-link" href="{{route('attendances.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Attendances</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
         <a class="nav-link" href="{{route('students.group.create')}}">
           <i class="fas fa-fw fa-table"></i>
           <span>Create Group</span></a>
