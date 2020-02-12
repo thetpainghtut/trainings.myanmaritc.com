@@ -45,8 +45,63 @@
       </div>
     </div>
   </form>
+
+
+
+
+  @isset($groups)
+    @if(count($groups) > 0)
+    
+          @foreach($groups as $group)
+          <div class="row">
+            <div class="col-md-8 bg-dark text-white">
+              <p>{{$group->name}} Group</p>
+            </div>
+          </div>
+          @php
+            $i = 1;
+            $checked = true;
+          @endphp
+          @foreach($group->students as $row)
+          <div class="row mt-2">
+          
+            <div class="col-md-2">
+              {{$i++}}
+            </div>
+            <div class="col-md-3">
+              {{$row->namee}}
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+              <input type="checkbox" id="check" name="check[]">
+            </div>
+           
+            <div class="col-md-3 remark">
+              <input type="text" name="remark" class="form-control remark" >
+            </div>
+         
+          </div>
+          @endforeach
+            
+          @endforeach
+       
+    @endif
+  @endif
+
 @endsection
 
 @section('script')
   <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+  <script type="text/javascript">
+    $('.remark').hide();
+    $('input[type="checkbox"]').click(function(){
+    if($(this).is(':checked')){
+        $('.remark').hide();
+    }else{
+        $('.remark').show();
+    }
+});
+  </script>
+  
 @endsection

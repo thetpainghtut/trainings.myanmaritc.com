@@ -29,7 +29,6 @@ class AttendanceController extends Controller
 
         return view('attendances.create',compact('students','courses','batches','groups','todayDate'));
       }else{
-        $students = Student::all();
         // Return 
         return view('attendances.create',compact('todayDate','courses','batches'));
     }
