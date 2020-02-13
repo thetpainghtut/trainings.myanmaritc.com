@@ -28,7 +28,10 @@
       
     </div>
   </form>
-  <form>
+  <form action="{{route('attendances.store')}}" method="post">
+    @csrf
+    <input type="hidden" name="date" value="{{$todayDate}}">
+
     <div class="form-row">
       <div class="form-group col-md-4">
         <label>To Date:</label>
@@ -45,13 +48,13 @@
       </div>
     </div>
 
-    <div class="form-row">
+ 
       @isset($groups)
       @if(count($groups) > 0)
       
             @foreach($groups as $group)
             <div class="row">
-              <div class="col-md-8 bg-dark text-white">
+              <div class="col-md-12 bg-dark text-white">
                 <p>{{$group->name}} Group</p>
               </div>
             </div>
@@ -60,22 +63,31 @@
               $checked = true;
             @endphp
             @foreach($group->students as $row)
+
             <div class="row mt-2">
             
               <div class="col-md-2">
                 {{$i++}}
               </div>
               <div class="col-md-3">
+                <input type="hidden" name="studentid[]" value="{{$row->id}}" multiple="">
                 {{$row->namee}}
               </div>
               <div class="col-md-2">
+
+                
+                @php
+                $rowcount = $row->attendance->status;
+                @endphp
+              
+                {{$rowcount}}
               </div>
               <div class="col-md-2">
                 <input type="checkbox" class="check{{$row->id}}" name="check{{$row->id}}" checked="" data-remark="remark{{$row->id}}">
               </div>
              
-              <div class="col-md-3 remark">
-                <input type="text" name="remark" class="form-control remark{{$row->id}}" style="display: none;">
+              <div class="col-md-3 mb-2">
+                <input type="text" name="remark[]" class="form-control remark{{$row->id}}" style="display: none;">
               </div>
            
             </div>
@@ -84,8 +96,11 @@
             @endforeach
          
       @endif
+      @if(count($attendancenow)==0)
+      <input type="submit" value="Save" class="btn btn-primary">
+      @endif
     @endif
-    </div> 
+    
   </form>
 @endsection
 
@@ -95,14 +110,14 @@
     // $('input[name="remark"]').hide();
     $('input[type="checkbox"]').click(function(){
       var remark=$(this).data('remark');
-      alert(remark);
+      
       $(this).removeAttr('checked');
-    if($(this).is(':checked')){
-        $('.'+remark).hide();
-    }else{
-        $('.'+remark).show();
-    }
-});
+      if($(this).is(':checked')){
+          $('.'+remark).hide();
+      }else{
+          $('.'+remark).show();
+      }
+    });
   </script>
   
 @endsection

@@ -32,4 +32,8 @@ class Student extends Model
       ->withPivot('symbol')
       ->withTimestamps();
   }
+  public function attendance()
+  {
+    return $this->hasOne('App\Attendance');
+  }
 }
