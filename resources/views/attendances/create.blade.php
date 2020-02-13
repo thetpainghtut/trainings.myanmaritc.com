@@ -44,62 +44,63 @@
         </div>
       </div>
     </div>
-  </form>
 
-
-
-
-  @isset($groups)
-    @if(count($groups) > 0)
-    
-          @foreach($groups as $group)
-          <div class="row">
-            <div class="col-md-8 bg-dark text-white">
-              <p>{{$group->name}} Group</p>
+    <div class="form-row">
+      @isset($groups)
+      @if(count($groups) > 0)
+      
+            @foreach($groups as $group)
+            <div class="row">
+              <div class="col-md-8 bg-dark text-white">
+                <p>{{$group->name}} Group</p>
+              </div>
             </div>
-          </div>
-          @php
-            $i = 1;
-            $checked = true;
-          @endphp
-          @foreach($group->students as $row)
-          <div class="row mt-2">
-          
-            <div class="col-md-2">
-              {{$i++}}
-            </div>
-            <div class="col-md-3">
-              {{$row->namee}}
-            </div>
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-2">
-              <input type="checkbox" id="check" name="check[]">
-            </div>
-           
-            <div class="col-md-3 remark">
-              <input type="text" name="remark" class="form-control remark" >
-            </div>
-         
-          </div>
-          @endforeach
+            @php
+              $i = 1;
+              $checked = true;
+            @endphp
+            @foreach($group->students as $row)
+            <div class="row mt-2">
             
-          @endforeach
-       
+              <div class="col-md-2">
+                {{$i++}}
+              </div>
+              <div class="col-md-3">
+                {{$row->namee}}
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-2">
+                <input type="checkbox" class="check{{$row->id}}" name="check{{$row->id}}" checked="" data-remark="remark{{$row->id}}">
+              </div>
+             
+              <div class="col-md-3 remark">
+                <input type="text" name="remark" class="form-control remark{{$row->id}}" style="display: none;">
+              </div>
+           
+            </div>
+            @endforeach
+              
+            @endforeach
+         
+      @endif
     @endif
-  @endif
-
+    </div> 
+  </form>
 @endsection
 
 @section('script')
   <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
   <script type="text/javascript">
-    $('.remark').hide();
+    // $('input[name="remark"]').hide();
     $('input[type="checkbox"]').click(function(){
+      var remark=$(this).data('remark');
+      alert(remark);
+      $(this).removeAttr('checked');
     if($(this).is(':checked')){
-        $('.remark').hide();
+        $('.'+remark).hide();
     }else{
-        $('.remark').show();
+        $('.'+remark).show();
     }
 });
   </script>
