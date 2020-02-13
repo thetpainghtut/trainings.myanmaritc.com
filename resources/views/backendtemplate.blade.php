@@ -23,6 +23,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 
+  
+
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 </head>
 
@@ -66,16 +68,16 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="{{route('batches.index')}}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-swatchbook"></i>
           <span>Batches</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('mentors.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Mentors</span></a>
-      </li>
+     {{-- <li class="nav-item">
+                  <a class="nav-link" href="{{route('mentors.index')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Mentors</span></a>
+                </li>--}}
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -415,13 +417,20 @@
   <!-- summernote -->
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
 
+  
 
-  <script>
+ <script type="text/javascript">
     $(document).ready(function() {
         $('#summernote').summernote('code');
+        
     });
-  </script>
-
+    $(document).ready(function() {
+        $(".js-example-basic-multiple").select2({
+      placeholder: "Choose One",
+      });
+    });
+       
+</script>
   @yield('script')
 </body>
 

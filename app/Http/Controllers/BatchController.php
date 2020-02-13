@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Batch;
 use App\Course;
+use App\User;
+use Spatie\Permission\Models\Role;
 
 class BatchController extends Controller
 {
@@ -27,7 +29,9 @@ class BatchController extends Controller
     public function create()
     {
         $courses = Course::all();
-        return view('batches.create',compact('courses'));
+        $users=User::role('Teacher')->get();
+        // dd($users);
+        return view('batches.create',compact('courses','users'));
     }
 
     /**
@@ -38,6 +42,7 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             "title" => 'required|max:100',
             "startdate" => 'required',
@@ -54,6 +59,21 @@ class BatchController extends Controller
         $batch->course_id = request('course');
         $batch->save();
 
+        $teachers = request('teachers');
+        $mentors = request('mentors');
+        // $mentor = implode(',', $mentors);
+        for($i=0; $i < count($teachers); $i++){
+            // dd();
+
+            $batch->teachers()->attach($teachers[$i], ['teacher_id' => $teachers[$i]]);
+        }
+        // $batch->teachers()->attach($teachers);
+
+         for($i=0; $i < count($mentors); $i++){
+            // dd();
+            $batch->teachers()->attach($mentors[$i], ['mentor_id' => $mentors[$i]]);
+        }
+        
         return redirect()->route('batches.index');
     }
 

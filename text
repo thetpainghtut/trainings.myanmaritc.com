@@ -47,3 +47,19 @@ batch_teacher
 inquire
 student
 student_subject
+
+
+
+ html +=`<option value="${v[0].teachers[i].user_id}">
+                      ${v[0].teachers[i].name}
+                    </option>`;
+            }
+            
+
+             for (var i = 0; i < v[0].mentors.length; i++) {
+            console.log( v[0].mentors[i])
+            
+             mentor +=`<option value="${v[0].mentors[i].user_id}">
+                      ${v[0].mentors[i].name}
+                    </option>`;
+            }  
