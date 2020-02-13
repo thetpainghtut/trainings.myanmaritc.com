@@ -58,7 +58,6 @@ class StaffController extends Controller
     {
         //
 
-
          $request->validate([
                 'name' => 'required|min:5|max:100', 
                 'email' =>'required|unique:users',
@@ -110,7 +109,11 @@ class StaffController extends Controller
             $staff->save();
 
 
+
+            
+
             if(request('role')=="Teacher")
+
             {
                 $staff_id=$staff->id;
                 $role=request('role');
@@ -133,6 +136,7 @@ class StaffController extends Controller
         }   
         else{
             return back()->with('nrc_error','Nrc Format is not correct!!');
+
         }
     
     }

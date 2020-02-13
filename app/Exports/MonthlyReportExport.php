@@ -152,26 +152,26 @@ class MonthlyReportExport implements FromView,ShouldAutoSize
              
             $export=[];
             array_push($export,[' ','','',$total]);
-        return view('export.view_monthlyexpenselist', [
-            'hrs' => $hrresult,
-            'phps' => $phpresult,
-            'recruitments' => $recruitmentresult,
-            'generals' => $generalresult,
-            'generalcount'=>$generalresults,
-            'hrcount'=>$hrresults,
-            'recruitmentcount'=>$recruitmentresults,
-            'phpcount'=>$phpresults,
-            'recruitmenttotal'=>$recruitmenttotals,
-            'hrtotal'=>$hrtotals,
-            'phptotal'=>$phptotals,
-            'generaltotal'=>$generaltotals,
-            'totalexpense'=>$result1,
-            'incomeexpense'=>$iresult,
-            'change'=>$total,
-            'incomeresults'=>$incomeresult,
-            'year' => $this->year,
-            'month'=>$this->month
-        ]);
+            return view('export.view_monthlyexpenselist', [
+                'hrs' => $hrresult,
+                'phps' => $phpresult,
+                'recruitments' => $recruitmentresult,
+                'generals' => $generalresult,
+                'generalcount'=>$generalresults,
+                'hrcount'=>$hrresults,
+                'recruitmentcount'=>$recruitmentresults,
+                'phpcount'=>$phpresults,
+                'recruitmenttotal'=>$recruitmenttotals,
+                'hrtotal'=>$hrtotals,
+                'phptotal'=>$phptotals,
+                'generaltotal'=>$generaltotals,
+                'totalexpense'=>$result1,
+                'incomeexpense'=>$iresult,
+                'change'=>$total,
+                'incomeresults'=>$incomeresult,
+                'year' => $this->year,
+                'month'=>$this->month
+            ]);
      }
 
    public function registerEvents(): array
