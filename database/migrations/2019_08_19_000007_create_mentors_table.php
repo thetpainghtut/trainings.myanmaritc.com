@@ -15,11 +15,10 @@ class CreateMentorsTable extends Migration
     {
         Schema::create('mentors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->text('profile')->nullable();
+            $table->unsignedBigInteger('staff_id');
+            $table->unsignedBigInteger('course_id');
+            $table->text('degree')->nullabel();
             $table->string('portfolio',100);
-            $table->string('phone',100);
-            $table->text('address');
             $table->timestamps();
         });
     }

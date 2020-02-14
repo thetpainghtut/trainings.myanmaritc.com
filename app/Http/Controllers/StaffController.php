@@ -8,7 +8,9 @@ use App\Location;
 use App\Staff;
 use App\User;
 use App\Course;
+use App\Teacher;
 
+use DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -22,13 +24,15 @@ class StaffController extends Controller
      * @return \Illuminate\Http\Response
      */
         use RegistersUsers;
-
+        
     public function index()
     {
         //
         $roles=Role::all();
-        $user = User::role('Mentor')->get();
-        return view('staff.index',compact('roles','user'));
+        $user = User::role('Mentor')->with('staff')->get();
+        $role_name = "Mentor";
+       
+        return view('staff.index',compact('roles','user','role_name'));
     }
 
     /**
@@ -105,12 +109,23 @@ class StaffController extends Controller
             $staff->save();
 
 
-            if(request('role')=="Teacher"|| request('role')=="Mentor")
+
+            
+
+            if(request('role')=="Teacher")
+
             {
                 $staff_id=$staff->id;
                 $role=request('role');
                 $courses = Course::all();
                 return redirect()->route('teacher.create',compact('staff_id','role'));
+            }
+
+            elseif ( request('role')=="Mentor") {
+                $staff_id=$staff->id;
+                $role=request('role');
+                $courses = Course::all();
+                return redirect()->route('mentors.create',compact('staff_id','role'));
             }
             else{
                 $user->assignRole(request('role'));
@@ -135,6 +150,12 @@ class StaffController extends Controller
     public function show($id)
     {
         //
+        // dd($id);
+        $user = User::find($id);
+        $role = $user->getRoleNames();
+        return view('staff.show',compact('user','role'));
+        
+        
     }
 
     /**
@@ -146,6 +167,12 @@ class StaffController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+        // dd($id);
+
+        $role = $user->getRoleNames();
+        return view('staff.edit',compact('user','role'));
+
     }
 
     /**
@@ -158,6 +185,7 @@ class StaffController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -168,7 +196,7 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
     }
 
     public function all_staff(Request $request)
@@ -178,4 +206,24 @@ class StaffController extends Controller
         $user = User::role($staff_role)->with('staff')->with('teacher')->get();
         return $user;
     }
+
+    public function status_change($id)
+    {
+        $leave_date=date('Y-m-d');
+        // dd($leave_date);
+        $staff = Staff::find($id);
+        $staff->leavedate=$leave_date;
+        $staff->status=true;
+        $staff->save();
+        return back();
+    }
+
+    // public function show_staff(Request $request)
+    // {
+    //     $id = request('user_id');
+    //     $role=request('role_name');
+    //     $user=User::with('role')->find($id);
+    //     dd($user);
+    //     return view('staff.show',compact('user','role'));
+    // }
 }

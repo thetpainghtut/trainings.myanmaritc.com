@@ -63,8 +63,14 @@ Route::get('/export/{id}', 'ExportController@export')->name('export');
 
 
 // nyiyelin
+
 Route::resource('staffs','StaffController')->middleware('role:Admin');
+
 Route::post('all_staff','StaffController@all_staff')->name('all_staff')->middleware('role:Admin');
+
+Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
+
+Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
 
 Route::resource('teacher','TeacherController')->middleware('role:Admin');
 
@@ -85,6 +91,7 @@ Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
 
+
 //Attendance
 Route::resource('/attendances','AttendanceController');
 Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
@@ -92,3 +99,4 @@ Route::get('/attendances_search/action', 'AttendanceController@action')->name('a
 /*Route::get('/attendances/collection', 'AttendanceController@attendanceCollect')->name('attendances.collect');
 Route::get('/attendances/reports', 'AttendanceController@attendanceReport')->name('attendances.reports');
 Route::get('/attendances/export/{section_id}','AttendanceController@Export');*/
+

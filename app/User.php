@@ -40,11 +40,16 @@ class User extends Authenticatable
 
       public function staff()
       {
-        return $this->hasOne('App\Staff');
+        return $this->hasOne('App\Staff')->where('status','=','0');
       }
 
        public function teacher()
       {
         return $this->hasOneThrough('App\Teacher','App\Staff');
       }
+
+    //   public function roles()
+    // {
+    //     return $this->belongsToMany('App\Models\Role');
+    // }
 }

@@ -31,12 +31,13 @@
             </thead>
 
             <tbody>
-              
+             
                @php
                   $i = 1;
                 @endphp
-
+              
               @foreach($user as $staff_user)
+              @if($staff_user->staff)
                 <tr>
                   <td> {{$i++}} </td>
                   <td> {{$staff_user->name}} </td>
@@ -44,12 +45,22 @@
                   <td> {{$staff_user->staff->nrc}} </td>
                   <td> {{$staff_user->staff->dob}} </td>
                   <td>
-                    <button class="btn btn-info"><i class="fas fa-info"></i></button>
-                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    <a href="{{route('staffs.show',$staff_user->id)}}" class='btn btn-info'><i class="fas fa-info"></i></a>
+
+                    <a href="{{route('staffs.edit',$staff_user->id)}}" class='btn btn-warning'><i class="fas fa-edit"></i></a>
+                    
+                   <form method="post" action="{{route('status_change',$staff_user->staff->id)}}" class="d-inline-block">
+                      @csrf
+                      @method('PUT')
+                      <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to Delete?')">
+                          <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
                   </td>
                 </tr>
+                 @endif
               @endforeach
+             
 
 
             </tbody>
@@ -81,10 +92,13 @@
         $('nav').addClass('active');
         var role_name = $(this).data('name');
         $.post('all_staff',{role_name:role_name},function(response){
-          console.log(response);
+          // console.log(response);
           var j =1;
           var html="";
           $.each(response,function(i,v){
+            if(v.staff){
+
+
             html+=`<tr>
                   <td>${j++}</td>
                   <td>${v.name}</td>
@@ -92,15 +106,40 @@
                   <td>${v.staff.nrc}</td>
                   <td>${v.staff.dob}</td>
                   <td>
-                    <button class="btn btn-info"><i class="fas fa-info"></i></button>
-                    <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+
+                    <a href="{{route('staffs.show',':user_id')}}" class='btn btn-info'><i class="fas fa-info"></i></a>
+
+
+                    <a href="{{route('staffs.edit',':users_id')}}" class='btn btn-warning'><i class="fas fa-edit"></i></a>
+                    
+
+                    <form method="post" action="{{route('status_change',':id')}}" class="d-inline-block">
+                      @csrf
+                      
+                      <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to Delete?')">
+                          <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+
+
                   </td>
                   </tr>`;
+                 html= html.replace(':id',v.staff.id);
+                 html= html.replace(':user_id',v.id);
+                 html= html.replace(':users_id',v.id);
+
+
+                  }
+
           });
 
           $('tbody').html(html);
         });
+      })
+
+      $('tbody').on('click',function(){
+        var id = $(this).data('id');
       })
     })
   </script>

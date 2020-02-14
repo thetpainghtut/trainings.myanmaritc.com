@@ -19,9 +19,22 @@ class Staff extends Model
     	return $this->hasOne("App\Teacher");
     }
 
+     public function mentor()
+    {
+        return $this->hasOne("App\Mentor");
+    }
+
+
+    public function location()
+    {
+    	return $this->belongsTo("App\Location");
+    }
+
     
     public function user()
     {
     	return $this->belongsTo("App\User");
     }
+
+    
 }
