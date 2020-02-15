@@ -28,11 +28,7 @@
       
     </div>
   </form>
-  <form action="{{route('attendances.store')}}" method="post">
-    @csrf
-    <input type="hidden" name="date" value="{{$todayDate}}">
-
-    <div class="form-row">
+   <div class="form-row">
       <div class="form-group col-md-4">
         <label>To Date:</label>
         <span>{{$todayDate}}</span>
@@ -43,10 +39,14 @@
             <span class="input-group-text" style="color: Dodgerblue;" id="basic-text1"><i class="fas fa-search"
                 aria-hidden="true"></i></span>
           </div>
-          <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+          <input class="form-control my-0 py-1" type="text" name="search" id="search" placeholder="Search" aria-label="Search">
         </div>
       </div>
     </div>
+<div id="over">
+  <form action="{{route('attendances.store')}}" method="post" >
+    @csrf
+    @if(count($attendancenow)==0)
 
  
       @isset($groups)
@@ -55,13 +55,14 @@
             @foreach($groups as $group)
             <div class="row">
               <div class="col-md-12 bg-dark text-white">
-                <p>{{$group->name}} Group</p>
+                <p id="g">{{$group->name}} Group</p>
               </div>
             </div>
             @php
               $i = 1;
               $checked = true;
             @endphp
+            <p id="aa"></p>
             @foreach($group->students as $row)
 
             <div class="row mt-2">
@@ -71,7 +72,7 @@
               </div>
               <div class="col-md-3">
                 <input type="hidden" name="studentid[]" value="{{$row->id}}" multiple="">
-                {{$row->namee}}
+                <p id="n"> {{$row->namee}}</p>
               </div>
               <div class="col-md-2">
 
@@ -96,19 +97,27 @@
             @endforeach
          
       @endif
-      @if(count($attendancenow)==0)
+      
       <input type="submit" value="Save" class="btn btn-primary">
       @endif
     @endif
     
   </form>
+</div>
+
 @endsection
 
 @section('script')
   <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/mark.js/7.0.0/jquery.mark.min.js"></script>
+
+
+
   <script type="text/javascript">
+    $('#over').show();
     // $('input[name="remark"]').hide();
-    $('input[type="checkbox"]').click(function(){
+    $('#over').on('click','input[type="checkbox"]',function(){
+    // $().click(function(){
       var remark=$(this).data('remark');
       
       $(this).removeAttr('checked');
@@ -118,6 +127,87 @@
           $('.'+remark).show();
       }
     });
+
+   $(document).on('keyup', '#search', function(){
+      
+  
+    // Determine specified search term
+    //var searchTerm = $(this).val();
+    // Highlight search term inside a specific context
+    
+      var searchquery = $(this).val();
+      //alert(searchquery);
+      if(searchquery == ''){
+        $('p').removeAttr('style');
+      }else{
+      $.ajax({
+       url:"{{ route('attendances_search.action') }}",
+       method:'GET',
+       data:{searchquery:searchquery},
+       dataType:'json',
+       success:function(data)
+       {
+
+
+            $.each(data,function(i,v){
+             console.log(v.namee);
+             if(v){
+
+              var vname = v.namee;
+             /* document.getElementById('over').innerHTML = `<form action="{{route('attendances.store')}}" method="post" >
+   
+
+            <div class="row mt-2">
+            
+              <div class="col-md-3">
+                <input type="hidden" name="studentid[]" value="${v.id}" multiple="">
+                <p id="n"> ${v.namee}</p>
+              </div>
+              <div class="col-md-2">
+
+                
+               
+              </div>
+              <div class="col-md-2">
+                <input type="checkbox" class="check${v.id}" name="check${v.id}" checked="" data-remark="remark${v.id}">
+              </div>
+             
+              <div class="col-md-3 mb-2">
+                <input type="text" name="remark[]" class="form-control remark${v.id}" style="display: none;">
+              </div>
+           
+            </div>
+              
+         
+     
+    
+  </form>`;*/
+  
+
+          $( "p:contains('"+vname+"')" ).css( "color", "orange" );
+
+
+            
+             }
+           
+            })
+
+        }
+      });
+    }
+
+  })
+
+  
   </script>
+
+
+
   
 @endsection
+<style type="text/css">
+    mark {
+  background: orange;
+  color: black;
+}
+</style>

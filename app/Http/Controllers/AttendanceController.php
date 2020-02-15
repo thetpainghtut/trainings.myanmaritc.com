@@ -10,7 +10,7 @@ use App\Group;
 use App\Attendance;
 use Auth;
 use Carbon\Carbon;
-
+use DB;
 class AttendanceController extends Controller
 {
     /**
@@ -76,7 +76,7 @@ class AttendanceController extends Controller
         for ($i=0; $i < (count($students)); $i++) {
 
             $attendances = new Attendance();
-            $attendances->date = request('date'); 
+            $attendances->date = Carbon::now();
            // echo $remarks[$i];
 
             if($remarks[$i]!=''){
@@ -150,5 +150,27 @@ class AttendanceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function action(Request $request)
+    {
+    
+      $query = $request->get('searchquery');
+      if($query != '')
+      {
+        $group = Group::with('students');
+
+       $search = Student::with('groups')->where('namee', 'like', '%'.$query.'%')
+         ->get();
+       /*  $search =$group->whereHas('students', function($q) use($query) {
+                $q -> where('namee', 'LIKE', '%'. $query .'%');
+            }) -> get();*/
+         
+      }
+    // dd($search);
+      
+
+      return response()->json($search);
+    
     }
 }
