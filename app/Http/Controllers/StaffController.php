@@ -18,6 +18,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class StaffController extends Controller
 {
+     public function __construct($value='')
+    {
+        $this->middleware('role:Admin')->except('update','changepassword','show','edit');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -169,9 +173,11 @@ class StaffController extends Controller
         //
         $user = User::find($id);
         // dd($id);
-
+        $courses=Course::all();
         $role = $user->getRoleNames();
-        return view('staff.edit',compact('user','role'));
+        $locations=Location::all();
+        // dd($role);
+        return view('staff.edit',compact('user','role','courses','locations'));
 
     }
 
@@ -185,6 +191,94 @@ class StaffController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request);
+        $request->validate([
+                'name' => 'required|min:5|max:100', 
+                'email' =>'required',
+                'nrc' => 'required',
+                'dob' => 'required',
+                'phone' => 'required',
+                'joindate' =>'required',
+                'fathername' => 'required|min:5|max:100', 
+                'location_id' => 'required',
+                
+            ]);
+
+        $nrc_num=request('nrc');
+        // validate nrc format
+        if(preg_match("/^[1-9]{1,2}\/((A|B|D|G|H|K|L|M|N|P|R|S|T|U|W|Y|Z){1}[a-z]{0,2}){3}\b(\(N\))[0-9]{6}$/",$nrc_num))
+        {
+            // catch photo
+            if($request->hasfile('newphoto'))
+            {
+                $photo = $request->file('newphoto');
+                $dir = '/img/staff/';
+                $name = time().'.'.$photo->getClientOriginalExtension();
+                $photo->move(public_path().$dir,$name);
+                $file_path = $dir.$name;
+            }
+            else{
+
+                $file_path=request('oldphoto');
+            }
+
+
+            // data insert into user
+            $user = User::find($id);
+            $user->name = request('name');
+            $user->email=request('email');
+           
+            $user->save();
+            // dd($user);
+            $uid = $user->id;
+            // data insert into staff
+            $staff =Staff::where('user_id',$uid)->first();
+            // dd($staff);
+            $staff->dob=request('dob');
+            $staff->fathername=request('fathername');
+            $staff->nrc=$nrc_num;
+            $staff->phone=request('phone');
+            $staff->photo=$file_path;
+            $staff->joineddate=request('joindate');
+            $staff->location_id=request('location_id');
+            $staff->user_id=$uid;
+            $staff->save();
+
+
+            if(request('role')=="Teacher")
+
+            {
+                $staff_id=$staff->id;
+                $role=request('role');
+                $teacher = Teacher::where('staff_id',$staff_id)->first();
+                $teacher->course_id=request('course_id');
+                $teacher->degree=request('degree');
+                $teacher->save();
+                return redirect()->route('dashboard');
+            }
+
+            elseif ( request('role')=="Mentor") {
+                $staff_id=$staff->id;
+                $role=request('role');
+                $mentor = Mentor::where('staff_id',$staff_id)->first();
+                $mentor->course_id=request('course_id');
+                $mentor->portfolio=request('portfolio');
+                $mentor->degree=request('degree');
+                return redirect()->route('dashboard');
+
+            }
+            else{
+                $user->assignRole(request('role'));
+                return redirect()->route('staffs.index');
+
+            }
+            return redirect()->route('staffs.index');
+
+        }   
+        else{
+            return back()->with('nrc_error','Nrc Format is not correct!!');
+
+        }
 
     }
 
@@ -218,12 +312,16 @@ class StaffController extends Controller
         return back();
     }
 
-    // public function show_staff(Request $request)
-    // {
-    //     $id = request('user_id');
-    //     $role=request('role_name');
-    //     $user=User::with('role')->find($id);
-    //     dd($user);
-    //     return view('staff.show',compact('user','role'));
-    // }
+    public function changepassword(Request $request,$id)
+    {
+        $request->validate([
+            'password'=>'required|min:8',
+        ]);
+        $user=User::find($id);
+        $user->password=Hash::make(request('password'));
+        $user->save();
+        return back()->with('message','Successfully change password');
+    }
+
+   
 }

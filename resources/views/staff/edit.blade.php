@@ -7,18 +7,19 @@
   <div class="col-12">
   <h2 class="d-inline-block">Update Exiting Staff</h2>
 
-   <a href="{{route('staffs.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
+  {{-- <a href="{{route('staffs.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>--}}
     
   </div>
  </div>
 
   
   
-  <form method="post" action="{{route('staffs.store')}}" enctype="multipart/form-data">
+  <form method="post" action="{{route('staffs.update',$user->id)}}" enctype="multipart/form-data">
     @csrf
-
-    <input type="hidden" name="id" value="{{$user->id}}">
+    @method('PUT')
+  
     <input type="hidden" name="oldphoto" value="{{$user->staff->photo}}">
+    <input type="hidden" name="role" value="{{$role[0]}}">
 
     <div class="form-group row">
       <label for="inputprofile" class="col-sm-2 col-form-label">Profile</label>
@@ -125,6 +126,74 @@
 
       </div>
     </div>
+
+    <div class="form-group row">
+      <label for="inputfather" class="col-sm-2 col-form-label">Location</label>
+      <div class="col-sm-10">
+        <select class="form-control" name="location_id">
+          @foreach($locations as $location)
+          <option value="{{$location->id}}">{{$location->name}}</option>
+          @endforeach
+        </select>
+      </div>
+    </div>
+
+
+    @if($role[0]=="Teacher")
+    <div class="form-group row">
+      <label for="course" class="col-sm-2 col-form-label">Course</label>
+      <div class="col-sm-10">
+        <select class="form-control" name="course_id" id="course">
+          @foreach($courses as $course)
+          <option value="{{$course->id}}" @if($course->id==$user->staff->teacher->course_id) selected @endif>
+            {{$course->name}}
+          </option>
+          @endforeach
+        </select>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Degree</label>
+      <div class="col-sm-10">
+       <textarea id="summernote" name="degree">{{$user->staff->teacher->degree}}</textarea>
+      </div>
+    </div>
+
+
+
+    @elseif($role[0]=="Mentor")
+    <div class="form-group row">
+      <label for="course" class="col-sm-2 col-form-label">Course</label>
+      <div class="col-sm-10">
+        <select class="form-control" name="course_id" id="course">
+          @foreach($courses as $course)
+          <option value="{{$course->id}}" @if($course->id==$user->staff->mentor->course_id) selected @endif>
+            {{$course->name}}
+          </option>
+          @endforeach
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      
+      <label for="inputPortfolio" class="col-sm-2 col-form-label">Portifolio</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputPortfolio" name="portfolio" value="{{$user->staff->mentor->portfolio}}">
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Degree</label>
+      <div class="col-sm-10">
+       <textarea id="summernote" name="degree">{{$user->staff->mentor->degree}}</textarea>
+      </div>
+    </div>
+    @endif
+
     
 
     <div class="form-group row">

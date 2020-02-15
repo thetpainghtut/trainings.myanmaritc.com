@@ -17,4 +17,10 @@ class Mentor extends Model
   {
     return $this->belongsTo('App\Course');
   }
+
+  public function staff()
+  {
+	return $this->belongsTo('App\Staff');;
+  }
+
 }

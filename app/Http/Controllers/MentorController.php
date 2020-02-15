@@ -173,14 +173,14 @@ class MentorController extends Controller
       $teacher = DB::table('users')
                 ->join('staff','staff.user_id','users.id')
                 ->join('teachers','teachers.staff_id','staff.id')
-                ->select('teachers.*','users.*','staff.*')
+                ->select('teachers.*','teachers.id as tid','users.*','staff.*')
                 ->where('teachers.course_id',$course_id)
                 ->get();
       // dd($teacher);
       $mentor = DB::table('users')
                 ->join('staff','staff.user_id','users.id')
                 ->join('mentors','mentors.staff_id','staff.id')
-                ->select('mentors.*','users.*','staff.*')
+                ->select('mentors.*','mentors.id as mid','users.*','staff.*')
                 ->where('mentors.course_id',$course_id)
                 ->get();
       $data[]=array([
