@@ -40,7 +40,7 @@ class AttendanceController extends Controller
         {
          foreach ($v as $key => $value1) 
          {
-            $s[] = DB::table('attendances')->where('attendances.student_id',$value1->student_id)->where('attendances.date',$todayDate)->get();
+            $s[] = Attendance::where('attendances.student_id',$value1->student_id)->where('attendances.date',$todayDate)->get();
          }
         }
 
