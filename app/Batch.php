@@ -20,5 +20,10 @@ class Batch extends Model
     return $this->belongsToMany('App\Teacher')->withPivot('mentor_id')->withTimestamps();
   }
 
+  public function mentors()
+  {
+    return $this->belongsToMany('App\Mentor','batch_teacher')->withPivot('mentor_id')->withTimestamps();
+  }
+
 
 }

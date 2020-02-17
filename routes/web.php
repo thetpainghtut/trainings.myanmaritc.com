@@ -29,7 +29,7 @@ Route::resource('courses','CourseController')->middleware('role:Admin');
 
 Route::resource('batches','BatchController')->middleware('role:Admin');
 
-Route::resource('mentors','MentorController')->middleware('role:Admin');
+Route::resource('mentors','MentorController');
 
 Route::resource('subjects','SubjectController')->middleware('role:Admin');
 
@@ -64,13 +64,18 @@ Route::get('/export/{id}', 'ExportController@export')->name('export');
 
 // nyiyelin
 
-Route::resource('staffs','StaffController')->middleware('role:Admin');
+Route::resource('staffs','StaffController');
 
-Route::post('all_staff','StaffController@all_staff')->name('all_staff')->middleware('role:Admin');
+Route::post('changepassword/{id}','StaffController@changepassword')->name('changepassword');
+
+Route::post('all_staff','StaffController@all_staff')->name('all_staff');
 
 Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
 
 Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
+
+Route::post('show_batch','BatchController@show_batch')->name('show_batch');
+
 
 Route::resource('teacher','TeacherController')->middleware('role:Admin');
 

@@ -16,6 +16,14 @@
   <form method="post" action="{{route('courses.update',$course->id)}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+
+     <div class="form-group row">
+      <label for="inputcodeno" class="col-sm-2 col-form-label">Codeno</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputcodeno" name="codeno" value="{{$course->code_no}}">
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">

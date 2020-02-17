@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Batch;
 use App\Course;
 use App\User;
+use App\Teacher;
+use App\Mentor;
 use Spatie\Permission\Models\Role;
 
 class BatchController extends Controller
@@ -18,6 +20,7 @@ class BatchController extends Controller
     public function index()
     {
         $batches = Batch::all();
+        // dd($batches);
         return view('batches.index',compact('batches'));
     }
 
@@ -62,17 +65,22 @@ class BatchController extends Controller
         $teachers = request('teachers');
         $mentors = request('mentors');
         // $mentor = implode(',', $mentors);
-        for($i=0; $i < count($teachers); $i++){
+        // dd($teachers,$mentors);
+
+        for($i=0; $i < count($teachers); $i++)
+        {
             // dd();
 
-            $batch->teachers()->attach($teachers[$i], ['teacher_id' => $teachers[$i]]);
-        }
-        // $batch->teachers()->attach($teachers);
+            for ($j=0; $j < count($mentors) ; $j++) 
+            { 
 
-         for($i=0; $i < count($mentors); $i++){
-            // dd();
-            $batch->teachers()->attach($mentors[$i], ['mentor_id' => $mentors[$i]]);
+                $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
+            }
+
+            
         }
+       
+
         
         return redirect()->route('batches.index');
     }
@@ -86,6 +94,17 @@ class BatchController extends Controller
     public function show($id)
     {
         //
+        // dd($id);
+        $batches = Batch::with('teachers')->with('mentors')->find($id);
+        // $batch = Batch::with('mentors')->find($id);
+        // dd($batches->teachers);
+        // foreach ($batches->teachers as $bt) {
+        //     dd($bt);
+        // }
+
+        return view('batches.show',compact('batches'));
+        
+
     }
 
     /**
@@ -96,9 +115,12 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        $batch = Batch::find($id);
+        $batch = Batch::with('teachers')->with('mentors')->find($id);
         $courses = Course::all();
-        return view('batches.edit',compact('courses','batch'));
+        $teachers = Teacher::all();
+        $mentors = Mentor::all();
+        // dd($teachers);
+        return view('batches.edit',compact('courses','batch','teachers','mentors'));
     }
 
     /**
@@ -109,7 +131,8 @@ class BatchController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        // dd($request);
         $request->validate([
             "title" => 'required|max:100',
             "startdate" => 'required',
@@ -124,7 +147,26 @@ class BatchController extends Controller
         $batch->enddate = request('enddate');
         $batch->time = request('time');
         $batch->course_id = request('course');
-        $batch->save();
+        // $batch->save();
+        $teachers = request('teachers');
+        $mentors = request('mentors');
+        
+
+        for($i=0; $i < count($teachers); $i++)
+        {
+            // dd();
+
+            for ($j=0; $j < count($mentors) ; $j++) 
+            { 
+                $batch->teachers()->detach($teachers[$i], ['mentor_id' => $mentors[$j]]);
+                $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
+            }
+
+            
+        }
+       
+
+
 
         return redirect()->route('batches.index');
     }
@@ -150,4 +192,12 @@ class BatchController extends Controller
         $batches = Batch::where('course_id',$cid)->get();
         return $batches;
     }
+
+
+    // public function show_batch(Request $request)
+    // {
+    //     $id = request('id');
+    //     $batches = Batch::with('teachers')->find($id);
+    //     return $batches;
+    // }
 }

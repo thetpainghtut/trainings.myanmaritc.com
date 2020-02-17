@@ -47,7 +47,7 @@
                   <td>
                     <a href="{{route('staffs.show',$staff_user->id)}}" class='btn btn-info'><i class="fas fa-info"></i></a>
 
-                    <a href="{{route('staffs.edit',$staff_user->id)}}" class='btn btn-warning'><i class="fas fa-edit"></i></a>
+                   {{-- <a href="{{route('staffs.edit',$staff_user->id)}}" class='btn btn-warning'><i class="fas fa-edit"></i></a>--}}
                     
                    <form method="post" action="{{route('status_change',$staff_user->staff->id)}}" class="d-inline-block">
                       @csrf

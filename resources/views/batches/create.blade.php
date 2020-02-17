@@ -54,19 +54,25 @@
     </div>
 
     <div class="form-group row">
-      <label for="inputCourse" class="col-sm-2 col-form-label">Teacher</label>
-        <div class="col-sm-10 teacher">
-            
+      <label for="inputTeacher" class="col-sm-2 col-form-label">Teacher</label>
+        <div class="col-sm-10 ">
+           <select name="teachers[]" class="form-control js-example-basic-multiple teacher" id="inputTeacher" multiple="multiple" disabled="">
+          
+         
+        </select>   
         </div>
       </div>
 
 
       <div class="form-group row">
-      <label for="inputCourse" class="col-sm-2 col-form-label">Mentor</label>
-        <div class="col-sm-10 mentor">
-       
+        <label for="inputMentor" class="col-sm-2 col-form-label">Mentor</label>
+          <div class="col-sm-10 ">
+             <select name="mentors[]" class="form-control js-example-basic-multiple mentor" id="inputMentor" multiple="multiple" disabled="">
+            
+            
+          </select>   
+          </div>
         </div>
-      </div>
         
       </select>
    
@@ -106,16 +112,32 @@
           
           for (var i = 0; i < v[0].teachers.length; i++) {
             console.log( v[0].teachers[i])
-              
-            html +=`<input type="checkbox" name="teachers[]" class='mx-2 my-2' value="${v[0].teachers[i].user_id}">${v[0].teachers[i].name}`;
+
+
+
+             html +=`<option value="${v[0].teachers[i].tid}">
+                      ${v[0].teachers[i].name}
+                    </option>`;
             }
             
 
              for (var i = 0; i < v[0].mentors.length; i++) {
-            console.log( v[0].mentors[i])
-             
-             mentor +=`<input type="checkbox" class='mx-2 my-2' name="mentors[]" value="${v[0].mentors[i].user_id}">${v[0].mentors[i].name}`;
+            // console.log( v[0].mentors[i])
+            
+             mentor +=`<option value="${v[0].mentors[i].mid}">
+                      ${v[0].mentors[i].name}
+                    </option>`;
             }  
+   
+            // html +=`<input type="checkbox" name="teachers[]" class='mx-2 my-2' value="${v[0].teachers[i].id}">${v[0].teachers[i].id}`;
+            
+            
+
+            //  for (var i = 0; i < v[0].mentors.length; i++) {
+            // console.log( v[0].mentors[i])
+             
+            //  mentor +=`<input type="checkbox" class='mx-2 my-2' name="mentors[]" value="${v[0].mentors[i].id}">${v[0].mentors[i].name}`;
+            // }  
         })
         $('.teacher').html(html);
        
