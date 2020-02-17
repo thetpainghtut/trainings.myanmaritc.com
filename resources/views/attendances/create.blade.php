@@ -46,7 +46,7 @@
 <div id="over">
   <form action="{{route('attendances.store')}}" method="post" >
     @csrf
-    @if(count($attendancenow)==0)
+    @if($attcount==0)
 
  
       @isset($groups)
@@ -184,7 +184,7 @@
   </form>`;*/
   
 
-          $( "p:contains('"+vname+"')" ).css( "color", "orange" );
+          $( "p:contains('"+vname+"')" ).css( "color", "red" );
 
 
             
