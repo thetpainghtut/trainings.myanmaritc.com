@@ -8,6 +8,7 @@
     <thead>
       <tr>
         <th>No</th>
+        <th>Code No</th>
         <th>Name</th>
         <th>Fees</th>
         <th>During</th>
@@ -22,15 +23,16 @@
       @foreach($courses as $row)
       <tr>
         <td>{{$i++}}</td>
+        <td>{{$row->code_no}}</td>
         <td>{{$row->name}}</td>
         <td>{{$row->fees}}</td>
         <td>{{$row->during}}</td>
         <td>{{$row->duration}}</td>
         <td>
 
-          <a href="#" class="btn btn-primary course_detail" data-id="{{$row->id}}" data-name="{{$row->name}}" data-fees="{{$row->fees}}" data-during="{{$row->during}}" data-duration="{{$row->duration}}" data-image="{{$row->logo}}">
-            <i class="fas fa-info"></i>
-          </a>
+          {{--<a href="#" class="btn btn-primary course_detail" data-id="{{$row->id}}" data-name="{{$row->name}}" data-fees="{{$row->fees}}" data-during="{{$row->during}}" data-duration="{{$row->duration}}" data-image="{{$row->logo}}">
+                                <i class="fas fa-info"></i>
+                              </a>--}}
 
           <a href="{{route('courses.edit',$row->id)}}" class="btn btn-warning">
             <i class="fas fa-edit"></i>

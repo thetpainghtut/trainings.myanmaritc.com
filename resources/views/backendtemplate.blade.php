@@ -20,6 +20,12 @@
 
   <!-- Select 2 -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
+
+  
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 </head>
 
 <body id="page-top">
@@ -62,16 +68,16 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="{{route('batches.index')}}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-swatchbook"></i>
           <span>Batches</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('mentors.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Mentors</span></a>
-      </li>
+     {{-- <li class="nav-item">
+                  <a class="nav-link" href="{{route('mentors.index')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Mentors</span></a>
+                </li>--}}
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -119,6 +125,13 @@
         <a class="nav-link" href="{{route('students.index')}}">
           <i class="fas fa-fw fa-table"></i>
           <span>Students</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('attendances.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Attendances</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
@@ -311,11 +324,15 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                @if(Auth::user()->staff)
+                <img class="img-profile rounded-circle" src="{{Auth::user()->staff->photo}}">
+                @elseif(!Auth::user()->staff)
+                <img class="img-profile rounded-circle" src="{{asset('img/avatar.jpg')}}">
+                @endif
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{route('staffs.show',Auth::user()->id)}}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
@@ -408,6 +425,22 @@
   <!-- Select 2 -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
+  <!-- summernote -->
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+
+  
+
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $('#summernote').summernote('code');
+        
+    });
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
+    });
+    
+       
+</script>
   @yield('script')
 </body>
 

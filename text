@@ -48,13 +48,3 @@ inquire
 student
 student_subject
 
-
-
-
-
-        if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'students.create'){
-        return redirect()->route('students.index');
-      }else{
-        // return back with noti msg
-        return back()->with('status', 'Register successfully!');
-      }

@@ -42,6 +42,7 @@ class CourseController extends Controller
 
         // Validation
         $request->validate([
+            "codeno" => 'required',
             "name" => 'required|min:5|max:100',
             "outlines" => 'required',
             "fees" => 'required',
@@ -63,6 +64,7 @@ class CourseController extends Controller
 
         // Save Data
         $course = new Course;
+        $course->code_no = request('codeno');
         $course->name = request('name');
         $course->logo = $path;
         $course->outline = request('outlines');
@@ -111,6 +113,7 @@ class CourseController extends Controller
 
         // Validation
         $request->validate([
+            "codeno" => 'required',
             "name" => 'required|min:5|max:100',
             "outlines" => 'required',
             "fees" => 'required',
@@ -131,6 +134,7 @@ class CourseController extends Controller
         
         // Update Data
         $course = Course::find($id);
+        $course->code_no = request('codeno');
         $course->name = request('name');
         $course->logo = $path;
         $course->outline = request('outlines');

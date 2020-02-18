@@ -17,6 +17,7 @@ class CreateBatchTeacher extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('batch_id');
             $table->unsignedBigInteger('teacher_id');
+            $table->unsignedBigInteger('mentor_id')->nullable();
             $table->timestamps();
         });
     }

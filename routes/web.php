@@ -30,7 +30,7 @@ Route::resource('courses','CourseController')->middleware('role:Admin');
 
 Route::resource('batches','BatchController')->middleware('role:Admin');
 
-Route::resource('mentors','MentorController')->middleware('role:Admin');
+Route::resource('mentors','MentorController');
 
 Route::resource('subjects','SubjectController')->middleware('role:Admin');
 
@@ -64,7 +64,22 @@ Route::get('/export/{id}', 'ExportController@export')->name('export');
 
 
 // nyiyelin
-Route::resource('staffs','StaffController')->middleware('role:Admin');
+
+Route::resource('staffs','StaffController');
+
+Route::post('changepassword/{id}','StaffController@changepassword')->name('changepassword');
+
+Route::post('all_staff','StaffController@all_staff')->name('all_staff');
+
+Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
+
+Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
+
+Route::post('show_batch','BatchController@show_batch')->name('show_batch');
+
+
+Route::resource('teacher','TeacherController')->middleware('role:Admin');
+
 
 //Income
 Route::resource('/incomes','IncomeController');
@@ -74,6 +89,23 @@ Route::resource('/expenses','ExpenseController');
 
 ///Honey
 Route::resource('inquires','InquireController');
+
 Route::post('installment','InquireController@preinstallment')->name('installment.store');
 Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
 
+
+
+//Monthly Report
+Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');
+Route::get('/report', 'ReportController@report')->name('report');
+Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
+
+
+
+//Attendance
+Route::resource('/attendances','AttendanceController');
+Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+
+/*Route::get('/attendances/collection', 'AttendanceController@attendanceCollect')->name('attendances.collect');
+Route::get('/attendances/reports', 'AttendanceController@attendanceReport')->name('attendances.reports');
+Route::get('/attendances/export/{section_id}','AttendanceController@Export');*/

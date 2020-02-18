@@ -15,6 +15,14 @@
   
   <form method="post" action="{{route('courses.store')}}" enctype="multipart/form-data">
     @csrf
+
+    <div class="form-group row">
+      <label for="inputcodeno" class="col-sm-2 col-form-label">Codeno</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputcodeno" name="codeno">
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
