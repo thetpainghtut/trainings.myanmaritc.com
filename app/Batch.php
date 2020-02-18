@@ -14,4 +14,10 @@ class Batch extends Model
   {
     return $this->belongsTo('App\Course');
   }
+
+  public function inquires()
+  {
+  	return $this->hasMany('App\Inquire');
+  }
+
 }

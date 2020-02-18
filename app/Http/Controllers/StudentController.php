@@ -8,13 +8,14 @@ use App\Subject;
 use App\Course;
 use App\Batch;
 use App\Group;
+use App\Inquire;
 
 class StudentController extends Controller
 {
-    public function __construct($value='')
+   /* public function __construct($value='')
     {
-        $this->middleware('role:Admin')->except('store');
-    }
+        $this->middleware('role:Admin')->except('store','search_inquire');
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +44,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
       $subjects = Subject::all();
       $courses = Course::all();
@@ -86,16 +87,18 @@ class StudentController extends Controller
 
       // Save Data
       $student = new Student;
+      $student->inquire_no =request('inquireno');
       $student->namee = request('namee');
       $student->namem = request('namem');
-      $student->education = request('education');
-      $student->city = request('city');
-      $student->accepted_year = request('accepted_year');
-      $student->address = request('address');
       $student->email = request('email');
       $student->phone = request('phone');
+      $student->address = request('address');
+      $student->education_id = request('education');
+      $student->city = request('city');
+      $student->accepted_year = request('accepted_year');
       $student->dob = request('dob');
       $student->gender = request('gender');
+      $student->batch_id = request('batch_id');
       $student->p1 = request('p1');
       $student->p1_phone = request('p1_phone');
       $student->p1_relationship = request('p1_rs');
@@ -103,7 +106,6 @@ class StudentController extends Controller
       $student->p2_phone = request('p2_phone');
       $student->p2_relationship = request('p2_rs');
       $student->because = request('because');
-      $student->batch_id = request('bid');
       
       $student->save();
 
@@ -112,12 +114,9 @@ class StudentController extends Controller
       $student->subjects()->attach($subjects);
 
       // return
-      if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName() == 'students.create'){
-        return redirect()->route('students.index');
-      }else{
-        // return back with noti msg
-        return back()->with('status', 'Register successfully!');
-      }
+      //return redirect()->route('frontend.index');
+
+     return redirect()->route('frontend.index')->with('status', 'Register Successfully'); 
     }
 
     /**
@@ -172,4 +171,6 @@ class StudentController extends Controller
         // Return
         return redirect()->route('students.index');
     }
+
+  
 }

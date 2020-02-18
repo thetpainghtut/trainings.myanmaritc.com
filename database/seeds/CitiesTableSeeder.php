@@ -15,6 +15,7 @@ class CitiesTableSeeder extends Seeder
         //
         DB::table('cities')->insert([
             'name'      => 'Yangon',
+            'zipcode'   => '11181',
             'user_id'   =>  '1',
             'created_at' => now(),
             'updated_at' => now()
@@ -23,6 +24,7 @@ class CitiesTableSeeder extends Seeder
         //Mandalay
         DB::table('cities')->insert([
             'name'      => 'Mandalay',
+            'zipcode'   => '05011',
             'user_id'   =>  '1',
             'created_at' => now(),
             'updated_at' => now()

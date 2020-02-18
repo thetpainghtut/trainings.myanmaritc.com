@@ -10,4 +10,9 @@ class Location extends Model
     protected $fillable = [
         'name','city_id','user_id'
     ];
+
+    public function city()
+    {
+    	return $this->belongsTo('App\City');
+    }
 }

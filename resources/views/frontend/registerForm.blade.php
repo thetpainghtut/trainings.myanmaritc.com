@@ -1,11 +1,11 @@
-@extends('frontendtemplate')
+@extends('template')
 @section('content')
   <!-- Header -->
   <header class="bg-primary py-5">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-lg-12">
-          <h1 class="display-4 text-white mt-5 mb-2">New Student Registration Form</h1>
+          <h1 class="display-4 text-white mt-5 mb-2">New Student Registration Form</h1> 
         </div>
       </div>
     </div>
@@ -28,11 +28,13 @@
 
         <form method="post" action="{{route('students.store')}}" class="my-5" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="inquireno" value="{{$inquireno}}">
+          <input type="hidden" name="batch_id" value="{{$inquire->batch_id}}">
           <h5 class="my-3"><u>Student Informations:</u></h5>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputNameEnglish">Student's Name: (English)</label>
-              <input type="text" class="form-control @error('namee') is-invalid @enderror" id="inputNameEnglish" placeholder="Mg Mg" name="namee" value="{{ old('namee') }}" required autocomplete="namee" autofocus>
+              <input type="text" class="form-control @error('namee') is-invalid @enderror" id="inputNameEnglish" placeholder="Mg Mg" name="namee" value="{{ $inquire->name }}" required autocomplete="namee" autofocus>
               @error('namee')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -52,7 +54,12 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputCity">Education:</label>
-              <input type="text" class="form-control @error('education') is-invalid @enderror" id="inputCity" name="education" value="{{ old('education') }}" required autocomplete="education" autofocus>
+              <select class="form-control @error('education') is-invalid @enderror" name="education" value="{{ old('education') }}" required autocomplete="education" autofocus>
+                @foreach($educations as $education)
+                <option value="{{$education->id}}" {{($education->id == $inquire->education_id)?"selected":""}}>{{$education->name}}</option>
+                @endforeach
+              </select>
+              {{--<input type="text" class="form-control @error('education') is-invalid @enderror" id="inputCity" name="education" value="{{ old('education') }}" required autocomplete="education" autofocus>--}}
               @error('education')
                  <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -61,7 +68,12 @@
             </div>
             <div class="form-group col-md-4">
               <label for="inputCity">City:</label>
-              <input type="text" class="form-control @error('city') is-invalid @enderror" id="inputCity" placeholder="Yangon" name="city" value="{{ old('city') }}" required autocomplete="city" autofocus>
+              <select class="form-control @error('city') is-invalid @enderror" id="inputCity" placeholder="Yangon" name="city" value="{{ old('city') }}" required autocomplete="city" autofocus>
+                @foreach($townships as $township)
+                <option value="{{$township->id}}" {{($township->id == $inquire->township_id)?"selected":""}}>{{$township->name}}</option>
+                @endforeach
+              </select>
+              {{--<input type="text" class="form-control @error('city') is-invalid @enderror" id="inputCity" placeholder="Yangon" name="city" value="{{ old('city') }}" required autocomplete="city" autofocus>--}}
               @error('city')
                  <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -99,7 +111,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">Phone:</label>
-              <input type="text" class="form-control @error('phone') is-invalid @enderror" id="inputPassword4" placeholder="Phone" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+              <input type="text" class="form-control @error('phone') is-invalid @enderror" id="inputPassword4" placeholder="Phone" name="phone" value="{{ $inquire->phone}}" required autocomplete="phone" autofocus>
               @error('phone')
                  <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -120,11 +132,11 @@
             <div class="form-group col-md-6">
               <label for="inputGender" class="d-block">Gender:</label>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" checked="checked" name="gender">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" name="gender" {{($inquire->gender=="male")?"checked" : ""}}>
                 <label class="form-check-label" for="inlineRadio1">Male</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" name="gender">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" name="gender" {{($inquire->gender=="female")?"checked" : ""}}>
                 <label class="form-check-label" for="inlineRadio2">Female</label>
               </div>
             </div>
@@ -218,7 +230,6 @@
             @enderror
           </div>
 
-          <input type="hidden" name="bid" value="14">
 
           <button type="submit" class="btn btn-primary btn-block">Save Register</button>
         </form>

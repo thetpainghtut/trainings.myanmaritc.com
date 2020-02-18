@@ -8,6 +8,12 @@ class City extends Model
 {
     //
     protected $fillable = [
-        'name','user_id'
+        'name','zipcode','user_id'
     ];
+
+    public function locations()
+    {
+    	return $this->hasMany('App\Location');
+    }
+
 }

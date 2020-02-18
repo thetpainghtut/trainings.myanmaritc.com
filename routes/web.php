@@ -13,7 +13,8 @@
 
 Route::get('/','FrontendController@index')->name('frontend.index');
 
-Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
+//honey
+Route::post('student_register','FrontendController@studentRegister')->name('frontend.student.register');
 
 Route::get('allcourses','FrontendController@courses')->name('frontend.courses');
 
@@ -73,3 +74,6 @@ Route::resource('/expenses','ExpenseController');
 
 ///Honey
 Route::resource('inquires','InquireController');
+Route::post('installment','InquireController@preinstallment')->name('installment.store');
+Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
+
