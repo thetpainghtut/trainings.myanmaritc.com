@@ -60,6 +60,16 @@
       </div>
     </div>
     <div class="form-group row">
+      <label for="inputDuration" class="col-sm-2 col-form-label">Location</label>
+      <div class="col-sm-10">
+        <select name="location" class="form-control">
+        @foreach($locations as $row)
+          <option value="{{$row->id}}">{{$row->name}}</option>
+        @endforeach
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
       <div class="col-sm-10">
         <button type="submit" class="btn btn-primary">Save</button>
       </div>

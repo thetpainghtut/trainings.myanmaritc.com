@@ -12,7 +12,7 @@ class CitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        //yangon
         DB::table('cities')->insert([
             'name'      => 'Yangon',
             'zipcode'   => '11181',
