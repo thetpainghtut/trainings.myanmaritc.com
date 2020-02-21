@@ -30,6 +30,7 @@ class CreateStaffTable extends Migration
             //user
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
         });
     }
 

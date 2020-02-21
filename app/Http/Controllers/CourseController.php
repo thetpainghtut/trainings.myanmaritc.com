@@ -54,10 +54,10 @@ class CourseController extends Controller
       // If exist file, upload file
       if($request->hasfile('logo')){
           $logo = $request->file('logo');
-          $upload_dir = public_path().'/storage/images/';
+          $upload_dir = public_path().'/storage/images/courses/';
           $name = time().'.'.$logo->getClientOriginalExtension();
           $logo->move($upload_dir,$name);
-          $path = '/storage/images/'.$name;
+          $path = '/storage/images/courses/'.$name;
       }else{
         $path = '';
       }
@@ -124,10 +124,10 @@ class CourseController extends Controller
         // If exist file, upload file
         if($request->hasfile('logo')){
               $logo = $request->file('logo');
-              $upload_dir = public_path().'/storage/images/';
+              $upload_dir = public_path().'/storage/images/courses/';
               $name = time().'.'.$logo->getClientOriginalExtension();
               $logo->move($upload_dir,$name);
-              $path = '/storage/images/'.$name;
+              $path = '/storage/images/courses/'.$name;
         }else{
             $path = request('oldlogo');
         }

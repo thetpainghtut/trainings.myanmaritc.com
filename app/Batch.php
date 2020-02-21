@@ -17,12 +17,12 @@ class Batch extends Model
 
   public function teachers()
   {
-    return $this->belongsToMany('App\Teacher')->withPivot('mentor_id')->withTimestamps();
+    return $this->belongsToMany('App\Teacher')->withTimestamps();
   }
 
   public function mentors()
   {
-    return $this->belongsToMany('App\Mentor','batch_teacher')->withPivot('mentor_id')->withTimestamps();
+    return $this->belongsToMany('App\Mentor')->withTimestamps();
   }
 
 

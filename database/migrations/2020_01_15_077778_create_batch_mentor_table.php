@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBatchTeacher extends Migration
+class CreateBatchMentorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateBatchTeacher extends Migration
      */
     public function up()
     {
-        Schema::create('batch_teacher', function (Blueprint $table) {
+        Schema::create('batch_mentor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('batch_id');
-            $table->unsignedBigInteger('teacher_id');
+            $table->unsignedBigInteger('mentor_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateBatchTeacher extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('batch_teacher');
+        Schema::dropIfExists('batch_mentor');
     }
 }
