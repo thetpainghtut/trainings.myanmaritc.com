@@ -60,6 +60,13 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
+        <a class="nav-link" href="{{route('grades.index')}}">
+          <i class="fab fa-discourse"></i>
+          <span>Grades</span></a>
+      </li>
+
+      <!-- Nav Item - Charts -->
+      <li class="nav-item">
         <a class="nav-link" href="{{route('courses.index')}}">
           <i class="fab fa-discourse"></i>
           <span>Courses</span></a>
@@ -139,6 +146,13 @@
         <a class="nav-link" href="{{route('students.group.create')}}">
           <i class="fas fa-fw fa-table"></i>
           <span>Create Group</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('units.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span> Units</span></a>
       </li>
       
       @endrole

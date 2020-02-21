@@ -35,7 +35,7 @@
 
       <div class="form-group col-md-2 text-right mt-2">
 
-        {{--<a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>--}}
+        <a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>
     
       </div>
     </div>

@@ -2,7 +2,9 @@
 
 @section('content')
   <h2 class="d-inline-block">All Groups</h2>
-  {{-- <a href="{{route('courses.create')}}" class="btn btn-info float-right">Add New</a> --}}
+  <a href="{{asset('grade_print')}}" class="btn btn-info float-right">
+    <i class="fas fa-print"></i> Print Grades
+  </a>
 
   <form method="get" action="{{route('groups.index')}}">
     <div class="form-row">
@@ -27,6 +29,14 @@
       <div class="form-group col-md-2 mt-2">
         <button type="submit" class="btn btn-primary mt-4">Search</button>
       </div>
+
+      @if($batchid !=0)
+      <div class="form-group col-md-2 text-right mt-2">
+
+        <a name="btnSelect" href="{{asset('grade_print/'.$batchid)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>
+    
+      </div>
+      @endif
 
     </div>
   </form>
