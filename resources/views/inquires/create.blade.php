@@ -42,7 +42,7 @@
   </div>
 </div>
 
-<div class="form-group row">
+<!-- <div class="form-group row">
   <label for="inputInstallmentDate" class="col-sm-2 col-form-label">Installment Date</label>
   <div class="col-sm-10">
     <input type="date" class="form-control" id="inputInstallmentDate" name="installment_date">
@@ -54,7 +54,7 @@
   <div class="col-sm-10">
     <input type="number" class="form-control" id="inputAmount" name="installment_amount">
   </div>
-</div>
+</div> -->
 <div class="form-group row">
   <label for="inputknowledge" class="col-sm-2 col-form-label">Knowledge</label>
   <div class="col-sm-10">
@@ -105,7 +105,7 @@
       <label for="inputTownship" class="col-sm-2 col-form-label">Township</label>
       <div class="col-sm-10">
         <select name="township_id" class="form-control" id="inputTownship">
-          <option value="">Choose Education</option>
+          <option value="">Choose Township</option>
           @foreach($townships as $township)
             <option value="{{$township->id}}">{{$township->name}}</option>
           @endforeach

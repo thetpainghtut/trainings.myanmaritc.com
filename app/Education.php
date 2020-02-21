@@ -10,4 +10,9 @@ class Education extends Model
      protected $fillable = [
         'name','user_id'
     ];
+
+    public function inquires()
+    {
+    	return $this->hasMany('App\Inquire');
+    }
 }

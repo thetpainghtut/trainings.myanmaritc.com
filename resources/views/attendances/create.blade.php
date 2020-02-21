@@ -46,7 +46,7 @@
 <div id="over">
   <form action="{{route('attendances.store')}}" method="post" >
     @csrf
-    @if(count($attendancenow)==0)
+    @if($attcount==0)
 
  
       @isset($groups)
@@ -76,12 +76,18 @@
               </div>
               <div class="col-md-2">
 
-                
                 @php
                 $rowcount = $row->attendance->status;
+                if($rowcount == 1){
+                  $result = DB::table('attendances')->where('status',1)->get();
+                  $totalcount = count($result);
+                }
+                else{
+                  $totalcount =0;
+                }
                 @endphp
               
-                {{$rowcount}}
+                {{$totalcount}}
               </div>
               <div class="col-md-2">
                 <input type="checkbox" class="check{{$row->id}}" name="check{{$row->id}}" checked="" data-remark="remark{{$row->id}}">
@@ -184,7 +190,7 @@
   </form>`;*/
   
 
-          $( "p:contains('"+vname+"')" ).css( "color", "orange" );
+          $( "p:contains('"+vname+"')" ).css( "color", "red" );
 
 
             

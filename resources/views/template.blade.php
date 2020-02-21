@@ -56,10 +56,15 @@
             <a class="nav-link" href="{{route('frontend.contact')}}">Contact</a>
           </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0" action="{{route('frontend.student.register')}}" method="POST">
+          @csrf
+          <input class="form-control mr-sm-1" type="number" name="inquire_no" placeholder="Inquire no" aria-label="Search">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
       </div>
     </div>
   </nav>
-
+  
     @yield('content')
 
     <div class="container-fluid" id="newcourse_ad">

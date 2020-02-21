@@ -26,20 +26,45 @@ class AttendanceController extends Controller
         $todayDate = date("Y-m-d");
 
         $attendancenow = Attendance::where('date',$todayDate)->get();
-        //dd($attendancenow);
+        $bid = request('batch');
+        $groups = Group::where('batch_id',$bid)->get();
+
+        $studentall=[];
+        foreach ($groups as $key => $value) {
+
+            $studentall[] = DB::table('group_student')->where('group_student.group_id',$value->id)->get();
+        }
+
+        $s = [];
+        foreach ($studentall as $v) 
+        {
+         foreach ($v as $key => $value1) 
+         {
+            $s[] = Attendance::where('attendances.student_id',$value1->student_id)->where('attendances.date',$todayDate)->get();
+         }
+        }
+
+        $v=[];
+        foreach ($s as $tcount) {
+            $v = $tcount;
+        }
+        $attcount = count($v);
+
+        /*$attendancenow = Attendance::join('students','students.id','=','student_id')->join('batches','batches.id','=','students.batch_id')->where('date',$todayDate)->get();*/
+      // dd($attendancenow);
         $countabsence = Attendance::where('status',1)->get();
         $aa = count($countabsence);
         //dd($countabsence);
         if (request('batch')) {
-            $bid = request('batch');
-            $groups = Group::where('batch_id',$bid)->get();
+           
+            
             $students = Student::where('batch_id',$bid)->get();
 
-            return view('attendances.create',compact('students','courses','batches','groups','todayDate','attendancenow','countabsence','aa'));
+            return view('attendances.create',compact('students','courses','batches','groups','todayDate','attendancenow','countabsence','attcount'));
         }
         else{
         // Return 
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','aa'));
+            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount'));
         }
       
     
