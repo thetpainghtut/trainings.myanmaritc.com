@@ -33,7 +33,7 @@
             </a>
 
           <div class="btn-group">
-            <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-cog"></i>
             </a>
             <div class="dropdown-menu">

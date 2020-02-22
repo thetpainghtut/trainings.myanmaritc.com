@@ -117,7 +117,7 @@
       </li>
 
       <!-- Groups (Teacher|Mentor) -->
-      <li class="nav-item {{ Request::segment(1) === 'students' ? 'active' : '' }}">
+      <li class="nav-item {{ Request::segment(1) === 'creategroup' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('students.group.create')}}">
           <i class="fas fa-users-cog"></i>
           <span>Create Group</span></a>
