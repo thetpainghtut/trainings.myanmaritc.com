@@ -62,6 +62,7 @@ class StaffController extends Controller
     {
         //
 
+
          $request->validate([
                 'name' => 'required|min:5|max:100', 
                 'email' =>'required|unique:users',
@@ -76,7 +77,7 @@ class StaffController extends Controller
 
         $nrc_num=request('nrc');
         // validate nrc format
-        if(preg_match("/^[1-9]{1,2}\/((A|B|D|G|H|K|L|M|N|P|R|S|T|U|W|Y|Z){1}[a-z]{0,2}){3}\b(\(N\))[0-9]{6}$/",$nrc_num))
+        if(preg_match("/^[1-9]{1,2}\/(([A-Z]|[a-z]){1}([A-Z]|[a-z]){0,2}){3}\b((\(N\))|(\(Naing\))|(\(NAING\)))[0-9]{6}$/",$nrc_num))
         {
             // catch photo
             if($request->hasfile('profile'))
@@ -114,7 +115,7 @@ class StaffController extends Controller
 
 
 
-            
+            // echo "Success";
 
             if(request('role')=="Teacher")
 
@@ -140,6 +141,7 @@ class StaffController extends Controller
         }   
         else{
             return back()->with('nrc_error','Nrc Format is not correct!!');
+
 
         }
     

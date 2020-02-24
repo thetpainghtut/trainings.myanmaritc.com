@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Unit;
 use Illuminate\Http\Request;
+use App\Course;
+
 
 class UnitController extends Controller
 {
@@ -14,7 +16,9 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        $units = Unit::all();
+
+        return view('unit.index',compact('units'));
     }
 
     /**
@@ -24,7 +28,8 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        $courses = Course::all();
+        return view('unit.create',compact('courses'));
     }
 
     /**
@@ -35,7 +40,35 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:100',
+            'course_id'=>'required',
+        ]);
+
+        $courseid = request('course_id');
+
+        $count_course = Unit::where('course_id', $courseid)->count();
+
+        // dd($count_course);
+
+        if ($count_course < 6) 
+        {
+            $unit = new Unit;
+
+            $unit->description = request('name');
+            $unit->course_id=request('course_id');
+            $unit->save();
+
+            return redirect()->route('units.index');
+        }
+
+        else
+        {
+            return redirect()->route('units.index')->with('limit_message', 'You have reached the maximum number units of adds for that course.');
+        }
+
+
+        
     }
 
     /**
@@ -57,7 +90,8 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        //
+        $courses=Course::all();
+        return view('unit.edit',compact('unit','courses'));
     }
 
     /**
@@ -69,7 +103,16 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:100',
+            'course_id' => 'required'
+        ]);
+
+        $unit->description = request('name');
+        $unit->course_id=request('course_id');
+        $unit->save();
+
+        return redirect()->route('units.index');
     }
 
     /**
@@ -80,6 +123,8 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        //
+        $unit->delete();
+
+        return redirect()->route('units.index');
     }
 }

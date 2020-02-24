@@ -20,14 +20,18 @@ class GroupController extends Controller
       $courses = Course::all();
       $batches = Batch::all();
 
+      $batchid = 0;
+
       if (request('batch')) {
         $bid = request('batch');
         $groups = Group::where('batch_id',$bid)->get();
+
+        $batchid = $bid;
         
-        return view('groups.index',compact('groups','courses','batches'));
+        return view('groups.index',compact('groups','courses','batches', 'batchid'));
       }else{
         $groups = Group::all();
-        return view('groups.index',compact('groups','courses','batches'));
+        return view('groups.index',compact('groups','courses','batches','batchid'));
       }
       
     }

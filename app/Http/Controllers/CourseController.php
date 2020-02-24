@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use App\Course;
+use App\Location;
 
 class CourseController extends Controller
 {
@@ -15,8 +16,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        // $courses = Course::all();
-        $courses = Course::withTrashed()->get();
+        $courses = Course::all();
+        // $courses = Course::withTrashed()->get();
         return view('courses.index',compact('courses'));
     }
 
@@ -27,7 +28,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('courses.create');
+        $locations = Location::all();
+        return view('courses.create',compact('locations'));
     }
 
     /**
@@ -48,16 +50,17 @@ class CourseController extends Controller
             "fees" => 'required',
             "during" => 'required|max:100',
             "duration" => 'required|max:100',
-            "logo" => 'required|mimes:jpeg,bmp,png'
+            "logo" => 'required|mimes:jpeg,bmp,png',
+            "location" => 'required'
         ]);
 
       // If exist file, upload file
       if($request->hasfile('logo')){
           $logo = $request->file('logo');
-          $upload_dir = public_path().'/storage/images/';
+          $upload_dir = public_path().'/storage/images/courses/';
           $name = time().'.'.$logo->getClientOriginalExtension();
           $logo->move($upload_dir,$name);
-          $path = '/storage/images/'.$name;
+          $path = '/storage/images/courses/'.$name;
       }else{
         $path = '';
       }
@@ -71,6 +74,8 @@ class CourseController extends Controller
         $course->fees = request('fees');
         $course->during = request('during');
         $course->duration = request('duration');
+        $course->location_id = request('location');
+
         $course->save();
 
         // Return
@@ -97,7 +102,9 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id); //obj
-        return view('courses.edit',compact('course'));
+        $locations = Location::all();
+
+        return view('courses.edit',compact('course','locations'));
     }
 
     /**
@@ -118,16 +125,17 @@ class CourseController extends Controller
             "outlines" => 'required',
             "fees" => 'required',
             "during" => 'required|max:100',
-            "duration" => 'required|max:100'
+            "duration" => 'required|max:100',
+            "location" => 'required'
         ]);
 
         // If exist file, upload file
         if($request->hasfile('logo')){
               $logo = $request->file('logo');
-              $upload_dir = public_path().'/storage/images/';
+              $upload_dir = public_path().'/storage/images/courses/';
               $name = time().'.'.$logo->getClientOriginalExtension();
               $logo->move($upload_dir,$name);
-              $path = '/storage/images/'.$name;
+              $path = '/storage/images/courses/'.$name;
         }else{
             $path = request('oldlogo');
         }
@@ -141,6 +149,8 @@ class CourseController extends Controller
         $course->fees = request('fees');
         $course->during = request('during');
         $course->duration = request('duration');
+        $course->location_id = request('location');
+        
         $course->save();
 
         // Return

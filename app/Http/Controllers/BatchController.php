@@ -64,21 +64,22 @@ class BatchController extends Controller
 
         $teachers = request('teachers');
         $mentors = request('mentors');
-        // $mentor = implode(',', $mentors);
-        // dd($teachers,$mentors);
+        $batch->teachers()->attach($teachers);
+        $batch->mentors()->attach($mentors);
 
-        for($i=0; $i < count($teachers); $i++)
-        {
-            // dd();
 
-            for ($j=0; $j < count($mentors) ; $j++) 
-            { 
+        // for($i=0; $i < count($teachers); $i++)
+        // {
+        //     // dd();
 
-                $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
-            }
+        //     for ($j=0; $j < count($mentors) ; $j++) 
+        //     { 
+
+        //         $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
+        //     }
 
             
-        }
+        // }
        
 
         
@@ -101,6 +102,7 @@ class BatchController extends Controller
         // foreach ($batches->teachers as $bt) {
         //     dd($bt);
         // }
+        // dd($batches);
 
         return view('batches.show',compact('batches'));
         
@@ -116,9 +118,10 @@ class BatchController extends Controller
     public function edit($id)
     {
         $batch = Batch::with('teachers')->with('mentors')->find($id);
+        $course_id=$batch->course_id;
         $courses = Course::all();
-        $teachers = Teacher::all();
-        $mentors = Mentor::all();
+        $teachers = Teacher::where('course_id',$course_id)->get();
+        $mentors = Mentor::where('course_id',$course_id)->get();
         // dd($teachers);
         return view('batches.edit',compact('courses','batch','teachers','mentors'));
     }
@@ -147,23 +150,30 @@ class BatchController extends Controller
         $batch->enddate = request('enddate');
         $batch->time = request('time');
         $batch->course_id = request('course');
-        // $batch->save();
+        $batch->save();
+
         $teachers = request('teachers');
         $mentors = request('mentors');
-        
 
-        for($i=0; $i < count($teachers); $i++)
-        {
-            // dd();
+        // detach to pivot
+        $batch->teachers()->detach();
+        $batch->mentors()->detach();
 
-            for ($j=0; $j < count($mentors) ; $j++) 
-            { 
-                $batch->teachers()->detach($teachers[$i], ['mentor_id' => $mentors[$j]]);
-                $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
-            }
+        // attach to pivot
+        $batch->teachers()->attach($teachers);
+        $batch->mentors()->attach($mentors);
+        // for($i=0; $i < count($teachers); $i++)
+        // {
+        //     // dd();
+
+        //     for ($j=0; $j < count($mentors) ; $j++) 
+        //     { 
+        //         $batch->teachers()->detach($teachers[$i], ['mentor_id' => $mentors[$j]]);
+        //         $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
+        //     }
 
             
-        }
+        // }
        
 
 

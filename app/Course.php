@@ -6,12 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-  use SoftDeletes;
-  
-  protected $fillable=['code_no','name','logo','outline','fees','during','duration'];
+  	use SoftDeletes;
 
-  public function batches()
-  {
-    return $this->hasMany('App\Batch');
-  }
+  	protected $fillable=['name','code_no','location_id','logo','outline','fees','during','duration'];
+
+  	public function batches()
+  	{
+    	return $this->hasMany('App\Batch');
+  	}
+
+    public function location()
+    {
+      return $this->belongsTo('App\Location');
+    }
+
+  	public function course()
+  	{
+    	return $this->hasMany('App\Course');
+  	}
 }

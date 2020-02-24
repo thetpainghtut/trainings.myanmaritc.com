@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('code_no',100);
             $table->string('name',100);
+            $table->unsignedBigInteger('location_id');
             $table->text('logo');
             $table->text('outline');
             $table->integer('fees');

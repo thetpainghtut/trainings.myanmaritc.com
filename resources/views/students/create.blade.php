@@ -39,7 +39,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputNameMyanmar">Student's Name: (Myanmar)</label>
-            <input type="text" class="form-control @error('namem') is-invalid @enderror" id="inputNameMyanmar" placeholder="မောင်မောင်" name="namem" value="{{ old('namem') }}" required autocomplete="namem" autofocus>
+            <input type="text" class="form-control @error('namem') is-invalid @enderror mmfont" id="inputNameMyanmar" placeholder="မောင်မောင်" name="namem" value="{{ old('namem') }}" required autocomplete="namem" autofocus>
             @error('namem')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -128,7 +128,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="font-weight-bold col-md-12">Which Programming Language did you know? ( လက်ရှိကျွမ်းကျင်တဲ့ programming language )</label>
+          <label class="font-weight-bold col-md-12">Which Programming Language did you know? ( <span class="mmfont"> လက်ရှိကျွမ်းကျင်တဲ့ </span> programming language ) </label>
 
           @foreach($subjects as $subject)
           <div class="form-group col-md-6">
@@ -207,7 +207,7 @@
         <hr class="bg-dark">
 
         <div class="form-group">
-          <label for="inputInformation" class="font-weight-bold">သင်တန်းတွေအများကြီးထဲက Myanmar IT Consulting သင်တန်းကို ရွေးချယ်ရတဲ့ အကြောင်းအရင်းကို သိပါရစေ။</label>
+          <label for="inputInformation" class="font-weight-bold mmfont">သင်တန်းတွေအများကြီးထဲက Myanmar IT Consulting သင်တန်းကို ရွေးချယ်ရတဲ့ အကြောင်းအရင်းကို သိပါရစေ။</label>
           <textarea class="form-control @error('because') is-invalid @enderror" id="inputInformation" placeholder="Please ...." name="because" value="{{ old('because') }}" required autocomplete="because" autofocus></textarea>
           @error('because')
             <span class="invalid-feedback" role="alert">

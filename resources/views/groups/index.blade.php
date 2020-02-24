@@ -2,7 +2,6 @@
 
 @section('content')
   <h2 class="d-inline-block">All Groups</h2>
-  {{-- <a href="{{route('courses.create')}}" class="btn btn-info float-right">Add New</a> --}}
 
   <form method="get" action="{{route('groups.index')}}">
     <div class="form-row">
@@ -28,6 +27,14 @@
         <button type="submit" class="btn btn-primary mt-4">Search</button>
       </div>
 
+      @if($batchid !=0)
+      <div class="form-group col-md-2 text-right mt-2">
+
+        <a name="btnSelect" href="{{asset('grade_print/'.$batchid)}}" role="button" class="btn btn-outline-primary mt-4"><i class="fas fa-print fa-sm"></i> Print Grades </a>
+    
+      </div>
+      @endif
+
     </div>
   </form>
 
@@ -50,8 +57,8 @@
         <td>{{$row->name}}</td>
         <td>{{count($row->students)}}</td>
         <td>
-          <a href="{{route('groups.show',$row->id)}}" class="btn btn-primary">Detail</a>
-          <a href="{{route('groups.edit',$row->id)}}" class="btn btn-warning">Edit</a>
+          <a href="{{route('groups.show',$row->id)}}" class="btn btn-primary"><i class="fas fa-info"></i></a></a>
+          <a href="{{route('groups.edit',$row->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
          
           <form method="post" action="{{route('groups.destroy',$row->id)}}" class="d-inline-block" onsubmit="return confirm('Are you sure?')">
             @csrf
@@ -59,7 +66,7 @@
             {{-- @if($row->trashed())
               <button type="submit" class="btn btn-danger">Restore</button>
             @else --}}
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
             {{-- @endif --}}
           </form>
         </td>

@@ -1,10 +1,14 @@
 @extends('backendtemplate')
 @section('content')
   <h2 class="d-inline-block">All Student List</h2>
+  <!-- change -->
+  <!-- <form action="{{route('students.create')}}">
+    <input type="text" name="inquireno">
+    <button class="btn btn-info float-right" type="submit"><i class="fas fa-plus"></i>Add New</button> 
+  
+  </form> -->
   <a href="{{route('students.create')}}" class="btn btn-info float-right">
-     <i class="fas fa-plus"></i>
-  Add New</a>
-
+    <i class="fas fa-plus"></i> Add New</a>
   <form method="get" action="{{route('students.index')}}">
     <div class="form-row">
       <div class="form-group col-md-4">
@@ -31,7 +35,7 @@
 
       <div class="form-group col-md-2 text-right mt-2">
 
-        {{--<a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>--}}
+        <a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="fas fa-upload fa-sm"></i> Generate Excel</a>
     
       </div>
     </div>
@@ -67,8 +71,8 @@
               <td>{{$row->phone}}</td>
               <td>{{$row->batch->course->name}} - {{$row->batch->title}}</td>
               <td>
-                <a href="{{route('students.show',$row->id)}}" class="btn btn-primary">Detail</a>
-                <a href="{{route('students.edit',$row->id)}}" class="btn btn-warning">Edit</a>
+                <a href="{{route('students.show',$row->id)}}" class="btn btn-primary"><i class="fas fa-info"></i></a>
+                <a href="{{route('students.edit',$row->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                
                 <form method="post" action="{{route('students.destroy',$row->id)}}" class="d-inline-block">
                   @csrf
@@ -76,7 +80,7 @@
                   {{-- @if($row->trashed())
                     <button type="submit" class="btn btn-danger">Restore</button>
                   @else --}}
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                   {{-- @endif --}}
                 </form>
               </td>
@@ -112,8 +116,8 @@
           <td>{{$row->phone}}</td>
           <td>{{$row->batch->course->name}} - {{$row->batch->title}}</td>
           <td>
-            <a href="{{route('students.show',$row->id)}}" class="btn btn-primary">Detail</a>
-            <a href="{{route('students.edit',$row->id)}}" class="btn btn-warning">Edit</a>
+            <a href="{{route('students.show',$row->id)}}" class="btn btn-primary"><i class="fas fa-info"></i></a>
+            <a href="{{route('students.edit',$row->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
            
             <form method="post" action="{{route('students.destroy',$row->id)}}" class="d-inline-block">
               @csrf
@@ -121,7 +125,7 @@
               {{-- @if($row->trashed())
                 <button type="submit" class="btn btn-danger">Restore</button>
               @else --}}
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
               {{-- @endif --}}
             </form>
           </td>
