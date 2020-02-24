@@ -23,6 +23,7 @@ class AttendanceController extends Controller
         //
         $courses = Course::all();
         $batches = Batch::all();
+        $attend = Attendance::all();
         $todayDate = date("Y-m-d");
 
         $attendancenow = Attendance::where('date',$todayDate)->get();
@@ -60,11 +61,11 @@ class AttendanceController extends Controller
             
             $students = Student::where('batch_id',$bid)->get();
 
-            return view('attendances.create',compact('students','courses','batches','groups','todayDate','attendancenow','countabsence','attcount'));
+            return view('attendances.create',compact('students','courses','batches','groups','todayDate','attendancenow','countabsence','attcount','attend'));
         }
         else{
         // Return 
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount'));
+            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend'));
         }
       
     

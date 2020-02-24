@@ -34,6 +34,6 @@ class Student extends Model
   }
   public function attendance()
   {
-    return $this->hasOne('App\Attendance');
+    return $this->hasMany('App\Attendance');
   }
 }
