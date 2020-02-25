@@ -5,7 +5,11 @@
 <div class="row mb-2">
   <div class="col-12">
     <h2 class="d-inline-block">Create New Staff</h2>
-    
+
+    @if(session('nrc_error'))
+        <h4 class="text-danger d-inline-block"><< Please Fill Again!! >></h4>
+    @endif
+
     <a href="{{route('staffs.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
     
   </div>

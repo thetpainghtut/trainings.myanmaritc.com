@@ -41,7 +41,7 @@
     <div class="form-group row">
       <label for="inputPortfolio" class="col-sm-2 col-form-label">Portifolio</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputPortfolio" name="portfolio">
+        <input type="text" class="form-control @error('portfolio') is-invalid @enderror" id="inputPortfolio" name="portfolio" value="{{ old('portfolio') }}">
       </div>
     </div>
 

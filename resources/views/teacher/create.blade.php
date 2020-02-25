@@ -13,7 +13,7 @@
     <div class="form-group row">
       <label for="inputrole" class="col-sm-2 col-form-label">Role</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputrole" name="role" value="{{$role}}" readonly="">
+        <input type="text" class="form-control " id="inputrole" name="role" value="{{$role}}" readonly="" >
       </div>
     </div>
 
@@ -35,7 +35,7 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Degree</label>
       <div class="col-sm-10">
-       <textarea id="summernote" name="degree"></textarea>
+       <textarea id="summernote" class="@error('degree') is-invalid @enderror" name="degree" value="{{ old('degree') }}"></textarea>
       </div>
     </div>
 

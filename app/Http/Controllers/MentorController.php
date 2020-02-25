@@ -166,6 +166,8 @@ class MentorController extends Controller
 
     public function show_mentor(Request $request)
     {
+      $city=request('city');
+      // dd($city);
       $course_id = request('id');
       // dd($course_id);
       // $teacher=Teacher::where('course_id',$course_id)->with('staff')->get();
@@ -173,6 +175,7 @@ class MentorController extends Controller
       $teacher = DB::table('users')
                 ->join('staff','staff.user_id','users.id')
                 ->join('teachers','teachers.staff_id','staff.id')
+                // ->join('courses','courses.location_id','staff.location_id')
                 ->select('teachers.*','teachers.id as tid','users.*','staff.*')
                 ->where('teachers.course_id',$course_id)
                 ->get();
