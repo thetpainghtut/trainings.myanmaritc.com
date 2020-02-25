@@ -51,7 +51,7 @@
                     
                    <form method="post" action="{{route('status_change',$staff_user->staff->id)}}" class="d-inline-block">
                       @csrf
-                      @method('PUT')
+                      
                       <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to Delete?')">
                           <i class="fas fa-trash"></i>
                       </button>
