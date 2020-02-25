@@ -105,6 +105,8 @@ Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch
 //Attendance
 Route::resource('/attendances','AttendanceController');
 Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+Route::get('/absence','AttendanceController@absence')->name('absence');
+Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
 
 // Grade Print
 Route::resource('grades','GradingController');

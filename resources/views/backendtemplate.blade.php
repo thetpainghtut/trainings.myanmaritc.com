@@ -116,6 +116,13 @@
           <span>Batches</span></a>
       </li>
 
+      <li class="nav-item {{ Request::segment(1) === 'absence' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('absence')}}">
+          <i class="fas fa-user-alt-slash"></i>
+          <span>Absence</span></a>
+      </li>
+
+
       <!-- Groups (Teacher|Mentor) -->
       <li class="nav-item {{ Request::segment(1) === 'creategroup' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('students.group.create')}}">
