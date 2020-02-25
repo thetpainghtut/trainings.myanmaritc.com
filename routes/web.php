@@ -32,7 +32,7 @@ Route::resource('batches','BatchController')->middleware('role:Admin');
 
 Route::resource('mentors','MentorController');
 
-Route::resource('subjects','SubjectController')->middleware('role:Admin');
+Route::resource('subjects','SubjectController');
 
 Route::resource('roles','RoleController')->middleware('role:Admin');
 

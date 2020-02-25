@@ -16,7 +16,7 @@
         <select name="course" class="form-control" id="course">
           <option> Choose Course </option>
           @foreach($courses as $row)
-          <option value="{{$row->id}}">{{$row->name}}</option>
+          <option value="{{$row->id}}">{{$row->name}} ( {{$row->location->city->name}} )</option>
           @endforeach
         </select>
       </div>

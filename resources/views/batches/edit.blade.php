@@ -66,7 +66,8 @@
     <div class="form-group row">
       <label for="inputCourse" class="col-sm-2 col-form-label">Courses</label>
       <div class="col-sm-10">
-        <input type="text" name="course" class="form-control" id="inputCourse" value="{{$batch->course->name}} ( {{$batch->course->location->city->name}} )">
+        <input type="hidden" name="course" value="{{$batch->course->id}}">
+        <input type="text" class="form-control" id="inputCourse" value="{{$batch->course->name}} ( {{$batch->course->location->city->name}} )">
         
       </div>
     </div>

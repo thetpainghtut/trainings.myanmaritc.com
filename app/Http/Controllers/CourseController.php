@@ -16,10 +16,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        // $courses = Course::all();
 
 
-        // $courses = Course::withTrashed()->get();
+        $courses = Course::withTrashed()->get();
         return view('courses.index',compact('courses'));
     }
 

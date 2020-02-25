@@ -92,14 +92,17 @@
           <i class="fas fa-user-tag"></i>
           <span>Inquires</span></a>
       </li>
-
+      @endrole
+      @role('Reception|Admin|Teacher|Mentor')
       <!-- Students ( Reception ) -->
       <li class="nav-item {{ Request::segment(1) === 'students' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('students.index')}}">
           <i class="fas fa-user-check"></i>
           <span>Students</span></a>
       </li>
+      @endrole
 
+       @role('Reception|Admin')
       <!-- Divider -->
       <hr class="sidebar-divider">
 
