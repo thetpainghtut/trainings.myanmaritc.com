@@ -30,6 +30,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 
+  <!-- datatable -->
+  <link href="{{asset('sb_admin2/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
   
 
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
@@ -245,6 +247,15 @@
               </div>
             </li>
 
+            <li class="nav-item dropdown no-arrow mx-1 my-3">
+              @if($errors->has('password'))
+              <span class="text-danger msg">{{$errors->first('password')}}</span>
+              @elseif(session('message'))
+                   <alert class="alert alert-success msg">{{session('message')}}</alert>
+              @endif
+            </li>
+
+
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -364,10 +375,16 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                  @if(Auth::user()->getRoleNames()[0]=="Admin")
+                    <a href="#" class="dropdown-item" data-target="#changepassword" data-toggle="modal"><i class="fas fa-code fa-sm fa-fw mr-2 text-gray-400"></i>Change Password</a>
+
+                  @else
                 <a class="dropdown-item" href="{{route('staffs.show',Auth::user()->id)}}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
+                 @endif
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -444,9 +461,69 @@
     </div>
   </div>
 
+
+
+  <!-- admin change password modal -->
+
+    <div class="modal" tabindex="-1" role="dialog" id="changepassword">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Change Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <form action="{{route('changepassword',Auth::user()->id)}}" method="post">
+            @csrf
+                <div class="modal-body">
+                
+                  <div class="form-group row">
+                   
+                    <div class="col-sm-10 offset-1 input-group">
+                      <input type="password" class="form-control" id="password" name="password" aria-describedby="basic-addon1">
+                      <div class="input-group-prepend">
+                        <button type="button" class="btn btn-light circle" onclick="showpassword()"><i class="fas fa-eye"></i></button>
+                          
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+<!-- admin change password modal end -->
+
+
+
+
+
+
+
+
+
+
+
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('sb_admin2/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('sb_admin2/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- datatable -->
+  <script src="{{asset('sb_admin2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('sb_admin2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{asset('sb_admin2/js/demo/datatables-demo.js')}}"></script>
+  
 
   <!-- Core plugin JavaScript-->
   <script src="{{asset('sb_admin2/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -460,7 +537,28 @@
   <!-- summernote -->
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
 
-  
+<!-- admin change password -->
+
+    <script type="text/javascript">
+         function showpassword()
+         {
+           var password = document.getElementById('password');
+          if(password.type=="password")
+           {
+               password.type="text";
+           }
+           else{
+             password.type="password";
+          }
+
+        }
+
+      $(document).ready(function(){
+        $('.msg').hide(10000);
+      })
+    </script>
+
+
 
  <script type="text/javascript">
     $(document).ready(function() {

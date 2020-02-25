@@ -111,7 +111,6 @@
                     <a href="{{route('staffs.show',':user_id')}}" class='btn btn-info'><i class="fas fa-info"></i></a>
 
 
-                    <a href="{{route('staffs.edit',':users_id')}}" class='btn btn-warning'><i class="fas fa-edit"></i></a>
                     
 
                     <form method="post" action="{{route('status_change',':id')}}" class="d-inline-block">
