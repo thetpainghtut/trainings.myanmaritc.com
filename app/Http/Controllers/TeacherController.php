@@ -60,12 +60,19 @@ class TeacherController extends Controller
         // dd($staff);
         $staff_user = $staff->user_id;
         $user=User::find($staff_user);
-        // dd($user);
-        $teacher=new Teacher;
-        $teacher->staff_id=request('staff_id');
-        $teacher->course_id=request('course_id');
-        $teacher->degree=request('degree');
-        $teacher->save();
+        
+
+        $courses_id = request('course_id');
+        foreach ($courses_id as $course_id) {
+
+            $teacher=new Teacher;
+            $teacher->staff_id=request('staff_id');
+            $teacher->course_id=$course_id;
+            $teacher->degree=request('degree');
+            $teacher->save();
+            
+        }
+       
         $user->assignRole(request('role'));
         return redirect()->route('staffs.index');
     }

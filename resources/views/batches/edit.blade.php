@@ -85,8 +85,9 @@
         </select>
       </div>
     </div>
-
-    @if(count($batch->mentors)>0 )
+    @foreach($courses as $course)
+      @if(count($batch->mentors)>0 || $course->mentor)
+    
     <div class="form-group row">
       <label for="inputMentor" class="col-sm-2 col-form-label">Mentor</label>
       <div class="col-sm-10">
@@ -103,6 +104,7 @@
       </div>
     </div>
     @endif
+    @endforeach
 
 
 

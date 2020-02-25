@@ -115,7 +115,7 @@ class BatchController extends Controller
     {
         $batch = Batch::with('teachers')->with('mentors')->find($id);
         $course_id=$batch->course_id;
-        $courses = Course::all();
+        $courses = Course::where('id',$course_id)->get();
         $teachers = Teacher::where('course_id',$course_id)->get();
         $mentors = Mentor::where('course_id',$course_id)->get();
         // dd($teachers);

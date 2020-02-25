@@ -62,15 +62,16 @@
           <span>Dashboard</span></a>
       </li>
 
-      @role('Admin')
+      
       <!-- Divider -->
+      @role('Teacher|Mentor|Admin')
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
         Students
       </div>
 
-      <!-- Attendance ( Teacher/Mentor ) -->
+     
       <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('attendances.index')}}">
           <i class="fas fa-fw fa-table"></i>
@@ -83,8 +84,9 @@
           <i class="fas fa-users"></i>
           <span>Groups</span></a>
       </li>
+      @endrole
       
-      <!-- Inquires ( Reception ) -->
+     @role('Reception|Admin')
       <li class="nav-item {{ Request::segment(1) === 'inquires' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('inquires.index')}}">
           <i class="fas fa-user-tag"></i>
@@ -123,16 +125,18 @@
           <i class="fas fa-user-alt-slash"></i>
           <span>Absence</span></a>
       </li>
+      @endrole
 
 
-      <!-- Groups (Teacher|Mentor) -->
+      @role('Teacher|Mentor|Admin')
       <li class="nav-item {{ Request::segment(1) === 'creategroup' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('students.group.create')}}">
           <i class="fas fa-users-cog"></i>
           <span>Create Group</span></a>
       </li>
+      
 
-      <!-- Subjects ( Teacher|Mentor ) -->
+     
       <li class="nav-item {{ Request::segment(1) === 'subjects' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('subjects.index')}}">
           <i class="far fa-file-alt"></i>
@@ -147,8 +151,9 @@
           <i class="fas fa-star"></i>
           <span> Units</span></a>
       </li>
-
-      <!-- Divider -->
+      @endrole
+      
+       @role('Admin')
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
@@ -181,9 +186,9 @@
         <a class="nav-link" href="{{route('staffs.index')}}">
           <i class="fas fa-user-tie"></i>
           <span>Staffs</span></a>
-      </li>    
+      </li> 
+      @endrole   
       
-      @endrole
 
       
 

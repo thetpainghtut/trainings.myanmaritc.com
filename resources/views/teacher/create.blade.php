@@ -21,10 +21,10 @@
     <div class="form-group row">
       <label for="course" class="col-sm-2 col-form-label">Course</label>
       <div class="col-sm-10">
-        <select class="form-control" name="course_id" id="course">
+        <select class="form-control form-control js-example-basic-multiple" name="course_id[]" id="course" multiple="multiple">
           @foreach($courses as $course)
           <option value="{{$course->id}}">
-            {{$course->name}}
+            {{$course->name}} ( {{$course->location->city->name}} )
           </option>
           @endforeach
         </select>
