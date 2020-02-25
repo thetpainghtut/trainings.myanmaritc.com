@@ -9,7 +9,7 @@ use App\Staff;
 use App\User;
 use App\Course;
 use App\Teacher;
-
+use Auth;
 use DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -34,9 +34,16 @@ class StaffController extends Controller
         //
         $roles=Role::all();
         $user = User::role('Mentor')->with('staff')->get();
-        $role_name = "Mentor";
+        $u_id=Auth::user()->id;
+        // if($roles->name="Admin")
+        // {
+        
+            $role_name = "Mentor";
        
-        return view('staff.index',compact('roles','user','role_name'));
+            return view('staff.index',compact('roles','user','role_name'));
+        // }
+        //     return redirect()->route('dashboard');
+        
     }
 
     /**

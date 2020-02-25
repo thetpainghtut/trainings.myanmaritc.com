@@ -77,24 +77,27 @@
               <div class="col-md-2">
 
                 @php
-                $rowcount = $row->attendance->status;
-                if($rowcount == 1){
-                  $result = DB::table('attendances')->where('status',1)->get();
-                  $totalcount = count($result);
-                }
-                else{
-                  $totalcount =0;
+                
+                  $rowcount = $row->attendance()->where('status', '=', '1')->get();
+                  
+                if($rowcount){
+                 $totalcount = count($rowcount);
+               }else{
+                $totalcount = 0;
                 }
                 @endphp
-              
                 {{$totalcount}}
+               
+                
+              
+                
               </div>
               <div class="col-md-2">
                 <input type="checkbox" class="check{{$row->id}}" name="check{{$row->id}}" checked="" data-remark="remark{{$row->id}}">
               </div>
              
               <div class="col-md-3 mb-2">
-                <input type="text" name="remark[]" class="form-control remark{{$row->id}}" style="display: none;">
+                <input type="text" name="remark[]" class="form-control remark{{$row->id}}" style="display: none;" id="remark">
               </div>
            
             </div>
@@ -129,6 +132,8 @@
       $(this).removeAttr('checked');
       if($(this).is(':checked')){
           $('.'+remark).hide();
+          $("#remark").val('');
+
       }else{
           $('.'+remark).show();
       }

@@ -42,11 +42,9 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {   
-        // dd($request);
-
-        // Validation
+       
         $request->validate([
-            "codeno" => 'required',
+            
             "name" => 'required|min:5|max:100',
             "outlines" => 'required',
             "fees" => 'required',
@@ -56,6 +54,17 @@ class CourseController extends Controller
             "location" => 'required'
         ]);
 
+
+        $course = Course::orderBy('id','desc')->first();
+        if($course == null)
+        {
+            $num = "0001";
+        }
+        else{
+            $number = intval($course->code_no) + 1;
+            $num = sprintf('%04d', $number);
+        }
+        
       // If exist file, upload file
       if($request->hasfile('logo')){
           $logo = $request->file('logo');
@@ -69,7 +78,7 @@ class CourseController extends Controller
 
         // Save Data
         $course = new Course;
-        $course->code_no = request('codeno');
+        $course->code_no = $num;
         $course->name = request('name');
         $course->logo = $path;
         $course->outline = request('outlines');
