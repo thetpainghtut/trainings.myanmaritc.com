@@ -202,9 +202,16 @@ class AttendanceController extends Controller
         if($requestbatch){
             $status = 1;
            
-            $students = Student::where('batch_id',$requestbatch)->get();
+            $students = Student::where('batch_id',$requestbatch)
+                        ->whereHas('attendance',function($q1){
+                            return $q1->where('status','=','1');
+                        })
+                        ->get();             
 
-            return view('attendances.absencelist',compact('courses','batches','status','students'));
+
+
+
+            return view('attendances.absencelist',compact('courses','batches','status','students','requestbatch'));
         }else{
             $status = 0;
             return view('attendances.absencelist',compact('courses','batches','status'));
@@ -216,19 +223,33 @@ class AttendanceController extends Controller
     {
         $startdate = request('startdate');
         $enddate = request('enddate');
-        $su = Attendance::whereBetween('date', [$startdate,$enddate])->where('status','=','1')->get();
+        $batch = request('batch_id');
+        $students = Student::where('batch_id',$batch)
+                        ->whereHas('attendance',function($q1){
+                            return $q1->where('status','=','1');
+                        })
+                        ->get(); 
+
+        $stucount = count($students);
+         for($i=0;$i<$stucount;$i++){
+
+        $scount[] = $students[$i]->attendance;
+    }
+        
+        
+       /* $su = Attendance::whereBetween('date', [$startdate,$enddate])->where('status','=','1')->get();
         foreach($su as $object)
         {
             //$arrays[] = $object->toArray();
             $arrays[] = $object->student_id;
         }
 
-        $s = Student::whereIn('id',$arrays)->get();
+        $s = Student::whereIn('id',$arrays)->get();*/
         
         return response()->json(array(
                     'success' => true,
-                    'attendances'   => $su,
-                    'students' => $s
+                    'students' => $students,
+                    'attendances' => $scount
                 )); 
 
     }
