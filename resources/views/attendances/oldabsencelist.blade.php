@@ -2,6 +2,18 @@
 @section('content')
 <h2 class="d-inline-block">Absence Student List</h2>
 
+<<<<<<< HEAD
+<form method="get" action="{{route('absence')}}">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputCourse">Choose Course:</label>
+      <select name="course" class="form-control" id="course">
+        <option disabled selected="">Please Select Course</option>
+        @foreach($courses as $row)
+        <option value="{{$row->id}}">{{$row->name}}</option>
+        @endforeach
+      </select>
+=======
   <form method="get" action="{{route('absence')}}">
     <div class="form-row">
       <div class="form-group col-md-4">
@@ -26,7 +38,20 @@
         <button type="submit" class="btn btn-primary mt-4" id="search">Search</button>
       </div>
       
+>>>>>>> 50b944a6f007a6f54b537c832f838cad06116e14
+    </div>
 
+    <div class="form-group col-md-4">
+      <label for="inputCourse">Choose Batch:</label>
+      <select id="batch" name="batch" class="form-control">
+        <option value="" disabled selected>Please Select Batch</option>
+      </select>
+
+    </div>
+
+    <div class="form-group col-md-2 mt-2">
+      <button type="submit" class="btn btn-primary mt-4" id="search">Search</button>
+    </div>
 
   </div>
 </form>
@@ -53,27 +78,11 @@
   </div>
 
 </form>
-<div id="dateabsent">
-  <h3 id="startid"></h3>
-  <table class="table table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">No</th>
-        <th scope="col">Name</th>
-        <th scope="col">Absence Date</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody id="tbody">
-    </tbody>
-  </table>
-</div>
 
 @isset($students)
 @if(count($students) > 0)
 
-<div id="allabsent">
-  <h3>Total Absent Lists</h3>
+
 <table class="table table-bordered">
   <thead class="thead-dark">
     <tr>
@@ -136,7 +145,7 @@
 
 </tbody>
 </table>
-</div>
+
 @endif
 @endif
 
@@ -154,7 +163,6 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#dateabsent').hide();
     $('#datesearch').click(function(){
       var startdate = $('#startdate').val();
       var enddate = $('#enddate').val();
@@ -167,54 +175,12 @@
        dataType:'json',
        success:function(data)
        {
-        
-        if(data.success == true){
-          $('#dateabsent').show();
-          $('#startid').text(startdate+' to '+enddate +' Of Absent List');
-          var countname = data.students.length;
-          var students = data.students;
-          var html = ''; var k=1;
+        var countname = data.students.length;
+        var students = data.students;
            for (var i = 0; i < countname; i++) {
-            var scount = students[i].attendance.length;
-        
-            var absent_count=0;
-            var date_array=Array();
-
-            for(var j=0;j<scount;j++){
-
-              if(startdate <= students[i].attendance[j].date && enddate>= students[i].attendance[j].date && students[i].attendance[j].status==1){
-                absent_count++;
-                date_array.push(students[i].attendance[j].date);
-
-              }
-            }
-    
-  
-            html+=`<tr>
-              <td rowspan="${absent_count}">${k++}</td>
-
-              <td rowspan="${absent_count}">${students[i].namee} <span class="badge badge-danger"> ${absent_count} Day Aabsent</span></td>
-              
-              <td>${date_array[0]}</td>
-              <td><button class="btn btn-primary">Print</button></td>
-            </tr>`;
-
-
-            var datecount = date_array.length;
-            for(var c=1;c<datecount;c++){ 
-
-            html+=`<tr>
-              <td>${date_array[c]}</td>
-              <td><button class="btn btn-primary">Print</button></td>
-            </tr>`;
-            }
-
+             var scount = students[i].attendance;
+             console.log(scount);
            }
-           $('#tbody').html(html);
-        }else{
-          $('#dateabsent').hide();
-        }
-        
       }
     })
     })
