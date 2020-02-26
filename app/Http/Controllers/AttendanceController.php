@@ -225,10 +225,11 @@ class AttendanceController extends Controller
         $enddate = request('enddate');
         $batch = request('batch_id');
         $students = Student::where('batch_id',$batch)
-                        ->whereHas('attendance',function($q1){
-                            return $q1->where('status','=','1');
+                        ->whereHas('attendance',function( $q1 ) use ($startdate , $enddate) {
+                            $q1->whereBetween('date', [$startdate,$enddate])->where('status','=','1');
                         })
                         ->get(); 
+        //dd($students);
 
         $stucount = count($students);
          for($i=0;$i<$stucount;$i++){
@@ -245,12 +246,17 @@ class AttendanceController extends Controller
         }
 
         $s = Student::whereIn('id',$arrays)->get();*/
+        if(count($students)>0){
         
         return response()->json(array(
                     'success' => true,
                     'students' => $students,
                     'attendances' => $scount
                 )); 
+    }else{
+        return response()->json(array('error'=>false));
+    }
+       
 
     }
 }
