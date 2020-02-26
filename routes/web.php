@@ -21,6 +21,16 @@ Route::get('contact','FrontendController@contact')->name('frontend.contact');
 //Honey Htun
 Route::get('inquire_no','FrontendController@inquire_no')->name('frontend.inquire_no');
 
+Route::get('phpbootcamp', 'FrontendController@phpbootcamp_reg');
+Route::get('japanitbootcamp', 'FrontendController@japanitbootcamp_reg');
+Route::get('androidbootcamp', 'FrontendController@androidbootcamp_reg');
+Route::get('hradmin', 'FrontendController@hradmin_reg');
+Route::get('fundamental', 'FrontendController@fundamental_reg');
+Route::get('python', 'FrontendController@python_reg');
+Route::get('ios', 'FrontendController@ios_reg');
+Route::get('japanese', 'FrontendController@japanese_reg');
+
+
 Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
 
 Route::post('getBatches','InquireController@getBatches')->name('get.batches');

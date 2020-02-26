@@ -38,6 +38,46 @@ class FrontendController extends Controller
     return view('frontend.inputinquire');
   }
 
+  public function phpbootcamp_reg()
+  {
+    return view('frontend.phpbootcamp_reg');
+  }
+
+  public function japanitbootcamp_reg()
+  {
+    return view('frontend.japanitbootcamp_reg');
+  }
+
+  public function androidbootcamp_reg()
+  {
+    return view('frontend.androidbootcamp_reg');
+  }
+
+  public function hradmin_reg()
+  {
+    return view('frontend.hradmin_reg');
+  }
+
+  public function fundamental_reg()
+  {
+    return view('frontend.fundamental_reg');
+  }
+
+  public function python_reg()
+  {
+    return view('frontend.python_reg');
+  }
+
+  public function ios_reg()
+  {
+    return view('frontend.ios_reg');
+  }
+
+  public function japanese_reg()
+  {
+    return view('frontend.japanese_reg');
+  }
+
   public function studentRegister(Request $request)
   {
     $inquireno = request('inquire_no');
