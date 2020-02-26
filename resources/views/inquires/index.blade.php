@@ -46,7 +46,7 @@
               @if($inquire->status == 1 || $inquire->status == 0)
               <a class="dropdown-item full_install" href="#" data-id="{{$inquire->id}}" data-fees="{{$inquire->batch->course->fees}}" data-amount="{{$inquire->installmentamount}}" data-batchid="{{$inquire->batch_id}}">Confirm</a>
               @else
-              <a href="#" class="dropdown-item">Print</a>
+              <a href="{{route('inquire.print',$inquire->id)}}" class="dropdown-item">Print</a>
               @endif
             </div>
           </div>
