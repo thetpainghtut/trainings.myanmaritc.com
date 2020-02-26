@@ -66,13 +66,17 @@ class MentorController extends Controller
       $user=User::find($staff_user);
 
       // Data Insert
+      $courses_id = request('course_id');
 
-      $mentor = new Mentor;
-      $mentor->staff_id=request('staff_id');
-      $mentor->course_id=request('course_id');
-      $mentor->portfolio = request('portfolio');
-      $mentor->degree = request('degree');
-      $mentor->save();
+      foreach ($courses_id as $course_id) {
+
+        $mentor = new Mentor;
+        $mentor->staff_id=request('staff_id');
+        $mentor->course_id=$course_id;
+        $mentor->portfolio = request('portfolio');
+        $mentor->degree = request('degree');
+        $mentor->save();
+      }
 
       $user->assignRole(request('role'));
 

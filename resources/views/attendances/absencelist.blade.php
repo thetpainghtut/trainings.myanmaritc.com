@@ -2,6 +2,7 @@
 @section('content')
 <h2 class="d-inline-block">Absence Student List</h2>
 
+<<<<<<< HEAD
 <form method="get" action="{{route('absence')}}">
   <div class="form-row">
     <div class="form-group col-md-4">
@@ -12,6 +13,32 @@
         <option value="{{$row->id}}">{{$row->name}}</option>
         @endforeach
       </select>
+=======
+  <form method="get" action="{{route('absence')}}">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputCourse">Choose Course:</label>
+        <select name="course" class="form-control" id="course">
+          <option disabled selected="">Please Select Course</option>
+          @foreach($courses as $row)
+          <option value="{{$row->id}}">{{$row->name}} ( {{$row->location->city->name}} )</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="inputCourse">Choose Batch:</label>
+        <select id="batch" name="batch" class="form-control">
+          <option value="" disabled selected>Please Select Batch</option>
+        </select>
+        
+      </div>
+
+      <div class="form-group col-md-2 mt-2">
+        <button type="submit" class="btn btn-primary mt-4" id="search">Search</button>
+      </div>
+      
+>>>>>>> 50b944a6f007a6f54b537c832f838cad06116e14
     </div>
 
     <div class="form-group col-md-4">

@@ -1,7 +1,8 @@
 @extends('backendtemplate')
 
 @section('content')
-  <h2>Edit</h2>
+  <h2 class="d-inline-block">Edit</h2>
+  <a href="{{route('subjects.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
 
   @if ($errors->any())
     <div class="alert alert-danger">
@@ -30,7 +31,7 @@
        <select name="course_id" class="form-control">
         @foreach($courses as $course)
          <option value="{{$course->id}}" <?php if($course->id==$subject->course_id) { ?>  selected <?php }; ?> >
-            {{$course->name}}
+            {{$course->name}} ( {{$course->location->city->name}} )
          </option>
          @endforeach
        </select>

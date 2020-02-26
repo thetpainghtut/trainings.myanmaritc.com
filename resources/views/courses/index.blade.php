@@ -24,15 +24,15 @@
       <tr>
         <td>{{$i++}}</td>
         <td>{{$row->code_no}}</td>
-        <td>{{$row->name}}</td>
+        <td>{{$row->name}} ( {{$row->location->city->name}} )</td>
         <td>{{$row->fees}}</td>
         <td>{{$row->during}}</td>
         <td>{{$row->duration}}</td>
         <td>
 
-          {{--<a href="#" class="btn btn-primary course_detail" data-id="{{$row->id}}" data-name="{{$row->name}}" data-fees="{{$row->fees}}" data-during="{{$row->during}}" data-duration="{{$row->duration}}" data-image="{{$row->logo}}">
-                                <i class="fas fa-info"></i>
-                              </a>--}}
+          <a href="#" class="btn btn-primary course_detail" data-id="{{$row->id}}" data-name="{{$row->name}}" data-fees="{{$row->fees}}" data-during="{{$row->during}}" data-duration="{{$row->duration}}" data-image="{{$row->logo}}" data-code="{{$row->code_no}}" data-location="{{$row->location->name}}" data-city="{{$row->location->city->name}}">
+            <i class="fas fa-info"></i>
+          </a>
 
           <a href="{{route('courses.edit',$row->id)}}" class="btn btn-warning">
             <i class="fas fa-edit"></i>
@@ -70,11 +70,23 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-4">
-              <img  class="img-fluid courses_image" width="120px" height="80px">
-            </div>
-            <div class="col-md-8">
+            
+            <div class="col-md-8 offset-md-2">
+
+              <div class="row mb-4">
+                <div class="col-md-8 offset-md-2">
+                  <img  class="img-fluid courses_image" width="200px" height="150px">
+                  
+                </div>
+              </div>
               
+              
+              <div class="row">
+                  <label class="col-sm-4">Code No:</label>
+                <div class="col-sm-8">
+                   <p class="courses_no"></p>
+                </div>
+              </div>
 
               <div class="row">
                   <label class="col-sm-4">Name:</label>
@@ -106,6 +118,22 @@
                 </div>
               </div>
 
+              <div class="row">
+                  <label class="col-sm-4">City:</label>
+                <div class="col-sm-8">
+                   <p class="courses_city"></p>
+                </div>
+              </div>
+
+              <div class="row">
+                  <label class="col-sm-4">Location:</label>
+                <div class="col-sm-8">
+                   <p class="courses_location"></p>
+                </div>
+              </div>
+
+              
+
             </div>
           </div>
           
@@ -133,12 +161,19 @@
         var during = $(this).data('during');
         var duration = $(this).data('duration');
         var logo = $(this).data('image');
+        var code = $(this).data('code');
+        var location = $(this).data('location');
+        var city = $(this).data('city');
         // console.log(logo);
         $('.courses_image').attr('src',logo);
         $('.courses_name').html(name);
         $('.courses_fees').html(fees);
         $('.courses_during').html(during);
         $('.courses_duration').html(duration);
+
+        $('.courses_no').html(code);
+        $('.courses_location').html(location);
+        $('.courses_city').html(city);
 
         $('.detail_modal').modal('show');
 

@@ -1,7 +1,9 @@
 @extends('backendtemplate')
 
 @section('content')
-  <h2>Create New Subject</h2>
+  <h2 class="d-inline-block">Create New Subject</h2>
+
+  <a href="{{route('subjects.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
 
   @if ($errors->any())
     <div class="alert alert-danger">
@@ -29,7 +31,7 @@
         <select class="form-control" name="course_id">
           <option>Choose One</option>
           @foreach($courses as $course)
-            <option value="{{$course->id}}">{{$course->name}}</option>
+            <option value="{{$course->id}}">{{$course->name}} ( {{$course->location->city->name}} )</option>
           @endforeach
         </select>
       </div>

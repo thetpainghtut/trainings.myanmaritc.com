@@ -1,7 +1,9 @@
 @extends('backendtemplate')
 
 @section('content')
-  <h2 class="new">Create New Batch</h2>
+  <h2 class="new d-inline-block">Create New Batch</h2>
+  
+  <a href="{{route('batches.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
 
   
   <form method="post" action="{{route('batches.store')}}">

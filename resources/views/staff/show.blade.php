@@ -116,36 +116,44 @@
              <div class="row mt-2">
               <label class="col-sm-4">Course:</label>
               <div class="col-md-8">
-                  {{$user->staff->teacher->course->name}}
+               @foreach($user->staff->teacher as $teacher)
+                  {{$teacher->course->name}} ( {{$teacher->course->location->city->name}} ).<br>
+                @endforeach
               </div>
             </div>
 
-            <div class="row mt-2">
+
+             <div class="row mt-2">
               <label class="col-sm-4">Degree:</label>
               <div class="col-md-8">
-                  {!! $user->staff->teacher->degree !!}
+               
+                  {!!$user->staff->teacher[0]->degree!!}
+                
               </div>
             </div>
+            
 
              @elseif($role[0]=="Mentor")
             <div class="row mt-2">
               <label class="col-sm-4">Course:</label>
               <div class="col-md-8">
-                  {{$user->staff->mentor->course->name}}
+                @foreach($user->staff->mentor as $mentor)
+                  {{$mentor->course->name}} ( {{$mentor->course->location->city->name}} ).<br>
+                @endforeach
               </div>
             </div>
 
             <div class="row mt-2">
               <label class="col-sm-4">Degree:</label>
               <div class="col-md-8">
-                  {!! $user->staff->mentor->degree !!}
+                  {!! $user->staff->mentor[0]->degree !!}
               </div>
             </div>
 
             <div class="row mt-2">
               <label class="col-sm-4">Portfolios:</label>
               <div class="col-md-8">
-                  {{$user->staff->mentor->portfolio}}
+                  {{$user->staff->mentor[0]->portfolio}}
                   
               </div>
             </div>
