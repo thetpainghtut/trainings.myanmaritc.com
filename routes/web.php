@@ -26,9 +26,9 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController');
 
-Route::resource('batches','BatchController')->middleware('role:Admin');
+Route::resource('batches','BatchController');
 
 Route::resource('mentors','MentorController');
 
@@ -73,7 +73,7 @@ Route::post('all_staff','StaffController@all_staff')->name('all_staff');
 
 Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
 
-Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
+Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor');
 
 Route::post('show_batch','BatchController@show_batch')->name('show_batch');
 
