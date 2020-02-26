@@ -182,11 +182,7 @@ class BatchController extends Controller
         // dd($request);
         $cid = request('id');
         $batches = Batch::where('course_id',$cid)->get();
-<<<<<<< HEAD
-       // dd($batches);
-=======
-        // dd($batches);
->>>>>>> 50b944a6f007a6f54b537c832f838cad06116e14
+
         return $batches;
     }
 }
