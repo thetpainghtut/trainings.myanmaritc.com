@@ -51,17 +51,21 @@
     </div>
     @endif
  
-      @isset($students)
-      @if(count($students) > 0)
+      @isset($groups)
+      @if(count($groups) > 0)
       
-            
-            
+            @foreach($groups as $group)
+            <div class="row">
+              <div class="col-md-12 bg-dark text-white">
+                <p id="g">{{$group->name}} Group</p>
+              </div>
+            </div>
             @php
               $i = 1;
               $checked = true;
             @endphp
-           
-           @foreach($students as $row)
+            <p id="aa"></p>
+            @foreach($group->students as $row)
 
             <div class="row mt-2">
             
@@ -101,7 +105,7 @@
             </div>
             @endforeach
               
-           
+            @endforeach
          
       @endif
       

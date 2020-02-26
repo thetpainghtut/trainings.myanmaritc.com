@@ -29,16 +29,18 @@ class StudentController extends Controller
       $courses = Course::all();
       $batches = Batch::all();
 
+      $bid = 0;
+
       if (request('batch')) {
         $bid = request('batch');
         $groups = Group::where('batch_id',$bid)->get();
         $students = Student::where('batch_id',$bid)->get();
 
-        return view('students.index',compact('students','courses','batches','groups'));
+        return view('students.index',compact('students','courses','batches','groups','bid'));
       }else{
         $students = Student::all();
         // Return 
-        return view('students.index',compact('students','courses','batches'));
+        return view('students.index',compact('students','courses','batches','bid'));
       }
     }
 

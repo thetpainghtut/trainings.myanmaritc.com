@@ -32,7 +32,7 @@
       			<label>Course</label>
       		</div>
       		<div class="col-md-6">
-      			<h6>{{$batches->course->name}}</h6>
+      			<h6>{{$batches->course->name}} ( {{$batches->course->location->city->name}} )</h6>
       		</div>
       	</div>
 
@@ -113,7 +113,7 @@
       		</div>
       	</div>
 
-
+            @if(count($batches->mentors)>0)
       	<div class="row">
       		<div class="col-md-2 offset-3">
       			<label>Mentor</label>
@@ -127,6 +127,8 @@
       			
       		</div>
       	</div>
+
+            @endif
 
 
       	

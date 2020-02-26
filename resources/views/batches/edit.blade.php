@@ -29,36 +29,46 @@
       <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="inputTitle" name="title" value="{{$batch->title}}">
+         @if($errors->has('title'))
+          <span class="text-danger">{{$errors->first('title')}}</span>
+        @endif
       </div>
     </div>
     <div class="form-group row">
       <label for="inputStartDate" class="col-sm-2 col-form-label">Start Date</label>
       <div class="col-sm-10">
         <input type="date" class="form-control" id="inputStartDate" name="startdate" value="{{$batch->startdate}}">
+         @if($errors->has('startdate'))
+          <span class="text-danger">{{$errors->first('startdate')}}</span>
+        @endif
+
       </div>
     </div>
     <div class="form-group row">
       <label for="inputEndDate" class="col-sm-2 col-form-label">End date</label>
       <div class="col-sm-10">
         <input type="date" class="form-control" id="inputEndDate" name="enddate" value="{{$batch->enddate}}">
+         @if($errors->has('enddate'))
+          <span class="text-danger">{{$errors->first('enddate')}}</span>
+        @endif
       </div>
     </div>
     <div class="form-group row">
       <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="inputTime" name="time" value="{{$batch->time}}">
+         @if($errors->has('time'))
+          <span class="text-danger">{{$errors->first('time')}}</span>
+        @endif
       </div>
     </div>
 
     <div class="form-group row">
       <label for="inputCourse" class="col-sm-2 col-form-label">Courses</label>
       <div class="col-sm-10">
-        <select name="course" class="form-control" id="inputCourse">
-          <option value="">Choose Course</option>
-          @foreach($courses as $row)
-            <option value="{{$row->id}}" @if($batch->course_id == $row->id) {{'selected'}} @endif>{{$row->name}}</option>
-          @endforeach
-        </select>
+        <input type="hidden" name="course" value="{{$batch->course->id}}">
+        <input type="text" class="form-control" id="inputCourse" value="{{$batch->course->name}} ( {{$batch->course->location->city->name}} )">
+        
       </div>
     </div>
 
@@ -76,10 +86,11 @@
         </select>
       </div>
     </div>
-
-
+    @foreach($courses as $course)
+      @if(count($batch->mentors)>0 || $course->mentor)
+    
     <div class="form-group row">
-      <label for="inputMentor" class="col-sm-2 col-form-label">Teacher</label>
+      <label for="inputMentor" class="col-sm-2 col-form-label">Mentor</label>
       <div class="col-sm-10">
         <select name="mentors[]" class="form-control js-example-basic-multiple" id="inputMentor" multiple="multiple">
           
@@ -93,6 +104,8 @@
         </select>
       </div>
     </div>
+    @endif
+    @endforeach
 
 
 

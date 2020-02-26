@@ -15,6 +15,11 @@ class Course extends Model
     	return $this->hasMany('App\Batch');
   	}
 
+    public function mentor()
+    {
+      return $this->hasOne('App\mentor');
+    }
+
     public function location()
     {
       return $this->belongsTo('App\Location');

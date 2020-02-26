@@ -7,9 +7,9 @@ $(document).ready(function () {
 
   $('#course').change(function () {
     var cid = $(this).val();
-    // alert(cid);
+    
     $.post("/getBatchesByCourse",{id:cid},function (res) {
-      console.log(res);
+      
       $('#batch').prop('disabled',false);
 
       var html = `<option value="">Choose Batch</option>`;

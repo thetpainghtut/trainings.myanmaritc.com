@@ -265,7 +265,6 @@
 @endsection
 
 @section('script')
-<!-- <script type="text/javascript" src="{{asset('js/register.js')}}"></script> -->
 <script type="text/javascript">
   $(document).ready(function () {
   $.ajaxSetup({
@@ -279,10 +278,7 @@
     event.preventDefault();
     alert('okokok');
     var formdata=new FormData(this);
-    //var ul="{{route('students.store')}}";
-    /*$.post('students.store',{data:formdata},function(res){
-      alert(res);
-    });*/
+    
     $.ajax({
       url: "{{route('students.store')}}",
       data: formdata,

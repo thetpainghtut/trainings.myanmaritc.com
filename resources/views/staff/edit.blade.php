@@ -138,15 +138,18 @@
       </div>
     </div>
 
+                 
+               
 
     @if($role[0]=="Teacher")
     <div class="form-group row">
       <label for="course" class="col-sm-2 col-form-label">Course</label>
       <div class="col-sm-10">
-        <select class="form-control" name="course_id" id="course">
+        <select class="form-control form-control js-example-basic-multiple mentor" name="course_id[]" id="course" multiple="multiple">
           @foreach($courses as $course)
-          <option value="{{$course->id}}" @if($course->id==$user->staff->teacher->course_id) selected @endif>
-            {{$course->name}}
+          <option value="{{$course->id}}"   @foreach($user->staff->teacher as $teacher) @if($course->id==$teacher->course_id) selected @endif   @endforeach >
+
+            {{$course->name}} ( {{$course->location->city->name}} )
           </option>
           @endforeach
         </select>
@@ -157,7 +160,7 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Degree</label>
       <div class="col-sm-10">
-       <textarea id="summernote" name="degree">{{$user->staff->teacher->degree}}</textarea>
+       <textarea id="summernote" name="degree">{{$user->staff->teacher[0]->degree}}</textarea>
       </div>
     </div>
 
@@ -167,10 +170,12 @@
     <div class="form-group row">
       <label for="course" class="col-sm-2 col-form-label">Course</label>
       <div class="col-sm-10">
-        <select class="form-control" name="course_id" id="course">
+        <select class="form-control form-control js-example-basic-multiple mentor" name="course_id[]" id="course" multiple="multiple">
+
           @foreach($courses as $course)
-          <option value="{{$course->id}}" @if($course->id==$user->staff->mentor->course_id) selected @endif>
-            {{$course->name}}
+          <option value="{{$course->id}}"   @foreach($user->staff->mentor as $mentor) @if($course->id==$mentor->course_id) selected @endif   @endforeach >
+
+            {{$course->name}} ( {{$course->location->city->name}} )
           </option>
           @endforeach
         </select>
@@ -181,7 +186,7 @@
       
       <label for="inputPortfolio" class="col-sm-2 col-form-label">Portifolio</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputPortfolio" name="portfolio" value="{{$user->staff->mentor->portfolio}}">
+        <input type="text" class="form-control" id="inputPortfolio" name="portfolio" value="{{$user->staff->mentor[0]->portfolio}}">
       </div>
     </div>
 
@@ -189,7 +194,7 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Degree</label>
       <div class="col-sm-10">
-       <textarea id="summernote" name="degree">{{$user->staff->mentor->degree}}</textarea>
+       <textarea id="summernote" name="degree">{{$user->staff->mentor[0]->degree}}</textarea>
       </div>
     </div>
     @endif
