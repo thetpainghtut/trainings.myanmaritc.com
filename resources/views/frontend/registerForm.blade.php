@@ -26,10 +26,11 @@
           </div>
         @endif
 
-        <form method="post" action="{{route('students.store')}}" class="my-5" enctype="multipart/form-data">
-          @csrf
-          <input type="hidden" name="inquireno" value="{{$inquireno}}">
-          <input type="hidden" name="batch_id" value="{{$inquire->batch_id}}">
+       
+       <form id="inquireStudent"  class="my-5" enctype="multipart/form-data">
+        
+          <input type="hidden" name="inquireno" value="{{$inquireno}}" id="inquireno">
+          <input type="hidden" name="batch_id" value="{{$inquire->batch_id}}" id="batch_id">
           <h5 class="my-3"><u>Student Informations:</u></h5>
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -53,8 +54,8 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="inputCity">Education:</label>
-              <select class="form-control @error('education') is-invalid @enderror" name="education" value="{{ old('education') }}" required autocomplete="education" autofocus>
+              <label for="inputEducation">Education:</label>
+              <select class="form-control @error('education') is-invalid @enderror" name="education" id="inputEducation" value="{{ old('education') }}" required autocomplete="education" autofocus>
                 @foreach($educations as $education)
                 <option value="{{$education->id}}" {{($education->id == $inquire->education_id)?"selected":""}}>{{$education->name}}</option>
                 @endforeach
@@ -129,7 +130,7 @@
                 </span>
               @enderror
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" id="inputGender">
               <label for="inputGender" class="d-block">Gender:</label>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" name="gender" {{($inquire->gender=="male")?"checked" : ""}}>
@@ -147,7 +148,7 @@
             @foreach($subjects as $subject)
             <div class="form-group col-md-6">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck{{$subject->id}}" value="{{$subject->id}}" name="subjects[]">
+                <input class="form-check-input subjects" type="checkbox" id="gridCheck{{$subject->id}}" value="{{$subject->id}}" name="subjects[]">
                 <label class="form-check-label" for="gridCheck{{$subject->id}}">
                   {{$subject->name}}
                 </label>
@@ -230,11 +231,76 @@
             @enderror
           </div>
 
-
-          <button type="submit" class="btn btn-primary btn-block">Save Register</button>
-        </form>
+          <button type="submit" class="btn btn-primary btn-block register_btn">Save Register</button>
+         
+       </form>
       </div>
     </div>
 
   </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Register Successfully!!</p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <a href="http://localhost:8000/inquire_no">
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
+@section('script')
+<!-- <script type="text/javascript" src="{{asset('js/register.js')}}"></script> -->
+<script type="text/javascript">
+  $(document).ready(function () {
+  $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+  $('#inquireStudent').submit(function(event){
+    
+    event.preventDefault();
+    alert('okokok');
+    var formdata=new FormData(this);
+    //var ul="{{route('students.store')}}";
+    /*$.post('students.store',{data:formdata},function(res){
+      alert(res);
+    });*/
+    $.ajax({
+      url: "{{route('students.store')}}",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      
+      success: function(data){
+        $('#exampleModal').modal('show');
+      },
+       error: function(request, status, error) {
+        console.log("error")
+      }
+
+    });
+  });
+    
+  
+})
+</script>
 @endsection

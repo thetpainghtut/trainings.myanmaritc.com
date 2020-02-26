@@ -13,14 +13,18 @@
 
 Route::get('/','FrontendController@index')->name('frontend.index');
 
-//honey
-Route::post('student_register','FrontendController@studentRegister')->name('frontend.student.register');
-
 Route::get('allcourses','FrontendController@courses')->name('frontend.courses');
 
 Route::get('csr','FrontendController@csr')->name('frontend.csr');
 
 Route::get('contact','FrontendController@contact')->name('frontend.contact');
+//Honey Htun
+Route::get('inquire_no','FrontendController@inquire_no')->name('frontend.inquire_no');
+
+Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
+
+Route::post('getBatches','InquireController@getBatches')->name('get.batches');
+//
 
 Route::get('dashboard',function (){
   return view('dashboard');

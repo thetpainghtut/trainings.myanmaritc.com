@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Education;
 use App\Batch;
+use App\Course;
 use App\Township;
 use App\Inquire;
 use App\Location;
@@ -32,9 +33,10 @@ class InquireController extends Controller
     {
         //
         $educations = Education::all();
+        $courses = Course::all();
         $batches = Batch::all();
         $townships = Township::all();
-        return view('inquires.create',compact('educations','batches','townships'));
+        return view('inquires.create',compact('educations','batches','townships','courses'));
     }
 
     /**
@@ -255,6 +257,15 @@ class InquireController extends Controller
         $inquire->save();
 
         return redirect()->route('inquires.index');
+
+
+    }
+
+    public function getBatches(Request $request)
+    {
+        $course_id = request('course_id');
+        $batches = Batch::where('course_id',$course_id)->get();
+        return $batches;
 
 
     }
