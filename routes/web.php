@@ -21,18 +21,29 @@ Route::get('contact','FrontendController@contact')->name('frontend.contact');
 //Honey Htun
 Route::get('inquire_no','FrontendController@inquire_no')->name('frontend.inquire_no');
 
+Route::get('phpbootcamp', 'FrontendController@phpbootcamp_reg');
+Route::get('japanitbootcamp', 'FrontendController@japanitbootcamp_reg');
+Route::get('androidbootcamp', 'FrontendController@androidbootcamp_reg');
+Route::get('hradmin', 'FrontendController@hradmin_reg');
+Route::get('fundamental', 'FrontendController@fundamental_reg');
+Route::get('python', 'FrontendController@python_reg');
+Route::get('ios', 'FrontendController@ios_reg');
+Route::get('japanese', 'FrontendController@japanese_reg');
+
+
 Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
 
 Route::post('getBatches','InquireController@getBatches')->name('get.batches');
+Route::get('inquire_print/{id}','PrintController@inquire_print')->name('inquire.print');
 //
 
 Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController');
 
-Route::resource('batches','BatchController')->middleware('role:Admin');
+Route::resource('batches','BatchController');
 
 Route::resource('mentors','MentorController');
 
@@ -77,7 +88,7 @@ Route::post('all_staff','StaffController@all_staff')->name('all_staff');
 
 Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
 
-Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
+Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor');
 
 Route::post('show_batch','BatchController@show_batch')->name('show_batch');
 
