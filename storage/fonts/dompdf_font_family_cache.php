@@ -93,4 +93,10 @@
     '800' => $fontDir . '/nunito-800_02cf1237ff10a0a8467f5cb2e1d4f2f1',
     '900' => $fontDir . '/nunito-900_015df194ab142a98ac2404406b7e9779',
   ),
+  'padauk' => array(
+    'normal' => $fontDir . '/padauk-normal_bf9f48bc49cbee28cf2c40b8532cd54f',
+  ),
+  'Mon3'  => array(
+    'normal' => 'https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.woff'
+  ),
 ) ?>

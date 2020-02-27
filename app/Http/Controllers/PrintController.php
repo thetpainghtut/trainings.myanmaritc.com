@@ -9,6 +9,7 @@ use App\Unit;
 
 
 use Barryvdh\DomPDF\Facade as PDF;
+// use PDF;
 
 use Illuminate\Http\Request;
 
@@ -84,6 +85,10 @@ class PrintController extends Controller
     	}
 
     	// dd($student_symbol_groups);
+
+
+        // return view('pdf.grading',compact('students_units', 'units' ,'student_symbol_groups'));
+
 
     	$pdf = PDF::loadView('pdf.grading', compact('students_units', 'units' ,'student_symbol_groups'));
     	return $pdf->stream();
