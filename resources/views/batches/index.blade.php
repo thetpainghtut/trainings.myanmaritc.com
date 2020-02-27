@@ -2,7 +2,7 @@
 
 @section('content')
   <h2 class="d-inline-block">All Batches</h2>
-  <a href="{{route('batches.create')}}" class="btn btn-info float-right">Add New</a>
+  <a href="{{route('batches.create')}}" class="btn btn-info float-right"> <i class="fas fa-plus"></i>Add New</a>
 
   <table class="table">
     <thead>
@@ -25,7 +25,7 @@
         <td>{{$row->title}}</td>
         <td>{{$row->startdate}}</td>
         <td>{{$row->enddate}}</td>
-        <td>{{$row->course->name}}</td>
+        <td>{{$row->course->name}} ( {{$row->course->location->city->name}} )</td>
         <td>
 
           <a href="{{route('batches.show',$row->id)}}" class="btn btn-primary batch_detail" data-id='{{$row->id}}' data-startdate='{{$row->startdate}}' data-enddate='{{$row->enddate}}' data-course='{{$row->course->name}}' data-fees='{{$row->course->fees}}'data-duration='{{$row->course->duration}}' data-course='{{$row->course->name}}' data-outline='{{$row->course->outline}}' >

@@ -40,9 +40,9 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController');
 
-Route::resource('batches','BatchController')->middleware('role:Admin');
+Route::resource('batches','BatchController');
 
 Route::resource('mentors','MentorController');
 
@@ -87,7 +87,7 @@ Route::post('all_staff','StaffController@all_staff')->name('all_staff');
 
 Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
 
-Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
+Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor');
 
 Route::post('show_batch','BatchController@show_batch')->name('show_batch');
 
@@ -121,6 +121,7 @@ Route::resource('/attendances','AttendanceController');
 Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
 Route::get('/absence','AttendanceController@absence')->name('absence');
 Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
+Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');
 
 // Grade Print
 Route::resource('grades','GradingController');

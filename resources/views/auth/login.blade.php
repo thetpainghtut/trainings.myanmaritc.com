@@ -34,6 +34,9 @@
                             <div class="card-header justify-content-center pt-5">
                                 <img src="{{ asset('logo.jpg') }}" class="img-fluid mx-auto d-block" style="width: 200px;">
                                 <h3 class="font-weight-light my-4 text-center">Login</h3>
+                                @if(session('msg'))
+                                 <h5 class="my-4 text-center text-danger">{{session('msg')}}</h5>
+                                @endif
                             </div>
                             <div class="card-body">
                                 <form class="user" method="POST" action="{{ route('login') }}">

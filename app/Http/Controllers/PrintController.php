@@ -6,7 +6,7 @@ use App\Course;
 use App\Batch;
 use App\Group;
 use App\Unit;
-
+use App\Inquire;
 
 use Barryvdh\DomPDF\Facade as PDF;
 // use PDF;
@@ -187,4 +187,30 @@ class PrintController extends Controller
 
     	// dd($units);
     }
+
+
+
+    public function absence($id,$date)
+    {
+       $studentid = Student::find($id);
+       $studentname = $studentid->namee;
+       $absencedate = $date;
+
+        $s = strtotime($absencedate);
+        $day = date('d', $s);
+        $month = date('M', $s);
+        $year = date('Y',$s);
+
+       $totaldate = $day.' '.$month.', '.$year;
+      
+       $batchid = $studentid->batch_id;
+       $batch = Batch::find($batchid);
+       $batchname = $batch->title;
+       $courseid = $batch->course_id;
+       $course = Course::find($courseid);
+       $coursename = $course->name;
+       $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'totaldate' ,'batchname','coursename'));
+        return $printpdf->stream();
+    }
+    
 }

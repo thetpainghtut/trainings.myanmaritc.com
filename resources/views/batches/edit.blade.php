@@ -97,7 +97,7 @@
           @foreach($mentors as $mentor)
              
 
-            <option value="{{$mentor->id}}"   @foreach($batch->mentors as $bat) <?php if($mentor->id==$bat->id) { ?> selected <?php }; ?>  @endforeach >{{$mentor->staff->user->name}}</option>
+            <option value="{{$mentor->id}}"   @foreach($batch->mentors as $bat) <?php if($mentor->id==$bat->id) { ?> selected <?php }; ?>  @endforeach >{{$mentor->staff->user['name']}}</option>
 
              
           @endforeach

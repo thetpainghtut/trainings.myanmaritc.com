@@ -343,8 +343,22 @@ class StaffController extends Controller
     public function status_change($id)
     {
         $leave_date=date('Y-m-d');
-        // dd($leave_date);
         $staff = Staff::find($id);
+        $user = $staff->user;
+        // $u_role=$user->getRoleNames();
+        // dd($user);
+        // $u_role->delete();
+
+        
+        // $u_role = $user->roles;
+        // dd($u_role);
+        // $user->role()->detach();
+        // $user->getStoredRole($u_role);
+        // dd($role);
+        
+
+
+
         $staff->leavedate=$leave_date;
         $staff->status=true;
         $staff->save();
