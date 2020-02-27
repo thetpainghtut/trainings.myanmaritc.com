@@ -242,20 +242,22 @@
 
 <!-- Modal -->
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered" role="document">
+  <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
-      <!-- <div class="modal-header">
-        
-      </div> -->
-      <div class="modal-body">
-        <p >Register Successfully!!</p>
-        <a href="http://localhost:8000/inquire_no">
-          <button type="button" class="btn btn-primary">OK</button>
-        </a>
-      </div>
-     <!--  <div class="modal-footer center">
+      <div class="modal-header">
        
-     </div> -->
+     </div>
+      <div class="modal-body text-center">
+            <p >Register Successfully!!</p>
+        
+            <a href="{{route('frontend.index')}}">
+              <button type="button" class="btn btn-primary">OK</button>
+            </a>
+        
+      </div>
+     <div class="modal-footer ">
+       
+     </div>
     </div>
   </div>
 </div>

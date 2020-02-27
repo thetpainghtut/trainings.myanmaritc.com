@@ -93,4 +93,7 @@
     '800' => $fontDir . '/nunito-800_02cf1237ff10a0a8467f5cb2e1d4f2f1',
     '900' => $fontDir . '/nunito-900_015df194ab142a98ac2404406b7e9779',
   ),
+  'padauk' => array(
+    'normal' => $fontDir . '/padauk-normal_1e738f948a2ff681d854a279c16bfb84',
+  ),
 ) ?>
