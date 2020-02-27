@@ -203,8 +203,10 @@
               }
             }
            var sid = students[i].id;
-            var routeurl = "{{route('absenceprint',['id' => ':id', 'date' => "${date_array[0]}"]) }}";
+           var darray = date_array[0];
+            var routeurl = "{{route('absenceprint',['id' => ':id', 'date' => ':date_array']) }}";
             routeurl = routeurl.replace(':id',sid);
+            routeurl = routeurl.replace(':date_array',darray);
            // console.log(routeurl);
             html+=`<tr>
               <td rowspan="${absent_count}">${k++}</td>

@@ -19,7 +19,7 @@ class CreateExpensesTable extends Migration
             $table->string('amount');
             $table->longText('description');
             $table->date('date');
-            $table->string('attachment');
+            $table->text('attachment');
 
             //user
             $table->unsignedBigInteger('user_id');
