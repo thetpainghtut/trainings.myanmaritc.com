@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Education;
 use App\Batch;
@@ -179,12 +180,18 @@ class InquireController extends Controller
 
     public function fullinstallment(Request $request)
     {
+
         $id = request('id');
         $batch_id = request('batch_id');
         $batch = Batch::find($batch_id);
         $course = $batch->course;
         $codeno = $course->codeno;
         $full_amount = $course->fees;
+
+
+
+        $course_name = $batch->course->name;
+        $course_fees = $batch->course->fees;
 
         $location_id = $course->location_id;
         $location = Location::find($location_id);
@@ -193,6 +200,12 @@ class InquireController extends Controller
         $zipcode = $city->zipcode;
 
         $inquire = Inquire::find($id);
+       // dd($inquire);
+        $preinstallment_date = $inquire->installmentdate;
+        $preinstallment_amount = $inquire->installmentamount;
+        $need_amount = request('amount');
+        $payment_date =  request('installment_date');
+        
         $lastInquire = Inquire::whereDate('updated_at',date('Y-m-d'))->where('receiveno','!=',null)->orderBy('updated_at','desc')->get();
         //dd($lastInquire);
         if($lastInquire->isEmpty()){
@@ -224,39 +237,17 @@ class InquireController extends Controller
             }
         }
 
-        /*$lastInquire = Inquire::orderBy('updated_at','desc')->first();
-        if($lastInquire){
-            $databatch_id = $lastInquire->batch_id;
-
-            $data_batch = Batch::find($databatch_id);
-            $data_course = $data_batch->course;
-            $data_codeno = $data_course->codeno;
-
-            $datalocation_id = $data_course->location_id;
-            $data_location = Location::find($datalocation_id);
-
-            $data_city = $data_location->city;
-            $data_zipcode = $data_city->zipcode;
-
-            if($codeno == $data_codeno && $zipcode == $data_zipcode){
-                if($lastInquire->receiveno != null){
-                    $inquire->receiveno = $lastInquire->receiveno+1;
-                }else{
-                    $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
-                }
-            }else{
-                $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
-            }
-        }else{
-            $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
-        }*/
-
-        $inquire->installmentdate = request('installment_date');
+        $inquire->installmentdate = $payment_date;
         $inquire->installmentamount = $full_amount;
         $inquire->status = 2;
         $inquire->save();
 
-        return redirect()->route('inquires.index');
+        //dd($preinstallment_date,$preinstallment_amount,$payment_date,$need_amount,$course_name,$course_fees);
+
+        $pdf = PDF::loadView('pdf.inquire',compact('inquire','batch','course_name','course_fees','preinstallment_date','preinstallment_amount','payment_date','need_amount'));
+        return $pdf->stream();
+
+       // return redirect()->route('inquires.index');
 
 
     }

@@ -7,8 +7,8 @@
     <button class="btn btn-info float-right" type="submit"><i class="fas fa-plus"></i>Add New</button> 
   
   </form> -->
-  <a href="{{route('students.create')}}" class="btn btn-info float-right">
-    <i class="fas fa-plus"></i> Add New</a>
+  <!-- <a href="{{route('students.create')}}" class="btn btn-info float-right">
+    <i class="fas fa-plus"></i> Add New</a> -->
   <form method="get" action="{{route('students.index')}}">
     <div class="form-row">
       <div class="form-group col-md-4">

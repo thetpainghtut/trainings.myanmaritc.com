@@ -34,7 +34,6 @@ Route::get('japanese', 'FrontendController@japanese_reg');
 Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
 
 Route::post('getBatches','InquireController@getBatches')->name('get.batches');
-Route::get('inquire_print/{id}','PrintController@inquire_print')->name('inquire.print');
 //
 
 Route::get('dashboard',function (){

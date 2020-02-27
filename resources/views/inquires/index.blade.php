@@ -44,9 +44,9 @@
               @endif
               
               @if($inquire->status == 1 || $inquire->status == 0)
-              <a class="dropdown-item full_install" href="#" data-id="{{$inquire->id}}" data-fees="{{$inquire->batch->course->fees}}" data-amount="{{$inquire->installmentamount}}" data-batchid="{{$inquire->batch_id}}">Confirm</a>
+              <a class="dropdown-item full_install" href="#" data-id="{{$inquire->id}}" data-fees="{{$inquire->batch->course->fees}}" data-amount="{{$inquire->installmentamount}}" data-batchid="{{$inquire->batch_id}}">Print</a>
               @else
-              <a href="{{route('inquire.print',$inquire->id)}}" class="dropdown-item">Print</a>
+              <a href="#" class="dropdown-item">Confirm</a>
               @endif
             </div>
           </div>
@@ -224,10 +224,14 @@
           <input type="hidden" name="id" id="fullinstall_id">
           <input type="hidden" name="batch_id" id="batch_id">
           <div class="modal-body">
+            @php
+            $date = date('Y/m/d');
+            @endphp
+           
             <div class="row my-3">
               <label class="col-md-4 offset-md-1" for="installment">Installment Date</label>
               <div class="col-md-7">
-                <input type="date" class="form-control" id="installment" name="installment_date">
+                <input type="text" class="form-control" id="installment" name="installment_date" value="{{$date}}" readonly="readonly">
               </div>
             </div>
 
@@ -240,7 +244,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-secondary">Save</button>
+            <button type="submit" class="btn btn-secondary">OK</button>
             
           </div>
         </form>

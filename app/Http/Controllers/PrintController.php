@@ -207,15 +207,5 @@ class PrintController extends Controller
        $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'totaldate' ,'batchname','coursename'));
         return $printpdf->stream();
     }
-    public function inquire_print($id)
-    {
-        $inquire = Inquire::find($id);
-        $batch_id = $inquire->batch_id;
-        $batch = Batch::find($batch_id);
-        $course_name = $batch->course->name;
-        $course_fees = $batch->course->fees;
-        /*dd($course_name,$course_fees);*/
-        $pdf = PDF::loadView('pdf.inquire',compact('inquire','batch','course_name','course_fees'));
-        return $pdf->stream();
-    }
+    
 }
