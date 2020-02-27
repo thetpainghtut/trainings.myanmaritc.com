@@ -208,7 +208,7 @@
                 <p style="margin: 10px 0;">
                     <span style="width: 150px; display: inline-block;"> Date of Absence </span>
                     <span> : </span>
-                    <span> {{$absencedate}} </span>
+                    <span> {{$totaldate}} </span>
                 </p>
 
                 <p style="margin: 10px 0;">
