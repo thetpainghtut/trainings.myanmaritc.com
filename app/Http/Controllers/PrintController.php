@@ -182,4 +182,21 @@ class PrintController extends Controller
 
     	// dd($units);
     }
+
+
+
+    public function absence($id,$date)
+    {
+       $studentid = Student::find($id);
+       $studentname = $studentid->namee;
+       $absencedate = $date;
+       $batchid = $studentid->batch_id;
+       $batch = Batch::find($batchid);
+       $batchname = $batch->title;
+       $courseid = $batch->course_id;
+       $course = Course::find($courseid);
+       $coursename = $course->name;
+       $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'absencedate' ,'batchname','coursename'));
+        return $printpdf->stream();
+    }
 }

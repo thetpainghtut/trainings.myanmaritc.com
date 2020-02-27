@@ -115,7 +115,14 @@
     <td rowspan="{{$absent_count}}">{{$students[$i]->namee}} <span class="badge badge-danger"> {{$absent_count}} Day Aabsent</span></td>
     
     <td>{{$date_array[0]}}</td>
-    <td><button class="btn btn-primary">Print</button></td>
+    <td>
+      <form action="{{route('absenceprint',['id' => $students[$i]->id, 'date' => $date_array[0]]) }}" method="get">
+      
+        <input type="hidden" name="studentid" value="{{$students[$i]->id}}">
+        <input type="hidden" name="date" value="{{$date_array[0]}}">
+        <input type="submit" class="btn btn-primary" value="Print">
+      </form>
+    </td>
   </tr>
 
 @php
@@ -124,7 +131,14 @@
 @endphp
   <tr>
     <td>{{$date_array[$c]}}</td>
-    <td><button class="btn btn-primary">Print</button></td>
+    <td>
+      <form action="{{route('absenceprint',['id' => $students[$i]->id, 'date' => $date_array[$c]]) }}" method="get">
+      
+        <input type="hidden" name="studentid" value="{{$students[$i]->id}}">
+        <input type="hidden" name="date" value="{{$date_array[$c]}}">
+        <button class="btn btn-primary">Print</button>
+      </form>
+    </td>
   </tr>
 @php
   }

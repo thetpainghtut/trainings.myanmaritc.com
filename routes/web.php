@@ -111,6 +111,7 @@ Route::resource('/attendances','AttendanceController');
 Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
 Route::get('/absence','AttendanceController@absence')->name('absence');
 Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
+Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');
 
 // Grade Print
 Route::resource('grades','GradingController');
