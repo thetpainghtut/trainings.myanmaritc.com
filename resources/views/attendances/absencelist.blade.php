@@ -202,24 +202,44 @@
 
               }
             }
-    
-  
+           var sid = students[i].id;
+            var routeurl = "{{route('absenceprint',['id' => ':id', 'date' => "${date_array[0]}"]) }}";
+            routeurl = routeurl.replace(':id',sid);
+           // console.log(routeurl);
             html+=`<tr>
               <td rowspan="${absent_count}">${k++}</td>
 
               <td rowspan="${absent_count}">${students[i].namee} <span class="badge badge-danger"> ${absent_count} Day Aabsent</span></td>
               
               <td>${date_array[0]}</td>
-              <td><button class="btn btn-primary">Print</button></td>
+              <td>
+                <form action="${routeurl}"  method="get">
+      
+                  <input type="hidden" name="studentid" value="${students[i].id}">
+                  <input type="hidden" name="date" value="${date_array[0]}">
+                  <input type="submit" class="btn btn-primary" value="Print">
+                </form>
+              </td>
             </tr>`;
 
+            
 
             var datecount = date_array.length;
             for(var c=1;c<datecount;c++){ 
-
+              var datec = date_array[c];
+              var routeurlc = "{{route('absenceprint',['id' => ':id', 'date' => ':cdate']) }}";
+            routeurlc = routeurlc.replace(':id',sid);
+            routeurlc = routeurlc.replace(':cdate',datec);
             html+=`<tr>
               <td>${date_array[c]}</td>
-              <td><button class="btn btn-primary">Print</button></td>
+              <td>
+                <form action="${routeurlc}" method="get">
+      
+                  <input type="hidden" name="studentid" value="${students[i].id}">
+                  <input type="hidden" name="date" value="${date_array[c]}">
+                  <input type="submit" class="btn btn-primary" value="Print">
+                </form>
+              </td>
             </tr>`;
             }
 
