@@ -12,8 +12,10 @@
         }
         body
         {
+
             padding: 20px 50px;
         }
+        
         .page-break 
         {
             page-break-after: always;

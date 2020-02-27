@@ -225,3 +225,4 @@
   color: black;
 }
 </style>
+<!-- https://demonuts.com/laravel-5-8-pdf-generator/ -->
