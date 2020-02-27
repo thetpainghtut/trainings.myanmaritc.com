@@ -1,14 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  	{{-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> --}}
+	<meta charset="utf-8">
+  	{{-- <link href="https://fonts.googleapis.com/css?family=Padauk&display=swap" rel="stylesheet"> --}}
+
   	<title>Grading PDF</title>
   	<style>
+
+  		@import url('https://mmwebfonts.comquas.com/fonts/?font=padauk');
+
+  		@import url('https://mmwebfonts.comquas.com/fonts/?font=mon3');
+		
   		*
   		{
   			margin: 0;
   			padding: 0;
   		}
+
+  		.mmfont
+  		{
+  			font-family: 'padauk' !important;
+  		}
+
+  		.mmfontold
+  		{
+  			font-family:padauk,Yunghkio,Myanmar3,'Masterpiece Uni Sans'  , sans-serif !important;
+  		}
+  		
+
   		body
   		{
   			padding: 20px 50px;

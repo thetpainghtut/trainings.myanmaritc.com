@@ -96,4 +96,7 @@
   'padauk' => array(
     'normal' => $fontDir . '/padauk-normal_1e738f948a2ff681d854a279c16bfb84',
   ),
+  'Mon3'  => array(
+    'normal' => 'https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.woff'
+  ),
 ) ?>
