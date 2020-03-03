@@ -29,7 +29,7 @@
     <div class="form-group row">
       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputName" name="name">
+        <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" name="name" value="{{ old('name') }}" >
 
         @if($errors->has('name'))
           <span class="text-danger">{{$errors->first('name')}}</span>
@@ -40,7 +40,7 @@
     <div class="form-group row">
       <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
-        <input type="email" class="form-control" id="inputEmail" name="email">
+        <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" name="email"  value="{{ old('email') }}"  >
 
          @if($errors->has('email'))
           <span class="text-danger">{{$errors->first('email')}}</span>
@@ -52,7 +52,7 @@
     <div class="form-group row">
       <label for="inputnrc" class="col-sm-2 col-form-label">NRC</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputnrc" name="nrc">
+        <input type="text" class="form-control @error('nrc') is-invalid @enderror" id="inputnrc" name="nrc"  value="{{ old('nrc') }}">
         @if(session('nrc_error'))
           <span class="text-danger">{{session('nrc_error')}}</span>
 
@@ -63,9 +63,9 @@
     </div>
 
     <div class="form-group row">
-      <label for="inputDob" class="col-sm-2 col-form-label">Dob</label>
+      <label for="inputDob" class="col-sm-2 col-form-label ">Dob</label>
       <div class="col-sm-10">
-        <input type="date" class="form-control" id="inputDob" name="dob">
+        <input type="date" class="form-control @error('dob') is-invalid @enderror" id="inputDob" name="dob"  value="{{ old('dob') }}">
         @if($errors->has('dob'))
           <span class="text-danger">{{$errors->first('dob')}}</span>
         @endif
@@ -77,7 +77,7 @@
     <div class="form-group row">
       <label for="inputphone" class="col-sm-2 col-form-label">Phone</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputphone" name="phone">
+        <input type="text" class="form-control @error('phone') is-invalid @enderror" id="inputphone" name="phone"  value="{{ old('phone') }}">
 
         @if($errors->has('phone'))
           <span class="text-danger">{{$errors->first('phone')}}</span>
@@ -90,7 +90,7 @@
     <div class="form-group row">
       <label for="inputjdate" class="col-sm-2 col-form-label">Join Date</label>
       <div class="col-sm-10">
-        <input type="date" class="form-control" id="inputjdate" name="joindate">
+        <input type="date" class="form-control @error('joindate') is-invalid @enderror" id="inputjdate" name="joindate"  value="{{ old('joindate') }}">
 
         @if($errors->has('joindate'))
           <span class="text-danger">{{$errors->first('joindate')}}</span>
@@ -102,7 +102,7 @@
     <div class="form-group row">
       <label for="inputfather" class="col-sm-2 col-form-label">Father</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputfather" name="fathername">
+        <input type="text" class="form-control @error('fathername') is-invalid @enderror" id="inputfather" name="fathername"  value="{{ old('fathername') }}">
 
         @if($errors->has('fathername'))
           <span class="text-danger">{{$errors->first('fathername')}}</span>

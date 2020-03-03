@@ -9,11 +9,18 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>SB Admin 2 - Blank</title>
+  <title>  Myanmar IT Consulting </title>
+
+  <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
+
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('sb_admin2/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  
+  <!-- Custom Font -->
+  <link href="{{ asset('mmitui/css/font.css')}}" rel="stylesheet">
+
+  <link href="{{ asset('mmitui/css/custom.css')}}" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('sb_admin2/css/sb-admin-2.min.css')}}" rel="stylesheet">
@@ -36,19 +43,18 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <!-- Sidebar - logo -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+        <div class="sidebar-brand-text mx-3 p-2">
+          <img src="{{ asset('logo.jpg') }}" class="img-fluid">
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      {{-- <hr class="sidebar-divider my-0"> --}}
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
+      <!-- Dashboard ( All Roles ) -->
+      <li class="nav-item {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('dashboard')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -58,100 +64,119 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('courses.index')}}">
-          <i class="fab fa-discourse"></i>
-          <span>Courses</span></a>
-      </li>
+      <div class="sidebar-heading">
+        Students
+      </div>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('batches.index')}}">
-          <i class="fas fa-swatchbook"></i>
-          <span>Batches</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-     {{-- <li class="nav-item">
-                  <a class="nav-link" href="{{route('mentors.index')}}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Mentors</span></a>
-                </li>--}}
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('incomes.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Incomes</span></a>
-      </li>
-
-       <!-- Nav Item - Tables -->
-       <li class="nav-item">
-        <a class="nav-link" href="{{route('expenses.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Expenses</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('subjects.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Subjects</span></a>
-      </li>
-
-
-      <hr class="sidebar-divider">
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('staffs.index')}}">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Staffs</span></a>
-      </li>
-
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-      
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('inquires.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Inquires</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('students.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Students</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <!-- Attendance ( Teacher/Mentor ) -->
+      <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('attendances.index')}}">
           <i class="fas fa-fw fa-table"></i>
           <span>Attendances</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <!-- Groups ( Teacher/Mentor ) -->
+      <li class="nav-item {{ Request::segment(1) === 'groups' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('groups.index')}}">
+          <i class="fas fa-users"></i>
+          <span>Groups</span></a>
+      </li>
+      
+      <!-- Inquires ( Reception ) -->
+      <li class="nav-item {{ Request::segment(1) === 'inquires' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('inquires.index')}}">
+          <i class="fas fa-user-tag"></i>
+          <span>Inquires</span></a>
+      </li>
+
+      <!-- Students ( Reception ) -->
+      <li class="nav-item {{ Request::segment(1) === 'students' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('students.index')}}">
+          <i class="fas fa-user-check"></i>
+          <span>Students</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+        Course
+      </div>
+      <!-- Course ( Reception ) -->
+      <li class="nav-item {{ Request::segment(1) === 'courses' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('courses.index')}}">
+          <i class="fab fa-discourse"></i>
+          <span>Courses</span></a>
+      </li>
+
+      <!-- Batch ( Reeception ) -->
+      <li class="nav-item {{ Request::segment(1) === 'batches' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('batches.index')}}">
+          <i class="fas fa-swatchbook"></i>
+          <span>Batches</span></a>
+      </li>
+
+      <!-- Groups (Teacher|Mentor) -->
+      <li class="nav-item {{ Request::segment(1) === 'creategroup' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('students.group.create')}}">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-users-cog"></i>
           <span>Create Group</span></a>
       </li>
+
+      <!-- Subjects ( Teacher|Mentor ) -->
+      <li class="nav-item {{ Request::segment(1) === 'subjects' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('subjects.index')}}">
+          <i class="far fa-file-alt"></i>
+          <span>Subjects</span></a>
+      </li>
+
+
+
+      <!-- Units (Teacher|Mentor) -->
+      <li class="nav-item {{ Request::segment(1) === 'units' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('units.index')}}">
+          <i class="fas fa-star"></i>
+          <span> Units</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+        Profit
+      </div>
+
+      <!-- Income ( Admin ) -->
+      <li class="nav-item {{ Request::segment(1) === 'incomes' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('incomes.index')}}">
+          <i class="fas fa-dollar-sign"></i>
+          <span>Incomes</span></a>
+      </li>
+
+       <!-- Expense ( Admin ) -->
+       <li class="nav-item {{ Request::segment(1) === 'expenses' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('expenses.index')}}">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Expenses</span></a>
+      </li>
+      
+
+      <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+        Co-worker
+      </div>
+
+      <!-- Staff ( Admin ) -->
+      <li class="nav-item {{ Request::segment(1) === 'staffs' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('staffs.index')}}">
+          <i class="fas fa-user-tie"></i>
+          <span>Staffs</span></a>
+      </li>    
       
       @endrole
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('groups.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Groups</span></a>
-      </li>
+      
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

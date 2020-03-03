@@ -2,13 +2,22 @@
 
 @section('content')
  
+<style type="text/css">
+      .custom{
+            border-radius: 70px 0px;
+            border-color: red gray;
+            border-style: dashed;
+            
+      }
+</style>
+
  <div class="row">
   <div class="col-12">
-   <a href="{{route('batches.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angledrawback"></i> Go Back</a>
+   <a href="{{route('batches.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i>Go Back</a>
     
   </div>
  </div>
-<div class="card col-md-8 offset-2 shadow">
+<div class="card col-md-8 shadow offset-2 custom">
   <div class="row">
     <div class="col-md-12">
       <div class="card-body">

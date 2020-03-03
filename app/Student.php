@@ -31,7 +31,10 @@ class Student extends Model
     return $this->belongsToMany('App\Unit')
       ->withPivot('symbol')
       ->withTimestamps();
+
   }
+
+
   public function attendance()
   {
     return $this->hasOne('App\Attendance');

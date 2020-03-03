@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Unit;
+use App\Course;
+use App\City;
+use App\Batch;
+
 use Barryvdh\DomPDF\Facade as PDF;
 
 class GradingController extends Controller
@@ -19,7 +23,7 @@ class GradingController extends Controller
   public function form($id)
   {
       $student = Student::findOrFail($id);
-      $units = Unit::all();
+      $units = Unit::where('course_id', $student->batch->course['id'])->get();
       return view('grading.form',compact('student','units'));
   }
     /**
@@ -30,7 +34,9 @@ class GradingController extends Controller
 
     public function index()
     {
-        //
+      $cities = City::all();
+      $courses = Course::all();
+      return view('grading.course',compact('cities', 'courses'));
     }
 
     /**
@@ -51,7 +57,11 @@ class GradingController extends Controller
      */
     public function store(Request $request)
     {
-      $units = Unit::all();
+      $requeststudent = request('student_id');
+      $student = Student::find($requeststudent);
+      $units = Unit::where('course_id', $student->batch->course['id'])->get();
+
+      // $units = Unit::all();
       foreach ($units as $row) {
         $request->validate([
           "unit".$row->id => 'required',
@@ -81,7 +91,7 @@ class GradingController extends Controller
             $symbol = 'A';
             break;
         }
-        $student->units()->attach($row->id,['symbol' => $symbol]);
+        $student->units()->attach($row->id,['symbol' => $mark]);
       }
 
       return redirect()->route('groups.index');
@@ -95,7 +105,12 @@ class GradingController extends Controller
      */
     public function show($id)
     {
-        //
+      $course = Course::find($id);
+      $coursename = $course->name;
+      // dd($coursename);
+      $batches = Batch::where('course_id',$id)->get();
+      return view('grading.batch',compact('batches', 'coursename'));
+
     }
 
     /**

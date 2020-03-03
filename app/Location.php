@@ -15,4 +15,9 @@ class Location extends Model
     {
     	return $this->belongsTo('App\City');
     }
+
+    public function courses()
+  	{
+    	return $this->hasMany('App\Course');
+  	}
 }

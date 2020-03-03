@@ -13,5 +13,10 @@ class Group extends Model
     return $this->belongsToMany('App\Student')->withTimestamps();
   }
 
+  public function batch()
+  {
+    return $this->belongsTo('App\Batch');
+  }
+
   
 }
