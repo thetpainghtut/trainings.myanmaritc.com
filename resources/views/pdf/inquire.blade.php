@@ -192,8 +192,7 @@
 	</div>
 	<br>
 	<div class="remark">
-		<p> <i style="font-family:'Pyidaungsu'"> မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။ </i> </p>
-		
+		<img src="receive_mm.png" style="width: 100%; height: 30px;">
 	</div>
 	<br><br>
 	<div class="header">
