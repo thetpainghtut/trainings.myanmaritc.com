@@ -4,9 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Grading PDF</title>
     <style>
-        @import url('https://mmwebfonts.comquas.com/fonts/?font=padauk');
-
-        @import url('https://mmwebfonts.comquas.com/fonts/?font=mon3');
         *
         {
             margin: 0;
@@ -19,12 +16,7 @@
         }
         .mmfont
         {
-            font-family: 'padauk' !important;
-        }
-
-        .mmfontold
-        {
-            font-family:padauk,Yunghkio,Myanmar3,'Masterpiece Uni Sans'  , sans-serif !important;
+            font-family: 'Zawgyi_One';
         }
         
         .page-break 
@@ -319,7 +311,16 @@
             </div>
 
             <div class="content_rowsix" style="margin-top: 20px">
-                <img src="absence_mm.png" style="width: 100%;">
+                <h4 class="mmfont"> သင္တန္းစည္းကမ္းခ်က္မ်ား </h4>
+                <p style="font-size: 13px;">
+                    Myanmar IT Consulting <span class="mmfont"> သင္တန္းေက်ာင္း၏ ရည္႐ြယ္ခ်က္မွာ သင္တန္းတစ္ခုသာ တက္ေရာက္ၿပီး အလုပ္တန္း ဝင္ႏိုင္ေစရန္ ျဖစ္ပါသည္။ ထိုရည္႐ြယ္ခ်က္အတိုင္းလည္း သင္တန္းမွ တာဝန္ယူ သင္ၾကားေပးသလို ေက်ာင္းသားဘက္မွလည္း ႀကိဳးစားရန္လိုအပ္ပါသည္။ </span>
+                </p>
+
+                <ul style="font-size: 13px;">
+                    <li class="mmfont"> သင္တန္း ပ်က္ရက္ (၂) ရက္ထက္ မေက်ာ္ေစရန္ ဂ႐ုတစိုက္ တက္ေရာက္ရပါမည္။ </li>
+                    <li class="mmfont"> အေၾကာင္းအထူးရွိေသာေၾကာင့္ သင္တန္းပ်က္ကြက္ပါကလည္း ႀကိဳတင္ ဖုန္းဆက္ အေၾကာင္းၾကားရမည္။ </li>
+                    <li class="mmfont"> က်န္းမာေရး ၊ မိသားစု အေရးမွ လြဲမွ သင္တန္းပ်က္ရက္ ( ၂ ) ရက္ေက်ာ္ပါက Certificate ေပးအပ္မည္ မဟုတ္ပါ။ </li>
+                </ul>
                 
             </div>
             <div class="hrtrain">

@@ -3,35 +3,27 @@
 <head>
 	<title>Inquire Print</title>
 	<meta charset="UTF-8">
-	<link href="https://fonts.googleapis.com/css?family=Padauk&display=swap" rel="stylesheet">
-
 
 	<style>
-
-		@font-face 
-		{
-		  font-family:'Unicode';
-		  src: url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.woff') format('woff'), url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.ttf') format('ttf');
-		}
-
-		@font-face 
-		{
-		  font-family:'Pyidaungsu';
-		  src: url("{{asset('Pyidaungsu.ttf')}}");
-		}
 
 		*
   		{
   			margin: 0;
   			padding: 0;
   			font-style: italic;
-  			font-family: 'Unicode';
   		}
+
   		body
   		{
   			padding: 70px 70px;
   			margin-top: 20px;
   		}
+
+  		.mmfont
+  		{
+  			font-family: 'Zawgyi_One';
+  		}
+
 		.header_one
 		{
 			float: left;
@@ -100,12 +92,6 @@
 			width: 650px;
 		}
 
-
-		.mmfont
-		{
-			font-family: 'Unicode';
-		}
-
 		.time
 		{
 			float: left;
@@ -128,7 +114,7 @@
 
 	</style>
 </head>
-<body class="mmfont">
+<body>
 	<div class="header">
 		<h3 class="header_one">Myanmar IT Consulting</h3>
 		<h3 class="receive" style="color:#42c8f5;">Receive</h3>
@@ -192,7 +178,9 @@
 	</div>
 	<br>
 	<div class="remark">
-		<img src="receive_mm.png" style="width: 100%; height: 30px;">
+		<p class="mmfont">
+			မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။
+		</p>
 	</div>
 	<br><br>
 	<div class="header">
