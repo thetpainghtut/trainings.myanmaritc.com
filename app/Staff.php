@@ -16,12 +16,12 @@ class Staff extends Model
 
     public function teacher()
     {
-    	return $this->hasOne("App\Teacher");
+    	return $this->hasMany("App\Teacher");
     }
 
      public function mentor()
     {
-        return $this->hasOne("App\Mentor");
+        return $this->hasMany("App\Mentor");
     }
 
 

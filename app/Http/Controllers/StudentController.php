@@ -9,6 +9,9 @@ use App\Course;
 use App\Batch;
 use App\Group;
 use App\Inquire;
+use App\Education;
+use App\Township;
+use Illuminate\Support\Facades\Input;
 
 class StudentController extends Controller
 {
@@ -26,16 +29,18 @@ class StudentController extends Controller
       $courses = Course::all();
       $batches = Batch::all();
 
+      $bid = 0;
+
       if (request('batch')) {
         $bid = request('batch');
         $groups = Group::where('batch_id',$bid)->get();
         $students = Student::where('batch_id',$bid)->get();
 
-        return view('students.index',compact('students','courses','batches','groups'));
+        return view('students.index',compact('students','courses','batches','groups','bid'));
       }else{
         $students = Student::all();
         // Return 
-        return view('students.index',compact('students','courses','batches'));
+        return view('students.index',compact('students','courses','batches','bid'));
       }
     }
 
@@ -61,7 +66,9 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request)
+      //$redirect_back = redirect()->back()->getTargetUrl();
+
+      // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
       $request->validate([
@@ -84,7 +91,7 @@ class StudentController extends Controller
         "p2_phone" => 'required',
         "because" => 'required'
       ]);
-
+      $inquireno = request('inquireno');
       // Save Data
       $student = new Student;
       $student->inquire_no =request('inquireno');
@@ -112,11 +119,30 @@ class StudentController extends Controller
       $subjects = request('subjects');
       // Save student_subject
       $student->subjects()->attach($subjects);
+      return 'hello';
+      //return back();
+     // return back()->with(['status' => 'Victoria','inquireno'=>$inquireno]);
+      // return redirect()->route('frontend.student.register');
+     
+      //   $subjects = Subject::all();
+      //   $courses = Course::all();
+      //   $batches = Batch::all();
+      //   $educations = Education::all();
+      //   $townships = Township::all();
+      //   $inquire = Inquire::where('inquireno','=',$inquireno)->first();
 
-      // return
-      //return redirect()->route('frontend.index');
+       // return redirect($redirect_back)->withInput(Input::flash());
 
-     return redirect()->route('frontend.index')->with('status', 'Register Successfully'); 
+      
+      // if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()=='frontend.student.register')
+      // {
+        // echo "string";
+          // return redirect()->route('students');
+        // return redirect()->action('App\Http\Controllers\FrontendController@studentRegister');
+        // return back()->with('status','Register Successfully');
+        // return view('frontend.registerForm',compact('subjects','courses','batches','inquire','educations','townships','inquireno'))->with('status',"Successfully Add");
+      // }
+      
     }
 
     /**

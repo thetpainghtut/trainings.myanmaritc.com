@@ -48,8 +48,8 @@ class User extends Authenticatable
         return $this->hasOneThrough('App\Teacher','App\Staff');
       }
 
-    //   public function roles()
-    // {
-    //     return $this->belongsToMany('App\Models\Role');
-    // }
+      public function staffs()
+      {
+        return $this->hasOne('App\Staff')->where('status','=','1');
+      }
 }

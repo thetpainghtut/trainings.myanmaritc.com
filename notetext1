@@ -1,0 +1,18 @@
+ @php
+                if($row->attendance){
+                  $rowcount = $row->attendance->status;
+                  $studentcount  = $row->id;
+                  if($rowcount == 1){
+                    $result = DB::table('attendances')->where('student_id',$studentcount)->where('status',$rowcount)->get();
+                    $totalcount = count($result);
+                  }
+                  else{
+                    $totalcount =0;
+                  }
+                }else{
+                  $totalcount = 0;
+                }
+                @endphp
+                {{$studentcount}}
+                {{$rowcount}}
+              {{$totalcount}}

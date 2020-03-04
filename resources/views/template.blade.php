@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  
   <title> Myanmar IT Consulting </title>
 
   <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
@@ -56,11 +57,7 @@
             <a class="nav-link" href="{{route('frontend.contact')}}">Contact</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="{{route('frontend.student.register')}}" method="POST">
-          @csrf
-          <input class="form-control mr-sm-1" type="number" name="inquire_no" placeholder="Inquire no" aria-label="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+       
       </div>
     </div>
   </nav>
@@ -174,7 +171,8 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('mmitui/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('mmitui/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
+  
+  @yield('script')
 </body>
 
 </html>

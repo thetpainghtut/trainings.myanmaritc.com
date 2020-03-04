@@ -224,10 +224,14 @@
           <input type="hidden" name="id" id="fullinstall_id">
           <input type="hidden" name="batch_id" id="batch_id">
           <div class="modal-body">
+            @php
+            $date = date('Y/m/d');
+            @endphp
+           
             <div class="row my-3">
               <label class="col-md-4 offset-md-1" for="installment">Installment Date</label>
               <div class="col-md-7">
-                <input type="date" class="form-control" id="installment" name="installment_date">
+                <input type="text" class="form-control" id="installment" name="installment_date" value="{{$date}}" readonly="readonly">
               </div>
             </div>
 
@@ -240,7 +244,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-secondary">Save</button>
+            <button type="submit" class="btn btn-secondary">OK</button>
             
           </div>
         </form>
@@ -298,10 +302,10 @@
       var fees = $(this).data('fees');
       var install_amount = $(this).data('amount');
       var batch_id = $(this).data('batchid');
-      console.log(id,fees,install_amount,batch_id);
+      // console.log(id,fees,install_amount,batch_id);
 
       var need_amoumt = fees - install_amount;
-      console.log(need_amoumt);
+      // console.log(need_amoumt);
 
       $('#fullinstall_id').val(id);
       $('#full_amount').val(need_amoumt);

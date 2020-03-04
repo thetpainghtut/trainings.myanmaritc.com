@@ -51,7 +51,7 @@
                     
                    <form method="post" action="{{route('status_change',$staff_user->staff->id)}}" class="d-inline-block">
                       @csrf
-                      @method('PUT')
+                      
                       <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to Delete?')">
                           <i class="fas fa-trash"></i>
                       </button>
@@ -111,7 +111,6 @@
                     <a href="{{route('staffs.show',':user_id')}}" class='btn btn-info'><i class="fas fa-info"></i></a>
 
 
-                    <a href="{{route('staffs.edit',':users_id')}}" class='btn btn-warning'><i class="fas fa-edit"></i></a>
                     
 
                     <form method="post" action="{{route('status_change',':id')}}" class="d-inline-block">

@@ -4,7 +4,10 @@
  
  <div class="row mb-3">
   <div class="col-md-10 offset-1">
-   <a href="{{route('dashboard')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angledrawback"></i> Go Back</a>
+  @if(Auth::user()->getRoleNames()[0]=="Admin")
+    <a href="{{route('staffs.index')}}" class="btn btn-info d-inline-block float-right"><i class="fas fa-angle-double-left"></i> Go Back</a>
+
+  @endif
          @if($errors->has('password'))
               <span class="text-danger">{{$errors->first('password')}}</span>
           @elseif(session('message'))
@@ -22,7 +25,7 @@
 
           <div class="col-md-4 offset-1">
             <img src="{{$user->staff->photo}}" class="img-fluid " width="250px" height="300px">
-
+            @if(Auth::user() && $user->id==Auth::user()->id)
             <div class="row mt-4">
               <div class="col-md-12">
                 <a href="{{route('staffs.edit',Auth::user()->id)}}" class="btn btn-outline-warning btn-block">Edit Profile</a>
@@ -30,6 +33,7 @@
                 
               </div>
             </div>
+            @endif
 
           </div>
 
@@ -112,36 +116,44 @@
              <div class="row mt-2">
               <label class="col-sm-4">Course:</label>
               <div class="col-md-8">
-                  {{$user->staff->teacher->course->name}}
+               @foreach($user->staff->teacher as $teacher)
+                  {{$teacher->course->name}} ( {{$teacher->course->location->city->name}} ).<br>
+                @endforeach
               </div>
             </div>
 
-            <div class="row mt-2">
+
+             <div class="row mt-2">
               <label class="col-sm-4">Degree:</label>
               <div class="col-md-8">
-                  {!! $user->staff->teacher->degree !!}
+               
+                  {!!$user->staff->teacher[0]->degree!!}
+                
               </div>
             </div>
+            
 
              @elseif($role[0]=="Mentor")
             <div class="row mt-2">
               <label class="col-sm-4">Course:</label>
               <div class="col-md-8">
-                  {{$user->staff->mentor->course->name}}
+                @foreach($user->staff->mentor as $mentor)
+                  {{$mentor->course->name}} ( {{$mentor->course->location->city->name}} ).<br>
+                @endforeach
               </div>
             </div>
 
             <div class="row mt-2">
               <label class="col-sm-4">Degree:</label>
               <div class="col-md-8">
-                  {!! $user->staff->mentor->degree !!}
+                  {!! $user->staff->mentor[0]->degree !!}
               </div>
             </div>
 
             <div class="row mt-2">
               <label class="col-sm-4">Portfolios:</label>
               <div class="col-md-8">
-                  {{$user->staff->mentor->portfolio}}
+                  {{$user->staff->mentor[0]->portfolio}}
                   
               </div>
             </div>

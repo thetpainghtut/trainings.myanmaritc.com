@@ -13,26 +13,41 @@
 
 Route::get('/','FrontendController@index')->name('frontend.index');
 
-//honey
-Route::post('student_register','FrontendController@studentRegister')->name('frontend.student.register');
-
 Route::get('allcourses','FrontendController@courses')->name('frontend.courses');
 
 Route::get('csr','FrontendController@csr')->name('frontend.csr');
 
 Route::get('contact','FrontendController@contact')->name('frontend.contact');
 
+//Honey Htun
+Route::get('inquire_no','FrontendController@inquire_no')->name('frontend.inquire_no');
+
+//Yathaw
+Route::get('phpbootcamp', 'FrontendController@phpbootcamp_reg');
+Route::get('japanitbootcamp', 'FrontendController@japanitbootcamp_reg');
+Route::get('androidbootcamp', 'FrontendController@androidbootcamp_reg');
+Route::get('hradmin', 'FrontendController@hradmin_reg');
+Route::get('fundamental', 'FrontendController@fundamental_reg');
+Route::get('python', 'FrontendController@python_reg');
+Route::get('ios', 'FrontendController@ios_reg');
+Route::get('japanese', 'FrontendController@japanese_reg');
+
+Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
+
+Route::post('getBatches','InquireController@getBatches')->name('get.batches');
+//
+
 Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController');
 
-Route::resource('batches','BatchController')->middleware('role:Admin');
+Route::resource('batches','BatchController');
 
 Route::resource('mentors','MentorController');
 
-Route::resource('subjects','SubjectController')->middleware('role:Admin');
+Route::resource('subjects','SubjectController');
 
 Route::resource('roles','RoleController')->middleware('role:Admin');
 
@@ -62,7 +77,6 @@ Route::resource('grading','GradingController');
 
 Route::get('/export/{id}', 'ExportController@export')->name('export');
 
-
 // nyiyelin
 
 Route::resource('staffs','StaffController');
@@ -73,13 +87,11 @@ Route::post('all_staff','StaffController@all_staff')->name('all_staff');
 
 Route::post('status_change/{id}','StaffController@status_change')->name('status_change')->middleware('role:Admin');
 
-Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor')->middleware('role:Admin');
+Route::post('show_mentor','MentorController@show_mentor')->name('show_mentor');
 
 Route::post('show_batch','BatchController@show_batch')->name('show_batch');
 
-
 Route::resource('teacher','TeacherController')->middleware('role:Admin');
-
 
 //Income
 Route::resource('/incomes','IncomeController');
@@ -93,18 +105,17 @@ Route::resource('inquires','InquireController');
 Route::post('installment','InquireController@preinstallment')->name('installment.store');
 Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
 
-
-
 //Monthly Report
 Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');
 Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
-
-
 //Attendance
 Route::resource('/attendances','AttendanceController');
 Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+Route::get('/absence','AttendanceController@absence')->name('absence');
+Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
+Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');
 
 // Grade Print
 Route::resource('grades','GradingController');

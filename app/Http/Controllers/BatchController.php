@@ -51,7 +51,9 @@ class BatchController extends Controller
             "startdate" => 'required',
             "enddate" => 'required',
             "time" => 'required|max:100',
-            "course" => 'required'
+            "course" => 'required',
+            "teachers"=> 'sometimes|required',
+            "mentors" => 'sometimes|required'
         ]);
 
         $batch = new Batch;
@@ -97,13 +99,7 @@ class BatchController extends Controller
         //
         // dd($id);
         $batches = Batch::with('teachers')->with('mentors')->find($id);
-        // $batch = Batch::with('mentors')->find($id);
-        // dd($batches->teachers);
-        // foreach ($batches->teachers as $bt) {
-        //     dd($bt);
-        // }
-        // dd($batches);
-
+       // dd($batches->mentors);
         return view('batches.show',compact('batches'));
         
 
@@ -119,7 +115,7 @@ class BatchController extends Controller
     {
         $batch = Batch::with('teachers')->with('mentors')->find($id);
         $course_id=$batch->course_id;
-        $courses = Course::all();
+        $courses = Course::where('id',$course_id)->get();
         $teachers = Teacher::where('course_id',$course_id)->get();
         $mentors = Mentor::where('course_id',$course_id)->get();
         // dd($teachers);
@@ -162,21 +158,7 @@ class BatchController extends Controller
         // attach to pivot
         $batch->teachers()->attach($teachers);
         $batch->mentors()->attach($mentors);
-        // for($i=0; $i < count($teachers); $i++)
-        // {
-        //     // dd();
-
-        //     for ($j=0; $j < count($mentors) ; $j++) 
-        //     { 
-        //         $batch->teachers()->detach($teachers[$i], ['mentor_id' => $mentors[$j]]);
-        //         $batch->teachers()->attach($teachers[$i], ['mentor_id' => $mentors[$j]]);
-        //     }
-
-            
-        // }
        
-
-
 
         return redirect()->route('batches.index');
     }
@@ -200,14 +182,7 @@ class BatchController extends Controller
         // dd($request);
         $cid = request('id');
         $batches = Batch::where('course_id',$cid)->get();
+
         return $batches;
     }
-
-
-    // public function show_batch(Request $request)
-    // {
-    //     $id = request('id');
-    //     $batches = Batch::with('teachers')->find($id);
-    //     return $batches;
-    // }
 }

@@ -9,7 +9,8 @@ use App\Staff;
 use App\User;
 use App\Course;
 use App\Teacher;
-
+use App\Mentor;
+use Auth;
 use DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -34,9 +35,16 @@ class StaffController extends Controller
         //
         $roles=Role::all();
         $user = User::role('Mentor')->with('staff')->get();
-        $role_name = "Mentor";
+        $u_id=Auth::user()->id;
+        // if($roles->name="Admin")
+        // {
+        
+            $role_name = "Mentor";
        
-        return view('staff.index',compact('roles','user','role_name'));
+            return view('staff.index',compact('roles','user','role_name'));
+        // }
+        //     return redirect()->route('dashboard');
+        
     }
 
     /**
@@ -208,7 +216,7 @@ class StaffController extends Controller
 
         $nrc_num=request('nrc');
         // validate nrc format
-        if(preg_match("/^[1-9]{1,2}\/((A|B|D|G|H|K|L|M|N|P|R|S|T|U|W|Y|Z){1}[a-z]{0,2}){3}\b(\(N\))[0-9]{6}$/",$nrc_num))
+        if(preg_match("/^[1-9]{1,2}\/(([A-Z]|[a-z]){1}([A-Z]|[a-z]){0,2}){3}\b((\(N\))|(\(Naing\))|(\(NAING\)))[0-9]{6}$/",$nrc_num))
         {
             // catch photo
             if($request->hasfile('newphoto'))
@@ -247,36 +255,65 @@ class StaffController extends Controller
             $staff->save();
 
 
+            // update teacher start
             if(request('role')=="Teacher")
 
             {
                 $staff_id=$staff->id;
                 $role=request('role');
-                $teacher = Teacher::where('staff_id',$staff_id)->first();
-                $teacher->course_id=request('course_id');
-                $teacher->degree=request('degree');
-                $teacher->save();
+                $course_id = request('course_id');
+                $teachers = Teacher::where('staff_id',$staff_id)->get();
+
+                foreach ($teachers as $teacher_delete) {
+                $teacher_delete->delete();
+                }
+
+                foreach ($course_id as $course) {
+
+                    $teacher=new Teacher;
+                    $teacher->staff_id=$staff_id;
+                    $teacher->course_id=$course;
+                    $teacher->degree=request('degree');
+                    $teacher->save();
+
+                }
+               
                 return redirect()->route('dashboard');
             }
+            // update teacher end
 
+            // update mentor start
             elseif ( request('role')=="Mentor") {
                 $staff_id=$staff->id;
                 $role=request('role');
-                $mentor = Mentor::where('staff_id',$staff_id)->first();
-                $mentor->course_id=request('course_id');
-                $mentor->portfolio=request('portfolio');
-                $mentor->degree=request('degree');
-                return redirect()->route('dashboard');
+                $course_id = request('course_id');
+                $mentors = Mentor::where('staff_id',$staff_id)->get();
+
+                foreach ($mentors as $mentor_delete) {
+                    $mentor_delete->delete();
+                }
+                foreach ($course_id as $course) {
+                    $mentor=new Mentor;
+                    $mentor->staff_id=$staff_id;
+                    $mentor->course_id=$course;
+                    $mentor->portfolio=request('portfolio');
+                    $mentor->degree=request('degree');
+                    $mentor->save();
+
+                 }
+                    return redirect()->route('dashboard');
+
 
             }
+            // update mentor end
+
             else{
-                $user->assignRole(request('role'));
+                // $user->assignRole(request('role'));
                 return redirect()->route('staffs.index');
 
             }
-            return redirect()->route('staffs.index');
-
-        }   
+            
+        }
         else{
             return back()->with('nrc_error','Nrc Format is not correct!!');
 
@@ -306,8 +343,22 @@ class StaffController extends Controller
     public function status_change($id)
     {
         $leave_date=date('Y-m-d');
-        // dd($leave_date);
         $staff = Staff::find($id);
+        $user = $staff->user;
+        // $u_role=$user->getRoleNames();
+        // dd($user);
+        // $u_role->delete();
+
+        
+        // $u_role = $user->roles;
+        // dd($u_role);
+        // $user->role()->detach();
+        // $user->getStoredRole($u_role);
+        // dd($role);
+        
+
+
+
         $staff->leavedate=$leave_date;
         $staff->status=true;
         $staff->save();

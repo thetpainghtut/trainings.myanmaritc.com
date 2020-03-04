@@ -1,0 +1,30 @@
+<tbody>
+             @php
+              $i=1;
+             @endphp
+             
+             @foreach($students as $key=>$row)
+              <tr>
+                
+                <td rowspan="2">{{$i++}}</td>
+              
+                 @php
+                    $ccc = $row->attendance()->where('student_id',$row->id)->where('status','=','1')->get();
+                    $totalcount = count($ccc);
+                    foreach($ccc as $c){
+                    $ccs = $c->student->namee;
+                    
+                  }
+
+                 @endphp
+                 
+                <td rowspan="2">{{$ccs}}<p>{{$totalcount}}</p></td>
+               
+              @foreach($ccc as $cdate)
+                <td colspan="2">{{$cdate->date}}</td>
+                @endforeach
+               <td>Print</td>
+              </tr>
+              @endforeach 
+             
+            </tbody>

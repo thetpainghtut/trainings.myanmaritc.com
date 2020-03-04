@@ -9,7 +9,7 @@
         <select name="course" class="form-control" id="course">
           <option disabled selected="">Please Select Course</option>
           @foreach($courses as $row)
-          <option value="{{$row->id}}">{{$row->name}}</option>
+          <option value="{{$row->id}}">{{$row->name}} ( {{$row->location->city->name}} )</option>
           @endforeach
         </select>
       </div>
@@ -23,11 +23,17 @@
       </div>
 
       <div class="form-group col-md-2 mt-2">
-        <button type="submit" class="btn btn-primary mt-4" id="search">Search</button>
+        <button type="submit" class="btn btn-primary mt-4" id="batchsearch">Search</button>
       </div>
       
     </div>
   </form>
+
+<div id="over">
+  <form action="{{route('attendances.store')}}" method="post" >
+    @csrf
+    @if($attcount==0)
+      @if($status!=0)
    <div class="form-row">
       <div class="form-group col-md-4">
         <label>To Date:</label>
@@ -43,27 +49,19 @@
         </div>
       </div>
     </div>
-<div id="over">
-  <form action="{{route('attendances.store')}}" method="post" >
-    @csrf
-    @if($attcount==0)
-
+    @endif
  
-      @isset($groups)
-      @if(count($groups) > 0)
+      @isset($students)
+      @if(count($students) > 0)
       
-            @foreach($groups as $group)
-            <div class="row">
-              <div class="col-md-12 bg-dark text-white">
-                <p id="g">{{$group->name}} Group</p>
-              </div>
-            </div>
+            
+            
             @php
               $i = 1;
               $checked = true;
             @endphp
-            <p id="aa"></p>
-            @foreach($group->students as $row)
+           
+           @foreach($students as $row)
 
             <div class="row mt-2">
             
@@ -77,30 +75,33 @@
               <div class="col-md-2">
 
                 @php
-                $rowcount = $row->attendance->status;
-                if($rowcount == 1){
-                  $result = DB::table('attendances')->where('status',1)->get();
-                  $totalcount = count($result);
-                }
-                else{
-                  $totalcount =0;
+                
+                  $rowcount = $row->attendance()->where('status', '=', '1')->get();
+                  
+                if($rowcount){
+                 $totalcount = count($rowcount);
+               }else{
+                $totalcount = 0;
                 }
                 @endphp
-              
                 {{$totalcount}}
+               
+                
+              
+                
               </div>
               <div class="col-md-2">
                 <input type="checkbox" class="check{{$row->id}}" name="check{{$row->id}}" checked="" data-remark="remark{{$row->id}}">
               </div>
              
               <div class="col-md-3 mb-2">
-                <input type="text" name="remark[]" class="form-control remark{{$row->id}}" style="display: none;">
+                <input type="text" name="remark[]" class="form-control remark{{$row->id}}" style="display: none;" id="remark">
               </div>
            
             </div>
             @endforeach
               
-            @endforeach
+           
          
       @endif
       
@@ -120,6 +121,7 @@
 
 
   <script type="text/javascript">
+   
     $('#over').show();
     // $('input[name="remark"]').hide();
     $('#over').on('click','input[type="checkbox"]',function(){
@@ -129,6 +131,8 @@
       $(this).removeAttr('checked');
       if($(this).is(':checked')){
           $('.'+remark).hide();
+          $("#remark").val('');
+
       }else{
           $('.'+remark).show();
       }

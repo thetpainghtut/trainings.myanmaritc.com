@@ -23,29 +23,22 @@ class AttendanceController extends Controller
         //
         $courses = Course::all();
         $batches = Batch::all();
+        $attend = Attendance::all();
         $todayDate = date("Y-m-d");
 
         $attendancenow = Attendance::where('date',$todayDate)->get();
         $bid = request('batch');
-        $groups = Group::where('batch_id',$bid)->get();
+        $studentss = Student::where('batch_id',$bid)->get();
 
         $studentall=[];
-        foreach ($groups as $key => $value) {
+        foreach ($studentss as $key => $value) {
 
-            $studentall[] = DB::table('group_student')->where('group_student.group_id',$value->id)->get();
+            $studentall[] = Attendance::where('student_id',$value->id)->where('date',$todayDate)->get();
         }
-
-        $s = [];
-        foreach ($studentall as $v) 
-        {
-         foreach ($v as $key => $value1) 
-         {
-            $s[] = Attendance::where('attendances.student_id',$value1->student_id)->where('attendances.date',$todayDate)->get();
-         }
-        }
+        
 
         $v=[];
-        foreach ($s as $tcount) {
+        foreach ($studentall as $tcount) {
             $v = $tcount;
         }
         $attcount = count($v);
@@ -54,17 +47,19 @@ class AttendanceController extends Controller
       // dd($attendancenow);
         $countabsence = Attendance::where('status',1)->get();
         $aa = count($countabsence);
+
         //dd($countabsence);
         if (request('batch')) {
            
-            
+            $status = 1;
             $students = Student::where('batch_id',$bid)->get();
 
-            return view('attendances.create',compact('students','courses','batches','groups','todayDate','attendancenow','countabsence','attcount'));
+            return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status'));
         }
         else{
         // Return 
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount'));
+            $status = 0;
+            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status'));
         }
       
     
@@ -78,7 +73,7 @@ class AttendanceController extends Controller
     public function create()
     {
         //
-
+       
     }
 
     /**
@@ -197,5 +192,71 @@ class AttendanceController extends Controller
 
       return response()->json($search);
     
+    }
+
+    public function absence(Request $request)
+    {
+        $courses = Course::all();
+        $batches = Batch::all();
+        $requestbatch = request('batch');
+        if($requestbatch){
+            $status = 1;
+           
+            $students = Student::where('batch_id',$requestbatch)
+                        ->whereHas('attendance',function($q1){
+                            return $q1->where('status','=','1');
+                        })
+                        ->get();             
+
+
+
+
+            return view('attendances.absencelist',compact('courses','batches','status','students','requestbatch'));
+        }else{
+            $status = 0;
+            return view('attendances.absencelist',compact('courses','batches','status'));
+        }
+    }
+
+
+    public function absencesearch(Request $request)
+    {
+        $startdate = request('startdate');
+        $enddate = request('enddate');
+        $batch = request('batch_id');
+        $students = Student::where('batch_id',$batch)
+                        ->whereHas('attendance',function( $q1 ) use ($startdate , $enddate) {
+                            $q1->whereBetween('date', [$startdate,$enddate])->where('status','=','1');
+                        })
+                        ->get(); 
+        //dd($students);
+
+        $stucount = count($students);
+         for($i=0;$i<$stucount;$i++){
+
+        $scount[] = $students[$i]->attendance;
+    }
+        
+        
+       /* $su = Attendance::whereBetween('date', [$startdate,$enddate])->where('status','=','1')->get();
+        foreach($su as $object)
+        {
+            //$arrays[] = $object->toArray();
+            $arrays[] = $object->student_id;
+        }
+
+        $s = Student::whereIn('id',$arrays)->get();*/
+        if(count($students)>0){
+        
+        return response()->json(array(
+                    'success' => true,
+                    'students' => $students,
+                    'attendances' => $scount
+                )); 
+    }else{
+        return response()->json(array('error'=>false));
+    }
+       
+
     }
 }
