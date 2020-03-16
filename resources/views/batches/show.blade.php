@@ -99,6 +99,7 @@
       			<label>Teacher</label>
       		</div>
       		<div class="col-md-6">
+
       			@foreach($batches->teachers as $bat)
       				{{--@php
       					$value[] = $bat->staff->user->id;
@@ -106,9 +107,16 @@
       				@endphp--}}
 
       				@if ($bat->staff->user->id)
-      				<h6 class="d-inline-block">{{$bat->staff->user->name}}, </h6>
+      				<h6 class="d-inline-block">
+                              {{ $loop->first ? '' : ', ' }}
+                              {{$bat->staff->user->name}} </h6>
+                              
       				@endif
+
 		      	@endforeach
+
+
+
       			
       		</div>
       	</div>
@@ -121,7 +129,7 @@
       		<div class="col-md-6">
       			@foreach($batches->mentors as $bat)
       				
-      				<h6 class="d-inline-block">{{$bat->staff->user->name}} , </h6>
+      				<h6 class="d-inline-block">{{$bat->staff->user->name}}  </h6>
 		      		
 		      	@endforeach
       			

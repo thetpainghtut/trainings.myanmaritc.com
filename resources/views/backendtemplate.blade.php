@@ -162,7 +162,9 @@
       <div class="sidebar-heading">
         Profit
       </div>
+      @endrole
 
+      @role('Admin|HR')
       <!-- Income ( Admin ) -->
       <li class="nav-item {{ Request::segment(1) === 'incomes' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('incomes.index')}}">
@@ -176,10 +178,13 @@
           <i class="fas fa-file-invoice-dollar"></i>
           <span>Expenses</span></a>
       </li>
+      @endrole
       
 
-      <hr class="sidebar-divider">
 
+      @role('Admin')
+      <hr class="sidebar-divider">
+      
       <div class="sidebar-heading">
         Co-worker
       </div>
