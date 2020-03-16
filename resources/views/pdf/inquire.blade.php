@@ -2,12 +2,11 @@
 <html>
 <head>
 	<title>Inquire Print</title>
-	<meta charset="UTF-8">
-	<link href="https://fonts.googleapis.com/css?family=Padauk&display=swap" rel="stylesheet">
-
-
+	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<meta charset="utf-8">
 	<style>
 
+		@import url('https://mmwebfonts.comquas.com/fonts/?font=padauk');
 		@font-face 
 		{
 		  font-family:'Unicode';
@@ -19,6 +18,11 @@
 		  font-family:'Pyidaungsu';
 		  src: url("{{asset('Pyidaungsu.ttf')}}");
 		}
+
+		.mmfont
+  		{
+  			font-family: 'padauk' !important;
+  		}
 
 		*
   		{
@@ -98,12 +102,6 @@
 		.table
 		{
 			width: 650px;
-		}
-
-
-		.mmfont
-		{
-			font-family: 'Unicode';
 		}
 
 		.time
@@ -192,7 +190,7 @@
 	</div>
 	<br>
 	<div class="remark">
-		<p> <i style="font-family:'Pyidaungsu'"> မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။ </i> </p>
+		<p class="mmfont">သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။ </p>
 		
 	</div>
 	<br><br>
