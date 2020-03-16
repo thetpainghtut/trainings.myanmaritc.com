@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Grading PDF</title>
     <style>
-
         *
         {
             margin: 0;
@@ -14,6 +13,10 @@
         {
 
             padding: 20px 50px;
+        }
+        .mmfont
+        {
+            font-family: 'Zawgyi_One';
         }
         
         .page-break 
@@ -26,8 +29,8 @@
         }
         .float_left
         {
-            margin-top: 40px;
-            height: 150px;
+            margin-top: 25px;
+            height: 120px;
         }
         .float_right
         {
@@ -79,7 +82,7 @@
         {
             position: relative;  
             border: none; 
-            height: 3px; 
+            height: 1px; 
             width: 135px;
             background: black; 
             
@@ -88,7 +91,9 @@
         .column {
           float: left;
           width: 160px;
-          padding: 35px;
+          padding-top: 10px;
+          padding-left: 35px;
+          padding-right: 35px;
            /* Should be removed. Only for demonstration */
         }
         .checkbox {
@@ -131,7 +136,7 @@
           float: left;
           width: 200px;
           padding: 0px;
-          margin-top: 40px;
+          margin-top: 20px;
            /* Should be removed. Only for demonstration */
         }
 
@@ -139,11 +144,11 @@
             float: right;
             width: 200px;
             padding: 0px;
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
         .hrtrain .trainp{
-            margin-top: 5px;
+            margin-top: 2px;
         }
 
         .hrtrain .certip{
@@ -227,7 +232,7 @@
                 </p>
             </div>
 
-            <div class="content_rowthree" style="margin-top: 30px;">
+            <div class="content_rowthree" style="margin-top: 20px;">
                <h3>Type of Absence</h3>
                <hr class="type">
 
@@ -306,12 +311,16 @@
             </div>
 
             <div class="content_rowsix" style="margin-top: 20px">
-                <h3>သင်တန်းစည်းကမ်းချက်များ</h3>
-                <p >Myanmar IT Consulting သင်တန်းေကျာင်း၏ ရည်ရွယ ချက်မ ာ C သင်တန်းတစ်ခ သာ တက်ေရာက်Fပီး အလEပ်တန်းဝင်L ငိE ေစရန် ြဖစ်ပါသည်။ ထိ ရည်ရွယ ချက်အတိ ငး ် လည်း သင်တန်းမC တာဝန်ယS သင်Tကားေပးသလေကျာင်းသားဘက်မ လည်း VကိWးစားရန်လ အပ်ပါသည်။</p>
-                <li>သင်တန်း ပျက်ရက် (၂) ရက်ထက် မေကျာ်ေစရန် ဂ\Eတစိ က် တက်ေရာက်ရပါမည်။</li>
-                <li>အေTကာင်းအထSး]CိေသာေTကာင ် ့ သင်တန်းပျက်က ကပါကလည်း VကိWတင် ဖEန း ် ဆက် အေTကာင်းTကားရမည်။</li>
-                <li>ကျန်းမာေရး ၊ မိသားစE အေရးမC လွ မC သင်တန်းပျက်ရက် ( ၂ ) ရက်ေကျာ်ပါက Certificate ေပးအပ်မညမဟEတ ပ
-                ါ။</li>
+                <h4 class="mmfont"> သင္တန္းစည္းကမ္းခ်က္မ်ား </h4>
+                <p style="font-size: 13px;">
+                    Myanmar IT Consulting <span class="mmfont"> သင္တန္းေက်ာင္း၏ ရည္႐ြယ္ခ်က္မွာ သင္တန္းတစ္ခုသာ တက္ေရာက္ၿပီး အလုပ္တန္း ဝင္ႏိုင္ေစရန္ ျဖစ္ပါသည္။ ထိုရည္႐ြယ္ခ်က္အတိုင္းလည္း သင္တန္းမွ တာဝန္ယူ သင္ၾကားေပးသလို ေက်ာင္းသားဘက္မွလည္း ႀကိဳးစားရန္လိုအပ္ပါသည္။ </span>
+                </p>
+
+                <ul style="font-size: 13px;">
+                    <li class="mmfont"> သင္တန္း ပ်က္ရက္ (၂) ရက္ထက္ မေက်ာ္ေစရန္ ဂ႐ုတစိုက္ တက္ေရာက္ရပါမည္။ </li>
+                    <li class="mmfont"> အေၾကာင္းအထူးရွိေသာေၾကာင့္ သင္တန္းပ်က္ကြက္ပါကလည္း ႀကိဳတင္ ဖုန္းဆက္ အေၾကာင္းၾကားရမည္။ </li>
+                    <li class="mmfont"> က်န္းမာေရး ၊ မိသားစု အေရးမွ လြဲမွ သင္တန္းပ်က္ရက္ ( ၂ ) ရက္ေက်ာ္ပါက Certificate ေပးအပ္မည္ မဟုတ္ပါ။ </li>
+                </ul>
                 
             </div>
             <div class="hrtrain">
@@ -342,7 +351,7 @@
                          <hr class="employeedate">
                     </div>
 
-                    <div class="hremployee1" style="margin-top: 10px;">
+                    <div class="hremployee1" style="margin-top: 1px;">
                         <span class="employee1">Employee Name</span>
                         <span class="name1">Employee Signature</span>
                         <span class="employeedate1">Date</span>

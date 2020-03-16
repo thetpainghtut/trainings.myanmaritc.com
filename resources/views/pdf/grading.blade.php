@@ -2,33 +2,18 @@
 <html lang="en">
 <head>
 
-  	{{-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> --}}
 	<meta charset="utf-8">
-  	{{-- <link href="https://fonts.googleapis.com/css?family=Padauk&display=swap" rel="stylesheet"> --}}
 
   	<title>Grading PDF</title>
   	<style>
 
-  		@import url('https://mmwebfonts.comquas.com/fonts/?font=padauk');
-
-  		@import url('https://mmwebfonts.comquas.com/fonts/?font=mon3');
-		
   		*
   		{
   			margin: 0;
   			padding: 0;
+  			font-family: 'Zawgyi_One';
   		}
 
-  		.mmfont
-  		{
-  			font-family: 'padauk' !important;
-  		}
-
-  		.mmfontold
-  		{
-  			font-family:padauk,Yunghkio,Myanmar3,'Masterpiece Uni Sans'  , sans-serif !important;
-  		}
-  		
 
   		body
   		{
@@ -106,11 +91,13 @@
 				<p style="margin: 10px 0;">
 					<span style="width: 150px; display: inline-block;"> Student ID </span>
 					<span> : </span>
-					<span> B14-0000{{ $student->id }} </span>
+					<span> ST-0000{{ $student->id }} </span>
 				</p>
 
 				<p style="margin: 10px 0;">
-					<span style="width: 150px; display: inline-block;"> Student Name </span>
+					<span style="width: 150px; display: inline-block;"> 
+						Student Name : 
+					</span>
 					<span> : </span>
 					<span> {{ $student->namee }} </span>
 				</p>

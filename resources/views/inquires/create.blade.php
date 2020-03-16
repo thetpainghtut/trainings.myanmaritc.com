@@ -54,11 +54,11 @@
    <label for="inputGender" class="col-sm-2 col-form-label">Camp</label>
     <div class="col-sm-10">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="inlineCamp1" value="yes" checked="checked" name="camp">
+        <input class="form-check-input" type="radio" id="inlineCamp1" value="yes" name="camp">
         <label class="form-check-label" for="inlineCamp1">Yes</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="camp" id="inlineCamp2" value="no">
+        <input class="form-check-input" type="radio" name="camp" id="inlineCamp2" value="no" checked="checked">
         <label class="form-check-label" for="inlineCamp2">No</label>
       </div>
     </div>

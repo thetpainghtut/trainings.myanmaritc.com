@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Inquire Print</title>
+
 	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 	<meta charset="utf-8">
 	<style>
@@ -29,13 +30,19 @@
   			margin: 0;
   			padding: 0;
   			font-style: italic;
-  			font-family: 'Unicode';
   		}
+
   		body
   		{
   			padding: 70px 70px;
   			margin-top: 20px;
   		}
+
+  		.mmfont
+  		{
+  			font-family: 'Zawgyi_One';
+  		}
+
 		.header_one
 		{
 			float: left;
@@ -126,7 +133,7 @@
 
 	</style>
 </head>
-<body class="mmfont">
+<body>
 	<div class="header">
 		<h3 class="header_one">Myanmar IT Consulting</h3>
 		<h3 class="receive" style="color:#42c8f5;">Receive</h3>
@@ -190,8 +197,10 @@
 	</div>
 	<br>
 	<div class="remark">
-		<p class="mmfont">သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။ </p>
-		
+
+		<p class="mmfont">
+			မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။
+		</p>
 	</div>
 	<br><br>
 	<div class="header">
