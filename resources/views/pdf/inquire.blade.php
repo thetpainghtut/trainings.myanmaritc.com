@@ -2,9 +2,28 @@
 <html>
 <head>
 	<title>Inquire Print</title>
-	<meta charset="UTF-8">
 
+	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<meta charset="utf-8">
 	<style>
+
+		@import url('https://mmwebfonts.comquas.com/fonts/?font=padauk');
+		@font-face 
+		{
+		  font-family:'Unicode';
+		  src: url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.woff') format('woff'), url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.ttf') format('ttf');
+		}
+
+		@font-face 
+		{
+		  font-family:'Pyidaungsu';
+		  src: url("{{asset('Pyidaungsu.ttf')}}");
+		}
+
+		.mmfont
+  		{
+  			font-family: 'padauk' !important;
+  		}
 
 		*
   		{
@@ -178,6 +197,7 @@
 	</div>
 	<br>
 	<div class="remark">
+
 		<p class="mmfont">
 			မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။
 		</p>
