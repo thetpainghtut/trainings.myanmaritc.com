@@ -155,9 +155,9 @@
           <span> Units</span></a>
       </li>
       @endrole
-      
-       @role('Admin')
-      <hr class="sidebar-divider">
+
+      @role('HR|Admin')
+        <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
         Profit
@@ -176,6 +176,10 @@
           <i class="fas fa-file-invoice-dollar"></i>
           <span>Expenses</span></a>
       </li>
+      @endrole
+      
+       @role('Admin')
+      
       
 
       <hr class="sidebar-divider">

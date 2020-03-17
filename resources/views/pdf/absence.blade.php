@@ -189,7 +189,7 @@
 <body>
     
     
-    <div class="studentone page-break">
+    <div class="studentone">
         <div id="header" style="margin-bottom: 10px;">
             <h1 class="text-center">Myanmar IT Consulting</h1>
             <hr class="myan">
@@ -229,6 +229,12 @@
                     <span style="width: 150px; display: inline-block;"> Batch </span>
                     <span> : </span>
                     <span> {{$batchname}} </span>
+                </p>
+
+                <p style="margin: 10px 0;">
+                    <span style="width: 150px; display: inline-block;"> Reason </span>
+                    <span> : </span>
+                    <span> {{$remark}} </span>
                 </p>
             </div>
 
