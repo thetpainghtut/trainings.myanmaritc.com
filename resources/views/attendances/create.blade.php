@@ -8,8 +8,8 @@
         <label for="inputCourse">Choose Course:</label>
         <select name="course" class="form-control" id="course">
           <option disabled selected="">Please Select Course</option>
-          @foreach($courses as $row)
-          <option value="{{$row->id}}">{{$row->name}} ( {{$row->location->city->name}} )</option>
+          @foreach($teacher as $row)
+          <option value="{{$row->id}}">{{$row->name}} ( {{$row->lname}} )</option>
           @endforeach
         </select>
       </div>

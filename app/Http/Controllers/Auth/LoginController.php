@@ -40,9 +40,21 @@ class LoginController extends Controller
     }
     
     protected function authenticated($request, $user){
+
         if($user->hasRole('Admin')){
             return redirect('/students');
-        } 
+        }
+        elseif($user->hasRole('Mentor')) {
+            return redirect('/students');
+        }
+        elseif($user->hasRole('Teacher')){
+            return redirect('/students');
+        }
+        elseif($user->hasRole('HR')){
+            return redirect('/incomes');
+        }elseif($user->hasRole('Reception')){
+            return redirect('/courses');
+        }
         elseif(Auth::user()->staffs)
             {   
                 Auth::logout();

@@ -87,7 +87,7 @@
   </div>
   
   <div class="form-group row">
-    <label for="inputBatch" class="col-sm-2 col-form-label">Course</label>
+    <label for="inputCourse" class="col-sm-2 col-form-label">Course</label>
     <div class="col-sm-10">
       <select class="form-control" id="inputCourse">
         @foreach($courses as $course)
@@ -95,6 +95,10 @@
         @endforeach
         </select>
     </div>
+  </div>
+
+  <div class="form-group row" id="inputBatch">
+    
   </div>
 
   <div class="form-group row">
