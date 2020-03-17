@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title"> {{$row->name}} </h4>
-                    <a href="basic.html" class="btn btn-outline-primary btn-block">Find Out More!</a>
+                    <a href="{{route('course_detail',$row->id)}}" class="btn btn-outline-primary btn-block">Find Out More!</a>
 
                 </div>
             </div>

@@ -575,7 +575,23 @@
 
  <script type="text/javascript">
     $(document).ready(function() {
-        $('#summernote').summernote('code');
+        $('#summernote').summernote({
+
+         
+            
+          toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['Horizontal Rule',['hr']],
+
+          ],
+
+          
+        });
         
     });
     $(document).ready(function() {

@@ -15,6 +15,7 @@ class FrontendController extends Controller
 {
   public function index($value='')
   {
+
     return view('frontend.index');
   }
   public function csr($value='')
@@ -76,6 +77,20 @@ class FrontendController extends Controller
   public function japanese_reg()
   {
     return view('frontend.japanese_reg');
+  }
+
+  public function course_detail($id)
+  {
+    $course=Course::find($id);
+    return view('frontend.course_detail',compact('course'));
+  }
+
+  public function course_detail_bycodeno($codeno)
+  {
+    
+    $course=Course::where('code_no',$codeno)->first();
+    // dd($course);
+    return view('frontend.course_detail',compact('course'));
   }
 
   public function studentRegister(Request $request)

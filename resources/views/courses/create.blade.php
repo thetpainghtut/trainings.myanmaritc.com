@@ -16,6 +16,7 @@
 
       </div>
     </div>
+
     <div class="form-group row">
       <label for="inputFile" class="col-sm-2 col-form-label">Logo</label>
       <div class="col-sm-10">
@@ -25,15 +26,29 @@
         @endif
       </div>
     </div>
+
     <div class="form-group row">
       <label for="inputOutline" class="col-sm-2 col-form-label">Outlines</label>
       <div class="col-sm-10">
-        <textarea class="form-control @error('outlines') is-invalid @enderror" id="inputOutline" name="outlines">{{ old('outlines') }}</textarea>
+        <textarea id="summernote" class="form-control @error('outlines') is-invalid @enderror"  name="outlines">{{ old('outlines') }}</textarea>
         @if($errors->has('outlines'))
           <span class="text-danger">{{$errors->first('outlines')}}</span>
         @endif
       </div>
     </div>
+
+
+    <div class="form-group row">
+      <label for="inputOutlinephoto" class="col-sm-2 col-form-label">Outlines Photo</label>
+      <div class="col-sm-10">
+        <input type="file" id="inputOutlinephoto" class="form-control-file @error('outlines_photo') is-invalid @enderror"  name="outlines_photo" value="{{ old('outlines_photo') }}">
+        @if($errors->has('outlines_photo'))
+          <span class="text-danger">{{$errors->first('outlines_photo')}}</span>
+        @endif
+      </div>
+    </div>
+
+
     <div class="form-group row">
       <label for="inputFees" class="col-sm-2 col-form-label">Fees</label>
       <div class="col-sm-10">
@@ -78,3 +93,7 @@
     </div>
   </form>
 @endsection
+
+
+
+Group Project Presentation
