@@ -129,7 +129,11 @@
       		<div class="col-md-6">
       			@foreach($batches->mentors as $bat)
       				
-      				<h6 class="d-inline-block">{{$bat->staff->user->name}}  </h6>
+      				<h6 class="d-inline-block">
+                              {{ $loop->first ? '' : ', ' }}
+                              
+                              {{$bat->staff->user->name}}  
+                              </h6>
 		      		
 		      	@endforeach
       			
