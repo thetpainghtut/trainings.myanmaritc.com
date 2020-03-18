@@ -102,7 +102,7 @@
       </li>
       @endrole
 
-       @role('Reception|Admin')
+       @role('Admin')
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -115,7 +115,8 @@
           <i class="fab fa-discourse"></i>
           <span>Courses</span></a>
       </li>
-
+      @endrole
+      @role("Reception|Admin")
       <!-- Batch ( Reeception ) -->
       <li class="nav-item {{ Request::segment(1) === 'batches' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('batches.index')}}">

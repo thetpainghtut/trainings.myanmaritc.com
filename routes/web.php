@@ -46,7 +46,7 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController');
+Route::resource('courses','CourseController')->middleware('role:Admin');
 
 Route::resource('batches','BatchController');
 

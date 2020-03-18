@@ -60,7 +60,7 @@ class LoginController extends Controller
         elseif($user->hasRole('HR')){
             return redirect('/incomes');
         }elseif($user->hasRole('Reception')){
-            return redirect('/courses');
+            return redirect('/batches');
         }
 
         

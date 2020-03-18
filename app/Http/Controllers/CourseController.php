@@ -19,7 +19,7 @@ class CourseController extends Controller
         // $courses = Course::all();
 
 
-        $courses = Course::withTrashed()->get();
+        $courses = Course::all();
         return view('courses.index',compact('courses'));
     }
 
@@ -203,11 +203,9 @@ class CourseController extends Controller
     public function destroy($id)
     {
         $course = Course::find($id);
-        if ($course == null) {
-            Course::withTrashed()->find($id)->restore();
-        }else{
-            $course->delete();
-        }
+        
+        $course->delete();
+        
         // Return
         return redirect()->route('courses.index');
     }

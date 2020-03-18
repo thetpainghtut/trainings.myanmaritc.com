@@ -8,6 +8,8 @@ use App\Course;
 use App\User;
 use App\Teacher;
 use App\Mentor;
+use Carbon\Carbon;
+use App\Inquire;
 use Spatie\Permission\Models\Role;
 
 class BatchController extends Controller
@@ -97,10 +99,11 @@ class BatchController extends Controller
     public function show($id)
     {
         //
-        // dd($id);
-        $batches = Batch::with('teachers')->with('mentors')->find($id);
-       // dd($batches->mentors);
-        return view('batches.show',compact('batches'));
+        // dd($id)
+        
+        $batch = Batch::with('teachers')->with('mentors')->find($id);
+        
+        return view('batches.show',compact('batch'));
         
 
     }
