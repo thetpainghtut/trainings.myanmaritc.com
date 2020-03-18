@@ -88,7 +88,9 @@ class InquireController extends Controller
             $lastDate =$lastInquire->created_at->format('Y-m-d');
 
             if($lastDate == date('Y-m-d')){
-                 $inquires->inquireno = $lastInquire->inquireno+1;
+                $inquireno = $lastInquire->inquireno;
+                $inquire_no = ++inquireno;
+                 $inquires->inquireno = strval($inquire_no);
                 
                
             }else{
@@ -139,7 +141,7 @@ class InquireController extends Controller
     {
         //
         $inquire = Inquire::find($id);
-        dd($inquire);
+        /*dd($inquire);*/
         return view('inquires.edit',compact('inquire'));
 
     }
@@ -243,7 +245,9 @@ class InquireController extends Controller
                 if($codeno == $data_codeno && $zipcode == $data_zipcode)
                 {
                     //dd($value->receiveno);
-                    $inquire->receiveno = $value->receiveno+1;
+                    $inquireno = $value->receiveno;
+                    $inquire_no = ++$inquireno;
+                    $inquire->receiveno = strval($inquire_no);
                     break;
                 }else{
                     $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
@@ -255,10 +259,10 @@ class InquireController extends Controller
         $inquire->installmentamount = $full_amount;
         $inquire->status = 2;
         $inquire->save();
-
+        $date = date('d-m-Y');
         //dd($preinstallment_date,$preinstallment_amount,$payment_date,$need_amount,$course_name,$course_fees);
 
-        $pdf = PDF::loadView('pdf.inquire',compact('inquire','batch','course_name','course_fees','preinstallment_date','preinstallment_amount','payment_date','need_amount'));
+        $pdf = PDF::loadView('pdf.inquire',compact('inquire','batch','course_name','course_fees','preinstallment_date','preinstallment_amount','payment_date','need_amount','date'));
         return $pdf->stream();
 
        // return redirect()->route('inquires.index');
