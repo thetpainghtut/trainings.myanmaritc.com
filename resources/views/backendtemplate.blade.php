@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta charset="utf-8">
+  
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -371,10 +371,11 @@
             </li>
 
             <div class="topbar-divider d-none d-sm-block"></div>
-
+ @if (Auth::check()) 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
                 @if(Auth::user()->staff)
                 <img class="img-profile rounded-circle" src="{{Auth::user()->staff->photo}}">
@@ -394,6 +395,7 @@
                   Profile
                 </a>
                  @endif
+                
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -409,7 +411,7 @@
                 </a>
               </div>
             </li>
-
+                     @endif
           </ul>
 
         </nav>
@@ -483,7 +485,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-
+@if(Auth::check())
           <form action="{{route('changepassword',Auth::user()->id)}}" method="post">
             @csrf
                 <div class="modal-body">
@@ -507,7 +509,7 @@
               </div>
 
           </form>
-
+@endif
         </div>
       </div>
     </div>
