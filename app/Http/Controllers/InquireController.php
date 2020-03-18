@@ -14,6 +14,10 @@ use Auth;
 
 class InquireController extends Controller
 {
+     public function __construct($value='')
+    {
+        $this->middleware('role:Admin|Reception');
+    }
     /**
      * Display a listing of the resource.
      *

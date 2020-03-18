@@ -10,7 +10,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:Ni9E9/qkvgI/Jmc4vELvOoGj2BVdC1OaOl17RXX6d+A=',
+    'key' => 'base64:kQqVPhiC0SehioIBT1msDwNxntiEyGPN5N4xFvsenAM=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -181,7 +181,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/framework/cache/data',
+        'path' => '/home/itjobsmm/public_html/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -231,7 +231,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'trainingdb',
+        'database' => 'itjobsmm_myanmarit_trainings_db',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -241,9 +241,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'trainingdb',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'itjobsmm_myanmarit_trainings_db',
+        'username' => 'itjobsmm_training_user',
+        'password' => '123456789',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -261,9 +261,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'trainingdb',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'itjobsmm_myanmarit_trainings_db',
+        'username' => 'itjobsmm_training_user',
+        'password' => '123456789',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -276,9 +276,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'trainingdb',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'itjobsmm_myanmarit_trainings_db',
+        'username' => 'itjobsmm_training_user',
+        'password' => '123456789',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -317,10 +317,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'DOMPDF_FONT_DIR' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/fonts/',
-      'DOMPDF_FONT_CACHE' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/fonts/',
+      'DOMPDF_FONT_DIR' => '/home/itjobsmm/public_html/storage/fonts/',
+      'DOMPDF_FONT_CACHE' => '/home/itjobsmm/public_html/storage/fonts/',
       'temp_dir' => '/tmp',
-      'chroot' => '/opt/lampp/htdocs/trainings.myanmaritc.com',
+      'chroot' => '/home/itjobsmm/public_html',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -409,12 +409,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/app',
+        'root' => '/home/itjobsmm/public_html/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/app/public',
+        'root' => '/home/itjobsmm/public_html/storage/app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -460,13 +460,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/logs/laravel.log',
+        'path' => '/home/itjobsmm/public_html/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/logs/laravel.log',
+        'path' => '/home/itjobsmm/public_html/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -535,7 +535,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/opt/lampp/htdocs/trainings.myanmaritc.com/resources/views/vendor/mail',
+        0 => '/home/itjobsmm/public_html/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -657,11 +657,11 @@
   ),
   'session' => 
   array (
-    'driver' => 'cookie',
+    'driver' => 'file',
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/framework/sessions',
+    'files' => '/home/itjobsmm/public_html/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -681,9 +681,9 @@
   array (
     'paths' => 
     array (
-      0 => '/opt/lampp/htdocs/trainings.myanmaritc.com/resources/views',
+      0 => '/home/itjobsmm/public_html/resources/views',
     ),
-    'compiled' => '/opt/lampp/htdocs/trainings.myanmaritc.com/storage/framework/views',
+    'compiled' => '/home/itjobsmm/public_html/storage/framework/views',
   ),
   'flare' => 
   array (
@@ -723,7 +723,7 @@
     'keywords' => '',
     'creator' => 'Laravel Pdf',
     'display_mode' => 'fullpage',
-    'tempDir' => '/opt/lampp/htdocs/trainings.myanmaritc.com/../temp/',
+    'tempDir' => '/home/itjobsmm/public_html/../temp/',
   ),
   'trustedproxy' => 
   array (
