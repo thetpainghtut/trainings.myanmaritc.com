@@ -41,7 +41,7 @@
             </a>
         </div>
         <div class="col-md-4">
-            <a href="teachers" class="nav-link">
+            <a href="staffs" class="nav-link">
                 <div class="card mb-3 shadow mx-3 mycard">
                     <div class="row no-gutters">
                         <div class="col-md-4">
