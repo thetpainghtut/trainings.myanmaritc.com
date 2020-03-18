@@ -20,7 +20,12 @@ class CreateBatchesTable extends Migration
             $table->date('enddate');
             $table->string('time',100);
             $table->unsignedBigInteger('course_id');
+            $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('course_id')
+                  ->references('id')->on('courses')
+                  ->onDelete('cascade');
         });
 
         

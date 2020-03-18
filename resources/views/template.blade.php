@@ -75,8 +75,11 @@
               @php $i=0; @endphp
             @foreach($batches as $batch)
             @php
+              if($batch->course){
               $date = date('d-M-Y',strtotime($batch->startdate));
+
             @endphp
+
                 <div class="carousel-item @if($i==0) {{'active'}} @endif">
                     <p>{{$batch->course->name}} </p>
                     <p>( {{$batch->course->location->name}} 
@@ -94,7 +97,20 @@
 
                 </div>      
 
-            @php $i++; @endphp
+            @php $i++; } else{  @endphp
+
+                <div class="carousel-item active">
+                    <p> No class now</p>                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div>  
+
+            @php } @endphp
             @endforeach
               
             </div>

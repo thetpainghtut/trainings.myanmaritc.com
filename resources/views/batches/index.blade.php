@@ -36,13 +36,10 @@
 
           <a href="{{route('batches.edit',$row->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
           
-          <form method="post" action="{{route('batches.destroy',$row->id)}}" class="d-inline-block">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">
+         
+            <button type="submit" class="btn btn-danger" onclick="alert('You cannot delete!!!!!')">
               <i class="fas fa-trash"></i>
             </button>
-          </form>
         </td>
       </tr>
       @endforeach
