@@ -71,18 +71,20 @@
         Students
       </div>
 
-     
-      <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
-        <a class="nav-link" href="{{route('attendances.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Attendances</span></a>
-      </li>
 
       <!-- Groups ( Teacher/Mentor ) -->
       <li class="nav-item {{ Request::segment(1) === 'groups' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('groups.index')}}">
           <i class="fas fa-users"></i>
           <span>Groups</span></a>
+      </li>
+      @endrole
+
+      @role('Teacher')
+        <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('attendances.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Attendances</span></a>
       </li>
       @endrole
       
