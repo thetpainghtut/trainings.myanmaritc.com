@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $now = Carbon::now();
-        $batches = Batch::where('startdate','>=',$now)->get();
+        $batches = Batch::all();
         View::share('batches',$batches);
         Schema::defaultStringLength(191);
     }

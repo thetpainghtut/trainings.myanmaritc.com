@@ -72,12 +72,17 @@
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
             
              <div class="carousel-inner">
-              @php $i=0; @endphp
+              @php $i=0;
+                   $now;
+              @endphp
+              @if(count($batches)>0)
             @foreach($batches as $batch)
             @php
-              if($batch->course){
-              $date = date('d-M-Y',strtotime($batch->startdate));
+              $now = Carbon\Carbon::now();
 
+              if($batch){
+              $date = date('d-M-Y',strtotime($batch->startdate));
+              if($now < $batch->startdate){
             @endphp
 
                 <div class="carousel-item @if($i==0) {{'active'}} @endif">
@@ -97,7 +102,7 @@
 
                 </div>      
 
-            @php $i++; } else{  @endphp
+          @php $i++; } else{  @endphp
 
                 <div class="carousel-item active">
                     <p> No class now</p>                    
@@ -110,8 +115,33 @@
 
                 </div>  
 
-            @php } @endphp
+            @php }; }else{ @endphp
+            
+                <div class="carousel-item active">
+                    <p> No class now</p>                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div> 
+                
+            @php }; @endphp
             @endforeach
+            @else
+                <div class="carousel-item active">
+                    <p> No class now</p>                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div> 
+            @endif
               
             </div>
 
