@@ -36,7 +36,8 @@ class InquireController extends Controller
     {
         //
         $educations = Education::all();
-        $courses = Course::all();
+        //$courses = Course::all();
+        $courses = Course::has('batches')->get();
         $batches = Batch::all();
         $townships = Township::all();
         return view('inquires.create',compact('educations','batches','townships','courses'));
@@ -83,7 +84,9 @@ class InquireController extends Controller
             $lastDate =$lastInquire->created_at->format('Y-m-d');
 
             if($lastDate == date('Y-m-d')){
-                $inquires->inquireno = $lastInquire->inquireno+1;
+                 $inquires->inquireno = $lastInquire->inquireno+1;
+                
+               
             }else{
                 $inquires->inquireno = date('dmY').'001';
             }

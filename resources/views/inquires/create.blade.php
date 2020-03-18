@@ -91,7 +91,7 @@
     <div class="col-sm-10">
       <select class="form-control" id="inputCourse">
         @foreach($courses as $course)
-          <option value="{{$course->id}}">{{$course->name}}</option>
+          <option value="{{$course->id}}">{{$course->name}}({{$course->location->city->name}})</option>
         @endforeach
         </select>
     </div>
