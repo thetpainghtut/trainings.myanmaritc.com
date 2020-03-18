@@ -44,6 +44,13 @@ class LoginController extends Controller
         if($user->hasRole('Admin')){
             return redirect('/students');
         }
+
+        elseif(Auth::user()->staffs)
+        {   
+            Auth::logout();
+            return redirect()->route('login')->with('msg','You are not our members anymore') ;
+        }
+        
         elseif($user->hasRole('Mentor')) {
             return redirect('/students');
         }
@@ -55,11 +62,8 @@ class LoginController extends Controller
         }elseif($user->hasRole('Reception')){
             return redirect('/courses');
         }
-        elseif(Auth::user()->staffs)
-            {   
-                Auth::logout();
-                return redirect()->route('login')->with('msg','You are not our members anymore') ;
-            }
+
+        
         else {
             return redirect('/');
         }

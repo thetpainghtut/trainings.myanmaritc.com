@@ -261,13 +261,7 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown no-arrow mx-1 my-3">
-              @if($errors->has('password'))
-              <span class="text-danger msg">{{$errors->first('password')}}</span>
-              @elseif(session('message'))
-                   <alert class="alert alert-success msg">{{session('message')}}</alert>
-              @endif
-            </li>
+            
 
 
             <!-- Nav Item - Alerts -->
