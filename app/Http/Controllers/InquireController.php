@@ -89,7 +89,7 @@ class InquireController extends Controller
 
             if($lastDate == date('Y-m-d')){
                 $inquireno = $lastInquire->inquireno;
-                $inquire_no = ++inquireno;
+                $inquire_no = ++$inquireno;
                  $inquires->inquireno = strval($inquire_no);
                 
                
