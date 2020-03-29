@@ -536,7 +536,8 @@
   <script src="{{asset('sb_admin2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('sb_admin2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
   <script src="{{asset('sb_admin2/js/demo/datatables-demo.js')}}"></script>
-  
+  <link rel="stylesheet" href="{{asset('yearpicker.css')}}">
+  <script src="{{asset('yearpicker.js')}}" async></script>
 
   <!-- Core plugin JavaScript-->
   <script src="{{asset('sb_admin2/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
