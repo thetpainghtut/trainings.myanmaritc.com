@@ -72,14 +72,9 @@
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
             
              <div class="carousel-inner">
-<<<<<<< HEAD
-              @php $i=0;
-                   $now;
-              @endphp
               @if(count($batches)>0)
-=======
+            
             @php $i=0; @endphp
->>>>>>> 6439cf9f431c3d86b0d34977af90d45ec25251f0
             @foreach($batches as $batch)
             @php
               $now = Carbon\Carbon::now();

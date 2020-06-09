@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+              @php $i=0;
+                   $now;
+              @endphp
+              @if(count($batches)>0)
+=======
+            @php $i=0; @endphp
+>>>>>>> 6439cf9f431c3d86b0d34977af90d45ec25251f0
