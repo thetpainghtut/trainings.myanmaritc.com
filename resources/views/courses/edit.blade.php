@@ -57,9 +57,36 @@
     <div class="form-group row">
       <label for="inputOutline" class="col-sm-2 col-form-label">Outlines</label>
       <div class="col-sm-10">
-        <textarea class="form-control" id="inputOutline" name="outlines">{{$course->outline}}</textarea>
+        <textarea class="form-control" id="summernote" name="outlines">{{ $course->outline}}</textarea>
       </div>
     </div>
+
+
+    <div class="form-group row">
+      <label for="inputFile" class="col-sm-2 col-form-label">Outline Photo</label>
+      <div class="col-sm-10">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="outline_oldphoto-tab" data-toggle="tab" href="#outline_oldphoto" role="tab" aria-controls="outline_oldphoto" aria-selected="true">Old Photo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="outline_newphoto-tab" data-toggle="tab" href="#outline_newphoto" role="tab" aria-controls="outline_newphoto" aria-selected="false">New Photo</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="outline_oldphoto" role="tabpanel" aria-labelledby="outline_oldphoto-tab">
+            <input type="hidden" class="form-control" name="outline_oldphoto" value="{{$course->outline_photo}}">
+            <img src="{{asset($course->outline_photo)}}" class="img-fluid w-25">
+          </div>
+          <div class="tab-pane fade" id="outline_newphoto" role="tabpanel" aria-labelledby="outline_newphoto-tab">
+            <input type="file" class="form-control-file pt-3" id="inputFile" name="outline_newphoto">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
     <div class="form-group row">
       <label for="inputFees" class="col-sm-2 col-form-label">Fees</label>
       <div class="col-sm-10">

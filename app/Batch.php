@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Batch extends Model
 {
+      use SoftDeletes;
+
   protected $fillable = [
       'title','startdate','enddate','time','course_id'
     ];
@@ -32,9 +35,9 @@ class Batch extends Model
     return $this->belongsToMany('App\Mentor')->withTimestamps();
   }
 
-  public function student()
+  public function students()
   {
-    return $this->hasOne('App\Student');
+    return $this->hasMany('App\Student');
   }
 
 

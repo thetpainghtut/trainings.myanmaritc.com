@@ -8,7 +8,7 @@ class Course extends Model
 {
   	use SoftDeletes;
 
-  	protected $fillable=['name','code_no','location_id','logo','outline','fees','during','duration'];
+  	protected $fillable=['name','code_no','location_id','logo','outline','outline_photo','fees','during','duration'];
 
   	public function batches()
   	{

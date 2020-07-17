@@ -32,6 +32,8 @@
 </form>
 
 @if($status != 0)
+@isset($students)
+@if(count($students) > 0)
 <form action="#">
   <input type="hidden" name="batch" id="batches" value="{{$requestbatch}}">
   <div class="form-row">
@@ -69,8 +71,7 @@
   </table>
 </div>
 
-@isset($students)
-@if(count($students) > 0)
+
 
 <div id="allabsent">
   <h3>Total Absent Lists</h3>

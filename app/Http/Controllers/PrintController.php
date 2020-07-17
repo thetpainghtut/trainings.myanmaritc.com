@@ -193,14 +193,23 @@ class PrintController extends Controller
     public function absence($id,$date)
     {
        $studentid = Student::find($id);
+
        $studentname = $studentid->namee;
        $absencedate = $date;
+<<<<<<< HEAD
         
         $remarks = Attendance::where('student_id',$studentid->id)->where('date',$absencedate)->select('remark')->get();
        foreach ($remarks as $key => $value) {
           $remark = $value->remark;
        }
        
+=======
+       $remarks = Attendance::where('student_id',$studentid->id)->where('date',$absencedate)->select('remark')->get();
+       foreach ($remarks as $key => $value) {
+          $remark = $value->remark;
+       }
+      
+>>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
         $s = strtotime($absencedate);
         $day = date('d', $s);
         $month = date('M', $s);

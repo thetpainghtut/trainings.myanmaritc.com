@@ -19,7 +19,8 @@ class CreateCoursesTable extends Migration
             $table->string('name',100);
             $table->unsignedBigInteger('location_id');
             $table->text('logo');
-            $table->text('outline');
+            $table->longText('outline');
+            $table->text('outline_photo');
             $table->integer('fees');
             $table->string('during',100);
             $table->string('duration',100);

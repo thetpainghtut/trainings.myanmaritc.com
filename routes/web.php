@@ -33,6 +33,12 @@ Route::get('japanese', 'FrontendController@japanese_reg');
 
 Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
 
+
+Route::get('course_detail/{id}','FrontendController@course_detail')->name('course_detail');
+
+Route::get('course_detail_bycodeno/{codeno}','FrontendController@course_detail_bycodeno')->name('course_detail_bycodeno');
+
+
 Route::post('getBatches','InquireController@getBatches')->name('get.batches');
 //
 
@@ -40,7 +46,7 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController');
+Route::resource('courses','CourseController')->middleware('role:Admin');
 
 Route::resource('batches','BatchController');
 

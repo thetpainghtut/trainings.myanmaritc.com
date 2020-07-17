@@ -23,7 +23,7 @@
       <div class="card-body">
       	<div class="row mb-3">
       		<div class="col-md-8 text-center offset-2 ">
-      			<h3>{{$batches->title}}</h3>
+      			<h3>{{$batch->title}}</h3>
       		</div>
       	</div>
 
@@ -32,7 +32,7 @@
       			<label>Course</label>
       		</div>
       		<div class="col-md-6">
-      			<h6>{{$batches->course->name}} ( {{$batches->course->location->city->name}} )</h6>
+      			<h6>{{$batch->course->name}} ( {{$batch->course->location->city->name}} )</h6>
       		</div>
       	</div>
 
@@ -41,7 +41,7 @@
       			<label>Fees</label>
       		</div>
       		<div class="col-md-6 ">
-      			<h6>{{$batches->course->fees}}</h6>
+      			<h6>{{$batch->course->fees}}</h6>
       		</div>
       	</div>
 
@@ -50,7 +50,7 @@
       			<label>During</label>
       		</div>
       		<div class="col-md-6">
-      			<h6>{{$batches->course->during}}</h6>
+      			<h6>{{$batch->course->during}}</h6>
       		</div>
       	</div>
 
@@ -59,7 +59,7 @@
       			<label>Duration</label>
       		</div>
       		<div class="col-md-6">
-      			<h6>{{$batches->course->duration}}</h6>
+      			<h6>{{$batch->course->duration}}</h6>
       		</div>
       	</div>
 
@@ -69,7 +69,7 @@
       		</div>
       		<div class="col-md-6">
       			
-      			<h6>{{$batches->startdate}}</h6>
+      			<h6>{{$batch->startdate}}</h6>
       		</div>
       	</div>
 
@@ -79,7 +79,7 @@
       		</div>
       		<div class="col-md-6">
       			
-      			<h6>{{$batches->enddate}}</h6>
+      			<h6>{{$batch->enddate}}</h6>
       		</div>
       	</div>
 
@@ -89,7 +89,7 @@
       		</div>
       		<div class="col-md-6">
       			
-      			<h6>{{$batches->time}}</h6>
+      			<h6>{{$batch->time}}</h6>
       		</div>
       	</div>
 
@@ -100,7 +100,11 @@
       		</div>
       		<div class="col-md-6">
 
+<<<<<<< HEAD
       			@foreach($batches->teachers as $bat)
+=======
+      			@foreach($batch->teachers as $bat)
+>>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       				{{--@php
       					$value[] = $bat->staff->user->id;
       					$data = implode('', array_unique($value));
@@ -121,16 +125,24 @@
       		</div>
       	</div>
 
-            @if(count($batches->mentors)>0)
+            @if(count($batch->mentors)>0)
       	<div class="row">
       		<div class="col-md-2 offset-3">
       			<label>Mentor</label>
       		</div>
       		<div class="col-md-6">
-      			@foreach($batches->mentors as $bat)
+      			@foreach($batch->mentors as $bat)
       				
+<<<<<<< HEAD
       				<h6 class="d-inline-block">{{$loop->first ? '':' , '}}
       				{{$bat->staff->user->name}}  </h6>
+=======
+      				<h6 class="d-inline-block">
+                              {{ $loop->first ? '' : ', ' }}
+                              
+                              {{$bat->staff->user->name}}  
+                              </h6>
+>>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
 		      		
 		      	@endforeach
       			
@@ -138,6 +150,47 @@
       	</div>
 
             @endif
+
+            @php
+            $count;
+            $startdate = $batch->startdate;
+            $now = Carbon\Carbon::now();
+
+            if($startdate > $now){
+                  // inquire
+                  $count = count($batch->inquires);
+
+            @endphp
+
+            <div class="row">
+                  <div class="col-md-2 offset-3">
+                        <label>Inquires</label>
+                  </div>
+                  <div class="col-md-6">
+                        <h6>{{$count}}</h6>
+                  </div>
+            </div>
+
+            @php
+            }
+            else{
+                  // student
+                  $count = count($batch->students);
+            @endphp
+
+            <div class="row">
+                  <div class="col-md-2 offset-3">
+                        <label>Students</label>
+                  </div>
+                  <div class="col-md-6">
+                        <h6>{{$count}}</h6>
+                  </div>
+            </div>
+
+            @php
+
+            }
+            @endphp
 
 
       	

@@ -71,18 +71,20 @@
         Students
       </div>
 
-     
-      <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
-        <a class="nav-link" href="{{route('attendances.index')}}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Attendances</span></a>
-      </li>
 
       <!-- Groups ( Teacher/Mentor ) -->
       <li class="nav-item {{ Request::segment(1) === 'groups' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('groups.index')}}">
           <i class="fas fa-users"></i>
           <span>Groups</span></a>
+      </li>
+      @endrole
+
+      @role('Teacher')
+        <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('attendances.index')}}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Attendances</span></a>
       </li>
       @endrole
       
@@ -102,7 +104,7 @@
       </li>
       @endrole
 
-       @role('Reception|Admin')
+       @role('Admin')
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -115,7 +117,8 @@
           <i class="fab fa-discourse"></i>
           <span>Courses</span></a>
       </li>
-
+      @endrole
+      @role("Reception|Admin")
       <!-- Batch ( Reeception ) -->
       <li class="nav-item {{ Request::segment(1) === 'batches' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('batches.index')}}">
@@ -155,13 +158,19 @@
           <span> Units</span></a>
       </li>
       @endrole
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       @role('HR|Admin')
         <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
         Profit
       </div>
+      @endrole
 
+      @role('Admin|HR')
       <!-- Income ( Admin ) -->
       <li class="nav-item {{ Request::segment(1) === 'incomes' ? 'active' : '' }}">
         <a class="nav-link" href="{{route('incomes.index')}}">
@@ -176,12 +185,18 @@
           <span>Expenses</span></a>
       </li>
       @endrole
+<<<<<<< HEAD
        @role('Admin')
      
+=======
+
+>>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       
 
-      <hr class="sidebar-divider">
 
+      @role('Admin')
+      <hr class="sidebar-divider">
+      
       <div class="sidebar-heading">
         Co-worker
       </div>
@@ -257,13 +272,7 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown no-arrow mx-1 my-3">
-              @if($errors->has('password'))
-              <span class="text-danger msg">{{$errors->first('password')}}</span>
-              @elseif(session('message'))
-                   <alert class="alert alert-success msg">{{session('message')}}</alert>
-              @endif
-            </li>
+            
 
 
             <!-- Nav Item - Alerts -->
@@ -372,10 +381,11 @@
             </li>
 
             <div class="topbar-divider d-none d-sm-block"></div>
-
+ @if (Auth::check()) 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
                 @if(Auth::user()->staff)
                 <img class="img-profile rounded-circle" src="{{Auth::user()->staff->photo}}">
@@ -395,6 +405,7 @@
                   Profile
                 </a>
                  @endif
+                
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -410,7 +421,7 @@
                 </a>
               </div>
             </li>
-
+                     @endif
           </ul>
 
         </nav>
@@ -484,7 +495,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-
+@if(Auth::check())
           <form action="{{route('changepassword',Auth::user()->id)}}" method="post">
             @csrf
                 <div class="modal-body">
@@ -508,7 +519,7 @@
               </div>
 
           </form>
-
+@endif
         </div>
       </div>
     </div>
@@ -533,7 +544,8 @@
   <script src="{{asset('sb_admin2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('sb_admin2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
   <script src="{{asset('sb_admin2/js/demo/datatables-demo.js')}}"></script>
-  
+  <link rel="stylesheet" href="{{asset('yearpicker.css')}}">
+  <script src="{{asset('yearpicker.js')}}" async></script>
 
   <!-- Core plugin JavaScript-->
   <script src="{{asset('sb_admin2/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -572,7 +584,23 @@
 
  <script type="text/javascript">
     $(document).ready(function() {
-        $('#summernote').summernote('code');
+        $('#summernote').summernote({
+
+         
+            
+          toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['Horizontal Rule',['hr']],
+
+          ],
+
+          
+        });
         
     });
     $(document).ready(function() {

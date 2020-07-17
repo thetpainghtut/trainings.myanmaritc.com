@@ -79,7 +79,7 @@
   <div class="form-group row">
     <label for="inputAcceptedYear" class="col-sm-2 col-form-label">Accepted Year</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control @error('acceptedyear') is-invalid @enderror" id="inputAcceptedYear" name="acceptedyear">
+      <input type="text" value="" class="form-control yearpicker @error('acceptedyear') is-invalid @enderror" id="inputAcceptedYear" name="acceptedyear" minlength="4" maxlength="4">
       @if($errors->has('acceptedyear'))
         <span class="text-danger">{{$errors->first('acceptedyear')}}</span>
       @endif
@@ -87,16 +87,18 @@
   </div>
   
   <div class="form-group row">
-    <label for="inputBatch" class="col-sm-2 col-form-label">Course</label>
+    <label for="inputCourse" class="col-sm-2 col-form-label">Course</label>
     <div class="col-sm-10">
       <select class="form-control" id="inputCourse" name="course_id">
+          <option value="">Choose Course</option>
+
         @foreach($courses as $course)
-          <option value="{{$course->id}}">{{$course->name}}</option>
+          <option value="{{$course->id}}">{{$course->name}}({{$course->location->city->name}})</option>
         @endforeach
         </select>
     </div>
   </div>
-
+  
   <div class="form-group row">
     <label for="inputTownship" class="col-sm-2 col-form-label">Township</label>
     <div class="col-sm-10">

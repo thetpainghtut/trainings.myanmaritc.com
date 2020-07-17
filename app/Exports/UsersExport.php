@@ -31,13 +31,14 @@ class UsersExport implements FromView, WithTitle
         $this->name = $name;
         $this->customer = $customer;
         $this->bid = $bid;
+       // dd($this->bid);
 
     }
 
     public function view(): View
     {
         $batch = Batch::find($this->bid);
-       
+       //dd($batch);
         $Date = $this->getDatesFromRange($batch->startdate, $batch->enddate); 
         $start = $batch->startdate;
         $end = $batch->enddate;

@@ -232,7 +232,7 @@
     }
 
   $(document).ready(function(){
-    $('.msg').hide(3000);
+    $('.msg').hide(5000);
   })
 </script>
 

@@ -94,56 +94,56 @@
           </div>
           <div class="row mt-5">
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="basic.html" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0001')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_one.png')}}" class="img-fluid">
                 <p class="mt-4"> HR/Admin Office Staff Training </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0002')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_two.png')}}" class="img-fluid">
                 <p class="mt-4"> Programming Fundamental </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="php.html" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0003')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_three.png')}}" class="img-fluid">
                 <p class="mt-4"> PHP Developer Bootcamp </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="android.html" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0004')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_four.png')}}" class="img-fluid">
                 <p class="mt-4"> Modern Android Bootcamp </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0005')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_five.png')}}" class="img-fluid">
                 <p class="mt-4"> Python Training </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0006')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_six.png')}}" class="img-fluid">
                 <p class="mt-4"> iOS Development </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0007')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_seven.png')}}" class="img-fluid">
                 <p class="mt-4"> Japanese & IT Bootcamp </p>
               </a> 
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 text-center my-5 programming_logo_card">
-              <a href="" class="programming_logo">
+              <a href="{{route('course_detail_bycodeno','0008')}}" class="programming_logo">
                 <img src="{{ asset('mmitui/image/course_eight.png')}}" class="img-fluid">
                 <p class="mt-4"> Japan N5 Class </p>
               </a> 

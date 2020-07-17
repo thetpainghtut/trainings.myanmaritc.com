@@ -19,7 +19,7 @@ class CourseController extends Controller
         // $courses = Course::all();
 
 
-        $courses = Course::withTrashed()->get();
+        $courses = Course::all();
         return view('courses.index',compact('courses'));
     }
 
@@ -44,13 +44,13 @@ class CourseController extends Controller
     {   
        
         $request->validate([
-            
-            "name" => 'required|min:5|max:100',
+            "name" => 'required|min:5|max:100', 
+            "logo" => 'required|mimes:jpeg,bmp,png',
             "outlines" => 'required',
+            "outlines_photo" => 'required|mimes:jpeg,bmp,png',
             "fees" => 'required',
             "during" => 'required|max:100',
             "duration" => 'required|max:100',
-            "logo" => 'required|mimes:jpeg,bmp,png',
             "location" => 'required'
         ]);
 
@@ -76,12 +76,23 @@ class CourseController extends Controller
         $path = '';
       }
 
+      if($request->hasfile('outlines_photo')){
+          $outlines_photo = $request->file('outlines_photo');
+          $upload_dir = public_path().'/storage/images/courses/';
+          $name = time().'.'.$outlines_photo->getClientOriginalExtension();
+          $outlines_photo->move($upload_dir,$name);
+          $photo = '/storage/images/courses/'.$name;
+      }else{
+        $photo = '';
+      }
+
         // Save Data
         $course = new Course;
         $course->code_no = $num;
         $course->name = request('name');
         $course->logo = $path;
         $course->outline = request('outlines');
+        $course->outline_photo = $photo;
         $course->fees = request('fees');
         $course->during = request('during');
         $course->duration = request('duration');
@@ -131,8 +142,8 @@ class CourseController extends Controller
 
         // Validation
         $request->validate([
-            "codeno" => 'required',
-            "name" => 'required|min:5|max:100',
+            
+            "name" => 'required',
             "outlines" => 'required',
             "fees" => 'required',
             "during" => 'required|max:100',
@@ -150,6 +161,20 @@ class CourseController extends Controller
         }else{
             $path = request('oldlogo');
         }
+
+
+        if($request->hasfile('outline_newphoto')){
+              $outline_photo = $request->file('outline_newphoto');
+              $upload_dir = public_path().'/storage/images/courses/';
+              $name = time().'.'.$outline_photo->getClientOriginalExtension();
+              $outline_photo->move($upload_dir,$name);
+              $photo = '/storage/images/courses/'.$name;
+        }else{
+            $photo = request('outline_oldphoto');
+        }
+
+
+
         
         // Update Data
         $course = Course::find($id);
@@ -157,6 +182,7 @@ class CourseController extends Controller
         $course->name = request('name');
         $course->logo = $path;
         $course->outline = request('outlines');
+        $course->outline_photo = $photo;
         $course->fees = request('fees');
         $course->during = request('during');
         $course->duration = request('duration');
@@ -177,11 +203,9 @@ class CourseController extends Controller
     public function destroy($id)
     {
         $course = Course::find($id);
-        if ($course == null) {
-            Course::withTrashed()->find($id)->restore();
-        }else{
-            $course->delete();
-        }
+        
+        $course->delete();
+        
         // Return
         return redirect()->route('courses.index');
     }

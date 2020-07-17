@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Batch;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $now = Carbon::now();
+        $batches = Batch::all();
+        View::share('batches',$batches);
         Schema::defaultStringLength(191);
     }
 }
