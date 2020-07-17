@@ -7,7 +7,7 @@ use App\Batch;
 use App\Group;
 use App\Unit;
 use App\Inquire;
-
+use App\Attendance;
 use Barryvdh\DomPDF\Facade as PDF;
 // use PDF;
 
@@ -47,7 +47,7 @@ class PrintController extends Controller
 
     			$unit_point_total = $d_one_value->sum('pivot.symbol');
 
-    			$unit_point = $unit_point_total / $unit_count;
+    			$unit_point = round($unit_point_total / $unit_count);
 
     			$symbol;
     			switch ($unit_point) 
@@ -195,7 +195,12 @@ class PrintController extends Controller
        $studentid = Student::find($id);
        $studentname = $studentid->namee;
        $absencedate = $date;
-
+        
+        $remarks = Attendance::where('student_id',$studentid->id)->where('date',$absencedate)->select('remark')->get();
+       foreach ($remarks as $key => $value) {
+          $remark = $value->remark;
+       }
+       
         $s = strtotime($absencedate);
         $day = date('d', $s);
         $month = date('M', $s);
@@ -209,7 +214,7 @@ class PrintController extends Controller
        $courseid = $batch->course_id;
        $course = Course::find($courseid);
        $coursename = $course->name;
-       $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'totaldate' ,'batchname','coursename'));
+       $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'totaldate' ,'batchname','coursename','remark'));
         return $printpdf->stream();
     }
     

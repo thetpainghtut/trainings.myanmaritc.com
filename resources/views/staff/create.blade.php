@@ -56,7 +56,7 @@
     <div class="form-group row">
       <label for="inputnrc" class="col-sm-2 col-form-label">NRC</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control @error('nrc') is-invalid @enderror" id="inputnrc" name="nrc"  value="{{ old('nrc') }}">
+        <input type="text" class="form-control @error('nrc') is-invalid @enderror" id="inputnrc" name="nrc"  value="{{ old('nrc') }}" placeholder="12/ASANA(NAING)123456">
         @if(session('nrc_error'))
           <span class="text-danger">{{session('nrc_error')}}</span>
 

@@ -3,22 +3,16 @@
 @section('content')
 <h2>Create New Inquire</h2>
 
-@if ($errors->any())
-<div class="alert alert-danger">
-  <ul>
-    @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
-  </ul>
-</div>
-@endif
 
 <form method="post" action="{{route('inquires.store')}}" enctype="multipart/form-data">
   @csrf
   <div class="form-group row">
     <label for="inputName" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputName" name="name">
+      <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" name="name">
+      @if($errors->has('name'))
+        <span class="text-danger">{{$errors->first('name')}}</span>
+      @endif
     </div>
   </div>
 
@@ -39,14 +33,20 @@
   <div class="form-group row">
     <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
     <div class="col-sm-10">
-      <input type="number" name="phone" class="form-control" id="inputPhone">
+      <input type="number" name="phone" class="form-control @error('phone') is-invalid @enderror" id="inputPhone">
+      @if($errors->has('phone'))
+        <span class="text-danger">{{$errors->first('phone')}}</span>
+      @endif
     </div>
   </div>
 
   <div class="form-group row">
     <label for="inputknowledge" class="col-sm-2 col-form-label">Knowledge</label>
     <div class="col-sm-10">
-     <textarea class="form-control" name="knowledge" id="inputknowledge" cols="10" rows="3"></textarea>
+     <textarea class="form-control @error('knowledge') is-invalid @enderror" name="knowledge" id="inputknowledge" cols="10" rows="3"></textarea>
+     @if($errors->has('knowledge'))
+     <span class="text-danger">{{$errors->first('knowledge')}}</span>
+     @endif
     </div>
   </div>
 
@@ -54,11 +54,11 @@
    <label for="inputGender" class="col-sm-2 col-form-label">Camp</label>
     <div class="col-sm-10">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" id="inlineCamp1" value="yes" checked="checked" name="camp">
+        <input class="form-check-input" type="radio" id="inlineCamp1" value="yes" name="camp">
         <label class="form-check-label" for="inlineCamp1">Yes</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="camp" id="inlineCamp2" value="no">
+        <input class="form-check-input" type="radio" name="camp" id="inlineCamp2" value="no" checked="checked">
         <label class="form-check-label" for="inlineCamp2">No</label>
       </div>
     </div>
@@ -68,7 +68,6 @@
     <label for="inputEducation" class="col-sm-2 col-form-label">Education</label>
     <div class="col-sm-10">
       <select name="education_id" class="form-control" id="inputEducation">
-        <option value="">Choose Education</option>
         @foreach($educations as $education)
           <option value="{{$education->id}}">{{$education->name}}</option>
         @endforeach
@@ -80,15 +79,17 @@
   <div class="form-group row">
     <label for="inputAcceptedYear" class="col-sm-2 col-form-label">Accepted Year</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="inputAcceptedYear" name="acceptedyear">
+      <input type="text" class="form-control @error('acceptedyear') is-invalid @enderror" id="inputAcceptedYear" name="acceptedyear">
+      @if($errors->has('acceptedyear'))
+        <span class="text-danger">{{$errors->first('acceptedyear')}}</span>
+      @endif
     </div>
   </div>
   
   <div class="form-group row">
     <label for="inputBatch" class="col-sm-2 col-form-label">Course</label>
     <div class="col-sm-10">
-      <select class="form-control" id="inputCourse">
-        <option value="">Choose Course</option>
+      <select class="form-control" id="inputCourse" name="course_id">
         @foreach($courses as $course)
           <option value="{{$course->id}}">{{$course->name}}</option>
         @endforeach
@@ -96,17 +97,10 @@
     </div>
   </div>
 
-  <div class="form-group row" id="inputBatch">
-    
-        
-   
-  </div> 
-
   <div class="form-group row">
     <label for="inputTownship" class="col-sm-2 col-form-label">Township</label>
     <div class="col-sm-10">
       <select name="township_id" class="form-control" id="inputTownship">
-        <option value="">Choose Township</option>
         @foreach($townships as $township)
           <option value="{{$township->id}}">{{$township->name}}</option>
         @endforeach
@@ -132,7 +126,6 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-
       $('#inputCourse').change(function(){
         var course_id = $(this).val();
         console.log(course_id);
@@ -146,13 +139,9 @@
             batches_data+=`<option value="${v.id}">${v.title}</option>`;
           })
           batches_data+=`</select></div>`;
-
           $('#inputBatch').html(batches_data);
-
         })
       })
-
-
   })
 </script>
 @endsection

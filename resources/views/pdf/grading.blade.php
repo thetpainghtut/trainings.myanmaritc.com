@@ -11,7 +11,7 @@
   		{
   			margin: 0;
   			padding: 0;
-  			font-family: 'Zawgyi_One';
+  			/*font-family: 'Zawgyi_One';*/
   		}
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <title>Grading PDF</title>
     <style>
         *
@@ -189,7 +189,8 @@
 <body>
     
     
-    <div class="studentone page-break">
+    <!--<div class="studentone page-break">-->
+    <div class="studentone">
         <div id="header" style="margin-bottom: 10px;">
             <h1 class="text-center">Myanmar IT Consulting</h1>
             <hr class="myan">
@@ -229,6 +230,12 @@
                     <span style="width: 150px; display: inline-block;"> Batch </span>
                     <span> : </span>
                     <span> {{$batchname}} </span>
+                </p>
+                
+                <p style="margin: 10px 0;">
+                    <span style="width: 150px; display: inline-block;"> Reason </span>
+                    <span> : </span>
+                    <span> {{$remark}} </span>
                 </p>
             </div>
 
@@ -311,7 +318,7 @@
             </div>
 
             <div class="content_rowsix" style="margin-top: 20px">
-                <h4 class="mmfont"> သင္တန္းစည္းကမ္းခ်က္မ်ား </h4>
+                <h4 class="mmfont"> သင္တန္းစည္းကမ္းမ်ား </h4>
                 <p style="font-size: 13px;">
                     Myanmar IT Consulting <span class="mmfont"> သင္တန္းေက်ာင္း၏ ရည္႐ြယ္ခ်က္မွာ သင္တန္းတစ္ခုသာ တက္ေရာက္ၿပီး အလုပ္တန္း ဝင္ႏိုင္ေစရန္ ျဖစ္ပါသည္။ ထိုရည္႐ြယ္ခ်က္အတိုင္းလည္း သင္တန္းမွ တာဝန္ယူ သင္ၾကားေပးသလို ေက်ာင္းသားဘက္မွလည္း ႀကိဳးစားရန္လိုအပ္ပါသည္။ </span>
                 </p>

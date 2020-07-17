@@ -21,6 +21,8 @@ class AttendanceController extends Controller
     public function index(Request $request)
     {
         //
+        $user=Auth::user()->id;
+        $teacher = DB::table('courses')->join('teachers','courses.id','=','teachers.course_id')->join('staff','staff.id','=','teachers.staff_id')->join('users','users.id','=','staff.user_id')->join('locations','courses.location_id','=','locations.id')->where('users.id',$user)->select('courses.*','locations.name as lname')->get();
         $courses = Course::all();
         $batches = Batch::all();
         $attend = Attendance::all();
@@ -54,12 +56,12 @@ class AttendanceController extends Controller
             $status = 1;
             $students = Student::where('batch_id',$bid)->get();
 
-            return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status'));
+            return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status','teacher'));
         }
         else{
         // Return 
             $status = 0;
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status'));
+            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','teacher'));
         }
       
     
@@ -97,6 +99,7 @@ class AttendanceController extends Controller
 
             $attendances = new Attendance();
             $attendances->date = Carbon::now();
+           /* $attendances->date = request('date');*/
            // echo $remarks[$i];
 
             if($remarks[$i]!=''){

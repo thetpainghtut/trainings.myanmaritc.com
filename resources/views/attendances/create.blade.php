@@ -8,8 +8,8 @@
         <label for="inputCourse">Choose Course:</label>
         <select name="course" class="form-control" id="course">
           <option disabled selected="">Please Select Course</option>
-          @foreach($courses as $row)
-          <option value="{{$row->id}}">{{$row->name}} ( {{$row->location->city->name}} )</option>
+          @foreach($teacher as $row)
+          <option value="{{$row->id}}">{{$row->name}} ( {{$row->lname}} )</option>
           @endforeach
         </select>
       </div>
@@ -37,7 +37,8 @@
    <div class="form-row">
       <div class="form-group col-md-4">
         <label>To Date:</label>
-        <span>{{$todayDate}}</span>
+       <!-- <input type="date" name="date" class="form-control">-->
+         <span>{{$todayDate}}</span> 
       </div>
       <div class="form-group col-md-4">
         <div class="input-group md-form form-sm form-1 pl-0">

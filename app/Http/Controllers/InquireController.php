@@ -10,6 +10,7 @@ use App\Course;
 use App\Township;
 use App\Inquire;
 use App\Location;
+use Auth;
 
 class InquireController extends Controller
 {
@@ -21,8 +22,9 @@ class InquireController extends Controller
     public function index()
     {
         //
-        $inquires = Inquire::all();
-        return view('inquires.index',compact('inquires'));
+        $no_payment_inquires = Inquire::where('status',0)->get();
+        $first_payment_inquires = Inquire::where('status',1)->get();
+        return view('inquires.index',compact('no_payment_inquires','first_payment_inquires'));
     }
 
     /**
@@ -56,7 +58,7 @@ class InquireController extends Controller
             "camp" => "required",
             "education_id" => "required",
             "acceptedyear" => "required",
-            "batch_id" => "required",
+            "course_id" => "required",
             "township_id" => "required",
 
         ]);
@@ -102,7 +104,7 @@ class InquireController extends Controller
         $inquires->batch_id = request('batch_id');
         $inquires->township_id = request('township_id');
         $inquires->township_id = request('township_id');
-        $inquires->user_id = 1;
+        $inquires->user_id = Auth::id();
         $inquires->save();
 
         return redirect()->route('inquires.index');
@@ -167,6 +169,11 @@ class InquireController extends Controller
     }
 
     public function preinstallment(Request $request){
+        $request->validate([
+            'installment_date' => 'required',
+            'installment_amount' => 'required'
+
+        ]);
         $id = request('id');
         $inquire = Inquire::find($id);
         $inquire->installmentdate = request('installment_date');
@@ -174,7 +181,7 @@ class InquireController extends Controller
         $inquire->status = 1;
         $inquire->save();
         
-        return redirect()->route('inquires.index');
+        return response()->json($inquire);
 
     }
 
