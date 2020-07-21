@@ -19,6 +19,7 @@ class StudentController extends Controller
     {
         $this->middleware('role:Admin')->except('store','search_inquire');
     }*/
+    
     /**
      * Display a listing of the resource.
      *
@@ -117,32 +118,11 @@ class StudentController extends Controller
       $student->save();
 
       $subjects = request('subjects');
+
       // Save student_subject
       $student->subjects()->attach($subjects);
-      return 'hello';
-      //return back();
-     // return back()->with(['status' => 'Victoria','inquireno'=>$inquireno]);
-      // return redirect()->route('frontend.student.register');
-     
-      //   $subjects = Subject::all();
-      //   $courses = Course::all();
-      //   $batches = Batch::all();
-      //   $educations = Education::all();
-      //   $townships = Township::all();
-      //   $inquire = Inquire::where('inquireno','=',$inquireno)->first();
 
-       // return redirect($redirect_back)->withInput(Input::flash());
-
-      
-      // if(app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName()=='frontend.student.register')
-      // {
-        // echo "string";
-          // return redirect()->route('students');
-        // return redirect()->action('App\Http\Controllers\FrontendController@studentRegister');
-        // return back()->with('status','Register Successfully');
-        // return view('frontend.registerForm',compact('subjects','courses','batches','inquire','educations','townships','inquireno'))->with('status',"Successfully Add");
-      // }
-      
+      return 'ok';
     }
 
     /**

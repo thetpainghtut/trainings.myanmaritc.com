@@ -83,7 +83,7 @@
             </div>
             <div class="form-group col-md-2">
               <label for="inputAcceptedYear">Accepted Year:</label>
-              <input type="text" class="form-control @error('accepted_year') is-invalid @enderror" id="inputAcceptedYear" placeholder="2015" name="accepted_year" value="{{ old('accepted_year') }}" required autocomplete="accepted_year" autofocus>
+              <input type="text" class="form-control @error('accepted_year') is-invalid @enderror" id="inputAcceptedYear" placeholder="2015" name="accepted_year" value="{{ $inquire->acceptedyear }}" required autocomplete="accepted_year" autofocus>
               @error('accepted_year')
                  <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -240,24 +240,20 @@
   </div>
 
 
-<!-- Modal -->
+<!-- Successful Modal -->
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-       
-     </div>
-      <div class="modal-body text-center">
-            <p >Register Successfully!!</p>
-        
-            <a href="{{route('frontend.index')}}">
-              <button type="button" class="btn btn-primary">OK</button>
-            </a>
-        
       </div>
-     <div class="modal-footer ">
-       
-     </div>
+      <div class="modal-body text-center">
+        <p>Register Successfully!!</p>
+        <a href="{{route('frontend.index')}}">
+          <button type="button" class="btn btn-primary">OK</button>
+        </a>
+      </div>
+      <div class="modal-footer ">
+      </div>
     </div>
   </div>
 </div>
@@ -283,11 +279,10 @@
       processData: false,
       contentType: false,
       type: 'POST',
-      
       success: function(data){
         $('#exampleModal').modal('show');
       },
-       error: function(request, status, error) {
+      error: function(request, status, error) {
         console.log("error")
       }
 

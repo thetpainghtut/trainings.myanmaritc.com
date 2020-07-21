@@ -9,7 +9,7 @@ class Student extends Model
 {
   use SoftDeletes;
   
-  protected $fillable = ['inquire_no','namee','namem','email','phone','address','education','city','accepted_year','dob','gender','batch_id','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because'];
+  protected $fillable = ['inquire_no','namee','namem','email','phone','address','education','city','accepted_year','dob','gender','batch_id','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because','education_id'];
 
   public function subjects()
   {
@@ -21,6 +21,11 @@ class Student extends Model
     return $this->belongsTo('App\Batch');
   }
 
+  public function education()
+  {
+    return $this->belongsTo('App\Edcation');
+  }
+
   public function groups()
   {
     return $this->belongsToMany('App\Group')->withTimestamps();
@@ -29,11 +34,9 @@ class Student extends Model
   public function units()
   {
     return $this->belongsToMany('App\Unit')
-      ->withPivot('symbol')
-      ->withTimestamps();
-
+                ->withPivot('symbol')
+                ->withTimestamps();
   }
-
 
   public function attendance()
   {

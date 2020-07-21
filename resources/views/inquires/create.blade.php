@@ -141,7 +141,7 @@
                   <select name="batch_id" class="form-control" >
                   <option value="">Choose Batch</option>`;
           $.each(response,function(i,v) {
-            batches_data+=`<option value="${v.id}">${v.title}</option>`;
+            batches_data+=`<option value="${v.id}">${v.title} (${v.startdate})</option>`;
           })
           batches_data+=`</select></div>`;
           $('#inputBatch').html(batches_data);

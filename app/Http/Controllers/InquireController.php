@@ -11,6 +11,7 @@ use App\Township;
 use App\Inquire;
 use App\Location;
 use Auth;
+use Carbon\Carbon;
 
 class InquireController extends Controller
 {
@@ -273,10 +274,20 @@ class InquireController extends Controller
 
     public function getBatches(Request $request)
     {
+        $today = Carbon::now()->toDateString(); // 2020-07-21
+        
         $course_id = request('course_id');
-        $batches = Batch::where('course_id',$course_id)->get();
-        return $batches;
+        $batches = Batch::where('course_id',$course_id)
+                        ->get();
 
-
+        $fillter_batches = [];
+        foreach ($batches as $batch) { 
+            $newdate = Carbon::create($batch->startdate)->addDay(5)->toDateString();
+            if ($newdate >= $today) {
+                $fillter_batches[] = $batch;
+            }
+        }
+        
+        return $fillter_batches;
     }
 }

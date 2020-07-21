@@ -22,6 +22,8 @@ class CreateStudentsTable extends Migration
             $table->string('phone',100);
             $table->text('address');
             $table->unsignedBigInteger('education_id');
+            // for old education name
+            $table->string('education',100)->nullable();
             $table->string('city',100);
             $table->string('accepted_year',100);
             $table->date('dob');
