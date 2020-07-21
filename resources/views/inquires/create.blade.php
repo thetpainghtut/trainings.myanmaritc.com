@@ -89,14 +89,17 @@
   <div class="form-group row">
     <label for="inputCourse" class="col-sm-2 col-form-label">Course</label>
     <div class="col-sm-10">
-      <select class="form-control" id="inputCourse" name="course_id">
+      <select class="form-control" id="inputCourse">
           <option value="">Choose Course</option>
-
         @foreach($courses as $course)
           <option value="{{$course->id}}">{{$course->name}}({{$course->location->city->name}})</option>
         @endforeach
         </select>
     </div>
+  </div>
+   
+  <div class="form-group row" id="inputBatch">
+      
   </div>
   
   <div class="form-group row">

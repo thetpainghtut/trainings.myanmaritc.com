@@ -331,35 +331,18 @@
 @section('script')
  <script type="text/javascript">
   $(document).ready(function () {
-<<<<<<< HEAD
     function showValidationErrors(name, error) {
-=======
-
-    function showValidationErrors(name, error) {
-
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       var group = $("#form-group-" + name);
       group.addClass('has-error');
       group.find('.show-error').text(error);
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
     function clearValidationError(name) {
       console.log(name);
       var group = $("#form-group-" + name);
       group.removeClass('has-error');
       group.find('.show-error').text('');
   }
-<<<<<<< HEAD
-  $("#installment_date").on('change', function () {
-      clearValidationError($(this).attr('id').replace('#', ''))
-  });
-  $("#installment_amount").on('keyup', function () {
-      clearValidationError($(this).attr('id').replace('#', ''))
-  });
-=======
 
   $("#installment_date").on('change', function () {
       clearValidationError($(this).attr('id').replace('#', ''))
@@ -370,16 +353,12 @@
   });
 
 
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-<<<<<<< HEAD
-=======
 
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
     $('.inquire_detail').click(function(){
       var inquireno = $(this).data('inquireno');
       var receiveno = $(this).data('receiveno');
@@ -410,34 +389,20 @@
       $('.inquire_township').text(township);
       $('.detail_modal').modal('show');
     })
-<<<<<<< HEAD
-    $('#First_Installment').submit(function(event){
-      event.preventDefault();
-      var install_data = new FormData(this);
-=======
 
     $('#First_Installment').submit(function(event){
       event.preventDefault();
       var install_data = new FormData(this);
 
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       $.ajax({
         url:"{{route('installment.store')}}",
         data:install_data,
         processData: false,
         contentType: false,
         type: 'POST',
-<<<<<<< HEAD
         success: function(data){
           if(data){
-          $('.install_modal').modal('hide');
-=======
-
-        success: function(data){
-          if(data){
-          $('.install_modal').modal('hide');
-
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
+            $('.install_modal').modal('hide');
           }
         },
        error: function(error) {
@@ -449,18 +414,10 @@
             showValidationErrors(i,v);
           })
           $('.install_modal').modal('show');
-<<<<<<< HEAD
-=======
-
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
         }
           
         }
       })
-<<<<<<< HEAD
-=======
-
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
     })
     $('.edit_install').click(function(){
       var id = $(this).data('id');

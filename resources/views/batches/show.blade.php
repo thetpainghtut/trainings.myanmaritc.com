@@ -100,11 +100,7 @@
       		</div>
       		<div class="col-md-6">
 
-<<<<<<< HEAD
-      			@foreach($batches->teachers as $bat)
-=======
       			@foreach($batch->teachers as $bat)
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       				{{--@php
       					$value[] = $bat->staff->user->id;
       					$data = implode('', array_unique($value));
@@ -133,16 +129,11 @@
       		<div class="col-md-6">
       			@foreach($batch->mentors as $bat)
       				
-<<<<<<< HEAD
-      				<h6 class="d-inline-block">{{$loop->first ? '':' , '}}
-      				{{$bat->staff->user->name}}  </h6>
-=======
       				<h6 class="d-inline-block">
                               {{ $loop->first ? '' : ', ' }}
                               
                               {{$bat->staff->user->name}}  
-                              </h6>
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
+                    </h6>
 		      		
 		      	@endforeach
       			

@@ -63,9 +63,8 @@ class InquireController extends Controller
             "camp" => "required",
             "education_id" => "required",
             "acceptedyear" => "required",
-            "course_id" => "required",
+            "batch_id" => "required",
             "township_id" => "required",
-
         ]);
         $id =request('batch_id');
         $batch = Batch::find($id);

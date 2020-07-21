@@ -101,7 +101,7 @@ class FrontendController extends Controller
     $batches = Batch::all();
     $educations = Education::all();
     $townships = Township::all();
-    $inquire = Inquire::where('inquireno','=',$inquireno)->first();
+    $inquire = Inquire::where('receiveno','=',$inquireno)->first();
     $student = Student::where('inquire_no','=',$inquireno)->first();
     //dd($student);
     if($inquire==null){

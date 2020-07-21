@@ -158,10 +158,7 @@
           <span> Units</span></a>
       </li>
       @endrole
-<<<<<<< HEAD
-=======
 
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       @role('HR|Admin')
         <hr class="sidebar-divider">
 
@@ -185,12 +182,7 @@
           <span>Expenses</span></a>
       </li>
       @endrole
-<<<<<<< HEAD
-       @role('Admin')
-     
-=======
 
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
       
 
 
