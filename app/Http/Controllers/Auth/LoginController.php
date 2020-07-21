@@ -40,14 +40,44 @@ class LoginController extends Controller
     }
     
     protected function authenticated($request, $user){
+
         if($user->hasRole('Admin')){
             return redirect('/students');
-        } 
+        }
+// <<<<<<< HEAD
+//         elseif($user->hasRole('Mentor')) {
+//             return redirect('/students');
+//         }
+//         elseif($user->hasRole('Teacher')){
+//             return redirect('/students');
+//         }
+//         elseif($user->hasRole('HR')){
+//             return redirect('/incomes');
+//         }elseif($user->hasRole('Reception')){
+//             return redirect('/courses');
+//         }
+// =======
+
+// >>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
         elseif(Auth::user()->staffs)
-            {   
-                Auth::logout();
-                return redirect()->route('login')->with('msg','You are not our members anymore') ;
-            }
+        {   
+            Auth::logout();
+            return redirect()->route('login')->with('msg','You are not our members anymore') ;
+        }
+        
+        elseif($user->hasRole('Mentor')) {
+            return redirect('/students');
+        }
+        elseif($user->hasRole('Teacher')){
+            return redirect('/students');
+        }
+        elseif($user->hasRole('HR')){
+            return redirect('/incomes');
+        }elseif($user->hasRole('Reception')){
+            return redirect('/batches');
+        }
+
+        
         else {
             return redirect('/');
         }

@@ -10,9 +10,14 @@ use App\Course;
 use App\Township;
 use App\Inquire;
 use App\Location;
+use Auth;
 
 class InquireController extends Controller
 {
+     public function __construct($value='')
+    {
+        $this->middleware('role:Admin|Reception');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +26,9 @@ class InquireController extends Controller
     public function index()
     {
         //
-        $inquires = Inquire::all();
-        return view('inquires.index',compact('inquires'));
+        $no_payment_inquires = Inquire::where('status',0)->get();
+        $first_payment_inquires = Inquire::where('status',1)->get();
+        return view('inquires.index',compact('no_payment_inquires','first_payment_inquires'));
     }
 
     /**
@@ -34,7 +40,8 @@ class InquireController extends Controller
     {
         //
         $educations = Education::all();
-        $courses = Course::all();
+        //$courses = Course::all();
+        $courses = Course::has('batches')->get();
         $batches = Batch::all();
         $townships = Township::all();
         return view('inquires.create',compact('educations','batches','townships','courses'));
@@ -58,7 +65,6 @@ class InquireController extends Controller
             "acceptedyear" => "required",
             "batch_id" => "required",
             "township_id" => "required",
-
         ]);
         $id =request('batch_id');
         $batch = Batch::find($id);
@@ -81,7 +87,11 @@ class InquireController extends Controller
             $lastDate =$lastInquire->created_at->format('Y-m-d');
 
             if($lastDate == date('Y-m-d')){
-                $inquires->inquireno = $lastInquire->inquireno+1;
+                $inquireno = $lastInquire->inquireno;
+                $inquire_no = ++$inquireno;
+                 $inquires->inquireno = strval($inquire_no);
+                
+               
             }else{
                 $inquires->inquireno = date('dmY').'001';
             }
@@ -102,7 +112,7 @@ class InquireController extends Controller
         $inquires->batch_id = request('batch_id');
         $inquires->township_id = request('township_id');
         $inquires->township_id = request('township_id');
-        $inquires->user_id = 1;
+        $inquires->user_id = Auth::id();
         $inquires->save();
 
         return redirect()->route('inquires.index');
@@ -130,7 +140,7 @@ class InquireController extends Controller
     {
         //
         $inquire = Inquire::find($id);
-        dd($inquire);
+        /*dd($inquire);*/
         return view('inquires.edit',compact('inquire'));
 
     }
@@ -167,6 +177,11 @@ class InquireController extends Controller
     }
 
     public function preinstallment(Request $request){
+        $request->validate([
+            'installment_date' => 'required',
+            'installment_amount' => 'required'
+
+        ]);
         $id = request('id');
         $inquire = Inquire::find($id);
         $inquire->installmentdate = request('installment_date');
@@ -174,7 +189,7 @@ class InquireController extends Controller
         $inquire->status = 1;
         $inquire->save();
         
-        return redirect()->route('inquires.index');
+        return response()->json($inquire);
 
     }
 
@@ -229,7 +244,9 @@ class InquireController extends Controller
                 if($codeno == $data_codeno && $zipcode == $data_zipcode)
                 {
                     //dd($value->receiveno);
-                    $inquire->receiveno = $value->receiveno+1;
+                    $inquireno = $value->receiveno;
+                    $inquire_no = ++$inquireno;
+                    $inquire->receiveno = strval($inquire_no);
                     break;
                 }else{
                     $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
@@ -241,11 +258,12 @@ class InquireController extends Controller
         $inquire->installmentamount = $full_amount;
         $inquire->status = 2;
         $inquire->save();
-
+        $date = date('d-m-Y');
         //dd($preinstallment_date,$preinstallment_amount,$payment_date,$need_amount,$course_name,$course_fees);
 
-        $pdf = PDF::loadView('pdf.inquire',compact('inquire','batch','course_name','course_fees','preinstallment_date','preinstallment_amount','payment_date','need_amount'));
-        // $pdf = PDF::loadView('pdf.testing');
+
+        $pdf = PDF::loadView('pdf.inquire',compact('inquire','batch','course_name','course_fees','preinstallment_date','preinstallment_amount','payment_date','need_amount','date'));
+
         return $pdf->stream();
 
        // return redirect()->route('inquires.index');

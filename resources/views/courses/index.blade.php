@@ -38,19 +38,13 @@
             <i class="fas fa-edit"></i>
           </a>
          
-          <form method="post" action="{{route('courses.destroy',$row->id)}}" class="d-inline-block">
-            @csrf
-            @method('DELETE')
-            @if($row->trashed())
-              <button type="submit" class="btn btn-danger">
-                <i class="fas fa-trash-restore"></i>
-              </button>
-            @else
-              <button type="submit" class="btn btn-danger">
+         
+            
+              <button type="submit" class="btn btn-danger" onclick="alert('You cannot delete!!!!!')">
                 <i class="fas fa-trash"></i>
               </button>
-            @endif
-          </form>
+          
+          
         </td>
       </tr>
       @endforeach

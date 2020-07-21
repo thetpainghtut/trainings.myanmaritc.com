@@ -38,7 +38,7 @@
       @if($bid !=0)
       <div class="form-group col-md-2 text-right mt-2">
 
-        <a name="btnSelect" href="{{route('export',$row->id)}}" role="button" class="btn btn-info mt-4"><i class="far fa-file-excel"></i> Print Attendance </a>
+        <a name="btnSelect" href="{{route('export',$bid)}}" role="button" class="btn btn-info mt-4"><i class="far fa-file-excel"></i> Print Attendance </a>
       </div>
       @endif
     </div>

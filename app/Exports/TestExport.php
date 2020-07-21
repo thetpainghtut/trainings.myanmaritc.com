@@ -24,6 +24,7 @@ class TestExport implements WithMultipleSheets
 
     public function __construct($id){
         $this->id = $id;
+        //dd($this->id);
     }
 
     public function sheets(): array
@@ -35,10 +36,8 @@ class TestExport implements WithMultipleSheets
                     //dd($groups);
                               //  dd($customer);
                     //$snamea=[];
-
-        foreach ($groups as $key => $value) {
-          //  dd($groups);
-            $id = $value['id'];
+          // dd($groups);
+           /* $id = $value['id'];
             $name = $value['name'];
              $customer = DB::table('group_student')
                                 ->join('groups', 'groups.id', '=', 'group_student.group_id')
@@ -51,14 +50,31 @@ class TestExport implements WithMultipleSheets
             $sheet = new UsersExport($groups, $name,$customer,$this->id);
             // $sheet->setColumnFormat(array('C' => '0%'));
             $sheets[] = $sheet;
+            return $sheets;*/
+            foreach ($groups as $key => $value) {
+          //  dd($groups);
+            $id = $value['id'];
+            $name = $value['name'];
+             $customer = DB::table('group_student')
+                                ->join('groups', 'groups.id', '=', 'group_student.group_id')
+                                ->join('students', 'group_student.student_id', '=', 'students.id')
+                                ->where ('group_student.group_id', '=', $id)
+                                ->select('students.namee as sname')
+                                ->get();
+                               // array_push($snamea,$customer);
+
+            $sheets[] = new UsersExport($groups, $name,$customer,$this->id);
+        }
+
+        return $sheets;
         }
         
         // $sheets->setColumnFormat(array(
         //     'C' => '0%'
         // ));
 
-        return $sheets;
-    }
+        //return $sheets;
+    
 
     /*public function view(): View
     {
@@ -109,7 +125,7 @@ class TestExport implements WithMultipleSheets
                     ->getAlignment()->setWrapText(true);*/
             
                 //$event->sheet->getRowDimension(20)->setRowHeight(10);
-            },
+            }
         ];
     }
 

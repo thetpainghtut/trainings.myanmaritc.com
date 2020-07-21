@@ -309,7 +309,7 @@ class StaffController extends Controller
 
             else{
                 // $user->assignRole(request('role'));
-                return redirect()->route('staffs.index');
+                return redirect()->route('dashboard');
 
             }
             

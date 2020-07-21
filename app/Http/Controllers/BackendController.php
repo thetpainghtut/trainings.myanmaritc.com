@@ -21,11 +21,11 @@ class BackendController extends Controller
   public function getstudentformembers(Request $request)
   {
     $bid = request('bid');
-    // $students = Student::where('batch_id',$bid)->get();
+    $students = Student::whereDoesntHave('groups')->where('batch_id',$bid)->get();
 
-    $students = Student::whereDoesntHave('groups', function (Builder $query) use ($bid) {
-      $query->where('batch_id', $bid);
-    })->get();
+    // $students = Student::whereDoesntHave('groups', function (Builder $query) use ($bid) {
+    //   $query->where('batch_id', $bid);
+    // })->get();
 
     return $students;
   }

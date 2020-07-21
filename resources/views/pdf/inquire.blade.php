@@ -2,37 +2,27 @@
 <html>
 <head>
 	<title>Inquire Print</title>
-	<meta charset="UTF-8">
-	<!-- <link href="https://fonts.googleapis.com/css?family=Padauk&display=swap" rel="stylesheet"> -->
-
-
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<meta charset="utf-8">
 	<style>
-
-		/*@font-face 
-		{
-		  font-family:'Unicode';
-		  src: url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.woff') format('woff'), url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.ttf') format('ttf');
-		}
-
-		@font-face 
-		{
-		  font-family:'Pyidaungsu';
-		  src: url("{{asset('Pyidaungsu.ttf')}}");
-		}*/
-
 		*
 		{
 			margin: 0;
 			padding: 0;
 			font-style: italic;
-			font-family: 'Zawgyi_One';
-			/*font-family: 'Padauk-Regular';*/
 		}
+
 		body
 		{
 			padding: 70px 70px;
 			margin-top: 20px;
 		}
+
+		.mmfont
+		{
+			font-family: 'Zawgyi_One';
+		}
+
 		.header_one
 		{
 			float: left;
@@ -52,6 +42,21 @@
 			margin-top: 8px;
 			text-align: center;
 		}
+
+		.inquire
+		{
+			float: left;
+			margin-right: 0px;
+			font-size: 25px;
+
+		}
+		.inquireno
+		{
+			font-size: 20px;
+			margin-top: 8px;
+			text-align: center;
+		}
+
 		.clear
 		{
 			clear: both;
@@ -65,6 +70,10 @@
 		.date
 		{
 			float: left;
+		}
+		.date1
+		{
+			margin-right: 50px; 
 		}
 		.header_three
 		{
@@ -94,12 +103,6 @@
 			width: 650px;
 		}
 
-
-		/*.mmfont
-		{
-			font-family: 'Unicode';
-		}*/
-
 		.time
 		{
 			float: left;
@@ -122,7 +125,7 @@
 
 	</style>
 </head>
-<body class="mmfont">
+<body>
 	<div class="header">
 		<h3 class="header_one">Myanmar IT Consulting</h3>
 		<h3 class="receive" style="color:#42c8f5;">Receive</h3>
@@ -135,7 +138,7 @@
 		Myanmar IT Consulting, Room No 8-A,
 		</p>
 		<p class="date">DATE:</p>
-		
+		<p class="date1">{{$date}}</p>
 	</div>
 	<div class="clear"></div>
 
@@ -153,6 +156,9 @@
 			 09 772750604 / 09 450675999</p>
 			 <br>
 			 <p>Email: info@myanmaritc.com</p>
+			 <br>
+			 <h3 class="inquire" style="color:#42c8f5;">Inquire No:</h3>
+			 <p class="inquireno" style="color:#42c8f5;">{{$inquire->inquireno}}</p>
 		</div>
 		<p class="for">FOR:</p>
 		<img src="mmit_receivelogo_one.png" style="width: 150px; height: 150px" alt="" id="image">
@@ -187,10 +193,10 @@
 	<br>
 	<div class="remark">
 
-		<p> <i style="font-family:'Zawgyi_One'"> မှတ်ချက် - သင်တန်းအပ်ပြီး ပြန်ထွက်လျှင် သင်တန်းကြေး ပြန်မပေးပါ။ </i> </p>
-
-		<p>သင္တန္းေၾကး</p>
-
+		<p class="mmfont">
+			မွတ္ခ်က္ - သင္တန္းအပ္ၿပီး ျပန္ထြက္လွ်င္ သင္တန္းေၾကး ျပန္မေပးပါ။
+		</p>
+		
 	</div>
 	<br><br>
 	<div class="header">

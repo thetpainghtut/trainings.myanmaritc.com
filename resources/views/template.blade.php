@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -66,10 +66,93 @@
 
     <div class="container-fluid" id="newcourse_ad">
       <div class="row">
+
+
         <div class="container">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            
+             <div class="carousel-inner">
+              @if(count($batches)>0)
+            
+            @php $i=0; @endphp
+            @foreach($batches as $batch)
+            @php
+              $now = Carbon\Carbon::now();
+
+              if($batch){
+              $date = date('d-M-Y',strtotime($batch->startdate));
+              if($now < $batch->startdate){
+            @endphp
+
+                <div class="carousel-item @if($i==0) {{'active'}} @endif">
+                    <p>{{$batch->course->name}} </p>
+                    <p>( {{$batch->course->location->name}} 
+                      {{$batch->course->location->city->name}}
+                      )
+                    </p>
+                    <b class="d-block">{{$date}}</b>
+                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div>      
+
+          @php $i++; } else{  @endphp
+
+                <div class="carousel-item active">
+                    <p> No class now</p>                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div>  
+
+            @php }; }else{ @endphp
+            
+                <div class="carousel-item active">
+                    <p> No class now</p>                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div> 
+                
+            @php }; @endphp
+            @endforeach
+            @else
+                <div class="carousel-item active">
+                    <p> No class now</p>                    
+
+                    <div class="row">
+                      <div class="offset-4 col-4 offset-4">
+                          <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                      </div>
+                    </div>
+
+                </div> 
+            @endif
+              
+            </div>
+
+          </div>
+          
+        </div>
+        <!-- 
           <div class="row p-5">
             <div class="col-12 text-center">
-                <h1 class="text-center my-5"> Upcoming Course </h1>
+                <h1 class="text-center my-5"> 
+
+                </h1>
                 <p> Android Developer Bootcamp </p>
                 <b class="d-block"> 27, January 2020 </b>
                 <div class="row">
@@ -78,8 +161,8 @@
                   </div>
                 </div>
             </div>
-          </div>
-        </div>
+          </div> -->
+        
       </div>
     </div>
 

@@ -1,7 +1,7 @@
 @extends('backendtemplate')
 
 @section('content')
-  <h2>Create Groups</h2>
+  <h2>Create Groupss</h2>
 
   @if(session('status'))
     <div class="alert alert-success">

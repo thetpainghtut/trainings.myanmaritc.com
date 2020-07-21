@@ -3,6 +3,7 @@
   <!-- Page Heading -->
   <h1 class="h3 mb-4 text-gray-800">Dashboard Page</h1>
   <div class="row">
+    @role('Admin|HR')
         <div class="col-md-4">
             <a href="report" class="nav-link">
                 <div class="card mb-3 shadow mx-3 mycard">
@@ -20,8 +21,10 @@
                 </div>
             </a>
         </div>
+        @endrole
+        @role('Admin')
         <div class="col-md-4">
-            <a href="student" class="nav-link">
+            <a href="students" class="nav-link">
                 <div class="card mb-3 shadow mx-3 mycard">
                     <div class="row no-gutters">
                         <div class="col-md-4">
@@ -38,7 +41,7 @@
             </a>
         </div>
         <div class="col-md-4">
-            <a href="teacher" class="nav-link">
+            <a href="staffs" class="nav-link">
                 <div class="card mb-3 shadow mx-3 mycard">
                     <div class="row no-gutters">
                         <div class="col-md-4">
@@ -54,6 +57,7 @@
                 </div>
             </a>
         </div>
+        @endrole
     </div>
 @endsection
 
