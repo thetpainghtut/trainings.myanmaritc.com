@@ -25,7 +25,7 @@
 			margin: 0;
 			padding: 0;
 			font-style: italic;
-			font-family: 'Myanmar3';
+			font-family: 'Zawgyi_One';
 			/*font-family: 'Padauk-Regular';*/
 		}
 		body
@@ -186,8 +186,11 @@
 	</div>
 	<br>
 	<div class="remark">
-		<p> <i style="font-family:'Myanmar3'"> မှတ်ချက် - သင်တန်းအပ်ပြီး ပြန်ထွက်လျှင် သင်တန်းကြေး ပြန်မပေးပါ။ </i> </p>
-		
+
+		<p> <i style="font-family:'Zawgyi_One'"> မှတ်ချက် - သင်တန်းအပ်ပြီး ပြန်ထွက်လျှင် သင်တန်းကြေး ပြန်မပေးပါ။ </i> </p>
+
+		<p>သင္တန္းေၾကး</p>
+
 	</div>
 	<br><br>
 	<div class="header">

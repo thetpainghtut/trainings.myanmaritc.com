@@ -319,12 +319,7 @@
             </div>
 
             <div class="content_rowsix" style="margin-top: 20px">
-                <span class="mmfont">သင်တန်းစည်းကမ်းချက်များ</span>
-                <p class="mmfont">Myanmar IT Consulting သင်တန်းေကျာင်း၏ ရည်ရွယ ချက်မ ာ C သင်တန်းတစ်ခ သာ တက်ေရာက်Fပီး အလEပ်တန်းဝင်L ငိE ေစရန် ြဖစ်ပါသည်။ ထိ ရည်ရွယ ချက်အတိ ငး ် လည်း သင်တန်းမC တာဝန်ယS သင်Tကားေပးသလေကျာင်းသားဘက်မ လည်း VကိWးစားရန်လ အပ်ပါသည်။</p>
-                <li class="mmfont">သင်တန်း ပျက်ရက် (၂) ရက်ထက် မေကျာ်ေစရန် ဂ\Eတစိ က် တက်ေရာက်ရပါမည်။</li>
-                <li class="mmfont">အေTကာင်းအထSး]CိေသာေTကာင ် ့ သင်တန်းပျက်က ကပါကလည်း VကိWတင် ဖEန း ် ဆက် အေTကာင်းTကားရမည်။</li>
-                <li class="mmfont">ကျန်းမာေရး ၊ မိသားစE အေရးမC လွ မC သင်တန်းပျက်ရက် ( ၂ ) ရက်ေကျာ်ပါက Certificate ေပးအပ်မညမဟEတ ပ
-                ါ။</li>
+                <img src="absence_mm.png" style="width: 100%;">
                 
             </div>
             <div class="hrtrain">

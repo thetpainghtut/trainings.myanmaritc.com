@@ -77,10 +77,18 @@
     'italic' => $rootDir . '/lib/fonts/DejaVuSerif-Italic',
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
+
   'myanmar3' => array(
     'normal' => $fontDir . '/Myanmar3',
     'bold' => $fontDir . '/Myanmar3',
     'italic' => $fontDir . '/Myanmar3',
     'bold_italic' => $fontDir . '/Myanmar3',
+  ),
+  
+  'zawgyi_one' => array(
+    'normal' => $fontDir . '/Zawgyi_One',
+    'bold' => $fontDir . '/Zawgyi_One',
+    'italic' => $fontDir . '/Zawgyi_One',
+    'bold_italic' => $fontDir . '/Zawgyi_One',
   ),
 ) ?>
