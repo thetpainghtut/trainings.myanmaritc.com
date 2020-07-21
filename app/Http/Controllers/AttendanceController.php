@@ -21,16 +21,11 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
-        //
-<<<<<<< HEAD
-        $user=Auth::user()->id;
-        $teacher = DB::table('courses')->join('teachers','courses.id','=','teachers.course_id')->join('staff','staff.id','=','teachers.staff_id')->join('users','users.id','=','staff.user_id')->join('locations','courses.location_id','=','locations.id')->where('users.id',$user)->select('courses.*','locations.name as lname')->get();
-=======
         $user = Auth::user()->id;
         //dd($user);
         $teacher = DB::table('courses')->join('teachers','courses.id','=','teachers.course_id')->join('staff','staff.id','=','teachers.staff_id')->join('users','users.id','=','staff.user_id')->join('locations','courses.location_id','=','locations.id')->where('users.id',$user)->select('courses.*','locations.name as lname')->get();
         //dd($teacher);
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
+
         $courses = Course::all();
         $batches = Batch::all();
         $attend = Attendance::all();

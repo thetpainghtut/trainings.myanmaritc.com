@@ -189,10 +189,6 @@
 <body>
     
     
-<<<<<<< HEAD
-    <!--<div class="studentone page-break">-->
-=======
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
     <div class="studentone">
         <div id="header" style="margin-bottom: 10px;">
             <h1 class="text-center">Myanmar IT Consulting</h1>
@@ -234,11 +230,7 @@
                     <span> : </span>
                     <span> {{$batchname}} </span>
                 </p>
-<<<<<<< HEAD
                 
-=======
-
->>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
                 <p style="margin: 10px 0;">
                     <span style="width: 150px; display: inline-block;"> Reason </span>
                     <span> : </span>
