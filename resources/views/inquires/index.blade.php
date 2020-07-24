@@ -21,7 +21,7 @@
             <th>Phone</th>
             <th>Inquire No</th>
             <th>Education</th>
-            <th>Townshio</th>
+            <th>Township</th>
             <th>Action</th>
           </tr>
         </thead>
