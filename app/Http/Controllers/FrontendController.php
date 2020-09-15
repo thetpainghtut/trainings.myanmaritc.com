@@ -15,9 +15,9 @@ class FrontendController extends Controller
 {
   public function index($value='')
   {
-
     return view('frontend.index');
   }
+
   public function csr($value='')
   {
     return view('frontend.csr');
@@ -96,7 +96,7 @@ class FrontendController extends Controller
   public function studentRegister(Request $request)
   {
     $inquireno = request('inquire_no');
-    $subjects = Subject::all();
+    $subjects = Subject::all(); // all subjects
     $courses = Course::all();
     $batches = Batch::all();
     $educations = Education::all();
