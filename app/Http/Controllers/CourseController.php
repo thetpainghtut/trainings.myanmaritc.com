@@ -17,9 +17,9 @@ class CourseController extends Controller
     public function index()
     {
         // $courses = Course::all();
-
-
         $courses = Course::all();
+
+        // dd($courses);
         return view('courses.index',compact('courses'));
     }
 
@@ -50,8 +50,7 @@ class CourseController extends Controller
             "outlines_photo" => 'required|mimes:jpeg,bmp,png',
             "fees" => 'required',
             "during" => 'required|max:100',
-            "duration" => 'required|max:100',
-            "location" => 'required'
+            "duration" => 'required|max:100'
         ]);
 
 
@@ -96,8 +95,6 @@ class CourseController extends Controller
         $course->fees = request('fees');
         $course->during = request('during');
         $course->duration = request('duration');
-        $course->location_id = request('location');
-
         $course->save();
 
         // Return
@@ -148,7 +145,6 @@ class CourseController extends Controller
             "fees" => 'required',
             "during" => 'required|max:100',
             "duration" => 'required|max:100',
-            "location" => 'required'
         ]);
 
         // If exist file, upload file
@@ -186,7 +182,6 @@ class CourseController extends Controller
         $course->fees = request('fees');
         $course->during = request('during');
         $course->duration = request('duration');
-        $course->location_id = request('location');
         
         $course->save();
 

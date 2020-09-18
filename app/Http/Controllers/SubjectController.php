@@ -15,8 +15,25 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
-        return view('subjects.index',compact('subjects'));
+        $courses = Course::all();
+
+        $course = Course::findOrFail(1);
+        $subjects = $course->subjects()
+            // ->wherePivot('course_id', '<', '2017-10-10')
+            ->get();
+
+        return view('subjects.index',compact('subjects','courses'));
+    }
+
+    public function subject_course(Request $request)
+    {
+        $course_id = request('course_id');
+        // $staff = Role::where('name',$staff_role);
+        $course = Course::findOrFail($course_id);
+        $subjects = $course->subjects()
+            // ->wherePivot('course_id', '<', '2017-10-10')
+            ->get();
+        return $subjects;
     }
 
     /**
@@ -40,14 +57,26 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100',
-            'course_id'=>'required',
+            'courses'=>'required',
+            "logo" => 'required|mimes:jpeg,bmp,png'
         ]);
 
-        $subject = new Subject;
+        if($request->hasfile('logo')){
+            $logo = $request->file('logo');
+            $upload_dir = public_path().'/storage/images/subjects/';
+            $name = time().'.'.$logo->getClientOriginalExtension();
+            $logo->move($upload_dir,$name);
+            $path = '/storage/images/subjects/'.$name;
+        }else{
+            $path = '';
+        }
 
+        $subject = new Subject;
         $subject->name = request('name');
-        $subject->course_id=request('course_id');
+        $subject->logo = $path;
         $subject->save();
+
+        $subject->courses()->attach(request('courses'));
 
         return redirect()->route('subjects.index');
     }

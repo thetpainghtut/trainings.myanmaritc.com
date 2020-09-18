@@ -25,17 +25,23 @@ class CreateInquiresTable extends Migration
             $table->bigInteger('status')->default(0);
             $table->longText('knowledge')->nullable();
             $table->string('camp');
-            $table->unsignedBigInteger('education_id');
             $table->string('acceptedyear')->nullable();
 
-            //section
+            $table->unsignedBigInteger('education_id');
+            $table->foreign('education_id')
+                  ->references('id')->on('educations')
+                  ->onDelete('cascade'); 
+
             $table->unsignedBigInteger('batch_id');
+            $table->foreign('batch_id')
+                  ->references('id')->on('batches')
+                  ->onDelete('cascade');
 
-            //township
-            $table->unsignedBigInteger('township_id');
-
-            //user
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
         });

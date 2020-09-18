@@ -16,8 +16,18 @@ class Location extends Model
     	return $this->belongsTo('App\City');
     }
 
-    public function courses()
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function batches()
   	{
-    	return $this->hasMany('App\Course');
+    	return $this->hasMany('App\Batch');
   	}
+
+    public function incomes()
+    {
+        return $this->hasMany('App\Income');
+    }
 }

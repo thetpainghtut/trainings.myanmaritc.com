@@ -11,8 +11,13 @@ class Attendance extends Model
         'date', 'status', 'remark', 'student_id', 'user_id'
     ];
 
-     public function student()
-  {
-    return $this->belongsTo('App\Student');
-  }
+    public function student()
+  	{
+    	return $this->belongsTo('App\Student');
+  	}
+
+  	public function user()
+  	{
+    	return $this->belongsTo('App\User');
+  	}
 }

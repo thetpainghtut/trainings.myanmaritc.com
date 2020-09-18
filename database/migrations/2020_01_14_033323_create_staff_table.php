@@ -13,7 +13,7 @@ class CreateStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('staffs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('dob');
             $table->string('fathername');
@@ -26,9 +26,17 @@ class CreateStaffTable extends Migration
 
             //location
             $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')
+                  ->references('id')->on('locations')
+                  ->onDelete('cascade');
 
             //user
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+            
+            $table->softDeletes();
             $table->timestamps();
 
         });

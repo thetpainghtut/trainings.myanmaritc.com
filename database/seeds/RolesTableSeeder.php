@@ -27,6 +27,13 @@ class RolesTableSeeder extends Seeder
             'updated_at' => now()
         ]);
 
+        DB::table('roles')->insert([
+            'name'      => 'Intern Mentor',
+            'guard_name' => 'web',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
 
         DB::table('roles')->insert([
             'name'      => 'Teacher',
@@ -43,7 +50,21 @@ class RolesTableSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name'      => 'Reception',
+            'name'      => 'Business Development',
+            'guard_name' => 'web',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('roles')->insert([
+            'name'      => 'Recruitment',
+            'guard_name' => 'web',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('roles')->insert([
+            'name'      => 'Student',
             'guard_name' => 'web',
             'created_at' => now(),
             'updated_at' => now()

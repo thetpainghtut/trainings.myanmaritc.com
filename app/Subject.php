@@ -3,14 +3,31 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subject extends Model
 {
-	protected $fillable = ['name','course_id'];
+	use SoftDeletes;
 
-	public function course()
+	protected $fillable = ['name','logo','status'];
+
+	public function courses()
 	{
-	  	return $this->belongsTo('App\Course');
+	  	return $this->belongsToMany('App\Course');
 	}
 
+	public function students()
+	{
+	  	return $this->belongsToMany('App\Student');
+	}
+
+	public function lessons()
+	{
+	  	return $this->belongsToMany('App\Lesson');
+	}
+
+	public function journals()
+    {
+        return $this->belongsToMany('App\Journal');
+    }
 }

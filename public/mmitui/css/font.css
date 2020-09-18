@@ -249,3 +249,29 @@
 	font-family: 'Montserrat_ExtraBoldItalic';
 	src:url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf');
 }
+
+
+@font-face
+{
+	font-family: 'Questrial_Regular';
+	src:url('../fonts/Questrial-Regular.ttf');
+}
+
+
+@font-face
+{
+	font-family: 'Poppins_Regular';
+	src:url('../fonts/Poppins/Poppins-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: 'Poppins_ExtraBold';
+	src:url('../fonts/Poppins/Poppins-ExtraBold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Poppins_Bold';
+	src:url('../fonts/Poppins/Poppins-Bold.ttf');
+}

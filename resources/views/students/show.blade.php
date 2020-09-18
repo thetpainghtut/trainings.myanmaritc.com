@@ -4,7 +4,7 @@
 	
 	<div class="row mb-3">
 		<div class="col-md-10 offset-1">
-			<a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right"><i class="fas fa-angle-double-left"></i> Go Back</a>
+			<a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right btn-sm"><i class="fas fa-angle-double-left"></i> Go Back</a>
 		</div>
 	</div>
 

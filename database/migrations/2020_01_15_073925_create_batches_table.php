@@ -19,13 +19,19 @@ class CreateBatchesTable extends Migration
             $table->date('startdate');
             $table->date('enddate');
             $table->string('time',100);
-            $table->unsignedBigInteger('course_id');
-            $table->softDeletes();
-            $table->timestamps();
 
+            $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')
                   ->references('id')->on('courses')
                   ->onDelete('cascade');
+
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')
+                  ->references('id')->on('locations')
+                  ->onDelete('cascade');
+
+            $table->softDeletes();
+            $table->timestamps();
         });
 
         

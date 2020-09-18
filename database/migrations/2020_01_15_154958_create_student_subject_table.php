@@ -15,9 +15,16 @@ class CreateStudentSubjectTable extends Migration
     {
         Schema::create('student_subject', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('student_id');
+            
             $table->unsignedBigInteger('subject_id');
-            $table->timestamps();
+            $table->foreign('subject_id')
+                  ->references('id')->on('subjects')
+                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')
+                  ->references('id')->on('students')
+                  ->onDelete('cascade');
         });
     }
 

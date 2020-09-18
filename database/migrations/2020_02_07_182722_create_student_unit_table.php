@@ -15,8 +15,16 @@ class CreateStudentUnitTable extends Migration
     {
         Schema::create('student_unit', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')
+                  ->references('id')->on('students')
+                  ->onDelete('cascade');
+
             $table->unsignedBigInteger('unit_id');
+            $table->foreign('unit_id')
+                  ->references('id')->on('units')
+                  ->onDelete('cascade');
             $table->string('symbol');
             $table->timestamps();
         });

@@ -16,7 +16,13 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('description');
+
             $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')
+                  ->references('id')->on('courses')
+                  ->onDelete('cascade');
+                  
+            $table->softDeletes();
             $table->timestamps();
         });
     }

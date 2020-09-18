@@ -15,9 +15,16 @@ class CreateBatchMentorTable extends Migration
     {
         Schema::create('batch_mentor', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->unsignedBigInteger('batch_id');
+            $table->foreign('batch_id')
+                  ->references('id')->on('batches')
+                  ->onDelete('cascade');
+
             $table->unsignedBigInteger('mentor_id');
-            $table->timestamps();
+            $table->foreign('mentor_id')
+                  ->references('id')->on('mentors')
+                  ->onDelete('cascade');
         });
     }
 
