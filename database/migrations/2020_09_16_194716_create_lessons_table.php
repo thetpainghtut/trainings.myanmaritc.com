@@ -17,6 +17,7 @@ class CreateLessonsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->longText('file');
+            $table->string('duration');
 
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')

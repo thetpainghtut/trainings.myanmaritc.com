@@ -233,7 +233,7 @@ class InquireController extends Controller
                 $data_course = $data_batch->course;
                 $data_codeno = $data_course->codeno;
 
-                $datalocation_id = $data_course->location_id;
+                $datalocation_id = $data_batch->location_id;
                 $data_location = Location::find($datalocation_id);
 
                 $data_city = $data_location->city;
