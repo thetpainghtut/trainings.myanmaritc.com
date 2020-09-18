@@ -1,0 +1,37 @@
+Computer Universities
+---------------------
+
+- UCSY
+- UCSM
+- CU (Taungoo)
+- CU (Sittway)
+- CU (Pyay)
+- CU (Hinthada)
+- CU (Thaton)
+- CU (Dawei)
+- CU (Hpa-an)
+- CU (Pathein)
+- CU (Myeik)
+- CU (Loikaw)
+- CU (Maubin)
+- CU (Kyaingtong)
+- CU (Meikthila)
+- CU (Lashio)
+- CU (Myitkyina)
+- CU (Kalaw)
+- CU (Monywa)
+- CU (Pakokku)
+- CU (Banmaw)
+- CU (Pinlon)
+- CU (Magway)
+- CU (Taunggyi)
+- CU (Mandalay)
+
+- UIT
+- ICTRC
+- MIIT
+- KMD
+- Gusto
+- MCC
+- Info Myanmar
+- Diploma in Computing
