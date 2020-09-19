@@ -9,22 +9,22 @@ class Inquire extends Model
     //
   use SoftDeletes;
 
-     protected $fillable = [
-        'inquireno', 'receiveno', 'name', 'gender', 'phone', 'installmentdate', 'installmentamount','status', 'knowledge',  'camp', 'education_id', 'acceptedyear', 'batch_id', 'township_id', 'user_id'
+    protected $fillable = [
+        'inquireno', 'receiveno', 'name', 'gender', 'phone', 'installmentdate', 'installmentamount','status', 'knowledge',  'camp', 'acceptedyear', 'batch_id', 'education_id', 'user_id'
     ];
 
-  public function batch()
-  {
-    return $this->belongsTo('App\Batch');
-  }
+    public function batch()
+    {
+        return $this->belongsTo('App\Batch');
+    }
 
-  public function education()
-  {
-    return $this->belongsTo('App\Education');
-  }
+    public function education()
+    {
+        return $this->belongsTo('App\Education');
+    }
 
-  public function township()
-  {
-    return $this->belongsTo('App\Township');
-  }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

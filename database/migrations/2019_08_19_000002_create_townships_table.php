@@ -16,8 +16,18 @@ class CreateTownshipsTable extends Migration
         Schema::create('townships', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+
             $table->unsignedBigInteger('city_id');
+            $table->foreign('city_id')
+                  ->references('id')->on('cities')
+                  ->onDelete('cascade');
+
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+                  
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -3,20 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
-  protected $fillable = ['name','batch_id'];
+	use SoftDeletes;
+  	protected $fillable = ['name','batch_id'];
 
-  public function students()
-  {
-    return $this->belongsToMany('App\Student')->withTimestamps();
-  }
+  	public function students()
+  	{
+    	return $this->belongsToMany('App\Student');
+  	}
 
-  public function batch()
-  {
-    return $this->belongsTo('App\Batch');
-  }
+  	public function batch()
+  	{
+    	return $this->belongsTo('App\Batch');
+  	}
 
   
 }

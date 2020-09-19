@@ -52,6 +52,8 @@ Route::resource('batches','BatchController');
 Route::resource('mentors','MentorController');
 
 Route::resource('subjects','SubjectController');
+Route::post('subject_course','SubjectController@subject_course');
+
 
 Route::resource('roles','RoleController')->middleware('role:Admin');
 
@@ -128,3 +130,16 @@ Route::get('grade_print/{id}','PrintController@grade');
 /*Route::get('/attendances/collection', 'AttendanceController@attendanceCollect')->name('attendances.collect');
 Route::get('/attendances/reports', 'AttendanceController@attendanceReport')->name('attendances.reports');
 Route::get('/attendances/export/{section_id}','AttendanceController@Export');*/
+
+
+
+
+// Version(2.0)
+Route::resource('lessons','LessonController');
+Route::resource('topics','TopicController');
+Route::resource('posts','PostController');
+Route::resource('projecttypes','ProjecttypeController');
+Route::resource('projects','ProjectController');
+Route::resource('journals','JournalController');
+Route::resource('feedbacks','FeedbackController');
+

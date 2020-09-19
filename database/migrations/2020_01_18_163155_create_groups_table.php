@@ -16,7 +16,13 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100);
+
             $table->unsignedBigInteger('batch_id');
+            $table->foreign('batch_id')
+                  ->references('id')->on('batches')
+                  ->onDelete('cascade');
+                  
+            $table->softDeletes();
             $table->timestamps();
         });
     }

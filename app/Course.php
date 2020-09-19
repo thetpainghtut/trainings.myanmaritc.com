@@ -8,25 +8,30 @@ class Course extends Model
 {
   	use SoftDeletes;
 
-  	protected $fillable=['name','code_no','location_id','logo','outline','outline_photo','fees','during','duration'];
+  	protected $fillable=['code_no', 'name', 'logo', 'outline', 'outline_photo', 'fees', 'during', 'duration'];
 
   	public function batches()
   	{
-    	return $this->hasMany('App\Batch');
+        return $this->hasMany('App\Batch');
   	}
 
     public function mentor()
     {
-      return $this->hasOne('App\mentor');
+        return $this->hasOne('App\Mentor');
     }
 
-    public function location()
+    public function projecttypes()
     {
-      return $this->belongsTo('App\Location');
+        return $this->belongsToMany('App\Projecttype');
     }
 
-  	public function course()
-  	{
-    	return $this->hasMany('App\Course');
-  	}
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Subject');
+    }
+
+    public function units()
+    {
+        return $this->hasMany('App\Unit');
+    }
 }

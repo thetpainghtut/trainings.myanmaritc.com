@@ -38,18 +38,88 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-      public function staff()
-      {
+    public function staff()
+    {
         return $this->hasOne('App\Staff')->where('status','=','0');
-      }
+    }
 
-       public function teacher()
-      {
+    public function teacher()
+    {
         return $this->hasOneThrough('App\Teacher','App\Staff');
-      }
+    }
 
-      public function staffs()
-      {
+    public function staffs()
+    {
         return $this->hasOne('App\Staff')->where('status','=','1');
-      }
+    }
+
+    public function student()
+    {
+        return $this->hasOne('App\Student');
+    }
+
+    public function topics()
+    {
+        return $this->hasMany('App\Topic');
+    }
+
+    public function cities()
+    {
+        return $this->hasMany('App\City');
+    }
+
+    public function townships()
+    {
+        return $this->hasMany('App\Township');
+    }
+
+    public function locations()
+    {
+        return $this->hasMany('App\Township');
+    }
+
+    public function educations()
+    {
+        return $this->hasMany('App\Education');
+    }
+
+    public function inquires()
+    {
+        return $this->hasMany('App\Inquire');
+    }
+
+    public function incomes()
+    {
+        return $this->hasMany('App\Income');
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany('App\Expense');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany('App\Attendance');
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany('App\Lesson');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    public function projecttypes()
+    {
+        return $this->hasMany('App\Projecttype');
+    }
+
+    public function journals()
+    {
+        return $this->hasMany('App\Journal');
+    }
 }

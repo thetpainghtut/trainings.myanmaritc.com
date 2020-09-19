@@ -1,69 +1,73 @@
 @extends('backendtemplate')
 
 @section('content')
-    <h2 class="d-inline-block">All Expenses</h2>
-      <a href="{{route('expenses.create')}}" class="btn btn-info float-right"><i class="fas fa-plus"></i>Add New</a>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Attachments</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          @php
-            $i = 1;
-          @endphp
-          @foreach($expenses as $expense)
-          <tr>
-            <td>{{$i++}}</td>
-            <td>{{$expense->type}}</td>
-            <td>{{$expense->amount}}</td>
-            <td>{{$expense->description}}</td>
-            <td>{{$expense->date}}</td>
-            <td>
-              @php
-                $images = explode(',', $expense->attachment);
+    <h1 class="h3 mb-4 text-gray-800"> Expense </h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary"> All Expenses
+                <a href="{{route('expenses.create')}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-plus mr-2"></i>Add New</a>
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>No</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Attachments</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $i = 1; @endphp
+                        @foreach($expenses as $expense)
+                            <tr>
+                                <td>{{$i++}}</td>
+                                <td>{{$expense->type}}</td>
+                                <td>{{$expense->amount}}</td>
+                                <td>{{$expense->description}}</td>
+                                <td>{{$expense->date}}</td>
+                                <td>
+                                
+                                    @php
+                                        $images = explode(',', $expense->attachment);
+                                    @endphp
+                                    @foreach($images as $row) 
+                                        <img src="{{$row}}" width="80" height="80" onclick="showImage(this,'<?php echo $row ?>')">
+                                    @endforeach
+                                                
+                                </td>
+                                <td>
+                                    <a href="{{route('expenses.edit',$expense->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                 
+                                    <form method="post" action="{{route('expenses.destroy',$expense->id)}}" class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                    
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-              @endphp
-              @foreach($images as $row) 
-              
-                  <img src="{{$row}}" width="80" height="80" onclick="showImage(this,'<?php echo $row ?>')">
-           
-              @endforeach
-                            
-            </td>
-            <td>
-              
-              <a href="{{route('expenses.edit',$expense->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-             
-              <form method="post" action="{{route('expenses.destroy',$expense->id)}}" class="d-inline-block">
-                @csrf
-                @method('DELETE')
-                
-                  <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-        
-              </form>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
 
-      <div id="myModal" class="modal">
-
+    <div id="myModal" class="modal">
         <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
         <img class="modal-content" id="img">
-        
         <div id="caption"></div>
     </div>
+
 @endsection
 
 @section('script')
@@ -85,17 +89,17 @@
 
 <style type="text/css">
 .modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1;
-  padding-top: 100px;
-  margin-top: 50px; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto;
-  vertical-align: middle;
+    display: none; 
+    position: fixed; 
+    z-index: 1;
+    padding-top: 100px;
+    margin-top: 50px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    vertical-align: middle;
 }
 .modal-content{
     width: 80%;

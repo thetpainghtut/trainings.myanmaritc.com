@@ -65,7 +65,6 @@ class InquireController extends Controller
             "education_id" => "required",
             "acceptedyear" => "required",
             "batch_id" => "required",
-            "township_id" => "required",
         ]);
         $id =request('batch_id');
         $batch = Batch::find($id);
@@ -73,7 +72,7 @@ class InquireController extends Controller
         $course =$batch->course;
         $codeno = $course->codeno;
 
-        $location_id = $course->location_id;
+        $location_id = $batch->location_id;
         $location = Location::find($location_id);
 
         $city = $location->city;
@@ -111,8 +110,6 @@ class InquireController extends Controller
         $inquires->education_id = request('education_id');
         $inquires->acceptedyear = request('acceptedyear');
         $inquires->batch_id = request('batch_id');
-        $inquires->township_id = request('township_id');
-        $inquires->township_id = request('township_id');
         $inquires->user_id = Auth::id();
         $inquires->save();
 
@@ -209,7 +206,7 @@ class InquireController extends Controller
         $course_name = $batch->course->name;
         $course_fees = $batch->course->fees;
 
-        $location_id = $course->location_id;
+        $location_id = $batch->location_id;
         $location = Location::find($location_id);
 
         $city =$location->city;
@@ -236,7 +233,7 @@ class InquireController extends Controller
                 $data_course = $data_batch->course;
                 $data_codeno = $data_course->codeno;
 
-                $datalocation_id = $data_course->location_id;
+                $datalocation_id = $data_batch->location_id;
                 $data_location = Location::find($datalocation_id);
 
                 $data_city = $data_location->city;

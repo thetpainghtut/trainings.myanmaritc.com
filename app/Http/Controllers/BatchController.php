@@ -10,6 +10,8 @@ use App\Teacher;
 use App\Mentor;
 use Carbon\Carbon;
 use App\Inquire;
+use App\Location;
+
 use Spatie\Permission\Models\Role;
 
 class BatchController extends Controller
@@ -34,9 +36,11 @@ class BatchController extends Controller
     public function create()
     {
         $courses = Course::all();
+        $locations = Location::all();
+
         $users=User::role('Teacher')->get();
         // dd($users);
-        return view('batches.create',compact('courses','users'));
+        return view('batches.create',compact('courses','users','locations'));
     }
 
     /**
@@ -55,7 +59,8 @@ class BatchController extends Controller
             "time" => 'required|max:100',
             "course" => 'required',
             "teachers"=> 'sometimes|required',
-            "mentors" => 'sometimes|required'
+            "mentors" => 'sometimes|required',
+            'location'  =>  'required'
         ]);
 
         $batch = new Batch;
@@ -64,6 +69,7 @@ class BatchController extends Controller
         $batch->enddate = request('enddate');
         $batch->time = request('time');
         $batch->course_id = request('course');
+        $batch->location_id = request('location');
         $batch->save();
 
         $teachers = request('teachers');
@@ -121,8 +127,10 @@ class BatchController extends Controller
         $courses = Course::where('id',$course_id)->get();
         $teachers = Teacher::where('course_id',$course_id)->get();
         $mentors = Mentor::where('course_id',$course_id)->get();
+        $location = $batch->location;
+
         // dd($teachers);
-        return view('batches.edit',compact('courses','batch','teachers','mentors'));
+        return view('batches.edit',compact('courses','batch','teachers','mentors','location'));
     }
 
     /**
@@ -149,6 +157,8 @@ class BatchController extends Controller
         $batch->enddate = request('enddate');
         $batch->time = request('time');
         $batch->course_id = request('course');
+        $batch->location_id = request('location');
+
         $batch->save();
 
         $teachers = request('teachers');
@@ -161,7 +171,6 @@ class BatchController extends Controller
         // attach to pivot
         $batch->teachers()->attach($teachers);
         $batch->mentors()->attach($mentors);
-       
 
         return redirect()->route('batches.index');
     }

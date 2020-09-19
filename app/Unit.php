@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Unit extends Model
 {
+	use SoftDeletes;
 
   	protected $fillable = [
     	'description', 'course_id'
@@ -14,10 +16,9 @@ class Unit extends Model
 
 	public function students()
 	{
-	    return $this->belongsToMany('App\Student')
-	      ->withTimestamps();	
+	    return $this->belongsToMany('App\Student');	
 
-	  }
+	}
 
   	public function course()
 	{

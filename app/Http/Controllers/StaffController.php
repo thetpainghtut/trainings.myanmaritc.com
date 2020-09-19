@@ -33,7 +33,7 @@ class StaffController extends Controller
     public function index()
     {
         //
-        $roles=Role::all();
+        $roles=Role::where('name','!=','Student')->get();
         $user = User::role('Mentor')->with('staff')->get();
         $u_id=Auth::user()->id;
         // if($roles->name="Admin")

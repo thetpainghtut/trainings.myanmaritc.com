@@ -21,14 +21,11 @@ class CreateStudentsTable extends Migration
             $table->string('email',100)->unique();
             $table->string('phone',100);
             $table->text('address');
-            $table->unsignedBigInteger('education_id');
-            // for old education name
-            $table->string('education',100)->nullable();
+            $table->string('degree',100)->nullable();
             $table->string('city',100);
             $table->string('accepted_year',100);
             $table->date('dob');
             $table->string('gender',100);
-            $table->unsignedBigInteger('batch_id');
             $table->string('p1',100);
             $table->string('p1_phone',100);
             $table->string('p1_relationship',100);
@@ -36,6 +33,24 @@ class CreateStudentsTable extends Migration
             $table->string('p2_phone',100);
             $table->string('p2_relationship',100);
             $table->text('because');
+            $table->string('status',100)->default('Active');
+
+
+            $table->unsignedBigInteger('batch_id');
+            $table->foreign('batch_id')
+                  ->references('id')->on('batches')
+                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('township_id');
+            $table->foreign('township_id')
+                  ->references('id')->on('townships')
+                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -15,9 +15,16 @@ class CreateBatchTeacher extends Migration
     {
         Schema::create('batch_teacher', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->unsignedBigInteger('batch_id');
+            $table->foreign('batch_id')
+                  ->references('id')->on('batches')
+                  ->onDelete('cascade');
+
             $table->unsignedBigInteger('teacher_id');
-            $table->timestamps();
+            $table->foreign('teacher_id')
+                  ->references('id')->on('teachers')
+                  ->onDelete('cascade');
         });
     }
 

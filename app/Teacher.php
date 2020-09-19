@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teacher extends Model
 {
-    //
+    use SoftDeletes;
+
      protected $fillable = [
-        'staff_id','course_id','degree'
+        'degree', 'staff_id', 'course_id'
     ];
 
     public function staff()
@@ -27,7 +29,7 @@ class Teacher extends Model
     }
 
     public function batches()
-      {
-        return $this->belongsToMany('App\Batch')->withPivot('mentor_id')->withTimestamps();
-      }
+    {
+        return $this->belongsToMany('App\Batch');
+    }
 }

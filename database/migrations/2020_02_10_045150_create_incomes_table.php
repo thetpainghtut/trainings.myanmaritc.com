@@ -21,9 +21,17 @@ class CreateIncomesTable extends Migration
 
             //location
             $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')
+                  ->references('id')->on('locations')
+                  ->onDelete('cascade');
 
             //user
             $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

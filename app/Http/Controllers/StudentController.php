@@ -11,7 +11,10 @@ use App\Group;
 use App\Inquire;
 use App\Education;
 use App\Township;
+use Rabbit;
+use App\User;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -75,7 +78,7 @@ class StudentController extends Controller
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
-        "education" => 'required',
+        "degree" => 'required',
         "city" => 'required',
         "accepted_year" => 'required',
         "address" => 'required',
@@ -92,37 +95,55 @@ class StudentController extends Controller
         "p2_phone" => 'required',
         "because" => 'required'
       ]);
-      $inquireno = request('inquireno');
-      // Save Data
-      $student = new Student;
-      $student->inquire_no =request('inquireno');
-      $student->namee = request('namee');
-      $student->namem = request('namem');
-      $student->email = request('email');
-      $student->phone = request('phone');
-      $student->address = request('address');
-      $student->education_id = request('education');
-      $student->city = request('city');
-      $student->accepted_year = request('accepted_year');
-      $student->dob = request('dob');
-      $student->gender = request('gender');
-      $student->batch_id = request('batch_id');
-      $student->p1 = request('p1');
-      $student->p1_phone = request('p1_phone');
-      $student->p1_relationship = request('p1_rs');
-      $student->p2 = request('p2');
-      $student->p2_phone = request('p2_phone');
-      $student->p2_relationship = request('p2_rs');
-      $student->because = request('because');
-      
-      $student->save();
+        $inquireno = request('inquireno');
+        // Save Data
+        $user = new User;
+        $user->name = request('namee');
+        $user->email=request('email');
+        $user->password=Hash::make("123456789");
+        $user->save();
 
-      $subjects = request('subjects');
+        $user->assignRole('Student');
+        $id = $user->id;
 
-      // Save student_subject
-      $student->subjects()->attach($subjects);
+        $township = Township::find(request('city'));
 
-      return 'ok';
+        $townshipid = $township->id;
+        $city = $township->city->name;
+
+        $student = new Student;
+        $student->inquire_no =request('inquireno');
+        $student->namee = request('namee');
+        $student->namem = Rabbit::zg2uni(request('namem')); ;
+        $student->email = request('email');
+        $student->phone = request('phone');
+        $student->address = request('address');
+        $student->degree = request('degree');
+        $student->city = $city;
+        $student->accepted_year = request('accepted_year');
+        $student->dob = request('dob');
+        $student->gender = request('gender');
+        $student->p1 = request('p1');
+        $student->p1_phone = request('p1_phone');
+        $student->p1_relationship = request('p1_rs');
+        $student->p2 = request('p2');
+        $student->p2_phone = request('p2_phone');
+        $student->p2_relationship = request('p2_rs');
+        $student->because = request('because');
+        $student->status = 'Active';
+        $student->batch_id = request('batch_id');
+        $student->township_id = $townshipid;
+        $student->user_id = $id;
+        $student->save();
+
+
+
+        $subjects = request('subjects');
+
+        // Save student_subject
+        $student->subjects()->attach($subjects);
+
+        return 'ok';
     }
 
     /**
