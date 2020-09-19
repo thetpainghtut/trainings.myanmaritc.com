@@ -29,7 +29,7 @@ class CreateInquiresTable extends Migration
 
             $table->unsignedBigInteger('education_id');
             $table->foreign('education_id')
-                  ->references('id')->on('educations')
+                  ->references('id')->on('education')
                   ->onDelete('cascade'); 
 
             $table->unsignedBigInteger('batch_id');

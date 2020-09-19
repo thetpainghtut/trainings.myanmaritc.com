@@ -19,7 +19,7 @@ class CreateTeachersTable extends Migration
 
             $table->unsignedBigInteger('staff_id');
             $table->foreign('staff_id')
-                  ->references('id')->on('staffs')
+                  ->references('id')->on('staff')
                   ->onDelete('cascade');
 
             $table->unsignedBigInteger('course_id');
@@ -38,7 +38,7 @@ class CreateTeachersTable extends Migration
 
             $table->unsignedBigInteger('staff_id');
             $table->foreign('staff_id')
-                  ->references('id')->on('staffs')
+                  ->references('id')->on('staff')
                   ->onDelete('cascade');
 
             $table->unsignedBigInteger('course_id');
