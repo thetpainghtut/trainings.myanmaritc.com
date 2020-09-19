@@ -27,4 +27,9 @@ class Inquire extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function student()
+    {
+        return $this->hasOne('App\Student', 'inquire_no');
+    }
 }

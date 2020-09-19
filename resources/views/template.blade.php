@@ -77,10 +77,69 @@
                     <li class="nav-item {{ Request::segment(1) ==='contact' ? 'active' :'' }}">
                         <a class="nav-link" href="{{ route('frontend.contact') }}">Contact</a>
                     </li>
-                  
+                    
+                    @guest
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Sign In</a>
                     </li>
+                    
+                    @else
+
+                    <li class="nav-item dropdown mr-5">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-4">
+                                        @if(Auth::user()->student->photo)
+                                            <img src="{{Auth::user()->student->photo}}" class="img-fluid">
+                                        @else
+                                            <img src="{{ asset('mmitui/image/user.png') }}" class="img-fluid">
+                                        @endif
+                                    </div>
+                                  <div class="col-8">
+                                      <p class="text-left">
+                                        <strong> {{Auth::user()->name}} </strong>
+                                      </p>
+                                      <p class="text-left small">
+                                        {{Auth::user()->email}}
+                                      </p>
+                                  </div>
+                                </div>
+                            </div>
+                          
+                            <div class="dropdown-divider"></div>
+                          
+                            <a class="dropdown-item" href="account.html"> My Account </a>
+
+
+                            <a class="dropdown-item" href="student_dashboard.html"> 
+                                My Dashboard 
+                            </a>
+
+                            <a class="dropdown-item" href="changepassword.html"> Change Password </a>
+
+                            <a class="dropdown-item" href="notification.html"> Notifications 
+                                <span class="badge badge-pill badge-danger"> +1 </span> 
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">Logout
+                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
+                        </div>
+                    </li>
+
+                    @endif
                 </ul>
             </div>
         </div>

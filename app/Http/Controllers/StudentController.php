@@ -97,6 +97,11 @@ class StudentController extends Controller
       ]);
         $inquireno = request('inquireno');
         // Save Data
+
+        $user = User::firstOrNew(['email' =>  request('email'), 'name' => request('namee') ]);
+
+        dd($user);
+
         $user = new User;
         $user->name = request('namee');
         $user->email=request('email');
@@ -141,7 +146,9 @@ class StudentController extends Controller
         $subjects = request('subjects');
 
         // Save student_subject
+        $student->subjects()->detach();
         $student->subjects()->attach($subjects);
+
 
         return 'ok';
     }

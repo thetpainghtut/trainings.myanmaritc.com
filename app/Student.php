@@ -9,7 +9,7 @@ class Student extends Model
 {
   use SoftDeletes;
   
-    protected $fillable = ['inquire_no','namee','namem','email','phone','address','degree','city','accepted_year','dob','gender','batch_id','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because', 'status', 'batch_id','township_id', 'user_id'];
+    protected $fillable = ['inquire_no','photo','namee','namem','email','phone','address','degree','city','accepted_year','dob','gender','batch_id','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because', 'status', 'batch_id','township_id', 'user_id'];
 
     public function batch()
     {
@@ -56,5 +56,10 @@ class Student extends Model
     public function feedback()
     {
         return $this->hasOne('App\Feedback');
+    }
+
+    public function inquire()
+    {
+        return $this->belongsTo('App\Inquire', 'inquireno');
     }
 }
