@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Course;
 
-
 class CoursesTableSeeder extends Seeder
 {
     /**

@@ -46,7 +46,7 @@
                                     <div class="d-flex no-block align-items-center">
                                         <div class="mr-3">
                                             <img src="{{ asset($row->logo) }}"
-                                                alt="user" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" />
+                                                alt="logo" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" />
                                         </div>
                                         <div class="">
                                             <p class="text-dark mb-0 font-16 font-weight-medium"> {{ $row->name }} </p>
