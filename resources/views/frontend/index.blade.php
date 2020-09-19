@@ -88,7 +88,7 @@
     <!-- Service -->
     <div class="container my-5">
         <div class="row justify-content-center" >
-            <div class="col-12 text-center mb-5" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0" >
+            <div class="col-12 text-center mb-5" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="80" data-aos-offset="0" >
                 <h1> Our Services </h1>
             </div>
 
@@ -163,7 +163,7 @@
     <div class="container-fluid" style="padding-left: 0px; padding-right: 0px">
         <section class="secondary">
             <div class="container py-5">
-                <div class="row mt-5" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">
+                <div class="row mt-5" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="80" data-aos-offset="0">
                     <div class="col-12 text-center mb-3">
                       <h1> Our Courses </h1>
                     </div>

@@ -143,3 +143,9 @@ Route::resource('projects','ProjectController');
 Route::resource('journals','JournalController');
 Route::resource('feedbacks','FeedbackController');
 
+// Student Dashboard
+Route::get('panel','PanelController@index')->name('panel');
+
+
+
+

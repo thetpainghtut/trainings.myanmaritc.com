@@ -306,7 +306,7 @@
                 contentType: false,
                 type: 'POST',
                 success: function(data){
-                    $('#exampleModal').modal('show');
+                    // $('#exampleModal').modal('show');
                 },
                 error: function(request, status, error) {
                     console.log("error")

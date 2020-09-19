@@ -9,7 +9,7 @@ class Education extends Model
 {
     use SoftDeletes;
     
-    protected $table = 'educations';
+    protected $table = 'education';
     
     protected $fillable = [
         'name', 'type', 'user_id'

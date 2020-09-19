@@ -9,7 +9,7 @@ class Staff extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'staffs';
+    protected $table = 'staff';
 
     protected $fillable = [ 'dob', 'fathername', 'nrc', 'phone', 'photo', 'joineddate', 'leavedate', 'status', 'location_id', 'user_id'
     ];
