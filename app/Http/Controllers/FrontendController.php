@@ -10,6 +10,8 @@ use App\Inquire;
 use App\Student;
 use App\Education;
 use App\Township;
+use App\Journal;
+
 
 class FrontendController extends Controller
 {
@@ -20,7 +22,28 @@ class FrontendController extends Controller
 
   public function csr($value='')
   {
-    return view('frontend.csr');
+    $activities = Journal::where('type','=','Activity')
+                ->orderBy('created_at', 'DESC')
+                ->take(3)
+                ->get();
+    $sharings = Journal::where('type','=','Sharing')
+                ->orderBy('created_at', 'DESC')
+                ->take(4)
+                ->get();
+
+    return view('frontend.csr', compact('activities','sharings'));
+  }
+
+  public function blogs(){
+    $blogs = Journal::where('type','=','Sharing')
+                ->orderBy('created_at', 'DESC')
+                ->paginate(6);
+    return view('frontend.blogs',compact('blogs'));
+  }
+
+  public function blog_detail($id){
+    $blog = Journal::find($id);
+    return view('frontend.blogdetail',compact('blog'));
   }
 
   public function courses($value='')

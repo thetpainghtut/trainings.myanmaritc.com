@@ -11,13 +11,17 @@
 |
 */
 
+// Frontend
 Route::get('/','FrontendController@index')->name('frontend.index');
-
 Route::get('allcourses','FrontendController@courses')->name('frontend.courses');
-
 Route::get('csr','FrontendController@csr')->name('frontend.csr');
-
 Route::get('contact','FrontendController@contact')->name('frontend.contact');
+
+// Frontend V2
+Route::get('blogs','FrontendController@blogs')->name('frontend.blogs');
+Route::get('blog_detail/{id}','FrontendController@blog_detail')->name('frontend.blog_detail');
+
+
 
 //Honey Htun
 Route::get('inquire_no','FrontendController@inquire_no')->name('frontend.inquire_no');

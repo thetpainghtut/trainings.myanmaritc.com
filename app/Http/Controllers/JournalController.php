@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Journal;
+use App\Subject;
+use Auth;
+
 
 class JournalController extends Controller
 {
@@ -13,7 +17,14 @@ class JournalController extends Controller
      */
     public function index()
     {
-        //
+        $activities = Journal::where('type','=','Activity')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+        $sharings = Journal::where('type','=','Sharing')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+        return view('journals.index',compact('activities','sharings'));
     }
 
     /**
@@ -23,6 +34,8 @@ class JournalController extends Controller
      */
     public function create()
     {
+        $subjects = Subject::all();
+        return view('journals.create',compact('subjects'));
         //
     }
 
@@ -34,7 +47,38 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:100',
+            'content'=>'required',
+            "file" => 'required'
+        ]);
+
+        if($request->hasfile('file')){
+
+            $file = $request->file('file');
+
+            $file_extension = $file->getClientOriginalExtension();
+
+            $upload_dir = public_path().'/storage/images/journals/';
+
+            $name = time().'.'.$file->getClientOriginalExtension();
+            $file->move($upload_dir,$name);
+            $path = '/storage/images/journals/'.$name;
+        }else{
+            $path = '';
+        }
+
+        $journal = new Journal;
+        $journal->title = request('title');
+        $journal->content = request('content');
+        $journal->file = $path;
+        $journal->type = request('type');
+        $journal->user_id = Auth::user()->id;
+        $journal->save();
+
+        $journal->subjects()->attach(request('subjects'));
+
+        return redirect()->route('journals.index');
     }
 
     /**

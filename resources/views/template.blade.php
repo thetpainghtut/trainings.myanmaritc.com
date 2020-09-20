@@ -42,7 +42,7 @@
 
 </head>
 
-<body>
+<body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -50,18 +50,19 @@
             <a class="navbar-brand" href="index.html">
                 <img src="{{ asset('mmitui/image/logo.jpg') }}" class="img-fluid" style="width: 120px; height: 50px">
             </a>
+          
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-          
+            
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {{ Request::segment(1) ==='/' ? 'active' :'' }}">
+                    <li class="nav-item active">
                         <a class="nav-link" href="{{ route('frontend.index') }}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    
+                  
                     <li class="nav-item {{ Request::segment(1) ==='csr' ? 'active' :'' }}">
                         <a class="nav-link" href="{{ route('frontend.csr') }}">CSR</a>
                     </li>
@@ -77,7 +78,8 @@
                     <li class="nav-item {{ Request::segment(1) ==='contact' ? 'active' :'' }}">
                         <a class="nav-link" href="{{ route('frontend.contact') }}">Contact</a>
                     </li>
-                    
+                  
+                  
                     @guest
 
                     <li class="nav-item">
@@ -94,7 +96,7 @@
                             <div class="navbar-login">
                                 <div class="row">
                                     <div class="col-4">
-                                        @if(Auth::user()->student->photo)
+                                        @if(Auth::user()->student)
                                             <img src="{{Auth::user()->student->photo}}" class="img-fluid">
                                         @else
                                             <img src="{{ asset('mmitui/image/user.png') }}" class="img-fluid">
@@ -394,6 +396,7 @@
     <script src="{{ asset('mmitui/vendor/photogrid/images-grid.js') }}"></script>
     <script src="{{ asset('mmitui/vendor/aos/aos.js') }}"></script>
     <script src="{{ asset('mmitui/vendor/slick.js') }}"></script>
+    <script src="{{ asset('mmitui/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>

@@ -29,7 +29,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Summer Note -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet"> --}}
+    <link href="{{ asset('sb_admin2/vendor/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
 
     <!-- datatable -->
     <link href="{{asset('sb_admin2/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
@@ -610,7 +611,8 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
     <!-- summernote -->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script> --}}
+    <script src="{{ asset('sb_admin2/vendor/summernote/summernote-bs4.min.js') }}"></script>
 
     <!-- admin change password -->
 
@@ -636,18 +638,24 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#summernote').summernote({
+            // $('#summernote').summernote({
                 
-              toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['Horizontal Rule',['hr']],
+            //   toolbar: [
+            //     ['style', ['bold', 'italic', 'underline', 'clear']],
+            //     ['font', ['strikethrough', 'superscript', 'subscript']],
+            //     ['fontsize', ['fontsize']],
+            //     ['color', ['color']],
+            //     ['para', ['ul', 'ol', 'paragraph']],
+            //     ['height', ['height']],
+            //     ['Horizontal Rule',['hr']],
 
-              ],
+            //   ],
+            // });
+
+            $('#summernote').summernote({
+                // placeholder: 'Hello Bootstrap 4',
+                tabsize: 2,
+                height: 200
             });
 
             $('.js-example-basic-multiple').select2();
