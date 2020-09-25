@@ -35,6 +35,25 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="inputTitle" class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-10">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="offline_id" value="Offline" {{ ($batch->type=="Offline")? "checked" : "" }}>
+                            <label class="form-check-label" for="offline_id"> Offline </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="online_id" value="Online" {{ ($batch->type=="Online")? "checked" : "" }}>
+                            <label class="form-check-label" for="online_id"> Online </label>
+                        </div>
+
+                        @if($errors->has('title'))
+                            <span class="text-danger">{{$errors->first('title')}}</span>
+                        @endif
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="inputStartDate" class="col-sm-2 col-form-label">Start Date</label>
                     <div class="col-sm-10">
                         <input type="date" class="form-control" id="inputStartDate" name="startdate" value="{{$batch->startdate}}">

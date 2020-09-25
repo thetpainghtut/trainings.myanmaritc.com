@@ -21,6 +21,9 @@ Route::get('contact','FrontendController@contact')->name('frontend.contact');
 Route::get('blogs','FrontendController@blogs')->name('frontend.blogs');
 Route::get('blog_detail/{id}','FrontendController@blog_detail')->name('frontend.blog_detail');
 
+Route::post('oldstduent','FrontendController@oldstduent')->name('oldstduent');
+
+
 
 
 //Honey Htun
@@ -36,7 +39,7 @@ Route::get('python', 'FrontendController@python_reg');
 Route::get('ios', 'FrontendController@ios_reg');
 Route::get('japanese', 'FrontendController@japanese_reg');
 
-Route::get('student_register','FrontendController@studentRegister')->name('frontend.student.register');
+Route::post('student_register','FrontendController@studentRegister')->name('frontend.student.register');
 
 
 Route::get('course_detail/{id}','FrontendController@course_detail')->name('course_detail');
@@ -140,6 +143,9 @@ Route::get('/attendances/export/{section_id}','AttendanceController@Export');*/
 
 // Version(2.0)
 Route::resource('lessons','LessonController');
+Route::post('show_subject','LessonController@show_subject')->name('show_subject');
+Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
+
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
 Route::resource('projecttypes','ProjecttypeController');
@@ -148,8 +154,15 @@ Route::resource('journals','JournalController');
 Route::resource('feedbacks','FeedbackController');
 
 // Student Dashboard
-Route::get('panel','PanelController@index')->name('panel');
+Route::get('panel','PanelController@index')->name('frontend.panel');
+Route::get('takelesson/{id}','PanelController@takelesson')->name('frontend.takelesson');
 
+// Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');
+
+Route::get('playcourse/{bid}/{sid}', [
+    'as' => 'frontend.playcourse', 
+    'uses' => 'PanelController@playcourse'
+]);
 
 
 

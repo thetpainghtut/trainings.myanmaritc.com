@@ -66,6 +66,8 @@
         $(document).ready(function(){
             $(".js-example-basic-multiple").select2({
               placeholder: "Choose Course",
+                theme: 'bootstrap4',
+              
             });
         });
 

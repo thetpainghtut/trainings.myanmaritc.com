@@ -89,7 +89,10 @@ class JournalController extends Controller
      */
     public function show($id)
     {
-        //
+        $journal = Journal::find($id);
+
+        return view('journals.detail',compact('journal'));
+
     }
 
     /**
@@ -100,7 +103,10 @@ class JournalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $journal = Journal::find($id);
+        $subjects = Subject::all();
+
+        return view('journals.edit',compact('journal','subjects'));
     }
 
     /**
@@ -112,7 +118,41 @@ class JournalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:100',
+            'content'=>'required'
+        ]);
+
+        if($request->hasfile('file')){
+
+            $file = $request->file('file');
+
+            $file_extension = $file->getClientOriginalExtension();
+
+            $upload_dir = public_path().'/storage/images/journals/';
+
+            $name = time().'.'.$file->getClientOriginalExtension();
+            $file->move($upload_dir,$name);
+            $path = '/storage/images/journals/'.$name;
+        }else{
+            $path = request('oldfile');
+        }
+
+        $journal = Journal::find($id);
+        $journal->title = request('title');
+        $journal->content = request('content');
+        $journal->file = $path;
+        $journal->type = request('type');
+        $journal->user_id = Auth::user()->id;
+        $journal->save();
+
+        if (request('type') == 'Sharing') {
+            $journal->subjects()->detach();
+            $journal->subjects()->attach(request('subjects'));
+        }
+        
+
+        return redirect()->route('journals.index');
     }
 
     /**
@@ -123,6 +163,13 @@ class JournalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $journal = Journal::find($id);
+
+        $journal->subjects()->detach();
+        
+        $journal->delete();
+
+        return redirect()->route('journals.index');
+
     }
 }

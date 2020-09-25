@@ -91,6 +91,7 @@
         $(document).ready(function(){
             $(".js-example-basic-multiple").select2({
               placeholder: "Choose Subject",
+              theme: 'bootstrap4',
             });
 
             $("input[name=type]:radio").click(function () {

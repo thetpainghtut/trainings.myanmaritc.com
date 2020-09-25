@@ -11,6 +11,7 @@ use App\Student;
 use App\Education;
 use App\Township;
 use App\Journal;
+use App\User;
 
 
 class FrontendController extends Controller
@@ -119,25 +120,47 @@ class FrontendController extends Controller
   public function studentRegister(Request $request)
   {
     $inquireno = request('inquire_no');
+    $oldemail = request('old_email');
+
+    $user = User::role('Student')
+            ->where('email', '=', $oldemail)->first();
+
     $subjects = Subject::all(); // all subjects
     $courses = Course::all();
     $batches = Batch::all();
     $educations = Education::all();
     $townships = Township::all();
     $inquire = Inquire::where('receiveno','=',$inquireno)->first();
-    $student = Student::where('inquire_no','=',$inquireno)->first();
-    //dd($student);
+    // dd($inquire);
+
+    $batchid = $inquire->batch_id;
+
+    $batch = Batch::find($batchid);
+    // dd($batch);
+
+    $oldstudent = $batch->students()->where('receiveno', $inquireno)->get();
+    // dd($oldstudent);
     if($inquire==null){
 
       return back()->with('status','Invalid Inquire Number');
 
-    }elseif($student){
+    }elseif(count($oldstudent) > 0 ){
 
-      return back()->with('status','Sorry, student is already exit !');
-
-    }else{
-
-      return view('frontend.registerForm',compact('subjects','courses','batches','inquire','educations','townships','inquireno'));
+      return back()->with('status','Sorry, student is already exit in that receive number!');
     }
+    else{
+
+      return view('frontend.registerForm',compact('subjects','courses','batches','inquire','educations','townships','inquireno','user'));
+    }
+  }
+
+  public function oldstduent(Request $request){
+    $inputEmail = $request->inputEmail;
+    // $roles=Role::where('name','!=','Student')->get();
+    $user = User::role('Student')
+            ->where('email', '=', $inputEmail)->first();
+
+    return response()->json(['user'=>$user]);
+
   }
 }

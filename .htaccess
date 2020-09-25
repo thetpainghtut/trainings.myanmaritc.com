@@ -1,5 +1,4 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^(.*)$ public/$1 [L]
-    RewriteRule .(mp4|mp3|avi)$ - [F]
 </IfModule>

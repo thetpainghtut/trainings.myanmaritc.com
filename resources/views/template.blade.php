@@ -40,9 +40,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.theme.default.css') }}">
 
+    <!-- Plyr -->
+    {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css" /> --}}
+
 </head>
 
-<body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
+{{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
+<body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -57,7 +61,7 @@
             
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item {{ Request::segment(1) ===null ? 'active' :'' }}">
                         <a class="nav-link" href="{{ route('frontend.index') }}">Home
                             <span class="sr-only">(current)</span>
                         </a>
@@ -97,7 +101,11 @@
                                 <div class="row">
                                     <div class="col-4">
                                         @if(Auth::user()->student)
-                                            <img src="{{Auth::user()->student->photo}}" class="img-fluid">
+                                            @if(Auth::user()->student->photo)
+                                                <img src="{{Auth::user()->student->photo}}" class="img-fluid">
+                                            @else
+                                                <img src="{{ asset('mmitui/image/user.png') }}" class="img-fluid">
+                                            @endif
                                         @else
                                             <img src="{{ asset('mmitui/image/user.png') }}" class="img-fluid">
                                         @endif
@@ -118,7 +126,7 @@
                             <a class="dropdown-item" href="account.html"> My Account </a>
 
 
-                            <a class="dropdown-item" href="student_dashboard.html"> 
+                            <a class="dropdown-item" href="{{ route('frontend.panel') }}"> 
                                 My Dashboard 
                             </a>
 
@@ -400,7 +408,9 @@
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-  
+
+    <!-- Plyr -->
+    
   @yield('script')
 </body>
 

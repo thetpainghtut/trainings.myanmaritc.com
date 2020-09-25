@@ -9,11 +9,14 @@ class Student extends Model
 {
   use SoftDeletes;
   
-    protected $fillable = ['inquire_no','photo','namee','namem','email','phone','address','degree','city','accepted_year','dob','gender','batch_id','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because', 'status', 'batch_id','township_id', 'user_id'];
+    protected $fillable = ['photo','namee','namem','email','phone','address','degree','city','accepted_year','dob','gender','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because', 'status','township_id', 'user_id'];
 
-    public function batch()
+    public function batches()
     {
-        return $this->belongsTo('App\Batch');
+        return $this->belongsToMany('App\Batch')
+                    ->withPivot('receiveno','status')
+                    ->withTimestamps()
+                    ->orderBy('batch_student.created_at', 'DESC');
     }
 
     public function township()

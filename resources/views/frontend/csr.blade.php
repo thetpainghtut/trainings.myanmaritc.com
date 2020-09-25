@@ -89,8 +89,6 @@
 
                 @endforeach
 
-                
-
             </div>
         </section>
     <!-- ABOUT -->

@@ -177,17 +177,17 @@ class MentorController extends Controller
       // $teacher=Teacher::where('course_id',$course_id)->with('staff')->get();
       $data=array();
       $teacher = DB::table('users')
-                ->join('staffs','staffs.user_id','users.id')
-                ->join('teachers','teachers.staff_id','staffs.id')
+                ->join('staff','staff.user_id','users.id')
+                ->join('teachers','teachers.staff_id','staff.id')
                 // ->join('courses','courses.location_id','staff.location_id')
-                ->select('teachers.*','teachers.id as tid','users.*','staffs.*')
+                ->select('teachers.*','teachers.id as tid','users.*','staff.*')
                 ->where('teachers.course_id',$course_id)
                 ->get();
       // dd($teacher);
       $mentor = DB::table('users')
-                ->join('staffs','staffs.user_id','users.id')
-                ->join('mentors','mentors.staff_id','staffs.id')
-                ->select('mentors.*','mentors.id as mid','users.*','staffs.*')
+                ->join('staff','staff.user_id','users.id')
+                ->join('mentors','mentors.staff_id','staff.id')
+                ->select('mentors.*','mentors.id as mid','users.*','staff.*')
                 ->where('mentors.course_id',$course_id)
                 ->get();
       $data[]=array([

@@ -65,6 +65,7 @@ class BatchController extends Controller
 
         $batch = new Batch;
         $batch->title = request('title');
+        $batch->type = request('type');
         $batch->startdate = request('startdate');
         $batch->enddate = request('enddate');
         $batch->time = request('time');
@@ -153,6 +154,7 @@ class BatchController extends Controller
 
         $batch = Batch::find($id);
         $batch->title = request('title');
+        $batch->type = request('type');
         $batch->startdate = request('startdate');
         $batch->enddate = request('enddate');
         $batch->time = request('time');

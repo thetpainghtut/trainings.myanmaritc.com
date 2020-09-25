@@ -26,10 +26,11 @@
     <link href="{{ asset('sb_admin2/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
     <!-- Select 2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" /> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2_bootstrap4/dist/select2-bootstrap4.min.css') }}">
 
     <!-- Summer Note -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet"> --}}
     <link href="{{ asset('sb_admin2/vendor/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
 
     <!-- datatable -->
@@ -171,8 +172,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ Request::segment(1) === 'units' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{route('units.index')}}">
+                <li class="nav-item {{ Request::segment(1) === 'lessons' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('lessons.index')}}">
                         <i class="icofont-video-alt"></i>
                         <span> Lesson </span>
                     </a>
@@ -608,10 +609,11 @@
     <script src="{{asset('sb_admin2/js/sb-admin-2.min.js')}}"></script>
 
     <!-- Select 2 -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script> --}}
+    <script src="{{asset('sb_admin2/vendor/select2/dist/js/select2.min.js')}}"></script>    
+
 
     <!-- summernote -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script> --}}
     <script src="{{ asset('sb_admin2/vendor/summernote/summernote-bs4.min.js') }}"></script>
 
     <!-- admin change password -->
@@ -658,7 +660,9 @@
                 height: 200
             });
 
-            $('.js-example-basic-multiple').select2();
+            $('.js-example-basic-multiple').select2({
+                theme: 'bootstrap4',
+            });
         });
     
        

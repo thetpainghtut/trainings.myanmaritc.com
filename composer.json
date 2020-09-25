@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "maatwebsite/excel": "^3.1",
         "niklasravnsborg/laravel-pdf": "^4.0",
+        "owen-oj/laravel-getid3": "^1.1",
         "rabbit-converter/rabbit-php": "dev-master",
         "spatie/laravel-permission": "^3.5"
     },

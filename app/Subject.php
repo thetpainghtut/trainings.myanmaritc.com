@@ -23,7 +23,7 @@ class Subject extends Model
 
 	public function lessons()
 	{
-	  	return $this->belongsToMany('App\Lesson');
+	  	return $this->hasMany('App\Lesson');
 	}
 
 	public function journals()

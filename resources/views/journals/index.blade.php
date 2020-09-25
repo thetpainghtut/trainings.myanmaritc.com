@@ -46,18 +46,18 @@
                                                     
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-sm" >
+                                            <a href="{{route('journals.show',$activity->id)}}" class="btn btn-primary btn-sm" >
                                                 <i class="fas fa-info"></i>
                                             </a>
 
-                                            <a href="#" class="btn btn-warning btn-sm" >
+                                            <a href="{{route('journals.edit',$activity->id)}}" class="btn btn-warning btn-sm" >
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             
                                             <form method="post" action="{{route('journals.destroy',$activity->id)}}" class="d-inline-block btn-sm">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger "><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                             </form>
                                           
                                         </td>
@@ -95,18 +95,18 @@
                                                 
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-sm" >
+                                        <a href="{{route('journals.show',$sharing->id)}}" class="btn btn-primary btn-sm" >
                                             <i class="fas fa-info"></i>
                                         </a>
 
-                                        <a href="#" class="btn btn-warning btn-sm" >
+                                        <a href="{{route('journals.edit',$sharing->id)}}" class="btn btn-warning btn-sm" >
                                             <i class="fas fa-edit"></i>
                                         </a>
 
                                         <form method="post" action="{{route('journals.destroy',$sharing->id)}}" class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger "><i class="fas fa-trash"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
