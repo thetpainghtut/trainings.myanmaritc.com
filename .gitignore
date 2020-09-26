@@ -1,0 +1,15 @@
+/node_modules
+/public/hot
+/public/storage
+/public/mmitui
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+Archive.zip
+public/mmitui/storage/video/lesson/1600870791.mp4
