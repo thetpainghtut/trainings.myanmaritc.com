@@ -62,9 +62,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputCourse" class="col-sm-2 col-form-label">Locations</label>
+                    <label for="inputLocation" class="col-sm-2 col-form-label">Locations</label>
                     <div class="col-sm-10">
-                        <select name="location" class="form-control course_change" id="inputCourse">
+                        <select name="location" class="form-control course_change" id="inputLocation">
                             <option value="">Choose Locations</option>
                             @foreach($locations as $location)
                                 <option value="{{$location->id}}"> {{$location->name}} </option>

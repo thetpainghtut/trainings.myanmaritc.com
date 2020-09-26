@@ -25,7 +25,7 @@ class AttendanceController extends Controller
         //dd($user);
         $teacher = DB::table('courses')
                     ->join('teachers','courses.id','=','teachers.course_id')
-                    ->join('staff','staff.id','=','teachers.staffid')
+                    ->join('staff','staff.id','=','teachers.staff_id')
                     ->join('users','users.id','=','staff.user_id')
                     ->join('locations','courses.location_id','=','locations.id')
                     ->where('users.id',$user)->select('courses.*','locations.name as lname')->get();
