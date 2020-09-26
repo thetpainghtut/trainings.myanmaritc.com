@@ -29,7 +29,7 @@
 	                		
 	              		</ol>
 
-	              		<div class="form-group form-check mt-5 ml-3">
+	              		<div class="form-group form-check-inline mt-5 ml-3">
 	                		<input type="checkbox" class="form-check-input" id="exampleCheck1">
 	                		<label class="form-check-label mmfont" for="exampleCheck1"> အထက်ပါစည်းကမ်းချက်များကို သိရှိနားလည်လက်ခံပြီး သင်တန်းအပ်နှံပါသည်။ </label>
 	              		</div>
@@ -49,7 +49,8 @@
 			                <h1 class="h4 text-gray-900 mb-4"> Welcome to MMIT </h1>
 			            </div>
 		              
-		              	<form class="user" action="{{route('frontend.student.register')}}">
+		              	<form class="user" action="{{route('frontend.student.register')}}" method="POST">
+		              		@csrf
 
 		              		@php
 							$status_session=session('status');
@@ -70,8 +71,58 @@
 			                  	<input type="number" class="form-control form-control-user" name="inquire_no" id="inquire_no" placeholder="Enter Your Receive Number">
 			                </div>
 
+			                <div class="form-group">
+			                	<label> <u> Student Admission Requirements </u> </label>
+
+			                	<div class="form-check">
+									<input class="form-check-input" type="radio" name="studenttype" id="Freshmen" value="0">
+								  	<label class="form-check-label" for="Freshmen">
+								    	Freshmen
+								    	<small class="mmfont ml-3"> ( ကျောင်းသားအသစ် ) </small>
+								  	</label>
+								  	
+								</div>
+
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="studenttype" id="transfer" value="1">
+								  	<label class="form-check-label" for="transfer">
+								    	Transfer Stduent
+								    	<small class="mmfont ml-3"> ( ကျောင်းသားအဟောင်း ) </small>
+								  	</label>
+								  	
+
+								</div>
+
+								<div class="form-check">
+								  	<input class="form-check-input" type="radio" name="studenttype" id="senior" value="1">
+								  	<label class="form-check-label" for="senior">
+								    	Senior and Higher Level Student
+								    	<small class="mmfont ml-3"> ( ကျောင်းသားအဟောင်း ) </small>
+								  	</label>
+								</div>
+
+								<div id="checkMail">
+									<hr>
+									<div class="form-group" id="mailDiv">
+			                			<label class="mmfont"> သင်တန်းတွင် register လုပ်ဘူးသော Email ကို ထည့်ပေးပါ </label>
+
+					                  	<input type="email" class="form-control form-control-user" name="old_email" id="old_email" placeholder="Enter Your Email">
+					                  	<i class="fas fa-spinner fa-spin iconInput fa-lg loading"></i>
+					                  	<i class="fas fa-check-circle text-success iconInput fa-lg successed"></i>
+					                  	<div id="successDiv" class="ml-2 text-success">
+											You are our old student. Keep Going!
+										</div>
+
+										<div id="failDiv" class="ml-2 text-danger">
+											You're email doesn't exist. Please Keep Going!
+										</div>
+					                </div>
+					            </div>
+
+			                </div>
+
 			                <button type="submit" class="btn btn-facebook btn-user btn-block">
-			                	<i class="fab fa-facebook-f fa-fw"></i> Keep Going
+			                	Keep Going
 			                </button>
 		              	</form>
 		              

@@ -115,12 +115,25 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100',
-            'course_id' => 'required'
+            'courses' => 'required'
         ]);
 
+        if($request->hasfile('logo')){
+              $logo = $request->file('logo');
+              $upload_dir = public_path().'/storage/images/courses/';
+              $name = time().'.'.$logo->getClientOriginalExtension();
+              $logo->move($upload_dir,$name);
+              $path = '/storage/images/courses/'.$name;
+        }else{
+            $path = request('oldlogo');
+        }
+
         $subject->name = request('name');
-        $subject->course_id=request('course_id');
+        $subject->logo = $path;
         $subject->save();
+
+        $subject->courses()->detach();
+        $subject->courses()->attach(request('courses'));
 
         return redirect()->route('subjects.index');
     }
@@ -131,8 +144,12 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy($id)
     {
+        $subject = Subject::find($id);
+
+        $subject->courses()->detach();
+        
         $subject->delete();
 
         return redirect()->route('subjects.index');

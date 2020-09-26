@@ -15,7 +15,6 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('inquire_no');
             $table->longText('photo')->nullable();
 
             $table->string('namee',100);
@@ -35,13 +34,7 @@ class CreateStudentsTable extends Migration
             $table->string('p2_phone',100);
             $table->string('p2_relationship',100);
             $table->text('because');
-            $table->string('status',100)->default('Active');
-
-
-            $table->unsignedBigInteger('batch_id');
-            $table->foreign('batch_id')
-                  ->references('id')->on('batches')
-                  ->onDelete('cascade');
+            $table->string('status',100)->default('0');
 
             $table->unsignedBigInteger('township_id');
             $table->foreign('township_id')

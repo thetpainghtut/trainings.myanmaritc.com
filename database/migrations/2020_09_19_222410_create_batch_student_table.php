@@ -15,7 +15,9 @@ class CreateBatchStudentTable extends Migration
     {
         Schema::create('batch_student', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('receiveno');
             $table->string('status');
+
 
             $table->unsignedBigInteger('batch_id');
             $table->foreign('batch_id')

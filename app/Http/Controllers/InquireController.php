@@ -198,7 +198,7 @@ class InquireController extends Controller
         $batch_id = request('batch_id');
         $batch = Batch::find($batch_id);
         $course = $batch->course;
-        $codeno = $course->codeno;
+        $codeno = $course->code_no;
         $full_amount = $course->fees;
 
 
@@ -220,9 +220,9 @@ class InquireController extends Controller
         $payment_date =  request('installment_date');
         
         $lastInquire = Inquire::whereDate('updated_at',date('Y-m-d'))->where('receiveno','!=',null)->orderBy('updated_at','desc')->get();
-        //dd($lastInquire);
+        // dd($lastInquire);
         if($lastInquire->isEmpty()){
-            //dd($lastInquire);
+            // dd($lastInquire);
             $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
         }else
         {
@@ -231,14 +231,14 @@ class InquireController extends Controller
 
                 $data_batch = Batch::find($databatch_id);
                 $data_course = $data_batch->course;
-                $data_codeno = $data_course->codeno;
+                $data_codeno = $data_course->code_no;
 
                 $datalocation_id = $data_batch->location_id;
                 $data_location = Location::find($datalocation_id);
 
                 $data_city = $data_location->city;
                 $data_zipcode = $data_city->zipcode;
-                //dd($data_zipcode);
+                // dd($data_batch);
                 if($codeno == $data_codeno && $zipcode == $data_zipcode)
                 {
                     //dd($value->receiveno);

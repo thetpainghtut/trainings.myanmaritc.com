@@ -94,11 +94,19 @@
                 $('nav').addClass('active');
                 var course_id = $(this).data('courseid');
                 $.post('subject_course',{course_id:course_id},function(response){
-                    // console.log(response);
+                    console.log(response);
                     var j =1;
                     var html="";
                     $.each(response,function(i,v){
-                        console.log(response);
+                        console.log(v.id);
+                        var subject_id = v.id;
+
+                        var edit_routeURL = "{{ route('subjects.edit',':e_id') }}";
+                        edit_routeURL = edit_routeURL.replace(':e_id',subject_id);
+
+                        var delete_routeURL = "{{ route('subjects.destroy',':d_id') }}";
+                        delete_routeURL = delete_routeURL.replace(':d_id',subject_id);
+
                         if(v){
                             html+=`<tr>
                                     <td>${j++}</td>
@@ -117,11 +125,11 @@
                                     </td>
                                     <td>
 
-                                        <a href="{{route('subjects.edit',':subject_id')}}" class="btn btn-warning btn-sm">
+                                        <a href="`+edit_routeURL+`" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                      
-                                        <form method="post" action="{{route('subjects.destroy',':subject_id')}}" class="d-inline-block">
+                                        <form method="post" action="`+delete_routeURL+`" class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to Delete?')">
@@ -130,8 +138,8 @@
                                         </form>
                                     </td>
                                 </tr>`;
-                            html= html.replace(':id',v.id);
-                            html= html.replace(':subject_id',v.id);
+                            // html= html.replace(':id',v.id);
+                            // html= html.replace(':subject_id',v.id);
                         }
                     });
 

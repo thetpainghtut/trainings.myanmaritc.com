@@ -10,7 +10,7 @@ class Batch extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title','startdate','enddate','time','course_id', 'location_id'
+        'title','type','startdate','enddate','time','course_id', 'location_id'
     ];
 
     public function course()
@@ -41,7 +41,10 @@ class Batch extends Model
 
     public function students()
     {
-        return $this->hasMany('App\Student');
+        return $this->belongsToMany('App\Student')
+                    ->withPivot('receiveno','status')
+                    ->withTimestamps()
+                    ->orderBy('batch_student.created_at', 'DESC');
     }
 
      public function groups()

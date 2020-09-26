@@ -35,6 +35,8 @@ $(document).ready(function () {
     $('#members').prop('disabled',false);
     $(".js-example-basic-multiple").html('').select2({
       placeholder: "Choose members",
+      theme: 'bootstrap4',
+
     });
     var bid = $(this).val();
     $.post('/getstudentformembers',{bid:bid},function (response) {

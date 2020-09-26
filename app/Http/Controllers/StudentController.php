@@ -82,7 +82,7 @@ class StudentController extends Controller
         "city" => 'required',
         "accepted_year" => 'required',
         "address" => 'required',
-        "email" => 'unique:students',
+        "email" => 'required',
         "phone" => 'required|max:12',
         "dob" => 'required',
         "gender" => 'required',
@@ -96,61 +96,125 @@ class StudentController extends Controller
         "because" => 'required'
       ]);
         $inquireno = request('inquireno');
-        // Save Data
+        $batch_id = request('batch_id');
+        $user_id = request('user_id');
+        $student_id = request('student_id');
 
-        $user = User::firstOrNew(['email' =>  request('email'), 'name' => request('namee') ]);
+        $namee = request('namee');
+        $namem = request('namem');
+        $degree = request('degree');
 
-        dd($user);
+        $township_id = request('city');
+        $accepted_year = request('accepted_year');
+        $address = request('address');
+        $email = request('email');
+        $phone = request('phone');
+        $dob = request('dob');
+        $gender = request('gender');
+        $subjects = request('subjects');
+        $p1 = request('p1');
+        $p1_rs = request('p1_rs');
+        $p1_phone = request('p1_phone');
+        $p2 = request('p2');
+        $p2_rs = request('p2_rs');
+        $p2_phone = request('p2_phone');
+        $because = request('because');
 
-        $user = new User;
-        $user->name = request('namee');
-        $user->email=request('email');
-        $user->password=Hash::make("123456789");
-        $user->save();
-
-        $user->assignRole('Student');
-        $id = $user->id;
-
-        $township = Township::find(request('city'));
+        $township = Township::find($township_id);
 
         $townshipid = $township->id;
         $city = $township->city->name;
 
-        $student = new Student;
-        $student->inquire_no =request('inquireno');
-        $student->namee = request('namee');
-        $student->namem = Rabbit::zg2uni(request('namem')); ;
-        $student->email = request('email');
-        $student->phone = request('phone');
-        $student->address = request('address');
-        $student->degree = request('degree');
-        $student->city = $city;
-        $student->accepted_year = request('accepted_year');
-        $student->dob = request('dob');
-        $student->gender = request('gender');
-        $student->p1 = request('p1');
-        $student->p1_phone = request('p1_phone');
-        $student->p1_relationship = request('p1_rs');
-        $student->p2 = request('p2');
-        $student->p2_phone = request('p2_phone');
-        $student->p2_relationship = request('p2_rs');
-        $student->because = request('because');
-        $student->status = 'Active';
-        $student->batch_id = request('batch_id');
-        $student->township_id = $townshipid;
-        $student->user_id = $id;
-        $student->save();
+        if ($user_id) {
+            $user = User::find($user_id);
+            $user->name = $namee;
+            $user->email= $email;
+            $user->password=$user->password;
+            $user->save();
+
+            $student = Student::find($student_id);
+            $student->namee = $namee;
+            $student->namem = $namem;
+            $student->email = $email;
+            $student->phone = $phone;
+            $student->address = $address;
+            $student->degree = $degree;
+            $student->city = $city;
+            $student->accepted_year = $accepted_year;
+            $student->dob = $dob;
+            $student->gender = $gender;
+            $student->p1 = $p1;
+            $student->p1_phone = $p1_phone;
+            $student->p1_relationship = $p1_rs;
+            $student->p2 = $p2;
+            $student->p2_phone = $p2_phone;
+            $student->p2_relationship = $p2_rs;
+            $student->because = $because;
+            $student->township_id = $townshipid;
+            $student->user_id = $user_id;
+            $student->save();
+
+            $student->subjects()->detach();
+            $student->subjects()->attach($subjects);
+
+            $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
+            return 'ok';
+
+        }
+        else{
+            $user = new User;
+            $user->name = request('namee');
+            $user->email=request('email');
+            $user->password=Hash::make("123456789");
+            $user->save();
+
+            $user->assignRole('Student');
+            $id = $user->id;
+
+
+            $student = new Student;
+            $student->namee = $namee;
+            $student->namem = $namem;
+            $student->email = $email;
+            $student->phone = $phone;
+            $student->address = $address;
+            $student->degree = $degree;
+            $student->city = $city;
+            $student->accepted_year = $accepted_year;
+            $student->dob = $dob;
+            $student->gender = $gender;
+            $student->p1 = $p1;
+            $student->p1_phone = $p1_phone;
+            $student->p1_relationship = $p1_rs;
+            $student->p2 = $p2;
+            $student->p2_phone = $p2_phone;
+            $student->p2_relationship = $p2_rs;
+            $student->because = $because;
+            $student->township_id = $townshipid;
+            $student->user_id = $id;
+            $student->save();
+
+
+            $subjects = request('subjects');
+
+            // Save student_subject
+            // $student->subjects()->detach();
+            $student->subjects()->attach($subjects);
+
+            $student->batches()->attach($student->id,['receiveno' => $inquireno, 'status' => 'Active']);
 
 
 
-        $subjects = request('subjects');
+            return 'ok';
+        }
+        // Save Data
 
-        // Save student_subject
-        $student->subjects()->detach();
-        $student->subjects()->attach($subjects);
+        // $user = User::firstOrNew(['email' =>  request('email'), 'name' => request('namee') ]);
 
+        // dd($user);
 
-        return 'ok';
+        
     }
 
     /**

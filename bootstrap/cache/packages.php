@@ -78,6 +78,13 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'owen-oj/laravel-getid3' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Owenoj\\LaravelGetId3\\GetId3ServiceProvider',
+    ),
+  ),
   'spatie/laravel-permission' => 
   array (
     'providers' => 

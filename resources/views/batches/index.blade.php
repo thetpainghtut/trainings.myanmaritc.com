@@ -28,7 +28,7 @@
                         @foreach($batches as $row)
                             <tr>
                                 <td>{{$i++}}</td>
-                                <td>{{$row->title}}</td>
+                                <td>{{$row->title}} ({{ $row->type }}) </td>
                                 <td>{{$row->startdate}}</td>
                                 <td>{{$row->enddate}}</td>
                                 <td>{{$row->course->name}} ( {{$row->location->city->name}} )</td>

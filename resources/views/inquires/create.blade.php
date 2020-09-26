@@ -76,7 +76,7 @@
                 <div class="form-group row">
                     <label for="inputEducation" class="col-sm-2 col-form-label">Education</label>
                     <div class="col-sm-10">
-                        <select name="education_id" class="form-control" id="inputEducation">
+                        <select name="education_id" class="form-control js-example-basic-single" id="inputEducation">
                             @foreach($educations as $education)
                                 <option value="{{$education->id}}">{{$education->name}}</option>
                             @endforeach
@@ -126,6 +126,12 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $('.js-example-basic-single').select2({
+            theme: 'bootstrap4',
+
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
