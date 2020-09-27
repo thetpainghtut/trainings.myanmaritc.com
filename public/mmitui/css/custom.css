@@ -923,3 +923,115 @@ h3.articletitle{
 p.blogdetailText img{
     width: 300px !important;
 }
+
+.questions:first-child{
+    display: block;
+}
+.questions{
+    display: none;
+}
+
+#q2next,
+#q3next,
+#q4next,
+#q5next,
+#end{
+    border: none;
+    background-color: #1d51c7;
+    color: white;
+    padding: .5em 2em;
+    transition: all .3s ease-out;
+    &:hover {
+        background-color: darken(#1d51c7, 10%);
+    }
+}
+
+.qContainer{
+    position: relative;
+    display: block;
+    padding: 1em;
+    padding-left: 35px;
+   margin-bottom: 12px;
+    cursor: pointer;
+     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.quizinput {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+    transition: all .2s ease-out;
+}
+/* On mouse-over, add a grey background color */
+.qContainer:hover input ~ .checkmark
+{
+    background-color: #DDDDDD;
+}
+
+/* When the radio button is checked, add a blue background */
+.qContainer input:checked ~ .checkmark
+{
+    background-color: #1d51c7;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.qContainer input:checked ~ .checkmark:after
+{
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.qContainer .checkmark:after
+{
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+.correct_answer{
+    background-color: #06A10B;
+    font-style: bold;
+    color: #fff;
+}
+
+.checkcorrect_answer{
+    background-color: #88D969;
+    font-style: bold;
+    color: #fff;
+}
+
+.answer_icon{
+    color: #fff;
+    font-size: 20px;
+}
+
+.wrong_answer{
+    background-color: #ff383e;
+    font-style: bold;
+    color: #fff;
+    
+}

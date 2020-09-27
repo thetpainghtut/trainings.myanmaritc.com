@@ -30,6 +30,9 @@
     <!-- Hover -->
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/css/hover.css') }}">
 
+    <!-- Photo Grid -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/photogrid/images-grid.css') }}">
+
     <!-- Icofont -->
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/icon/icofont/icofont.min.css') }}">
 
@@ -76,7 +79,7 @@
                     </li>
                   
                     <li class="nav-item">
-                        <a class="nav-link" href=""> Job </a>
+                        <a class="nav-link" href="http://jobs.myanmaritc.com/" target="_blank"> Job </a>
                     </li>
                   
                     <li class="nav-item {{ Request::segment(1) ==='contact' ? 'active' :'' }}">
@@ -123,16 +126,16 @@
                           
                             <div class="dropdown-divider"></div>
                           
-                            <a class="dropdown-item" href="account.html"> My Account </a>
+                            <a class="dropdown-item" href="{{ route('frontend.account') }}"> My Account </a>
 
 
                             <a class="dropdown-item" href="{{ route('frontend.panel') }}"> 
                                 My Dashboard 
                             </a>
 
-                            <a class="dropdown-item" href="changepassword.html"> Change Password </a>
+                            <a class="dropdown-item" href="{{ route('frontend.secret') }}"> Change Password </a>
 
-                            <a class="dropdown-item" href="notification.html"> Notifications 
+                            <a class="dropdown-item" href="{{ route('frontend.notification')}}"> Notifications 
                                 <span class="badge badge-pill badge-danger"> +1 </span> 
                             </a>
 
@@ -190,7 +193,7 @@
 
                                 <div class="row">
                                     <div class="offset-4 col-4 offset-4">
-                                        <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                                        <a class="btn btn-block btn-primary mt-5 hvr-icon-grow-rotate" href="tel:+95798323199"> Call Now <i class="fas fa-phone-alt ml-3 hvr-icon"></i> </a>
                                     </div>
                                 </div>
 
@@ -198,26 +201,26 @@
 
                             @php $i++; } else{  @endphp
 
-                            <div class="carousel-item active">
-                                <p> No class now</p>                    
+                            <div class="carousel-item @if($i==0) {{'active'}} @endif">
+                                {{-- <p> No class now</p>                    
 
                                 <div class="row">
                                     <div class="offset-4 col-4 offset-4">
-                                        <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                                        <a class="btn btn-block btn-primary mt-5 hvr-icon-grow-rotate" href="tel:+95798323199"> Call Now <i class="fas fa-phone-alt ml-3 hvr-icon"></i> </a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>  
 
                             @php }; }else{ @endphp
                     
-                            <div class="carousel-item active">
-                                <p> No class now</p>                    
+                            <div class="carousel-item @if($i==0) {{'active'}} @endif">
+                                {{-- <p> No class now</p>                    
 
                                 <div class="row">
                                     <div class="offset-4 col-4 offset-4">
-                                        <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+                                        <a class="btn btn-block btn-primary mt-5 hvr-icon-grow-rotate" href="tel:+95798323199"> Call Now <i class="fas fa-phone-alt ml-3 hvr-icon"></i> </a>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div> 
                         
@@ -225,7 +228,7 @@
                             @endforeach
                             @else
                         
-                                <div class="carousel-item active">
+                                <div class="carousel-item @if($i==0) {{'active'}} @endif">
                                     <p> No class now</p>                    
 
                                     <div class="row">
@@ -408,6 +411,7 @@
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
 
     <!-- Plyr -->
     

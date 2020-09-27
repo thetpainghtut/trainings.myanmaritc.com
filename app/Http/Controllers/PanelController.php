@@ -47,6 +47,30 @@ class PanelController extends Controller
         $lessons = Lesson::where('subject_id','=',$subjectid)->get();
 
         return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+    }
 
+    public function takequiz(){
+        return vieW('panel.quiz');
+    }
+
+    public function quizanswer(){
+        return vieW('panel.quizanswer');
+    }
+
+    public function secret(){
+        return view('panel.secret');
+    }
+
+    public function account(){
+        return view('panel.account');
+    }
+
+    public function notification(){
+        return view('panel.notification');
+    }
+    
+
+    public function channel(){
+        return view('panel.channel');
     }
 }

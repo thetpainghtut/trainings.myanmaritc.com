@@ -157,6 +157,16 @@ Route::resource('feedbacks','FeedbackController');
 Route::get('panel','PanelController@index')->name('frontend.panel');
 Route::get('takelesson/{id}','PanelController@takelesson')->name('frontend.takelesson');
 
+Route::get('channel','PanelController@channel')->name('frontend.channel');
+
+Route::get('takequiz','PanelController@takequiz')->name('frontend.takequiz');
+Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer');
+
+Route::get('secret','PanelController@secret')->name('frontend.secret');
+Route::get('account','PanelController@account')->name('frontend.account');
+Route::get('notification','PanelController@notification')->name('frontend.notification');
+
+
 // Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');
 
 Route::get('playcourse/{bid}/{sid}', [

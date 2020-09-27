@@ -2,8 +2,8 @@ $(document).ready(function(){
 
     AOS.init();
 
-    $("img").addClass("img-responsive");
-    $("img").css("max-width", "100%");
+    $("div.image-wrap img").addClass("img-responsive");
+    $("div.image-wrap img").css("max-width", "100%");
 
 	$('.profile_editBtn').show();
 	$('.profile_cancelBtn').hide();
@@ -70,18 +70,19 @@ $(document).ready(function(){
 
     });
 
-	function nextTab(elem) {
-	    $(elem).next().find('a[data-toggle="tab"]').click();
-	}
-	function prevTab(elem) {
-	    $(elem).prev().find('a[data-toggle="tab"]').click();
-	}
+    function nextTab(elem) {
+        $(elem).next().find('a[data-toggle="tab"]').click();
+    }
+    function prevTab(elem) {
+        $(elem).prev().find('a[data-toggle="tab"]').click();
+    }
 
 
-	$('.nav-tabs').on('click', 'li', function() {
-	    $('.nav-tabs li.active').removeClass('active');
-	    $(this).addClass('active');
-	});
+    $('.nav-tabs').on('click', 'li', function() {
+        $('.nav-tabs li.active').removeClass('active');
+        $(this).addClass('active');
+    });
+
 
 	$('.modal-image').on('click', function(){
 		alert('hello');
@@ -129,72 +130,90 @@ $(document).ready(function(){
 
     $(function() {
 
-        $('#gallery1').imagesGrid({
-            images: ['image/p1.jpg']
+
+        $('#alltopics .gallery1').imagesGrid({
+            image: ['mmitui/image/p1.jpg'],
+            onGridItemRendered: function($item, image) { return true },
+            onGridImageLoaded: function(event, $img, image) { return true }
+
         });
-        $('#gallery2').imagesGrid({
+
+        // $('#alltopics').imagesGrid('.gallery2', function()
+        // {
+        //     console.log('aa');
+        //     images: [
+        //         'mmitui/image/test/an1.jpg',
+        //         'mmitui/image/test/an2.jpg'
+        //     ]
+            
+        // });
+
+
+        $('#alltopics .gallery2').imagesGrid({
         	images: [
-                'image/test/an1.jpg',
-            	'image/test/an2.jpg'
+                'mmitui/image/test/an1.jpg',
+            	'mmitui/image/test/an2.jpg'
             ],
 
             // images: images.slice(0, 5)
         });
-        $('#gallery3').imagesGrid({
+        $('#alltopics .gallery3').imagesGrid({
             images: [
-                'image/test/s1.jpg',
-            	'image/test/s2.jpg',
-            	'image/test/s3.jpg'
+                'mmitui/image/test/s1.jpg',
+            	'mmitui/image/test/s2.jpg',
+            	'mmitui/image/test/s3.jpg'
 
             ],
 
         });
-        $('#gallery4').imagesGrid({
+        $('#alltopics .gallery4').imagesGrid({
             images: [
-                'image/test/tip1.jpg',
-            	'image/test/tip2.jpg',
-            	'image/test/tip3.jpg',
-            	'image/test/tip4.jpg'
+                'mmitui/image/test/tip1.jpg',
+            	'mmitui/image/test/tip2.jpg',
+            	'mmitui/image/test/tip3.jpg',
+            	'mmitui/image/test/tip4.jpg'
             ],
         });
-        $('#gallery5').imagesGrid({
+        $('#alltopics .gallery5').imagesGrid({
             images: [
-                'image/test/g5_1.jpg',
-            	'image/test/g5_2.jpg',
-            	'image/test/g5_3.jpg',
-            	'image/test/g5_4.jpg',
-            	'image/test/g5_5.jpg'
+                'mmitui/image/test/g5_1.jpg',
+            	'mmitui/image/test/g5_2.jpg',
+            	'mmitui/image/test/g5_3.jpg',
+            	'mmitui/image/test/g5_4.jpg',
+            	'mmitui/image/test/g5_5.jpg'
 
             ],
         });
-        $('#gallery6').imagesGrid({
+        $('#alltopics .gallery6').imagesGrid({
             images: [
-                'image/test/1.jpg',
-            	'image/test/2.jpg',
-            	'image/test/3.jpg',
-            	'image/test/4.jpg',
-            	'image/test/5.jpg',
-            	'image/test/6.jpg'
+                'mmitui/image/test/1.jpg',
+            	'mmitui/image/test/2.jpg',
+            	'mmitui/image/test/3.jpg',
+            	'mmitui/image/test/4.jpg',
+            	'mmitui/image/test/5.jpg',
+            	'mmitui/image/test/6.jpg'
 
 
             ],
         });
-        $('#gallery7').imagesGrid({
+        $('#alltopics .gallery7').imagesGrid({
             images: [
-                'image/test/p2.jpg',
-            	'image/test/p3.jpg',
-            	'image/test/p4.jpg',
-            	'image/test/p5.jpg',
-            	'image/test/p6.jpg',
-            	'image/test/p7.jpg',
-            	'image/test/p8.jpg',
-            	'image/test/p9.jpg',
-            	'image/test/p10.jpg',
-            	'image/test/p11.jpg',
+                'mmitui/image/test/p2.jpg',
+            	'mmitui/image/test/p3.jpg',
+            	'mmitui/image/test/p4.jpg',
+            	'mmitui/image/test/p5.jpg',
+            	'mmitui/image/test/p6.jpg',
+            	'mmitui/image/test/p7.jpg',
+            	'mmitui/image/test/p8.jpg',
+            	'mmitui/image/test/p9.jpg',
+            	'mmitui/image/test/p10.jpg',
+            	'mmitui/image/test/p11.jpg',
 
                 ],
             align: true,
-            getViewAllText: function(imgsCount) { return 'View all' }
+            getViewAllText: function(imgsCount) { return 'View all' },
+            onGridItemRendered: function($item, image) { },
+            onGridImageLoaded: function(event, $img, image) { }
         });
 
     });

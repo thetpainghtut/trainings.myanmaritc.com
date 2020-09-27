@@ -32,7 +32,7 @@
                                     Take Lesson
                                 </a>
 
-                                <a href="channel.html" class="btn btn-light float-right">
+                                <a href="{{ route('frontend.channel') }}" class="btn btn-light float-right">
                                     Go Channel
                                 </a>
 
