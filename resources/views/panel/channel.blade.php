@@ -6,16 +6,16 @@
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-white">
-                    @foreach($post as $p)
+                    
                     <?php
-                    $words = explode(" ", $p->batches[0]->title);
+                    $words = explode(" ", $post[0]->batches[0]->title);
             
                     ?>
                     @if($words[0] == 'PHP')
                     <h1 class="display-4 mt-5 mb-2">PHP Developer Bootcamp Channel, </h1>
                     <p> {{$words[1]}} - {{$words[2]}} </p>
                     @endif
-                    @endforeach
+                   
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                         </li>
                         @foreach($topics as $topic)
                         <li class="list-group-item topic1">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=1> {{$topic->name}} </a>
+                            <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}} </a>
                         </li>
                         @endforeach
                         <!-- <li class="list-group-item topic2">
@@ -54,17 +54,36 @@
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
                             <div class="row">
                                 <div class="col-1">
+                                    @if($po->user->getRoleNames()[0] =='Admin')
                                     <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                    @else
+                                    <img src="{{asset($po->user->staff->photo)}}" class="userprofile mr-2 d-inline">
+                                    @endif  
                                     
                                 </div>
                                 <div class="col-11">
                                     <p class="username d-block mb-0"> {{$po->user->name}} </p>
 
                                     <small class="text-muted mr-3">
-                                        <i class="fas fa-bullhorn mr-1"></i> {{$po->topic->name}}
+                                        @if($po->topic->name == 'Announcement')
+                                        <i class="fas fa-bullhorn mr-1"></i>
+                                        @elseif($po->topic->name == 'Schedule')
+                                        <i class="icofont-calendar"></i>  
+                                        @elseif($po->topic->name == 'Assignment')
+                                        <i class="far fa-check-square mr-1"></i>
+                                        @elseif($po->topic->name == 'Live Recording') 
+                                        <i class="fas fa-video mr-1"></i> 
+                                        @elseif($po->topic->name == 'Assignment') 
+                                        <i class="far fa-check-square mr-1"></i>
+                                        @elseif($po->topic->name == 'Post') 
+                                        <i class="fas fa-envelope mr-1"></i> 
+                                        @else
+                                          <i class="icofont-question-circle"></i>
+                                        @endif
+                                        {{$po->topic->name}}
                                     </small> •
                                     <small class="text-muted">
-                                        <i class="far fa-clock ml-3"></i> 25 minutes ago 
+                                        <i class="far fa-clock ml-3"></i> {{$po->created_at->diffForHumans()}} 
                                     </small>
                                 </div>
                             </div>
@@ -84,9 +103,9 @@
                                             <img src="{{asset($image)}}" alt="" class="img-fluid">
                                         </div>
                                         @endforeach
-                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
-                                        </div>
+                                        </div> -->
                                     </div>
                                     
                                 </div>
@@ -289,7 +308,11 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         var html1=''; var html2=''; var html3=''; 
         var html4=''; var html7=''; var html6='';
         var html8='';
@@ -685,7 +708,88 @@
 
         $('.topics').on('click',function(){
             var id = $(this).data('id');
-            if (id == 0) {
+            console.log(id);
+            var html='';
+            $.post('/allchannel',{id:id},function(response){
+                //console.log(response.posts);
+                $.each(response.posts,function(i,v){
+                    console.log(v);
+                    var images = v.file.split(',');
+
+                    html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
+                    <div class="row">`;
+                    if(v.user.staff==null){
+                        html+= `<div class="col-1">
+                            <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }else{
+                        html+= `<div class="col-1">
+                            <img src="${v.user.staff.photo}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }
+                        html+=`<div class="col-11">
+                            <p class="username d-block mb-0"> ${v.user.name}</p>
+
+                            <small class="text-muted mr-3">
+                                <i class="icofont-question-circle"></i> ${v.topic.name}
+                            </small> •
+                            <small class="text-muted">
+                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <blockquote class="blockquote  text-primary">
+                                <p class="mb-0"> ${v.title} </p>
+                            </blockquote>
+
+                            <div class="row">`;
+                            $.each(images,function(k,c){
+                                html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <img src="${c}" alt="" class="img-fluid">
+                                </div>`;
+                            });
+                             html+=   `<div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_1.jpg" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_2.jpg" alt="" class="img-fluid">
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_3.jpg" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_4.jpg" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_5.jpg" alt="" class="img-fluid">
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>`;
+               
+                });
+                 $('.list-group li.active a').removeClass('text-white');
+                $('.list-group li.active a').addClass('primarytext');
+                $('.active').removeClass('active');
+
+                $('.topic'+id).addClass('active');
+                $('.list-group li.active a').addClass('text-white');
+                $('.list-group li.active a').removeClass('primarytext');
+                
+                $('#alltopics').show();
+                $('#alltopics').html(html);
+                $('.signup-step-container').hide();
+            });
+            if (id == 1) {
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -701,7 +805,7 @@
                 
             }
 
-            else if (id == 1) {
+            else if (id == 2) {
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -717,7 +821,7 @@
 
             }
 
-            else if (id == 2){
+            else if (id == 3){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -732,7 +836,7 @@
                 $('.signup-step-container').hide();
 
             }
-            else if (id == 3){
+            else if (id == 4){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -747,7 +851,7 @@
                 $('.signup-step-container').hide();
 
             }
-            else if (id == 4){
+            else if (id == 5){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -764,7 +868,7 @@
 
             }
 
-            else if (id == 7){
+            else if (id == 6){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -780,7 +884,7 @@
 
             }
 
-            else if (id == 6){
+            else if (id == 7){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');

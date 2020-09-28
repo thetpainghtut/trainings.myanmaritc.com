@@ -88,15 +88,10 @@ class PanelController extends Controller
 
     public function allchannel(Request $request)
     {
-        $b = $request->data;
-        foreach($b as $c){
-            $f = $c;
-            $e = $c['user_id'];
-            $t = $c['topic_id'];
-            $d = User::where('id',$e)->get();
-            $top = Topic::where('id',$t)->get();
-        }
-        return response()->json(['top'=>$top,'user'=>$d,'all'=>$b]);
+        $id = $request->id;
+        $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->get();
+       
+        return response()->json(['posts'=>$posts]);
     }
 
     public function change_password($value='')
