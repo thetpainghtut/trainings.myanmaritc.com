@@ -116,7 +116,12 @@ Route::resource('/expenses','ExpenseController');
 Route::resource('inquires','InquireController');
 
 Route::post('installment','InquireController@preinstallment')->name('installment.store');
+
 Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
+
+Route::post('postpone','InquireController@postpone')->name('postpone.store');
+
+Route::get('postpone_list/{id}','InquireController@postpone_list')->name('postpone_list');
 
 //Monthly Report
 Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');

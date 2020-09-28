@@ -26,10 +26,10 @@ class InquireController extends Controller
      */
     public function index()
     {
-        //
-        $no_payment_inquires = Inquire::where('status',0)->get();
-        $first_payment_inquires = Inquire::where('status',1)->get();
-        return view('inquires.index',compact('no_payment_inquires','first_payment_inquires'));
+        $courses = Course::all();
+        return view('inquires.index',compact('courses'));
+
+       
     }
 
     /**
@@ -37,15 +37,18 @@ class InquireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $batch_id = request('batch_id');
+        $batch = Batch::find($batch_id);
+        $batch_course = $batch->course;
+       
         $educations = Education::all();
         //$courses = Course::all();
         $courses = Course::has('batches')->get();
         $batches = Batch::all();
         $townships = Township::all();
-        return view('inquires.create',compact('educations','batches','townships','courses'));
+        return view('inquires.create',compact('educations','batches','townships','courses','batch_course','batch'));
     }
 
     /**
@@ -113,7 +116,7 @@ class InquireController extends Controller
         $inquires->user_id = Auth::id();
         $inquires->save();
 
-        return redirect()->route('inquires.index');
+        return redirect()->route('inquires.show',$id);
 
     }
 
@@ -125,7 +128,14 @@ class InquireController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $batch = Batch::find($id);
+         $no_payment_inquires = Inquire::where([['status',0],['batch_id',$id],['message','=',null]])->get();
+        $first_payment_inquires = Inquire::where([['status',1],['batch_id',$id],['message','=',null]])->get();
+        $full_payment_inquires = Inquire::where([['status',2],['batch_id',$id],['message','=',null]])->get();
+         //dd($no_payment_inquires,$first_payment_inquires,$full_payment_inquires);
+
+        return view('inquires.show',compact('batch','no_payment_inquires','first_payment_inquires','full_payment_inquires'));
     }
 
     /**
@@ -286,5 +296,26 @@ class InquireController extends Controller
         }
         
         return $fillter_batches;
+    }
+
+    public function postpone(Request $request)
+    {
+        $request->validate([
+            'postpone' => 'required'
+        ]);
+
+        $id = request('id');
+        $inquire = Inquire::find($id);
+        $inquire->message = request('postpone');
+        $inquire->save();
+        return response()->json($inquire);
+
+    }
+
+    public function postpone_list($id)
+    {
+        $course = Course::find($id);
+        $batches = $course->batches;
+        dd($batches);
     }
 }

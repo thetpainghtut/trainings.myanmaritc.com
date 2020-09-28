@@ -127,6 +127,7 @@
 
             $(function() {
                 var cid = $(".course_change").val();
+                
                 $.post("/show_subject",{id:cid},function (res) {
                     var data = JSON.parse(res);
                     var html ='';
