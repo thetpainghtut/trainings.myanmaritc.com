@@ -13,7 +13,7 @@ use App\Township;
 use App\Journal;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-
+use Auth;
 
 class FrontendController extends Controller
 {
@@ -170,7 +170,7 @@ class FrontendController extends Controller
     // dd($request);
     $request->validate([
       'email' => 'required',
-      'changepassword' => 'required|confirmed',
+      'changepassword' => 'required|confirmed|min:8',
       'changepassword_confirmation' => 'required',
       'currentpassword' => 'required',
     ]);
@@ -192,4 +192,76 @@ class FrontendController extends Controller
     }
 
   }
+
+
+  public function student_profile_update(Request $request)
+  {
+    // dd($request);
+      $request->validate([
+                        'name'=>'required',
+                        'phone' => 'required',
+                        'email' => 'required',
+                        'address' => 'required',
+                        ]);
+
+      if($request->photo)
+      {
+          $hasphoto = $request->photo;
+          $photo =  explode('.',$hasphoto);
+          $photo_name = $photo[0];
+          $extension = time().'.'.$photo[1];
+          $dir = '/storage/images/students/';
+          $public = public_path().$dir;
+          // $photo->move(public_path().$dir,$extension);
+          $data = move_uploaded_file($public,$extension);
+          dd($hasphoto);
+          $file_path = $dir.$extension;
+
+      }else{
+        $file_path = "";
+      }
+      $user_id = Auth::id();
+      $user = User::find($user_id);
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->save();
+
+      $student = Student::where('user_id',$user_id)->first();
+      $student->namee = $request->name;
+      $student->email = $request->email;
+      // $student->photo = $file_path;
+      $student->address = $request->address;
+      $student->save();
+
+      return redirect()->route('frontend.account')->with('msg','Successfullly Update your profile');
+
+  }
+
+
+
+  public function secret_password_change(Request $request)
+  {
+    $request->validate([
+      'changepassword' => 'required|confirmed|min:8',
+      'changepassword_confirmation' => 'required',
+      'currentpassword' => 'required',
+    ]);
+
+    $user = Auth::user();
+    $changepassword = $request->changepassword;
+    $changepassword_confirmation = $request->changepassword_confirmation;
+    $currentpassword = $request->currentpassword;
+
+    if(Hash::check($currentpassword,$user->password)){
+      $user->password = Hash::make($changepassword);
+      $user->save();
+      return back()->with('msg','Successfully change password');
+    }else{
+      return back()->with('error','Current password does not match in our records!');
+    }
+  }
+
+
+
+
 }

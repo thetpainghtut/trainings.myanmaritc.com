@@ -175,6 +175,8 @@ Route::get('notification','PanelController@notification')->name('frontend.notifi
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
 Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
+Route::post('student_profile_update','FrontendController@student_profile_update')->name('frontend.student_profile_update');
+Route::post('secret_password_change','FrontendController@secret_password_change')->name('frontend.secret_password_change');
 
 
 

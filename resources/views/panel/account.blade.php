@@ -17,10 +17,11 @@
     <div id="page-content">
         <div class="container my-5">
             <div class="row justify-content-center">
+
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 order-1 align-items-center justify-content-between">
                     <div class="avatar-upload">
                         <div class="avatar-edit">
-                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="logo" disabled="" />
+                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="logo" disabled="" data-student_id = "{{Auth::user()->student->id}}" value="mmitui/image/user.png" />
                             <label for="imageUpload"></label>
                         </div>
                         <div class="avatar-preview">
@@ -37,9 +38,13 @@
                 </div>
 
                 <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 order-xl-2 order-lg-2 order-md-3 order-sm-3 order-3">
-                    <form action="" method="post" enctype="multipart/formdata">
+                    <form action="{{route('frontend.student_profile_update')}}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <fieldset disabled>
-
+                            @if(session('msg'))
+                                <h6 class="text-success">{{session('msg')}}</h6>
+                            @endif
+                            <input type="hidden" name="photo" class="photodata">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
