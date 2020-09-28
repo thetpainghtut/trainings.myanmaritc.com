@@ -62,6 +62,7 @@ class PanelController extends Controller
     }
 
     public function account(){
+        
         return view('panel.account');
     }
 
@@ -73,4 +74,12 @@ class PanelController extends Controller
     public function channel(){
         return view('panel.channel');
     }
+
+    public function change_password($value='')
+    {
+        return view('auth/changepassword');
+    }
+
+    
 }
+
