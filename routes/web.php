@@ -162,7 +162,8 @@ Route::resource('feedbacks','FeedbackController');
 Route::get('panel','PanelController@index')->name('frontend.panel');
 Route::get('takelesson/{id}','PanelController@takelesson')->name('frontend.takelesson');
 
-Route::get('channel','PanelController@channel')->name('frontend.channel');
+Route::get('channel/{id}','PanelController@channel')->name('frontend.channel');
+Route::post('allchannel','PanelController@allchannel')->name('allchannel');
 
 Route::get('takequiz','PanelController@takequiz')->name('frontend.takequiz');
 Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer');
