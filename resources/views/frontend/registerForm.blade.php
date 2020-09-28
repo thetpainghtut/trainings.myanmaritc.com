@@ -270,6 +270,8 @@
                         @enderror
                     </div>
 
+
+
                     <button type="submit" class="btn btn-primary btn-block register_btn">Save Register</button>
                  
                 </form>
@@ -289,6 +291,26 @@
                 <p>Register Successfully!!</p>
                 <a href="{{route('login')}}">
                     <button type="button" class="btn btn-primary">OK</button>
+                </a>
+            </div>
+            <div class="modal-footer ">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- check mail modal --}}
+<div class="modal fade " id="mailfunction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center">
+                <p>Register Successfully!!</p>
+                <p>Check your email</p>
+
+                <a href="https://mail.google.com/" target="_blank">
+                    <button type="button" class="btn btn-primary">Ok</button>
                 </a>
             </div>
             <div class="modal-footer ">
@@ -319,7 +341,13 @@
                 contentType: false,
                 type: 'POST',
                 success: function(data){
-                    $('#exampleModal').modal('show');
+                    
+                    if(data=="ok"){
+                        $('#exampleModal').modal('show');
+                    }else{
+                        $('#mailfunction').modal('show');
+
+                    }
                 },
                 error: function(request, status, error) {
                     console.log("error")

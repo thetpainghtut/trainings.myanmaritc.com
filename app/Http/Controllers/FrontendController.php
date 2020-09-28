@@ -12,6 +12,7 @@ use App\Education;
 use App\Township;
 use App\Journal;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class FrontendController extends Controller
@@ -161,6 +162,34 @@ class FrontendController extends Controller
             ->where('email', '=', $inputEmail)->first();
 
     return response()->json(['user'=>$user]);
+
+  }
+
+  public function update_password(Request $request)
+  {
+    // dd($request);
+    $request->validate([
+      'email' => 'required',
+      'changepassword' => 'required|confirmed',
+      'changepassword_confirmation' => 'required',
+      'currentpassword' => 'required',
+    ]);
+    $email = $request->email;
+    $changepassword = $request->changepassword;
+    $confirmpassword = $request->confirmpassword;
+    $currentpassword = $request->currentpassword;
+
+    $user = User::where('email',$email)->first();
+
+    if(Hash::check($currentpassword,$user->password)){
+        $user->password = Hash::make($changepassword);
+        $user->save();
+
+        return redirect()->route('login')->with('success','Successfully change Password!');
+    }else{
+      return back()->with('msg','You password and email does not match in our record.
+        And fill again');
+    }
 
   }
 }

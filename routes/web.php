@@ -116,7 +116,12 @@ Route::resource('/expenses','ExpenseController');
 Route::resource('inquires','InquireController');
 
 Route::post('installment','InquireController@preinstallment')->name('installment.store');
+
 Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
+
+Route::post('postpone','InquireController@postpone')->name('postpone.store');
+
+Route::get('postpone_list/{id}','InquireController@postpone_list')->name('postpone_list');
 
 //Monthly Report
 Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');
@@ -166,6 +171,11 @@ Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer
 Route::get('secret','PanelController@secret')->name('frontend.secret');
 Route::get('account','PanelController@account')->name('frontend.account');
 Route::get('notification','PanelController@notification')->name('frontend.notification');
+
+// nyiyelin
+Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
+Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
+
 
 
 // Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');

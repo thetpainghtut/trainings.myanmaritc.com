@@ -63,6 +63,7 @@ class PanelController extends Controller
     }
 
     public function account(){
+        
         return view('panel.account');
     }
 
@@ -97,4 +98,12 @@ class PanelController extends Controller
         }
         return response()->json(['top'=>$top,'user'=>$d,'all'=>$b]);
     }
+
+    public function change_password($value='')
+    {
+        return view('auth/changepassword');
+    }
+
+    
 }
+
