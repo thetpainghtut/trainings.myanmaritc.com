@@ -1,20 +1,28 @@
 @extends('template')
 @section('content')
 
-	<!-- Header -->
+    <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-white">
-                    <h1 class="display-4 mt-5 mb-2"> PHP Developer Bootcamp Channel, </h1>
-                    <p> Batch - 18 </p>
+                    @foreach($post as $p)
+                    <?php
+                    $words = explode(" ", $p->batches[0]->title);
+            
+                    ?>
+                    @if($words[0] == 'PHP')
+                    <h1 class="display-4 mt-5 mb-2">PHP Developer Bootcamp Channel, </h1>
+                    <p> {{$words[1]}} - {{$words[2]}} </p>
+                    @endif
+                    @endforeach
                 </div>
             </div>
         </div>
     </header>
     <!-- Header -->
-	
-	<!-- Page Content -->
+    
+    <!-- Page Content -->
     <div id="page-content">
         <div class="container my-5">
             <div class="row">
@@ -23,42 +31,16 @@
                         <li class="list-group-item topic0 active">
                             <a href="javascript:void(0)" class="text-white topics" data-id=0> All Topics </a>
                         </li>
-
+                        @foreach($topics as $topic)
                         <li class="list-group-item topic1">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=1> Announcement </a>
+                            <a href="javascript:void(0)" class="primarytext topics" data-id=1> {{$topic->name}} </a>
                         </li>
-
-                        <li class="list-group-item topic2">
+                        @endforeach
+                        <!-- <li class="list-group-item topic2">
                             <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
-                        </li>
+                        </li> -->
 
-                        <li class="list-group-item topic3">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=3> Live Recording </a>
-                        </li>
-
-                        <li class="list-group-item topic4">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=4> Post </a>
-                        </li>
-
-                        <li class="list-group-item topic5 disabled" aria-disabled="true">
-                            <a href="javascript:void(0)" class="text-muted topics" data-id=5>  Project Title 
-                                <i class="fas fa-lock float-right fa-sm mt-1"></i>
-                            </a>
-                        </li>
-
-                        <li class="list-group-item topic6">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=6>  Quiz </a>
-                        </li>
-
-                        <li class="list-group-item topic7">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=7>  Schedule </a>
-                        </li>
-
-                        <li class="list-group-item topic8">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=8>  Survey 
-                                {{-- <i class="fas fa-lock float-right fa-sm mt-1"></i> --}}
-                            </a>
-                        </li>
+                        
 
                         
                         
@@ -68,7 +50,50 @@
 
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                     <div class="row" id="alltopics">
-                        
+                        @foreach($post as $po)
+                        <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                    
+                                </div>
+                                <div class="col-11">
+                                    <p class="username d-block mb-0"> {{$po->user->name}} </p>
+
+                                    <small class="text-muted mr-3">
+                                        <i class="fas fa-bullhorn mr-1"></i> {{$po->topic->name}}
+                                    </small> •
+                                    <small class="text-muted">
+                                        <i class="far fa-clock ml-3"></i> 25 minutes ago 
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <blockquote class="blockquote  text-primary">
+                                        <p class="mb-0"> {{$po->title}} </p>
+                                    </blockquote>
+
+                                    <div class="row">
+                                        @php
+                                        $images = explode(',',$po->file);
+                                        @endphp
+                                        @foreach($images as $image)
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <img src="{{asset($image)}}" alt="" class="img-fluid">
+                                        </div>
+                                        @endforeach
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="signup-step-container">
@@ -94,7 +119,7 @@
                                             </ul>
                                         </div>
                         
-                                        <form role="form" action="{{ route('frontend.channel') }}" method="GET" class="login-box mmfont">
+                                        <form role="form" action="" method="GET" class="login-box mmfont">
                                             <div class="tab-content" id="main_form">
                                                 <div class="tab-pane active" role="tabpanel" id="step1">
                                                     <h4 class="text-center">Step 1</h4>
@@ -197,7 +222,7 @@
                                                             <label>
                                                                 <input type="radio" name="product" class="card-input-element" />
 
-                                                                <div class="card card-input">
+                                                            <div class="card card-input">
                                                                     <img src="{{ asset('mmitui/image/lecturespeed4.gif') }}" class="card-img-top speedGif" alt="...">
                                                                     <div class="card-body text-center">
                                                                         <p class="card-text"> Super Rocket </p>
@@ -655,7 +680,7 @@
 
         
 
-        $('#alltopics').html(html3+html7+html1+html2+html4);
+        /*$('#alltopics').html(html3+html7+html1+html2+html4);*/
         $('.signup-step-container').hide();
 
         $('.topics').on('click',function(){

@@ -24,4 +24,9 @@ class Post extends Model
   	{
     	return $this->belongsToMany('App\Batch');
   	}
+
+    public function schools()
+    {
+        return Post::get()->load('user');
+    }
 }
