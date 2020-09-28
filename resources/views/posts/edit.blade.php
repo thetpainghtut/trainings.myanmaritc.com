@@ -84,7 +84,23 @@
                         <textarea id="summernote" class="form-control"  name="content">{!! $post->content !!}</textarea>
                     </div>
                 </div>
+                @role('Teacher')
+                <div class="form-group row" id="subjectDiv">
+                    <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="batch" id="batchName">
+                            <option>Choose One</option>
+                            @foreach($batches as $batch)
+                                <option value="{{$batch->batch_id}}" <?php foreach($post->batches as $b){
+                                    if($batch->batch_id == $b->id) echo "selected";
+                                    }?>>{{$batch->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                @endrole
 
+                @role('Admin')
                 <div class="form-group row" id="subjectDiv">
                     <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
                     <div class="col-sm-10">
@@ -98,7 +114,7 @@
                         </select>
                     </div>
                 </div>
-                
+                @endrole
 
                 <div class="form-group row">
                     <div class="col-sm-10">

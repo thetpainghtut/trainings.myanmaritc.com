@@ -18,7 +18,21 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        $user = Auth::user();
+        $id = Auth::id();
+        $role = $user->getRoleNames();
+
+        if($role[0] == 'Teacher'){
+            $posts = Post::whereHas('user',function($q) use ($id){
+                $q->where('user_id',$id);
+            })->get();
+        }elseif($role[0] == 'Admin'){
+            $posts = Post::all();
+        }
+        else{
+            $posts = [];
+        }
+        
         return view('posts.index',compact('posts'));
     }
 
@@ -32,7 +46,21 @@ class PostController extends Controller
         //
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
-        $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $user = Auth::user();
+        $id = Auth::id();
+        $role = $user->getRoleNames();
+        
+
+        if($role[0] == 'Teacher'){
+        $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('staff','staff.id','=','batch_teacher.teacher_id')->where('staff.user_id',$id)->get();
+        //dd($batches);
+        }
+        elseif($role[0] == 'Admin'){
+            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        }else{
+            $batches = [];
+
+        }
         return view('posts.create',compact('topics','batches'));
     }
 
@@ -104,7 +132,20 @@ class PostController extends Controller
         $post = Post::find($id);
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
-        $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+         $user = Auth::user();
+        $id = Auth::id();
+        $role = $user->getRoleNames();
+        
+
+        if($role[0] == 'Teacher'){
+        $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('staff','staff.id','=','batch_teacher.teacher_id')->where('staff.user_id',$id)->get();
+        }
+        elseif($role[0] == 'Admin'){
+            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        }else{
+            $batches = [];
+           
+        }
         return view('posts.edit',compact('post','topics','batches'));
     }
 

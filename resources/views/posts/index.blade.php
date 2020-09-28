@@ -29,6 +29,7 @@
                             $i=1;
                         @endphp
                         @foreach($posts as $post)
+                        <tr>
                             <td>{{$i++}}</td>
                             <td>{{$post->title}}</td>
                             <td>{!!$post->content!!}</td>
@@ -50,6 +51,7 @@
                                 </form>
                                           
                             </td>
+                        </tr>
                         @endforeach
                     </tbody>
 
