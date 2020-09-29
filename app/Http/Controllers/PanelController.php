@@ -13,6 +13,9 @@ use App\Lesson;
 use App\Post;
 use App\Topic;
 use App\User;
+use App\Projecttype;
+use App\Project;
+
 class PanelController extends Controller
 {
     public function index()
@@ -82,7 +85,15 @@ class PanelController extends Controller
         if(count($post) > 0){
         $topics = Topic::all();
         $batch = Batch::find($id);
-        return view('panel.channel',compact('post','topics','batch'));
+        $projecttypes = Projecttype::whereHas('batches',function($q) use ($id){
+            $q->where('batch_id',$id);
+        })->get();
+        
+        $batchstudents = Student::whereHas('batches',function($q) use ($id){
+            $q->where('batch_id',$id);
+        })->get();
+
+        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents'));
         }else{
             return redirect()->back();
         }
@@ -98,6 +109,27 @@ class PanelController extends Controller
         }
         
         return response()->json(['posts'=>$posts]);
+    }
+
+    public function projecttitle(Request $request)
+    {
+        //dd($request);
+        $request->validate([
+            'projtypeid' => 'required',
+            'ptitle' => 'required',
+            'student' => 'required'
+        ]);
+
+        $project = new Project();
+        $project->title = request('ptitle');
+        $project->projecttype_id = request('projtypeid');
+        $project->save();
+
+        foreach(request('student') as $stu){
+            $project->students()->attach($stu);
+        }
+
+        return redirect()->back();
     }
 
     public function change_password($value='')

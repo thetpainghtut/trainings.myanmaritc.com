@@ -63,7 +63,7 @@ class LoginController extends Controller
         {   
             Auth::logout();
             return redirect()->route('login')->with('msg','You are not our members anymore') ;
-        }elseif(Auth::user()->student->status!=null){
+        }elseif(Auth::user()->student->status!=''){
             Auth::logout();
             return redirect()->route('login')->with('msg','You are not our student anymore') ;
         }

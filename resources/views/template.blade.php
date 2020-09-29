@@ -43,6 +43,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.theme.default.css') }}">
 
+    <!-- Select2 -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2_bootstrap4/dist/select2-bootstrap4.min.css') }}">
+
     <!-- Plyr -->
     {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css" /> --}}
 
@@ -413,6 +417,9 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
 
+    <!-- Select2 -->
+    <script src="{{asset('sb_admin2/vendor/select2/dist/js/select2.min.js')}}"></script>
+    
     <!-- Plyr -->
     
   @yield('script')
