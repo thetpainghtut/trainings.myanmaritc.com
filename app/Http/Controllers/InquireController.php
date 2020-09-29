@@ -316,6 +316,6 @@ class InquireController extends Controller
     {
         $course = Course::find($id);
         $batches = $course->batches;
-        dd($batches);
+        return view('inquires.postpone_list',compact('batches','course'));
     }
 }

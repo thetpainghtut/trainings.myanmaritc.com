@@ -44,6 +44,7 @@ class StudentController extends Controller
         $batch = Batch::find($bid);
         // $students = Student::where('batch_id',$bid)->get();
 
+
         return view('students.index',compact('courses','batches','groups','bid','batch'));
       }else{
         $students = Student::all();

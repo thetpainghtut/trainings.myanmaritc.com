@@ -21,6 +21,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> {{ $subject->name }} Lesson
+               <button class="btn btn-outline-primary float-right assign_batch" >Assign</button>
             </h5>
         </div>
         <div class="card-body">
@@ -68,5 +69,109 @@
         </div>
     </div>
 
+   
 
+<!-- Modal -->
+<div class="modal fade" id="assign_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assign Batch and Subject</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="assign_batch_subject">
+                <input type="hidden" name="subject_id" value="{{ $subject->id }}">
+                <div class="modal-body">
+                    <div class="row my-3">
+                        <div class="col-md-10 offset-1" id="form-group-batch">
+                            <label for="postpone">Batch</label>
+                       
+                            <select class="form-group form-control js-example-basic-single" name="batch">
+                                @foreach($batches as $batch)
+                                <option value="{{$batch->id}}">{{$batch->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.js-example-basic-single').select2({
+                theme: 'bootstrap4',
+
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            function showValidationErrors(name, error) {
+                var group = $("#form-group-" + name);
+                group.addClass('has-error');
+                group.find('.show-error').text(error);
+            }
+
+            function clearValidationError(name) {
+                console.log(name);
+                var group = $("#form-group-" + name);
+                group.removeClass('has-error');
+                group.find('.show-error').text('');
+            }
+
+            $("#installment_date").on('change', function () {
+                clearValidationError($(this).attr('id').replace('#', ''))
+            });
+
+            $('.assign_batch').click(function(){
+                $('#assign_modal').modal('show');
+            })
+
+            $('#assign_batch_subject').submit(function(event){
+                event.preventDefault();
+                var assign_data = new FormData(this);
+
+                $.ajax({
+                    url:"{{route('assign_batchsubject')}}",
+                    data:assign_data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data){
+                        if(data){
+                            $('#assign_modal').modal('hide');
+                            // location.reload();
+                        }
+                    },
+                    error: function(error) {
+                        if(error.status == 422){
+                            var errors = error.responseJSON;
+                            var data = errors.errors;
+                
+                            $.each(data,function(i,v){
+                                showValidationErrors(i,v);
+                            })
+                            $('#assign_modal').modal('show');
+                        }
+              
+                    }
+                })
+            })
+        })
+    </script>
 @endsection
