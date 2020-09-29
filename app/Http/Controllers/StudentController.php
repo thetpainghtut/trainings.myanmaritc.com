@@ -39,6 +39,7 @@ class StudentController extends Controller
         $bid = request('batch');
         $groups = Group::where('batch_id',$bid)->get();
         $students = Student::where('batch_id',$bid)->get();
+        dd($students);
 
         return view('students.index',compact('students','courses','batches','groups','bid'));
       }else{

@@ -150,6 +150,8 @@ Route::get('/attendances/export/{section_id}','AttendanceController@Export');*/
 Route::resource('lessons','LessonController');
 Route::post('show_subject','LessonController@show_subject')->name('show_subject');
 Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
+//Honey
+Route::post('assign_batchsubject','LessonController@assign_batchsubject')->name('assign_batchsubject');
 
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
