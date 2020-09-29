@@ -43,13 +43,29 @@ class ProjecttypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {dd($request);
+    {
         //
+        $request->validate([
+            'projecttype' => 'required',
+            'batch' => 'required'
+        ]);
         $project = request('projecttype');
         $batch = request('batch');
-        $projecttype = Projecttype::find($project);
-        $projecttype->batches()->attach($batch);
-        return redirect()->route('projecttypes.index');
+       
+        $projecttype = Projecttype::whereHas('batches',function($q) use ($project){
+            $q->where('projecttype_id',$project);
+        })->whereHas('batches',function($q) use ($batch){ $q->where('batch_id',$batch);})->get();
+        
+        if(count($projecttype) > 0){
+            return redirect()->route('projecttypes.index')->with('danger','This Batch Project Type Assign is Already Taken!!');
+        }else{
+            $addprojecttype = Projecttype::find($project);
+            $addprojecttype->batches()->attach($batch);
+            return redirect()->route('projecttypes.index')->with('success','This Batch Project Type Assign is Successfully!!');
+        }
+
+       /* $projecttype->batches()->attach($batch);
+        return redirect()->route('projecttypes.index');*/
     }
 
     /**
@@ -100,7 +116,7 @@ class ProjecttypeController extends Controller
     public function assingpttype(Request $request){
         $pid = request('pid');
         $now = Carbon\Carbon::now();
-        $batch = Batch::join('courses','courses.id','=','batches.course_id')->join('course_projecttype','course_projecttype.course_id','=','courses.id')->where('course_projecttype.projecttype_id',$pid)->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $batch = Batch::join('courses','courses.id','=','batches.course_id')->join('course_projecttype','course_projecttype.course_id','=','courses.id')->where('course_projecttype.projecttype_id',$pid)->where('startdate','<=',$now)->where('enddate','>=',$now)->select('batches.*')->get();
         return response()->json(['batches'=>$batch]);
     }
 }

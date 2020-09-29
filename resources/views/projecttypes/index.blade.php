@@ -1,7 +1,16 @@
 @extends('backendtemplate')
 
 @section('content')
-
+@if(session()->get('success'))
+  <div class="alert alert-success">
+    {{ session()->get('success') }}
+  </div>
+@endif
+@if(session()->get('danger'))
+  <div class="alert alert-danger">
+    {{ session()->get('danger') }}
+  </div>
+@endif
     <h1 class="h3 mb-4 text-gray-800"> Project Types </h1>
     
     <div class="card shadow mb-4">
@@ -103,15 +112,18 @@
         $('.asign').on('click',function(){
             var pid = $(this).data('id');
             $.post('/assingpttype',{pid:pid},function(response){
-                console.log(response.batches);
-                var html='';
+               // console.log(response.batches.length);
+               
+                if(response.batches.length > 0){
+                     var html='';
                 $.each(response.batches,function(i,v){
-                    console.log(v);
+                    
                     html+=('<option>Choose One</option><option value="'+v.id+'">'+v.title+'</option>');
                 })
                $('.batchName').html(html);
                $('#ptypehidden').val(pid);
                 $('#assignprojectmodal').modal('show');
+                }
             })
         })
     })
