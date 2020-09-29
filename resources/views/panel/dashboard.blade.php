@@ -18,6 +18,8 @@
         <div class="container my-5">
             <div class="row">
                 @foreach($studentbatches as $studentbatch)
+                @if($studentbatch->pivot->status == "Active")
+
                     <div class="col-lg-4 col-md-6 col-sm-12 my-3 ">
                         <div class="card ">
                             <img class="card-img-top course_img" src="{{ asset($studentbatch->course->logo) }}" alt="Card image cap">
@@ -39,6 +41,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 @endforeach
             </div>
         </div>

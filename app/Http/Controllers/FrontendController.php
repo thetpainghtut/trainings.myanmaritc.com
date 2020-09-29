@@ -202,23 +202,19 @@ class FrontendController extends Controller
                         'phone' => 'required',
                         'email' => 'required',
                         'address' => 'required',
-                        ]);
+                      ]);
 
-      if($request->photo)
+      if($request->hasfile('logo'))
       {
-          $hasphoto = $request->photo;
-          $photo =  explode('.',$hasphoto);
-          $photo_name = $photo[0];
-          $extension = time().'.'.$photo[1];
+          $hasphoto = $request->file('logo');
+          $name = time().'.'.$hasphoto->getClientOriginalExtension();
           $dir = '/storage/images/students/';
-          $public = public_path().$dir;
-          // $photo->move(public_path().$dir,$extension);
-          $data = move_uploaded_file($public,$extension);
-          dd($hasphoto);
-          $file_path = $dir.$extension;
+          
+          $hasphoto->move(public_path().$dir,$name);
+          $file_path = $dir.$name;
 
       }else{
-        $file_path = "";
+        $file_path = $request->oldlogo;
       }
       $user_id = Auth::id();
       $user = User::find($user_id);
@@ -229,7 +225,7 @@ class FrontendController extends Controller
       $student = Student::where('user_id',$user_id)->first();
       $student->namee = $request->name;
       $student->email = $request->email;
-      // $student->photo = $file_path;
+      $student->photo = $file_path;
       $student->address = $request->address;
       $student->save();
 

@@ -63,6 +63,9 @@ class LoginController extends Controller
         {   
             Auth::logout();
             return redirect()->route('login')->with('msg','You are not our members anymore') ;
+        }elseif(Auth::user()->student->status!=null){
+            Auth::logout();
+            return redirect()->route('login')->with('msg','You are not our student anymore') ;
         }
         
         elseif($user->hasRole('Mentor')) {

@@ -34,7 +34,7 @@ class CreateStudentsTable extends Migration
             $table->string('p2_phone',100);
             $table->string('p2_relationship',100);
             $table->text('because');
-            $table->string('status',100)->default('0');
+            $table->string('status',100)->nullable();
 
             $table->unsignedBigInteger('township_id');
             $table->foreign('township_id')
