@@ -187,6 +187,9 @@ Route::get('secret','PanelController@secret')->name('frontend.secret');
 Route::get('account','PanelController@account')->name('frontend.account');
 Route::get('notification','PanelController@notification')->name('frontend.notification');
 
+//Honey
+Route::post('lesson_student','PanelController@lesson_student')->name('lesson_student');
+
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
 Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.forgetpassword');
@@ -208,4 +211,5 @@ Route::get('playcourse/{bid}/{sid}', [
 ]);
 
 Route::post('postassign','PostController@postassign')->name('postassign');
-
+Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');
+Route::post('assignproduct','PostController@assignproduct')->name('assignproduct');

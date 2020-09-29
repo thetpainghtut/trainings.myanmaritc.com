@@ -17,11 +17,13 @@ class ProjecttypeController extends Controller
     {
         //
         $projecttypes = Projecttype::all();
-        /*$ptypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('batches','batches.course_id','=','courses.id')->get();
-        dd($ptypes);*/
+        
         $now = Carbon\Carbon::now();
-         $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+       $ptypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('batches','batches.course_id','=','courses.id')->where('batches.startdate','<=',$now)->where('batches.enddate','>=',$now)->get();
+        
         return view('projecttypes.index',compact('projecttypes','batches'));
+
     }
 
     /**
@@ -43,11 +45,27 @@ class ProjecttypeController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'projecttype' => 'required',
+            'batch' => 'required'
+        ]);
         $project = request('projecttype');
         $batch = request('batch');
-        $projecttype = Projecttype::find($project);
-        $projecttype->batches->attach($batch);
-        return redirect()->route('projecttypes.index');
+       
+        $projecttype = Projecttype::whereHas('batches',function($q) use ($project){
+            $q->where('projecttype_id',$project);
+        })->whereHas('batches',function($q) use ($batch){ $q->where('batch_id',$batch);})->get();
+        
+        if(count($projecttype) > 0){
+            return redirect()->route('projecttypes.index')->with('danger','This Batch Project Type Assign is Already Taken!!');
+        }else{
+            $addprojecttype = Projecttype::find($project);
+            $addprojecttype->batches()->attach($batch);
+            return redirect()->route('projecttypes.index')->with('success','This Batch Project Type Assign is Successfully!!');
+        }
+
+       /* $projecttype->batches()->attach($batch);
+        return redirect()->route('projecttypes.index');*/
     }
 
     /**
@@ -93,5 +111,12 @@ class ProjecttypeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function assingpttype(Request $request){
+        $pid = request('pid');
+        $now = Carbon\Carbon::now();
+        $batch = Batch::join('courses','courses.id','=','batches.course_id')->join('course_projecttype','course_projecttype.course_id','=','courses.id')->where('course_projecttype.projecttype_id',$pid)->where('startdate','<=',$now)->where('enddate','>=',$now)->select('batches.*')->get();
+        return response()->json(['batches'=>$batch]);
     }
 }

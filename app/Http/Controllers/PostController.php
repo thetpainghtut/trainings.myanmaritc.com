@@ -30,6 +30,8 @@ class PostController extends Controller
         }elseif($role[0] == 'Admin'){
             $posts = Post::all();
             $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+            
+            
         }
         else{
             $posts = [];
@@ -236,10 +238,23 @@ class PostController extends Controller
 
     public function postassign(Request $request)
     {
+        $request->validate([
+            'post' => 'required',
+            'batch' => 'required'
+        ]);
         $po = request('post');
         $batch = request('batch');
-        $post= Post::find($po);
-        $post->batches()->attach($batch);
-        return redirect()->route('posts.index');
+
+        //$post= Post::find($po);
+
+        $post = Post::join('batch_post','batch_post.post_id','=','posts.id')->where('batch_post.batch_id',$batch)->where('batch_post.post_id',$po)->get();
+       
+        if(count($post) > 0){
+            return redirect()->route('posts.index')->with('danger','This Batch Post Assign is Already Taken!!');
+        }else{
+            $addpost = Post::find($po);
+            $addpost->batches()->attach($batch);
+            return redirect()->route('posts.index')->with('success','This Batch Post Assign is Successfully!!');
+        }
     }
 }

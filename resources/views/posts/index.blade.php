@@ -1,7 +1,16 @@
 @extends('backendtemplate')
 
 @section('content')
-
+@if(session()->get('success'))
+  <div class="alert alert-success">
+    {{ session()->get('success') }}
+  </div>
+@endif
+@if(session()->get('danger'))
+  <div class="alert alert-danger">
+    {{ session()->get('danger') }}
+  </div>
+@endif
     <h1 class="h3 mb-4 text-gray-800"> Posts </h1>
     
     <div class="card shadow mb-4">
@@ -36,9 +45,6 @@
                             <td>{{$post->topic->name}}</td>
                             <td>{{$post->user->name}}</td>
                             
-                            @foreach($post->batches as $cs)
-                            
-                            @endforeach
                              <td>
                                 <a href="{{route('posts.show',$post->id)}}" class="btn btn-primary btn-sm" >
                                     <i class="fas fa-info"></i>
@@ -54,65 +60,11 @@
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                 </form>
                               
-                                @foreach($batches as $b)
-                                @if($post->batches[0]->id != $b->id)
-                                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#assignpostmodal">Assign</a>
-                                @endif
-                                @endforeach
-                               
+                                <a href="#" class="btn btn-info asignpost" data-id="{{$post->id}}">Assign</a>
+ 
                             </td>
                         </tr>
-                        <!-- Assign Modal -->
-                        <div class="modal" tabindex="-1" id="assignpostmodal">
-                          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title">Assign Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <form action="{{route('postassign')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="post" value="{{$post->id}}">
-                              <div class="modal-body">
-                                
-                                <div class="form-group row">
-                                    <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
-                                    @role('Admin')
-                                    <div class="col-sm-10">
-                                        <select class="form-control" name="batch" id="batchName">
-                                            <option>Choose One</option>
-                                            
-                                            @foreach($batches as $batch)
-                                            @if($post->batches[0]->id != $batch->id)
-                                                <option value="{{$batch->id}}">{{$batch->title}}</option>
-                                            @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @endrole
-                                    @role('Teacher')
-                                    <div class="col-sm-10">
-                                        <select class="form-control" name="batch" id="batchName">
-                                            <option>Choose One</option>
-                                            @foreach($batches as $batch)
-                                                <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @endrole
-                                </div>
-                                
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </form>
-                            </div>
-                          </div>
-                        </div>
+                        
                         @endforeach
                     </tbody>
 
@@ -121,5 +73,78 @@
         </div>
     </div>
 
-
+<!-- Assign Modal -->
+<div class="modal" tabindex="-1" id="assignpostmodal">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Assign Post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{route('postassign')}}" method="post">
+        @csrf
+        <input type="hidden" name="post" id="posthidden">
+      <div class="modal-body">
+        
+        <div class="form-group row">
+            <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
+            @role('Admin')
+            <div class="col-sm-10">
+                <select class="form-control" name="batch" id="batchName">
+                    <option>Choose One</option>
+                    
+                    <!-- @foreach($batches as $batch)
+                    @foreach($post->batches as $pb)
+                    @if($pb->id != $batch->id)
+                        <option value="{{$batch->id}}">{{$batch->title}}</option>
+                    @endif
+                    @endforeach
+                    @if($post->batches->isEmpty())
+                    @endif
+                    @endforeach -->
+                    @foreach($batches as $batch)
+                    <option value="{{$batch->id}}">{{$batch->title}}</option>
+                    @endforeach
+                </select>
+            </div>
+            @endrole
+            @role('Teacher')
+            <div class="col-sm-10">
+                <select class="form-control" name="batch" id="batchName">
+                    <option>Choose One</option>
+                    @foreach($batches as $batch)
+                        <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
+                    @endforeach
+                </select>
+            </div>
+            @endrole
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+@endsection
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+        $('.asignpost').on('click',function(){
+            var pid = $(this).data('id');
+            $('#posthidden').val(pid);
+            $('#assignpostmodal').show();
+        });
+    });
+</script>
 @endsection

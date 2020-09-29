@@ -8,13 +8,32 @@
                 <div class="col-12 text-white">
                     
                     <?php
-                    $words = explode(" ", $post[0]->batches[0]->title);
-            
-                    ?>
-                    @if($words[0] == 'PHP')
-                    <h1 class="display-4 mt-5 mb-2">PHP Developer Bootcamp Channel, </h1>
-                    <p> {{$words[1]}} - {{$words[2]}} </p>
-                    @endif
+                    
+                    foreach($post[0]->batches as $bs){
+
+                    $words[] = explode(" ", $bs->title);
+                
+                  
+                    }
+                    foreach($words as $w){
+                        $c = explode(" ",$batch->title);
+                       
+                        if($w[0] == $c[0]){?>
+                            <h1 class="display-4 mt-5 mb-2">{{$c[0]}} Developer Bootcamp Channel, </h1>
+                            <p> {{$w[1]}} - {{$w[2]}} </p>
+
+                        <?php
+                            break;
+
+                        }else{
+                            continue;
+                        }
+
+
+                    }?>
+
+                   
+                    
                    
                 </div>
             </div>
@@ -33,16 +52,26 @@
                         </li>
 
                         @foreach($topics as $topic)
-                        @if(count($topic->posts)>0)
-                        <li class="list-group-item topic{{$topic->id}}">
+                        @foreach($topic->posts as $pb)
+                       @foreach($pb->batches as $p)
+                       @if($p->id == $batch->id)
+                       <li class="list-group-item topic{{$topic->id}}">
                             <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
                         </li>
                         @else
                         <li class="list-group-item topic">
                             <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock"></i></a>
                         </li>
-                        @endif
+                       @endif
+                       @endforeach
                         @endforeach
+                        @if($topic->posts->isEmpty())
+                        <li class="list-group-item topic">
+                            <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock"></i></a>
+                        </li>
+                        @endif
+                        
+                       @endforeach
                         <!-- <li class="list-group-item topic2">
                             <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
                         </li> -->
