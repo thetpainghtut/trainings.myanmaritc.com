@@ -16,8 +16,14 @@
             <form method="post" action="{{route('students.update',$student->id)}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-              
+                @php 
+                    $i = 1; 
+                    $course_id = $_REQUEST['course'];
+                    $batch_id  = $_REQUEST['batch'];
+                @endphp
                 <input type="hidden" name="oldphoto" value="{{$student->photo}}">
+                <input type="hidden" name="course_id" value="{{$course_id}}">
+                <input type="hidden" name="batch_id" value="{{$batch_id}}">
 
                 <div class="form-group row">
                     <label for="inputprofile" class="col-sm-2 col-form-label">Profile</label>
