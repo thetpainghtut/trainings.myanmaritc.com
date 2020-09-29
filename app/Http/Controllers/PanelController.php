@@ -13,6 +13,10 @@ use App\Lesson;
 use App\Post;
 use App\Topic;
 use App\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgetMail;
+use Illuminate\Support\Facades\Hash;
+
 class PanelController extends Controller
 {
     public function index()
@@ -106,6 +110,38 @@ class PanelController extends Controller
     public function forgetpassword()
     {
         return view('auth.forgetpassword');
+    }
+
+    public function resetpassword(Request $request)
+    {
+        $codeno = rand(10,999999);
+        
+        $data = array('email' => $request->email,'codeno'=>$codeno);
+
+        Mail::to($request->email)->send(new ForgetMail($data));
+        return redirect()->back()->with('msg','Email Sent!');
+    }
+
+    public function resetandeditpassword(Request $request)
+    {
+        $codeno = $request->codeno;
+        $email = $request->email;
+        return view('auth.resetupdatepassword',compact('codeno','email'));
+    }
+
+    public function resetupdatepassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required|min:8',
+        ]);
+        $email = $request->email;
+        $password = $request->password;
+        // dd($password);
+        $user = User::where('email',$email)->first();
+        $user->password=Hash::make($password);
+        $user->save();
+        return redirect()->route('login')->with('success','Password reset success!');
     }
 
     

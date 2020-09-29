@@ -35,18 +35,18 @@
                                 <img src="{{ asset('logo.jpg') }}" class="img-fluid mx-auto d-block" style="width: 200px;">
                                 <h3 class="font-weight-light my-4 text-center">Forget Password</h3>
                                 @if(session('msg'))
-                                 <h5 class="my-4 text-center text-danger">{{session('msg')}}</h5>
+                                 <h5 class="my-4 text-center text-success">{{session('msg')}}</h5>
                                 @endif
                             </div>
                             <div class="card-body">
-                                <form class="user" method="POST" action="{{ route('frontend.update_password') }}">
+                                <form class="user" method="POST" action="{{ route('frontend.resetpassword') }}">
                                 
                                 @csrf
                                 
 
                                     <div class="form-group">
                                         <label class="small mb-1" for="email"> Email </label>
-                                        <input class="form-control py-4 {{$errors->has('email') ? 'is-invalid' : ''}}" value="" id="email" type="email" name="email" />
+                                        <input class="form-control py-4 {{$errors->has('email') ? 'is-invalid' : ''}}" value="{{old('email')}}" id="email" type="email" name="email" placeholder="Email Address" />
                                         
 
 

@@ -63,7 +63,12 @@
                             <tr>
                                 <td colspan="6" class="bg-dark text-white">{{$group->name}} Group</td>
                             </tr> --}}
-                            @php $i = 1; @endphp
+                            @php 
+                                $i = 1; 
+                                $course_id = $_REQUEST['course'];
+                                $batch_id  = $_REQUEST['batch'];
+                            @endphp
+
 
                             @foreach($batch->students as $row)
                             @if($row->status== null && $row->pivot->status=='Active')
@@ -76,7 +81,7 @@
                                     <td>
                                         <a href="{{route('students.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a>
                                         
-                                        <a href="{{route('students.edit',$row->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                        <a href="{{route('students.edit',$row->id)}}?course={{$course_id}}&batch={{$batch_id}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                
                                         
                                             <button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{$row->id}}" data-batch_id = "{{$batch->id}}"

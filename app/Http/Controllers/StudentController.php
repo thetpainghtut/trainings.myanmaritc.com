@@ -251,8 +251,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+
         $student = Student::find($id);
         $townships = Township::all();
         return view('students.edit',compact('student','townships'));
@@ -288,7 +289,8 @@ class StudentController extends Controller
         $address = $request->address;
         $father = $request->father;
         $mother = $request->mother;
-        
+        $course_id = $request->course_id;
+        $batch_id = $request->batch_id;
 
         if($request->hasfile('newphoto')){
           $photo = $request->file('newphoto');
@@ -319,7 +321,7 @@ class StudentController extends Controller
         $user->name = $namee;
         $user->email = $email;
         $user->save();
-        return redirect()->route('students.index')->with('msg','Successfully Update!');
+        return redirect('students?course='.$course_id.'.&batch='.$batch_id)->with('msg','Successfully Update!');
 
 
 
