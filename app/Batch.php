@@ -61,4 +61,5 @@ class Batch extends Model
     {
         return $this->hasMany('App\Feedback');
     }
+    
 }

@@ -78,9 +78,11 @@ class PanelController extends Controller
   
                     $q->where('batch_id', $id);
                 })->get();
+
         if(count($post) > 0){
         $topics = Topic::all();
-        return view('panel.channel',compact('post','topics'));
+        $batch = Batch::find($id);
+        return view('panel.channel',compact('post','topics','batch'));
         }else{
             return redirect()->back();
         }

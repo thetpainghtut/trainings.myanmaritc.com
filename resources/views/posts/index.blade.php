@@ -36,9 +36,6 @@
                             <td>{{$post->topic->name}}</td>
                             <td>{{$post->user->name}}</td>
                             
-                            @foreach($post->batches as $cs)
-                            
-                            @endforeach
                              <td>
                                 <a href="{{route('posts.show',$post->id)}}" class="btn btn-primary btn-sm" >
                                     <i class="fas fa-info"></i>
@@ -53,12 +50,24 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                 </form>
+                              @foreach($post->batches as $s)
+                             
                               
-                                @foreach($batches as $b)
-                                @if($post->batches[0]->id != $b->id)
-                                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#assignpostmodal">Assign</a>
-                                @endif
-                                @endforeach
+                             
+                                @foreach($batches as $l)
+                               
+                              @if($l->id != $s->id)
+                              <a href=""></a>
+                              
+                              @else
+                              <a href="#" class="btn btn-info" data-toggle="modal" data-target="#assignpostmodal">Assign</a>
+                              @endif
+
+                              @endforeach
+                              <a href=""></a>
+                              @endforeach
+                              
+                                
                                
                             </td>
                         </tr>
@@ -85,8 +94,12 @@
                                             <option>Choose One</option>
                                             
                                             @foreach($batches as $batch)
-                                            @if($post->batches[0]->id != $batch->id)
+                                            @foreach($post->batches as $pb)
+                                            @if($pb->id != $batch->id)
                                                 <option value="{{$batch->id}}">{{$batch->title}}</option>
+                                            @endif
+                                            @endforeach
+                                            @if($post->batches->isEmpty())
                                             @endif
                                             @endforeach
                                         </select>

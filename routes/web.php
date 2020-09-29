@@ -188,4 +188,4 @@ Route::get('playcourse/{bid}/{sid}', [
 ]);
 
 Route::post('postassign','PostController@postassign')->name('postassign');
-
+Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');

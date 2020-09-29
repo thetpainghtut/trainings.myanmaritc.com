@@ -30,6 +30,8 @@ class PostController extends Controller
         }elseif($role[0] == 'Admin'){
             $posts = Post::all();
             $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+            
+            
         }
         else{
             $posts = [];
