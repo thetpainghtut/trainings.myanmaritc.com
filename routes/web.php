@@ -174,6 +174,9 @@ Route::get('secret','PanelController@secret')->name('frontend.secret');
 Route::get('account','PanelController@account')->name('frontend.account');
 Route::get('notification','PanelController@notification')->name('frontend.notification');
 
+//Honey
+Route::post('lesson_student','PanelController@lesson_student')->name('lesson_student');
+
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
 Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');

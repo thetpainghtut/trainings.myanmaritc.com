@@ -103,6 +103,12 @@ class PanelController extends Controller
         return view('auth/changepassword');
     }
 
+    public function lesson_student(Request $request)
+    {
+        dd($request);
+    }
+
+
     
 }
 

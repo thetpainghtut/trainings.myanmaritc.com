@@ -44,8 +44,7 @@
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
 
-
-                                    <video class="js-player" controls crossorigin playsinline data-poster="{{ asset($subject->logo) }}">
+                                    <video class="js-player lesson_video_play" controls crossorigin playsinline data-poster="{{ asset($subject->logo) }}" data-id="{{ $lesson->id}}" data-duration="{{ $lesson->duration }}">
                                            
                                         <source src="{{ asset($lesson->file) }}" type="video/mp4" />
                                     </video>
@@ -75,6 +74,41 @@
     <script type="text/javascript">
         $(document).ready(function(){
             window.player = player;
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('.lesson_video_play').on('play',function(){
+               
+                var lesson_id = $(this).data('id');
+                var duration = $(this).data('duration');
+                var current_time = this.currentTime;
+                // alert(current_time);
+                console.log(lesson_id,duration);
+            })
+
+            $('.lesson_video_play').on('pause',function(){
+               
+                var lesson_id = $(this).data('id');
+                var duration = $(this).data('duration');
+                var current_time = this.currentTime;
+                var pause_time = current_time.toFixed(2)
+                if(duration == pause_time){
+                    alert(pause_time);
+                    alert(lesson_id);
+
+                    $.post('lesson_student',{lesson_id:lesson_id},function(res){
+                        console.log(res);
+
+                    })
+
+                }
+               
+                console.log(lesson_id,duration);
+            })
 
         });
 
@@ -126,11 +160,5 @@
                 
 
             });
-
-            
-
-
-
-
     </script>
 @endsection
