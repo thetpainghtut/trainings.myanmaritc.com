@@ -86,6 +86,7 @@
                             @endforeach
                             @if($subject->batches->isEmpty())
                              <button class="btn btn-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
+                             <!-- Honeyhtun -->
                             @endif
                             <p class="float-right"> 8 / 8 </p>
                         </div>
