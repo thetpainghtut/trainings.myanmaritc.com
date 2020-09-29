@@ -82,10 +82,21 @@
                                             </div>
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> 
 
-                                              @php
-                                              $inquires = $course->batches->count();
-                                              @endphp
-                                              {{ $inquires}}
+                                            @php
+                                                $total_inquires=0;
+                                                $course_batches =$course->batches;
+                                            @endphp
+                                            @foreach($course_batches as $batch)
+                                                @foreach($batch->inquires as $inquire)
+                                                    @if($inquire->message != null)
+                                                        @php
+                                                        $total_inquires +=1;
+                                                        @endphp
+                                                    @endif
+
+                                                @endforeach
+                                            @endforeach
+                                              {{ $total_inquires}}
 
                                             </div>
 

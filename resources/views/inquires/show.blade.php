@@ -536,7 +536,7 @@
                 $('.postpone_modal').modal('show');
             })
 
-             $('#post_pone_insert').submit(function(event){
+            $('#post_pone_insert').submit(function(event){
                 event.preventDefault();
                 var postpone_data = new FormData(this);
 

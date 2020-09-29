@@ -30,4 +30,9 @@ class Subject extends Model
     {
         return $this->belongsToMany('App\Journal');
     }
+
+    public function batches()
+    {
+    	return $this->belongsToMany('App\Batch');
+    }
 }

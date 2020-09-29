@@ -61,5 +61,11 @@ class Batch extends Model
     {
         return $this->hasMany('App\Feedback');
     }
-    
+
+
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Subject');
+    }
+
 }

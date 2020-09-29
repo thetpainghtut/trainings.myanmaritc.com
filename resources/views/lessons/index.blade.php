@@ -74,7 +74,7 @@
                                     
                                         <div class="col-12">
                                             <a href="{{route('view_lesson',$subject->id)}}" class="btn btn-outline-secondary m-2 btn-sm">
-                                                View Lesson
+                                                View Lesson 
                                                 <span class="pl-2 fas fa-arrow-right"></span>
                                             </a>
                                             

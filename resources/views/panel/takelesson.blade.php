@@ -31,6 +31,7 @@
             <div class="row justify-content-center">
 
                 @foreach($subjects as $subject)
+               
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="card my-3">
                         <div class="card-body">
@@ -66,9 +67,27 @@
 
                             <p class="card-text"> {{ $lectures }} Lectures  •  {{ $totaltimes }} </p>
 
-                            <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow"> 
-                                Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                            </a>
+                            @foreach($subject->batches as $sub_batch)
+                               
+                            @php
+                                $subject_pid = $sub_batch->pivot->subject_id;
+                            @endphp
+                           
+                            @if($subject->id == $subject_pid)
+                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
+                                    Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
+                                </a>
+                            @php
+                            break;
+                            @endphp
+                           
+                            @endif
+
+                            @endforeach
+                            @if($subject->batches->isEmpty())
+                             <button class="btn btn-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
+                             <!-- Disabled -->
+                            @endif
                             <p class="float-right"> 8 / 8 </p>
                         </div>
                     </div>

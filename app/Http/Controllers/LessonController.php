@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Lesson;
 use App\Subject;
 use App\Course;
+use App\Batch;
 use Owenoj\LaravelGetId3\GetId3;
 
 class LessonController extends Controller
@@ -215,13 +216,36 @@ class LessonController extends Controller
 
     }
 
-    public function view_lesson($id){
+    public function view_lesson($id)
+    {
+        // $course_id = $_GET['course_id'];
+        // $course = Course::find($course_id);
+        // $batches = $course->batches;
+
+        $batches = Batch::all();
 
         $subject = Subject::find($id);
 
         $lessons = Lesson::where('subject_id','=',$id)->get();
 
-        return view('lessons.video',compact('lessons','subject'));
+        return view('lessons.video',compact('lessons','subject','batches'));
+
+    }
+
+    public function assign_batchsubject(Request $request)
+    {
+
+        $request->validate([
+            'batch' => 'required'
+        ]);
+
+        $subject_id = request('subject_id');
+        $batch_id = request('batch');
+       
+        $batch = Batch::find($batch_id);
+        $batch->subjects()->attach($subject_id);
+
+        return response()->json($batch);
 
     }
 }

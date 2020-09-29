@@ -114,7 +114,7 @@
                 <div class="form-group row">
                     <label for="inputCourse" class="col-sm-2 col-form-label">Course</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="inputCourse">
+                        <select class="form-control" id="inputCourse" disabled="">
                             <option value="">Choose Course</option>
                             @foreach($courses as $course)
                                 <option value="{{$course->id}}" {{ ($course->id == $batch_course->id)? "selected":"" }}>{{$course->name}}</option>
