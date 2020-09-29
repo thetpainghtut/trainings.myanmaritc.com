@@ -35,6 +35,7 @@
                             <td>{!!$post->content!!}</td>
                             <td>{{$post->topic->name}}</td>
                             <td>{{$post->user->name}}</td>
+                            <td>{{$post->batches[0]->id}}</td>
                              <td>
                                 <a href="{{route('posts.show',$post->id)}}" class="btn btn-primary btn-sm" >
                                     <i class="fas fa-info"></i>
@@ -49,7 +50,9 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                 </form>
-                                          
+                                @foreach($batches as $b)
+                                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#assignpostmodal">Assign</a>
+                                @endforeach
                             </td>
                         </tr>
                         @endforeach
@@ -58,5 +61,51 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <!-- Assign Modal -->
+    <div class="modal" tabindex="-1" id="assignpostmodal">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Assign Post</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" method="post">
+            @csrf
+            <div class="form-group row">
+                <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                @role('Admin')
+                <div class="col-sm-10">
+                    <select class="form-control" name="batch" id="batchName">
+                        <option>Choose One</option>
+                        @foreach($batches as $batch)
+                            <option value="{{$batch->id}}">{{$batch->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endrole
+                @role('Teacher')
+                <div class="col-sm-10">
+                    <select class="form-control" name="batch" id="batchName">
+                        <option>Choose One</option>
+                        @foreach($batches as $batch)
+                            <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endrole
+            </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
     </div>
 @endsection

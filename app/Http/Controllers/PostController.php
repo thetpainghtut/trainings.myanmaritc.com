@@ -21,19 +21,29 @@ class PostController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         $role = $user->getRoleNames();
-
+        $now = Carbon\Carbon::now();
         if($role[0] == 'Teacher'){
             $posts = Post::whereHas('user',function($q) use ($id){
                 $q->where('user_id',$id);
             })->get();
+            $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->with('teachers','teachers.staff','staff.user')->where('staff.user_id',$id)->get();
         }elseif($role[0] == 'Admin'){
             $posts = Post::all();
+            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
         }
         else{
             $posts = [];
+            $batches= [];
         }
-        
-        return view('posts.index',compact('posts'));
+        /*foreach ($batches as $key => $value) {
+            $b = $value;
+            foreach ($b->posts as $c) {
+                $d = $c;
+            }
+
+        }*/
+        //dd($d->pivot->batch_id);
+        return view('posts.index',compact('posts','batches'));
     }
 
     /**
@@ -222,5 +232,10 @@ class PostController extends Controller
         $post->batches()->detach();
         $post->delete();
         return redirect()->route('posts.index');
+    }
+
+    public function postassign(Request $request)
+    {
+        dd($request);
     }
 }

@@ -31,10 +31,17 @@
                         <li class="list-group-item topic0 active">
                             <a href="javascript:void(0)" class="text-white topics" data-id=0> All Topics </a>
                         </li>
+
                         @foreach($topics as $topic)
-                        <li class="list-group-item topic1">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}} </a>
+                        @if(count($topic->posts)>0)
+                        <li class="list-group-item topic{{$topic->id}}">
+                            <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
                         </li>
+                        @else
+                        <li class="list-group-item topic">
+                            <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock"></i></a>
+                        </li>
+                        @endif
                         @endforeach
                         <!-- <li class="list-group-item topic2">
                             <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
@@ -308,6 +315,38 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
+        var DURATION_IN_SECONDS = {
+          epochs: ['year', 'month', 'day', 'hour', 'minute'],
+          year: 31536000,
+          month: 2592000,
+          day: 86400,
+          hour: 3600,
+          minute: 60
+        };
+
+        function getDuration(seconds) {
+          var epoch, interval;
+
+          for (var i = 0; i < DURATION_IN_SECONDS.epochs.length; i++) {
+            epoch = DURATION_IN_SECONDS.epochs[i];
+            interval = Math.floor(seconds / DURATION_IN_SECONDS[epoch]);
+            if (interval >= 1) {
+              return {
+                interval: interval,
+                epoch: epoch
+              };
+            }
+          }
+
+        };
+
+        function timeSince(date) {
+          var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+          var duration = getDuration(seconds);
+          var suffix = (duration.interval > 1 || duration.interval === 0) ? 's' : '';
+          return duration.interval + ' ' + duration.epoch + suffix;
+        };
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -710,6 +749,7 @@
             var id = $(this).data('id');
             console.log(id);
             var html='';
+
             $.post('/allchannel',{id:id},function(response){
                 //console.log(response.posts);
                 $.each(response.posts,function(i,v){
@@ -732,11 +772,31 @@
                         html+=`<div class="col-11">
                             <p class="username d-block mb-0"> ${v.user.name}</p>
 
-                            <small class="text-muted mr-3">
-                                <i class="icofont-question-circle"></i> ${v.topic.name}
+                            
+                            <small class="text-muted mr-3">`;
+                                if(v.topic.name == 'Announcement'){
+                                html+=`<i class="fas fa-bullhorn mr-1"></i>`;
+                                }
+                                else if(v.topic.name == 'Schedule'){
+                                html+=`<i class="icofont-calendar"></i>`; } 
+                                else if(v.topic.name == 'Assignment'){
+                                html+=`<i class="far fa-check-square mr-1"></i>`;}
+                                else if(v.topic.name == 'Live Recording') {
+                                html+=`<i class="fas fa-video mr-1"></i>`;}
+                                else if(v.topic.name == 'Assignment'){ 
+                                html+=`<i class="far fa-check-square mr-1"></i>`;}
+                                else if(v.topic.name == 'Post'){
+                                html+=`<i class="fas fa-envelope mr-1"></i>`;
+                                }
+                                else{
+                                  html+=`<i class="icofont-question-circle"></i>`;
+                                }
+                                
+                                html+=`${v.topic.name}
                             </small> •
                             <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
+                                <i class="far fa-clock ml-3"></i> 
+                                ${timeSince(v.created_at)} ago
                             </small>
                         </div>
                     </div>
@@ -789,7 +849,7 @@
                 $('#alltopics').html(html);
                 $('.signup-step-container').hide();
             });
-            if (id == 1) {
+            /*if (id == 1) {
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -913,7 +973,7 @@
                 $('.signup-step-container').show();
 
 
-            }
+            }*/
 
         });
             

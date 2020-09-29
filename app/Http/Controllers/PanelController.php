@@ -89,8 +89,12 @@ class PanelController extends Controller
     public function allchannel(Request $request)
     {
         $id = $request->id;
-        $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->get();
-       
+        if($id == 0){
+            $posts = Post::with('topic','user','user.staff')->get();
+        }else{
+            $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->get();
+        }
+        
         return response()->json(['posts'=>$posts]);
     }
 

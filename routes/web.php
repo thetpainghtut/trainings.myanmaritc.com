@@ -187,5 +187,5 @@ Route::get('playcourse/{bid}/{sid}', [
     'uses' => 'PanelController@playcourse'
 ]);
 
-
+Route::post('postassign','PostController@postassign')->name('postassign');
 
