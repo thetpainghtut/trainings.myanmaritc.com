@@ -24,6 +24,14 @@ Route::get('blog_detail/{id}','FrontendController@blog_detail')->name('frontend.
 Route::post('oldstduent','FrontendController@oldstduent')->name('oldstduent');
 
 
+// nyiyelin
+Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
+
+Route::post('student_profile_update','FrontendController@student_profile_update')->name('frontend.student_profile_update');
+
+Route::post('secret_password_change','FrontendController@secret_password_change')->name('frontend.secret_password_change');
+
+
 
 
 //Honey Htun
@@ -65,6 +73,11 @@ Route::post('subject_course','SubjectController@subject_course');
 Route::resource('roles','RoleController')->middleware('role:Admin');
 
 Route::resource('students','StudentController');
+
+// nyiyelin
+Route::post('resend_mail','StudentController@resend_mail')->name('resend_mail');
+Route::post('student_status_change','StudentController@student_status_change')->name('student_status_change');
+
 
 Route::resource('units','UnitController');
 
@@ -179,9 +192,11 @@ Route::post('lesson_student','PanelController@lesson_student')->name('lesson_stu
 
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
-Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
-Route::post('student_profile_update','FrontendController@student_profile_update')->name('frontend.student_profile_update');
-Route::post('secret_password_change','FrontendController@secret_password_change')->name('frontend.secret_password_change');
+Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.forgetpassword');
+
+
+
+
 
 
 
