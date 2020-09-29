@@ -10,8 +10,9 @@ use App\Batch;
 use App\Course;
 use App\Subject;
 use App\Lesson;
-
-
+use App\Post;
+use App\Topic;
+use App\User;
 class PanelController extends Controller
 {
     public function index()
@@ -62,6 +63,7 @@ class PanelController extends Controller
     }
 
     public function account(){
+        
         return view('panel.account');
     }
 
@@ -70,7 +72,37 @@ class PanelController extends Controller
     }
     
 
-    public function channel(){
-        return view('panel.channel');
+    public function channel($id){
+
+        $post = Post::whereHas('batches', function ($q) use ($id) {
+  
+                    $q->where('batch_id', $id);
+                })->get();
+        if(count($post) > 0){
+        $topics = Topic::all();
+        return view('panel.channel',compact('post','topics'));
+        }else{
+            return redirect()->back();
+        }
     }
+
+    public function allchannel(Request $request)
+    {
+        $id = $request->id;
+        if($id == 0){
+            $posts = Post::with('topic','user','user.staff')->get();
+        }else{
+            $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->get();
+        }
+        
+        return response()->json(['posts'=>$posts]);
+    }
+
+    public function change_password($value='')
+    {
+        return view('auth/changepassword');
+    }
+
+    
 }
+

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Projecttype;
+use App\Batch;
+use Carbon;
 class ProjecttypeController extends Controller
 {
     /**
@@ -14,6 +16,12 @@ class ProjecttypeController extends Controller
     public function index()
     {
         //
+        $projecttypes = Projecttype::all();
+        /*$ptypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('batches','batches.course_id','=','courses.id')->get();
+        dd($ptypes);*/
+        $now = Carbon\Carbon::now();
+         $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        return view('projecttypes.index',compact('projecttypes','batches'));
     }
 
     /**
@@ -35,6 +43,11 @@ class ProjecttypeController extends Controller
     public function store(Request $request)
     {
         //
+        $project = request('projecttype');
+        $batch = request('batch');
+        $projecttype = Projecttype::find($project);
+        $projecttype->batches->attach($batch);
+        return redirect()->route('projecttypes.index');
     }
 
     /**

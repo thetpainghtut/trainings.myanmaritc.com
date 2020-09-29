@@ -36,6 +36,9 @@
                                 <h3 class="font-weight-light my-4 text-center">Login</h3>
                                 @if(session('msg'))
                                  <h5 class="my-4 text-center text-danger">{{session('msg')}}</h5>
+                                @elseif(session('success'))
+                                 <h5 class="my-4 text-center text-success">{{session('success')}}</h5>
+
                                 @endif
                             </div>
                             <div class="card-body">

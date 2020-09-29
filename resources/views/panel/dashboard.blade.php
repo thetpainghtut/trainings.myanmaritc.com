@@ -32,7 +32,7 @@
                                     Take Lesson
                                 </a>
 
-                                <a href="{{ route('frontend.channel') }}" class="btn btn-light float-right">
+                                <a href="{{ route('frontend.channel',$studentbatch->id) }}" class="btn btn-light float-right">
                                     Go Channel
                                 </a>
 

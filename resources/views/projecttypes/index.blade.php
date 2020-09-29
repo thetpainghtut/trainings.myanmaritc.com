@@ -2,12 +2,11 @@
 
 @section('content')
 
-    <h1 class="h3 mb-4 text-gray-800"> Posts </h1>
+    <h1 class="h3 mb-4 text-gray-800"> Project Types </h1>
     
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold text-primary"> All Posts
-                <a href="{{route('posts.create')}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-plus mr-2"></i>Add New</a>
+            <h5 class="m-0 font-weight-bold text-primary"> All Project Types
             </h5>
         </div>
         <div class="card-body">
@@ -16,65 +15,37 @@
                     <thead class="bg-primary text-white">
                         <tr>
                             <th>No</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Topic</th>
-                            <th>Teacher Name</th>
+                            <th>Project Name</th>
+                            <th>User Name</th>
+                            <th>Course Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @php 
-                            $i=1;
-                        @endphp
-                        @foreach($posts as $post)
+                        @php $i=1; @endphp
+                        @foreach($projecttypes as $projtype)
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$post->title}}</td>
-                            <td>{!!$post->content!!}</td>
-                            <td>{{$post->topic->name}}</td>
-                            <td>{{$post->user->name}}</td>
-                            
-                            @foreach($post->batches as $cs)
-                            
-                            @endforeach
-                             <td>
-                                <a href="{{route('posts.show',$post->id)}}" class="btn btn-primary btn-sm" >
-                                    <i class="fas fa-info"></i>
-                                </a>
-
-                                <a href="{{route('posts.edit',$post->id)}}" class="btn btn-warning btn-sm" >
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                            
-                                <form method="post" action="{{route('posts.destroy',$post->id)}}" class="d-inline-block btn-sm" onsubmit="return confirm('Are you sure want to Delete!')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                </form>
-                              
-                                @foreach($batches as $b)
-                                @if($post->batches[0]->id != $b->id)
-                                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#assignpostmodal">Assign</a>
-                                @endif
-                                @endforeach
-                               
+                            <td>{{$projtype->name}}</td>
+                            <td>{{$projtype->user->name}}</td>
+                            <td>@foreach($projtype->courses as $p) {{$loop->first ? '':', '}}{{$p->name}} @endforeach</td>
+                            <td>
+                                <a href="#" class="btn btn-info" data-toggle="modal" data-target="#assignprojectmodal">Assign</a>
                             </td>
                         </tr>
-                        <!-- Assign Modal -->
-                        <div class="modal" tabindex="-1" id="assignpostmodal">
+                        <div class="modal" tabindex="-1" id="assignprojectmodal">
                           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title">Assign Post</h5>
+                                <h5 class="modal-title">Assign Project Type</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
-                              <form action="{{route('postassign')}}" method="post">
+                              <form action="{{route('projecttypes.store')}}" method="post">
                                 @csrf
-                                <input type="hidden" name="post" value="{{$post->id}}">
+                                <input type="hidden" name="projecttype" value="{{$projtype->id}}">
                               <div class="modal-body">
                                 
                                 <div class="form-group row">
@@ -85,9 +56,9 @@
                                             <option>Choose One</option>
                                             
                                             @foreach($batches as $batch)
-                                            @if($post->batches[0]->id != $batch->id)
+                                           
                                                 <option value="{{$batch->id}}">{{$batch->title}}</option>
-                                            @endif
+                                            
                                             @endforeach
                                         </select>
                                     </div>

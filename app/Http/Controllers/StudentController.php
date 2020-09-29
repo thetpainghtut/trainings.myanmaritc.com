@@ -13,6 +13,8 @@ use App\Education;
 use App\Township;
 use Rabbit;
 use App\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 
@@ -76,6 +78,7 @@ class StudentController extends Controller
       // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
+      // dd($request->batch_id);
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
@@ -126,7 +129,9 @@ class StudentController extends Controller
         $townshipid = $township->id;
         $city = $township->city->name;
 
+
         if ($user_id) {
+          // // dd('hi');
             $user = User::find($user_id);
             $user->name = $namee;
             $user->email= $email;
@@ -159,11 +164,11 @@ class StudentController extends Controller
             $student->subjects()->attach($subjects);
 
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
-
             return 'ok';
 
         }
         else{
+          // dd('hello');
             $user = new User;
             $user->name = request('namee');
             $user->email=request('email');
@@ -200,14 +205,22 @@ class StudentController extends Controller
             $subjects = request('subjects');
 
             // Save student_subject
-            // $student->subjects()->detach();
+            $student->subjects()->detach();
             $student->subjects()->attach($subjects);
 
-            $student->batches()->attach($student->id,['receiveno' => $inquireno, 'status' => 'Active']);
+            $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
+            // mail
+
+            $data = array('name' => $request->namee,
+                          'email' => $request->email,
+                          'password' => '123456789',);
+
+            Mail::to($request->email)->send(new SendMail($data));
 
 
 
-            return 'ok';
+            return 'confirm';
         }
         // Save Data
 

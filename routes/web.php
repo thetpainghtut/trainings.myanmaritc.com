@@ -164,7 +164,8 @@ Route::resource('feedbacks','FeedbackController');
 Route::get('panel','PanelController@index')->name('frontend.panel');
 Route::get('takelesson/{id}','PanelController@takelesson')->name('frontend.takelesson');
 
-Route::get('channel','PanelController@channel')->name('frontend.channel');
+Route::get('channel/{id}','PanelController@channel')->name('frontend.channel');
+Route::post('allchannel','PanelController@allchannel')->name('allchannel');
 
 Route::get('takequiz','PanelController@takequiz')->name('frontend.takequiz');
 Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer');
@@ -172,6 +173,13 @@ Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer
 Route::get('secret','PanelController@secret')->name('frontend.secret');
 Route::get('account','PanelController@account')->name('frontend.account');
 Route::get('notification','PanelController@notification')->name('frontend.notification');
+
+// nyiyelin
+Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
+Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
+Route::post('student_profile_update','FrontendController@student_profile_update')->name('frontend.student_profile_update');
+Route::post('secret_password_change','FrontendController@secret_password_change')->name('frontend.secret_password_change');
+
 
 
 // Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');
@@ -181,5 +189,5 @@ Route::get('playcourse/{bid}/{sid}', [
     'uses' => 'PanelController@playcourse'
 ]);
 
-
+Route::post('postassign','PostController@postassign')->name('postassign');
 

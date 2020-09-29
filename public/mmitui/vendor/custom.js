@@ -28,12 +28,14 @@ $(document).ready(function(){
 	});
 
 	function readURL(input){
+        // console.log(input.files);
         if (input.files[0]){
             var reader = new FileReader();
             reader.onload = function(e) {
                 $('#imagePreview').css('background-image', 'url('+e.target.result +')');
                 $('#imagePreview').hide();
                 $('#imagePreview').fadeIn(650);
+                $('.photodata').val(input.files[0]['name']+'/'+input.files[0]['name']);
             }
             reader.readAsDataURL(input.files[0]);
             console.log('preivew');
@@ -42,6 +44,7 @@ $(document).ready(function(){
     }
     $("#imageUpload").change(function() {
         readURL(this);
+        
     });
 
     $('.nav-tabs > li a[title]').tooltip();

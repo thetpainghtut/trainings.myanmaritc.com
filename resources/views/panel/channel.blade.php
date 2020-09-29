@@ -1,20 +1,28 @@
 @extends('template')
 @section('content')
 
-	<!-- Header -->
+    <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-white">
-                    <h1 class="display-4 mt-5 mb-2"> PHP Developer Bootcamp Channel, </h1>
-                    <p> Batch - 18 </p>
+                    
+                    <?php
+                    $words = explode(" ", $post[0]->batches[0]->title);
+            
+                    ?>
+                    @if($words[0] == 'PHP')
+                    <h1 class="display-4 mt-5 mb-2">PHP Developer Bootcamp Channel, </h1>
+                    <p> {{$words[1]}} - {{$words[2]}} </p>
+                    @endif
+                   
                 </div>
             </div>
         </div>
     </header>
     <!-- Header -->
-	
-	<!-- Page Content -->
+    
+    <!-- Page Content -->
     <div id="page-content">
         <div class="container my-5">
             <div class="row">
@@ -24,41 +32,22 @@
                             <a href="javascript:void(0)" class="text-white topics" data-id=0> All Topics </a>
                         </li>
 
-                        <li class="list-group-item topic1">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=1> Announcement </a>
+                        @foreach($topics as $topic)
+                        @if(count($topic->posts)>0)
+                        <li class="list-group-item topic{{$topic->id}}">
+                            <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
                         </li>
-
-                        <li class="list-group-item topic2">
+                        @else
+                        <li class="list-group-item topic">
+                            <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock"></i></a>
+                        </li>
+                        @endif
+                        @endforeach
+                        <!-- <li class="list-group-item topic2">
                             <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
-                        </li>
+                        </li> -->
 
-                        <li class="list-group-item topic3">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=3> Live Recording </a>
-                        </li>
-
-                        <li class="list-group-item topic4">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=4> Post </a>
-                        </li>
-
-                        <li class="list-group-item topic5 disabled" aria-disabled="true">
-                            <a href="javascript:void(0)" class="text-muted topics" data-id=5>  Project Title 
-                                <i class="fas fa-lock float-right fa-sm mt-1"></i>
-                            </a>
-                        </li>
-
-                        <li class="list-group-item topic6">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=6>  Quiz </a>
-                        </li>
-
-                        <li class="list-group-item topic7">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=7>  Schedule </a>
-                        </li>
-
-                        <li class="list-group-item topic8">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id=8>  Survey 
-                                {{-- <i class="fas fa-lock float-right fa-sm mt-1"></i> --}}
-                            </a>
-                        </li>
+                        
 
                         
                         
@@ -68,7 +57,69 @@
 
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                     <div class="row" id="alltopics">
-                        
+                        @foreach($post as $po)
+                        <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
+                            <div class="row">
+                                <div class="col-1">
+                                    @if($po->user->getRoleNames()[0] =='Admin')
+                                    <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                    @else
+                                    <img src="{{asset($po->user->staff->photo)}}" class="userprofile mr-2 d-inline">
+                                    @endif  
+                                    
+                                </div>
+                                <div class="col-11">
+                                    <p class="username d-block mb-0"> {{$po->user->name}} </p>
+
+                                    <small class="text-muted mr-3">
+                                        @if($po->topic->name == 'Announcement')
+                                        <i class="fas fa-bullhorn mr-1"></i>
+                                        @elseif($po->topic->name == 'Schedule')
+                                        <i class="icofont-calendar"></i>  
+                                        @elseif($po->topic->name == 'Assignment')
+                                        <i class="far fa-check-square mr-1"></i>
+                                        @elseif($po->topic->name == 'Live Recording') 
+                                        <i class="fas fa-video mr-1"></i> 
+                                        @elseif($po->topic->name == 'Assignment') 
+                                        <i class="far fa-check-square mr-1"></i>
+                                        @elseif($po->topic->name == 'Post') 
+                                        <i class="fas fa-envelope mr-1"></i> 
+                                        @else
+                                          <i class="icofont-question-circle"></i>
+                                        @endif
+                                        {{$po->topic->name}}
+                                    </small> •
+                                    <small class="text-muted">
+                                        <i class="far fa-clock ml-3"></i> {{$po->created_at->diffForHumans()}} 
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <blockquote class="blockquote  text-primary">
+                                        <p class="mb-0"> {{$po->title}} </p>
+                                    </blockquote>
+
+                                    <div class="row">
+                                        @php
+                                        $images = explode(',',$po->file);
+                                        @endphp
+                                        @foreach($images as $image)
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <img src="{{asset($image)}}" alt="" class="img-fluid">
+                                        </div>
+                                        @endforeach
+                                        <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                            <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
+                                        </div> -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="signup-step-container">
@@ -94,7 +145,7 @@
                                             </ul>
                                         </div>
                         
-                                        <form role="form" action="{{ route('frontend.channel') }}" method="GET" class="login-box mmfont">
+                                        <form role="form" action="" method="GET" class="login-box mmfont">
                                             <div class="tab-content" id="main_form">
                                                 <div class="tab-pane active" role="tabpanel" id="step1">
                                                     <h4 class="text-center">Step 1</h4>
@@ -197,7 +248,7 @@
                                                             <label>
                                                                 <input type="radio" name="product" class="card-input-element" />
 
-                                                                <div class="card card-input">
+                                                            <div class="card card-input">
                                                                     <img src="{{ asset('mmitui/image/lecturespeed4.gif') }}" class="card-img-top speedGif" alt="...">
                                                                     <div class="card-body text-center">
                                                                         <p class="card-text"> Super Rocket </p>
@@ -264,7 +315,43 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
+        var DURATION_IN_SECONDS = {
+          epochs: ['year', 'month', 'day', 'hour', 'minute'],
+          year: 31536000,
+          month: 2592000,
+          day: 86400,
+          hour: 3600,
+          minute: 60
+        };
 
+        function getDuration(seconds) {
+          var epoch, interval;
+
+          for (var i = 0; i < DURATION_IN_SECONDS.epochs.length; i++) {
+            epoch = DURATION_IN_SECONDS.epochs[i];
+            interval = Math.floor(seconds / DURATION_IN_SECONDS[epoch]);
+            if (interval >= 1) {
+              return {
+                interval: interval,
+                epoch: epoch
+              };
+            }
+          }
+
+        };
+
+        function timeSince(date) {
+          var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+          var duration = getDuration(seconds);
+          var suffix = (duration.interval > 1 || duration.interval === 0) ? 's' : '';
+          return duration.interval + ' ' + duration.epoch + suffix;
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         var html1=''; var html2=''; var html3=''; 
         var html4=''; var html7=''; var html6='';
         var html8='';
@@ -655,12 +742,114 @@
 
         
 
-        $('#alltopics').html(html3+html7+html1+html2+html4);
+        /*$('#alltopics').html(html3+html7+html1+html2+html4);*/
         $('.signup-step-container').hide();
 
         $('.topics').on('click',function(){
             var id = $(this).data('id');
-            if (id == 0) {
+            console.log(id);
+            var html='';
+
+            $.post('/allchannel',{id:id},function(response){
+                //console.log(response.posts);
+                $.each(response.posts,function(i,v){
+                    console.log(v);
+                    var images = v.file.split(',');
+
+                    html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
+                    <div class="row">`;
+                    if(v.user.staff==null){
+                        html+= `<div class="col-1">
+                            <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }else{
+                        html+= `<div class="col-1">
+                            <img src="${v.user.staff.photo}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }
+                        html+=`<div class="col-11">
+                            <p class="username d-block mb-0"> ${v.user.name}</p>
+
+                            
+                            <small class="text-muted mr-3">`;
+                                if(v.topic.name == 'Announcement'){
+                                html+=`<i class="fas fa-bullhorn mr-1"></i>`;
+                                }
+                                else if(v.topic.name == 'Schedule'){
+                                html+=`<i class="icofont-calendar"></i>`; } 
+                                else if(v.topic.name == 'Assignment'){
+                                html+=`<i class="far fa-check-square mr-1"></i>`;}
+                                else if(v.topic.name == 'Live Recording') {
+                                html+=`<i class="fas fa-video mr-1"></i>`;}
+                                else if(v.topic.name == 'Assignment'){ 
+                                html+=`<i class="far fa-check-square mr-1"></i>`;}
+                                else if(v.topic.name == 'Post'){
+                                html+=`<i class="fas fa-envelope mr-1"></i>`;
+                                }
+                                else{
+                                  html+=`<i class="icofont-question-circle"></i>`;
+                                }
+                                
+                                html+=`${v.topic.name}
+                            </small> •
+                            <small class="text-muted">
+                                <i class="far fa-clock ml-3"></i> 
+                                ${timeSince(v.created_at)} ago
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <blockquote class="blockquote  text-primary">
+                                <p class="mb-0"> ${v.title} </p>
+                            </blockquote>
+
+                            <div class="row">`;
+                            $.each(images,function(k,c){
+                                html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <img src="${c}" alt="" class="img-fluid">
+                                </div>`;
+                            });
+                             html+=   `<div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_1.jpg" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_2.jpg" alt="" class="img-fluid">
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_3.jpg" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_4.jpg" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <img src="mmitui/image/test/g5_5.jpg" alt="" class="img-fluid">
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>`;
+               
+                });
+                 $('.list-group li.active a').removeClass('text-white');
+                $('.list-group li.active a').addClass('primarytext');
+                $('.active').removeClass('active');
+
+                $('.topic'+id).addClass('active');
+                $('.list-group li.active a').addClass('text-white');
+                $('.list-group li.active a').removeClass('primarytext');
+                
+                $('#alltopics').show();
+                $('#alltopics').html(html);
+                $('.signup-step-container').hide();
+            });
+            /*if (id == 1) {
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -676,7 +865,7 @@
                 
             }
 
-            else if (id == 1) {
+            else if (id == 2) {
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -692,7 +881,7 @@
 
             }
 
-            else if (id == 2){
+            else if (id == 3){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -707,7 +896,7 @@
                 $('.signup-step-container').hide();
 
             }
-            else if (id == 3){
+            else if (id == 4){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -722,7 +911,7 @@
                 $('.signup-step-container').hide();
 
             }
-            else if (id == 4){
+            else if (id == 5){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -739,7 +928,7 @@
 
             }
 
-            else if (id == 7){
+            else if (id == 6){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -755,7 +944,7 @@
 
             }
 
-            else if (id == 6){
+            else if (id == 7){
 
                 $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
@@ -784,7 +973,7 @@
                 $('.signup-step-container').show();
 
 
-            }
+            }*/
 
         });
             
