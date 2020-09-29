@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Projecttype;
 class ProjecttypeController extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class ProjecttypeController extends Controller
     public function index()
     {
         //
+        $projecttypes = Projecttype::all();
+        return view('projecttypes.index',compact('projecttypes'));
     }
 
     /**

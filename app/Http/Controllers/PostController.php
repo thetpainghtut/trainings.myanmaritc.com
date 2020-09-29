@@ -35,14 +35,14 @@ class PostController extends Controller
             $posts = [];
             $batches= [];
         }
-        /*foreach ($batches as $key => $value) {
+       /* foreach ($batches as $key => $value) {
             $b = $value;
             foreach ($b->posts as $c) {
-                $d = $c;
+                $d[] = $c;
             }
 
         }*/
-        //dd($d->pivot->batch_id);
+       
         return view('posts.index',compact('posts','batches'));
     }
 
@@ -236,6 +236,10 @@ class PostController extends Controller
 
     public function postassign(Request $request)
     {
-        dd($request);
+        $po = request('post');
+        $batch = request('batch');
+        $post= Post::find($po);
+        $post->batches()->attach($batch);
+        return redirect()->route('posts.index');
     }
 }
