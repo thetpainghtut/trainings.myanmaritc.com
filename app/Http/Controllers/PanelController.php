@@ -103,6 +103,11 @@ class PanelController extends Controller
         return view('auth/changepassword');
     }
 
+    public function forgetpassword()
+    {
+        return view('auth.forgetpassword');
+    }
+
     
 }
 

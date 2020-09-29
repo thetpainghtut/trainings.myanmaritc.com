@@ -7,6 +7,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-white">
                     <h1 class="display-4 mt-5 mb-2"> My Account, </h1>
+                    
                 </div>
             </div>
         </div>

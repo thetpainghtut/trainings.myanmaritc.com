@@ -170,7 +170,7 @@
 
          $('.send_mail').click(function() {
              var student_id = $(this).data('student_id');
-             alert(student_id);
+             // alert(student_id);
              $.post('resend_mail',{student_id:student_id},function(res){
                 var html = '';
                 if(res=='ok'){

@@ -303,6 +303,8 @@ class StudentController extends Controller
         $student = Student::find($id);
         $student->namee = $namee;
         $student->namem = $namem;
+        $student->photo = $filepath;
+
         $student->email = $email;
         $student->gender = $gender;
         $student->dob = $dob;

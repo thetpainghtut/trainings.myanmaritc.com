@@ -33,7 +33,7 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header justify-content-center pt-5">
                                 <img src="{{ asset('logo.jpg') }}" class="img-fluid mx-auto d-block" style="width: 200px;">
-                                <h3 class="font-weight-light my-4 text-center">Change Password</h3>
+                                <h3 class="font-weight-light my-4 text-center">Forget Password</h3>
                                 @if(session('msg'))
                                  <h5 class="my-4 text-center text-danger">{{session('msg')}}</h5>
                                 @endif
@@ -42,14 +42,12 @@
                                 <form class="user" method="POST" action="{{ route('frontend.update_password') }}">
                                 
                                 @csrf
-                                @php 
-                                $email = $_GET['email'];
-                                @endphp
+                                
 
                                     <div class="form-group">
                                         <label class="small mb-1" for="email"> Email </label>
-                                        <input class="form-control py-4 {{$errors->has('email') ? 'is-invalid' : ''}}" value="{{$email}}" id="email" type="email" name="email" />
-                                        <small> (we need your email to confirm your changes) </small>
+                                        <input class="form-control py-4 {{$errors->has('email') ? 'is-invalid' : ''}}" value="" id="email" type="email" name="email" />
+                                        
 
 
                                         @if($errors->has('email'))
@@ -58,44 +56,7 @@
                                         
                                     </div>
                                     
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="chpassword"> Change Password </label>
-                                                <input class="form-control py-4 {{$errors->has('changepassword') ? 'is-invalid' : ''}}" id="chpassword" type="password" name="changepassword" value="{{old('changepassword')}}" />
-
-
-                                                @if($errors->has('changepassword'))
-                                                    <span class="text-danger">{{$errors->first('changepassword')}}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="cfpassword"> Confirm Password </label>
-                                                <input class="form-control py-4 {{$errors->has('changepassword_confirmation') ? 'is-invalid' : ''}}" id="cfpassword" type="password" name="changepassword_confirmation" value="{{old('changepassword_confirmation')}}"/>
-
-                                                @if($errors->has('changepassword_confirmation'))
-                                                    <span class="text-danger">{{$errors->first('changepassword_confirmation')}}</span>
-                                                @endif
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="crpassword"> Current Password </label>
-                                        <input class="form-control py-4 {{$errors->has('currentpassword') ? 'is-invalid' : ''}}" id="crpassword" type="password" name="currentpassword" value="{{old('currentpassword')}}"/>
-
-                                        <small> (we need your current password to confirm your changes) </small>
-
-                                        @if($errors->has('currentpassword'))
-                                            <span class="text-danger">{{$errors->first('currentpassword')}}</span>
-                                        @endif
-
-                                        
-                                    </div>
+                                    
 
                                     <div class="form-group hideForm d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <button type="submit" class="btn btn-outline-primary"> Save </button>

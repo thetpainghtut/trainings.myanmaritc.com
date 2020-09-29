@@ -189,6 +189,7 @@ Route::get('notification','PanelController@notification')->name('frontend.notifi
 
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
+Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.forgetpassword');
 
 
 

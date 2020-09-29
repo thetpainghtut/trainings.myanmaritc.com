@@ -30,19 +30,24 @@
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                @if($student->photo)
                                 <img src="{{asset($student->photo)}}" class="img-fluid my-2" width="100px" height="100px">
+                                @else
+                                <img src="{{ asset('mmitui/image/user.png') }}" class="img-fluid my-2" width="100px" height="100px">
+                                @endif
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <input type="file" name="newphoto" class="form-control-file my-2">
+                                <input type="file" name="newphoto" class="form-control-file my-2 input_photo">
+                                <img src="" class="show_photo">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputName" class="col-sm-2 col-form-label">Name (English)</label>
+                    <label for="inputNamee" class="col-sm-2 col-form-label">Name (English)</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" name="namee" value="{{$student->namee}}">
+                        <input type="text" class="form-control" id="inputNamee" name="namee" value="{{$student->namee}}">
                         @if($errors->has('namee'))
                             <span class="text-danger">{{$errors->first('namee')}}</span>
                         @endif
@@ -50,9 +55,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputName" class="col-sm-2 col-form-label">Name (Myanmar)</label>
+                    <label for="inputNamem" class="col-sm-2 col-form-label">Name (Myanmar)</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" name="namem" value="{{$student->namem}}">
+                        <input type="text" class="form-control" id="inputNamem" name="namem" value="{{$student->namem}}">
                         @if($errors->has('namem'))
                             <span class="text-danger">{{$errors->first('namem')}}</span>
                         @endif
@@ -126,9 +131,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputName" class="col-sm-2 col-form-label">Father Name</label>
+                    <label for="fathername" class="col-sm-2 col-form-label">Father Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" name="father" value="{{$student->p1}}">
+                        <input type="text" class="form-control" id="fathername" name="father" value="{{$student->p1}}">
                         @if($errors->has('father'))
                             <span class="text-danger">{{$errors->first('father')}}</span>
                         @endif
@@ -136,9 +141,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputName" class="col-sm-2 col-form-label">Mother Name</label>
+                    <label for="mothername" class="col-sm-2 col-form-label">Mother Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" name="mother" value="{{$student->p2}}">
+                        <input type="text" class="form-control" id="mothername" name="mother" value="{{$student->p2}}">
                         @if($errors->has('mother'))
                             <span class="text-danger">{{$errors->first('mother')}}</span>
                         @endif
@@ -159,5 +164,28 @@
         </div>
     </div>
 
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.input_photo').change(function(){
+
+        readURL(this);
+        function readURL(input)
+        {
+            if(window.File,window.FileReader,window.Filelist,window.Blob){
+                    var input_image = input.files;
+                    var reader = new FileReader();
+                    reader.onload=function(e){
+                        $('.show_photo').attr('src',e.target.result).width('120px').height('100px');
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+        }
+    })
+    })
+</script>
 
 @endsection

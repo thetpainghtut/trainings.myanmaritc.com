@@ -74,6 +74,9 @@
                                         <button class="btn btn-block btn-outline-primary">Login</button>
                                     </div>
                                 </form>
+
+                                <a href="{{route('frontend.forgetpassword')}}">Forget password?</a>
+
                             </div>
                            
                         </div>
