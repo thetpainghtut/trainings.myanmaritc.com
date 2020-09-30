@@ -59,7 +59,10 @@
                             <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
                         </li>
                         @php break; @endphp
-                        
+                        @else
+                        <li class="list-group-item topic" style="background-color: #faf7f5">
+                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+                            </li>
                        @endif
                        @endforeach
                         @endforeach

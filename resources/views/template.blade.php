@@ -49,7 +49,7 @@
 
     <!-- Plyr -->
     {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css" /> --}}
-
+     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-notifications.min.css')}}">
 </head>
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
@@ -99,7 +99,7 @@
                     
                     @else
 
-                    <li class="nav-item dropdown mr-5">
+                    <li class="nav-item dropdown dropdown-notifications mr-5">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
@@ -139,8 +139,9 @@
 
                             <a class="dropdown-item" href="{{ route('frontend.secret') }}"> Change Password </a>
 
-                            <a class="dropdown-item" href="{{ route('frontend.notification')}}"> Notifications 
-                                <span class="badge badge-pill badge-danger"> +1 </span> 
+                            <a class="dropdown-item noti" href="{{ route('frontend.notification')}}"> Notifications 
+                                <span class="badge badge-pill badge-danger">0 </span> 
+                               
                             </a>
 
                             <div class="dropdown-divider"></div>
@@ -423,6 +424,43 @@
     <!-- Plyr -->
     
   @yield('script')
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <script type="text/javascript">
+    //  var notificationsWrapper   = $('.dropdown-notifications');
+      var notificationsToggle    = $('.noti');
+     // var notificationsCountElem = notificationsToggle.find('i[data-count]');
+     var notificationsCountElem = notificationsToggle.find('span').text();
+     // alert(notificationsCountElem);
+      var notificationsCount     = parseInt(notificationsCountElem);
+     // console.log(notificationsCount);
+      //var notifications          = notificationsWrapper.find('ul.dropdown-menu');
+
+     /* if (notificationsCount <= 0) {
+        notificationsToggle.hide();
+      }*/
+
+      // Enable pusher logging - don't include this in production
+      // Pusher.logToConsole = true;
+          Pusher.logToConsole = true;
+
+     var pusher = new Pusher('0569f3090279c1cbab87', {
+      cluster: 'ap1'
+    });
+
+      // Subscribe to the channel we specified in our Laravel Event
+      var channel = pusher.subscribe('my-channel');
+
+      // Bind a function to a Event (the full Laravel class)
+      channel.bind('my-event', function(data) {
+        alert(JSON.stringify(data));
+       
+        notificationsCount += 1;
+        notificationsToggle.find('span').html(notificationsCount);
+        console.log(notificationsCount);
+        notificationsToggle.show();
+      });
+    </script>
 </body>
 
 </html>

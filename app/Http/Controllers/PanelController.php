@@ -138,6 +138,7 @@ class PanelController extends Controller
             $q->where('batch_id',$id);
         })->get();
 
+        
         return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status'));
         }else{
             return redirect()->back();
