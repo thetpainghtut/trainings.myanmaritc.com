@@ -133,13 +133,22 @@ class PanelController extends Controller
         }else{
             $status = 0;
         }
-        
+
+        $bposts = $batch->posts;
+
+    //dd($bposts);
+        $bap = Batch::join('batch_post','batch_post.batch_id','=','batches.id')->join('posts','posts.id','=','batch_post.post_id')->join('topics','topics.id','=','posts.topic_id')->where('batches.id',$batch->id)->select('topics.id')->groupBy('topics.id')->get();
+        $b = [];
+        foreach ($bap as $key => $value) {
+            $cc = $value->id;
+            array_push($b, $cc);
+        }
         $batchstudents = Student::whereHas('batches',function($q) use ($id){
             $q->where('batch_id',$id);
         })->get();
 
         
-        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status'));
+        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status','b'));
         }else{
             return redirect()->back();
         }

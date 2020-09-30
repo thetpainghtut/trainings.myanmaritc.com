@@ -50,8 +50,39 @@
                         <li class="list-group-item topic0 active">
                             <a href="javascript:void(0)" class="text-white topics" data-id=0> All Topics </a>
                         </li>
-
-                        @foreach($topics as $topic)
+                        <?php 
+                         ?>
+@foreach($topics as $topic)
+@if(in_array($topic->id,$b))
+ <li class="list-group-item topic{{$topic->id}}">
+    <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
+</li>
+@if($topic->name == 'Project Title')
+    @if($status == 1)
+    <li class="list-group-item topic" style="background-color: #faf7f5">
+        <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+    </li>
+    @else
+        @if(count($projecttypes) > 0)
+            @foreach($projecttypes as $pt)
+            <li class="list-group-item ptopic{{$pt->id}}">
+                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
+            </li>
+            @endforeach
+        @else
+            <li class="list-group-item topic" style="background-color: #faf7f5">
+                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            </li>
+        @endif
+    @endif
+@endif
+@else
+<li class="list-group-item topic" style="background-color: #faf7f5">
+    <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+</li>
+@endif
+@endforeach
+                       <!--  @foreach($topics as $topic)
                         @foreach($topic->posts as $pb)
                        @foreach($pb->batches as $p)
                        @if($p->id == $batch->id)
@@ -92,7 +123,7 @@
                         @endif
                         @endif
                         
-                       @endforeach
+                       @endforeach -->
                         <!-- <li class="list-group-item topic2">
                             <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
                         </li> -->
