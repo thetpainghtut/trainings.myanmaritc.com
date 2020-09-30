@@ -13,6 +13,10 @@ use App\Lesson;
 use App\Post;
 use App\Topic;
 use App\User;
+use Carbon;
+use App\Projecttype;
+use App\Project;
+
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetMail;
 use Illuminate\Support\Facades\Hash;
@@ -72,7 +76,26 @@ class PanelController extends Controller
     }
 
     public function notification(){
-        return view('panel.notification');
+        $uid = Auth::id();
+        $now = Carbon\Carbon::now();
+        $batch = Batch::whereHas('students',function($q) use ($uid){
+            $q->where('user_id',$uid);
+        })->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $posts = array();
+        foreach ($batch as $key => $value) {
+            $id = $value->id;
+           $posts = Post::whereHas('batches', function ($q) use($id){
+  
+                    $q->where('batch_id',$id);
+                })->get();
+        }
+        
+        /*foreach ($posts as $k) {
+            $d  = $k->batches->where('startdate','<=',$now)->where('enddate','>=',$now);
+           
+        }
+         dd($batch);*/
+        return view('panel.notification',compact('posts','batch'));
     }
     
 
@@ -86,7 +109,37 @@ class PanelController extends Controller
         if(count($post) > 0){
         $topics = Topic::all();
         $batch = Batch::find($id);
-        return view('panel.channel',compact('post','topics','batch'));
+        $ptypes = Projecttype::whereHas('batches',function($q) use ($id){
+            $q->where('batch_id',$id);
+        })->get();
+
+        $projecttypes = array();
+        foreach ($ptypes as $p) {
+            $projecttypes = $p->doesntHave('project')->get();
+        }
+       
+        $c = array();
+        foreach ($ptypes as $key => $value) {
+            $c = $value->project->students;
+        }
+        $e = array();
+        foreach ($c as $v) {
+            $e = $v->where('user_id',Auth::id())->get();
+        }
+        
+        
+        if(count($e) > 0){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+        
+        $batchstudents = Student::whereHas('batches',function($q) use ($id){
+            $q->where('batch_id',$id);
+        })->get();
+
+        
+        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status'));
         }else{
             return redirect()->back();
         }
@@ -102,6 +155,27 @@ class PanelController extends Controller
         }
         
         return response()->json(['posts'=>$posts]);
+    }
+
+    public function projecttitle(Request $request)
+    {
+        //dd($request);
+        $request->validate([
+            'projtypeid' => 'required',
+            'ptitle' => 'required',
+            'student' => 'required'
+        ]);
+
+        $project = new Project();
+        $project->title = request('ptitle');
+        $project->projecttype_id = request('projtypeid');
+        $project->save();
+
+        foreach(request('student') as $stu){
+            $project->students()->attach($stu);
+        }
+
+        return redirect()->back();
     }
 
     public function change_password($value='')

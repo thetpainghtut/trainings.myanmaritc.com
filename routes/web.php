@@ -210,6 +210,13 @@ Route::get('playcourse/{bid}/{sid}', [
     'uses' => 'PanelController@playcourse'
 ]);
 
+
 Route::post('postassign','PostController@postassign')->name('postassign');
 Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');
 Route::post('assignproduct','PostController@assignproduct')->name('assignproduct');
+Route::post('projecttitle','PanelController@projecttitle')->name('projecttitle');
+
+Route::get('/test', function () {
+    event(new App\Events\MyEvent('Welcome'));
+    return "Event has been sent!";
+});

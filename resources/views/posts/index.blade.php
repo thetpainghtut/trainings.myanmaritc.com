@@ -143,7 +143,7 @@
         $('.asignpost').on('click',function(){
             var pid = $(this).data('id');
             $('#posthidden').val(pid);
-            $('#assignpostmodal').show();
+            $('#assignpostmodal').modal('show');
         });
     });
 </script>
