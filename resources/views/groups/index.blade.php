@@ -2,7 +2,11 @@
 
 @section('content')
   
-    <h1 class="h3 mb-4 text-gray-800"> Courses </h1>
+    <h1 class="h3 mb-4 text-gray-800"> Group </h1>
+
+    @if(session('msg'))
+        <h5 class="text-success">{{session('msg')}}</h5>
+    @endif
     
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -28,7 +32,7 @@
                     </div>
 
                     <div class="form-group col-md-2 mt-2">
-                        <button type="submit" class="btn btn-primary mt-4">Search</button>
+                        <button type="submit" class="btn btn-primary mt-4 search_group">Search</button>
                     </div>
 
                     @if($batchid !=0)
@@ -51,10 +55,11 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="tbody">
                         @php
                             $i = 1;
                         @endphp
+                        @if($batchid)
                         @foreach($groups as $row)
                             <tr>
                                 <td>{{$i++}}</td>
@@ -62,7 +67,14 @@
                                 <td>{{count($row->students)}}</td>
                                 <td>
                                     <a href="{{route('groups.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a></a>
-                                    <a href="{{route('groups.edit',$row->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+
+                                    <form action="{{route('groups.edit',$row->id)}}"  method="post" class="d-inline-block">
+                                        @csrf
+                                        @method('GET')
+                                        <input type="hidden" name="batch_data_id" value="{{$batchid}}">
+                                        <input type="hidden" name="course_data_id" value="{{$courseid}}">
+                                       <button class="btn btn-warning btn-sm "><i class="fas fa-edit"></i></button> 
+                                    </form>
                              
                                     <form method="post" action="{{route('groups.destroy',$row->id)}}" class="d-inline-block btn-sm" onsubmit="return confirm('Are you sure?')">
                                         @csrf
@@ -70,12 +82,13 @@
                                         {{-- @if($row->trashed())
                                             <button type="submit" class="btn btn-danger">Restore</button>
                                         @else --}}
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         {{-- @endif --}}
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -86,4 +99,5 @@
 
 @section('script')
   <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+  
 @endsection

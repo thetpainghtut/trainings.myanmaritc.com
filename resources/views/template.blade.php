@@ -13,6 +13,9 @@
 
     <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
 
+    <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+    
+
     <!-- Custom Font -->
     <link href="{{ asset('mmitui/css/font.css')}}" rel="stylesheet">
 
@@ -44,7 +47,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.theme.default.css') }}">
 
     <!-- Plyr -->
-    {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css" /> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css"> --}}
 
 </head>
 
@@ -410,11 +413,15 @@
     <script src="{{ asset('mmitui/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    {{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
     <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    
 
     <!-- Plyr -->
-    
+    {{-- <script src="https://cdn.plyr.io/3.6.2/demo.js" crossorigin="anonymous"></script>
+    <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script> --}}
+
   @yield('script')
 </body>
 

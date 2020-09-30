@@ -160,6 +160,7 @@ class StudentController extends Controller
             $student->because = $because;
             $student->township_id = $townshipid;
             $student->user_id = $user_id;
+            $student->status=null;
             $student->save();
 
             $student->subjects()->detach();
