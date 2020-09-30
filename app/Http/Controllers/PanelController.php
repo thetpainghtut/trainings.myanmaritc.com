@@ -90,11 +90,17 @@ class PanelController extends Controller
         if(count($post) > 0){
         $topics = Topic::all();
         $batch = Batch::find($id);
-        $projecttypes = Projecttype::whereHas('batches',function($q) use ($id){
+        $ptypes = Projecttype::whereHas('batches',function($q) use ($id){
             $q->where('batch_id',$id);
         })->get();
+
+        $projecttypes = array();
+        foreach ($ptypes as $p) {
+            $projecttypes = $p->doesntHave('project')->get();
+        }
+       
         $c = array();
-        foreach ($projecttypes as $key => $value) {
+        foreach ($ptypes as $key => $value) {
             $c = $value->project->students;
         }
         $e = array();

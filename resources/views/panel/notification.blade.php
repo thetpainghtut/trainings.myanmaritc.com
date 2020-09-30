@@ -32,7 +32,7 @@
                             </div>
                             
                             <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Secret Message </a>
+                                <a href="" class="notiTitle"> Secret Message </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-clipboard-check mr-2"></i> Survey 
@@ -52,7 +52,7 @@
                                 </a>
                             </div>
                             <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Vue </a>
+                                <a href="" class="notiTitle"> Vue </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-video mr-2"></i> Live Recording 
@@ -73,7 +73,7 @@
                             </div>
                             <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
                                 
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> VUECLI repo </a>
+                                <a href="" class="notiTitle"> VUECLI repo </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="far fa-check-square mr-2"></i> Assignment 
@@ -93,7 +93,7 @@
                             </div>
                             <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
                                 
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Project Flow Date & Time </a>
+                                <a href="" class="notiTitle"> Project Flow Date & Time </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-bullhorn mr-2"></i> Announcement 
@@ -114,7 +114,7 @@
                             </div>
                             <div id="collapseFive" class="card-body collapse" data-parent="#accordion">
 
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Laravel Project Doc Ref </a>
+                                <a href="" class="notiTitle"> Laravel Project Doc Ref </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-envelope mr-2"></i> Post 
