@@ -13,7 +13,7 @@ use App\Lesson;
 use App\Post;
 use App\Topic;
 use App\User;
-
+use Carbon;
 use App\Projecttype;
 use App\Project;
 
@@ -76,7 +76,26 @@ class PanelController extends Controller
     }
 
     public function notification(){
-        return view('panel.notification');
+        $uid = Auth::id();
+        $now = Carbon\Carbon::now();
+        $batch = Batch::whereHas('students',function($q) use ($uid){
+            $q->where('user_id',$uid);
+        })->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $posts = array();
+        foreach ($batch as $key => $value) {
+            $id = $value->id;
+           $posts = Post::whereHas('batches', function ($q) use($id){
+  
+                    $q->where('batch_id',$id);
+                })->get();
+        }
+        
+        /*foreach ($posts as $k) {
+            $d  = $k->batches->where('startdate','<=',$now)->where('enddate','>=',$now);
+           
+        }
+         dd($batch);*/
+        return view('panel.notification',compact('posts','batch'));
     }
     
 
