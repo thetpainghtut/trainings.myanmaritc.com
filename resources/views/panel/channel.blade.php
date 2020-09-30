@@ -65,16 +65,22 @@
                         @endforeach
                         @if($topic->posts->isEmpty())
                         @if($topic->name == 'Project Title')
-                            @if(count($projecttypes) > 0)
-                            @foreach($projecttypes as $pt)
-                            <li class="list-group-item ptopic{{$pt->id}}">
-                                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
+                            @if($status == 1)
+                            <li class="list-group-item topic" style="background-color: #faf7f5">
+                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
                             </li>
-                            @endforeach
+                            @else
+                            @if(count($projecttypes) > 0)
+                                @foreach($projecttypes as $pt)
+                                <li class="list-group-item ptopic{{$pt->id}}">
+                                    <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
+                                </li>
+                                @endforeach
                             @else
                             <li class="list-group-item topic" style="background-color: #faf7f5">
                                 <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
                             </li>
+                            @endif
                             @endif
                         @else
                         <li class="list-group-item topic" style="background-color: #faf7f5">

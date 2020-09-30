@@ -93,12 +93,27 @@ class PanelController extends Controller
         $projecttypes = Projecttype::whereHas('batches',function($q) use ($id){
             $q->where('batch_id',$id);
         })->get();
+        $c = array();
+        foreach ($projecttypes as $key => $value) {
+            $c = $value->project->students;
+        }
+        $e = array();
+        foreach ($c as $v) {
+            $e = $v->where('user_id',Auth::id())->get();
+        }
+        
+        
+        if(count($e) > 0){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
         
         $batchstudents = Student::whereHas('batches',function($q) use ($id){
             $q->where('batch_id',$id);
         })->get();
 
-        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents'));
+        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status'));
         }else{
             return redirect()->back();
         }
