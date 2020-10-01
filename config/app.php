@@ -171,7 +171,11 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+<<<<<<< HEAD
         // App\Providers\BroadcastServiceProvider::class,
+=======
+        App\Providers\BroadcastServiceProvider::class,
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,

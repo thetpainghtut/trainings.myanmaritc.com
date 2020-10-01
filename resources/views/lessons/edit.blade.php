@@ -127,6 +127,10 @@
 
             $(function() {
                 var cid = $(".course_change").val();
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 $.post("/show_subject",{id:cid},function (res) {
                     var data = JSON.parse(res);
                     var html ='';

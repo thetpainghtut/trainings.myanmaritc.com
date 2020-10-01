@@ -13,6 +13,12 @@
 
     <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
 
+<<<<<<< HEAD
+=======
+    <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+    
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <!-- Custom Font -->
     <link href="{{ asset('mmitui/css/font.css')}}" rel="stylesheet">
 
@@ -30,6 +36,12 @@
     <!-- Hover -->
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/css/hover.css') }}">
 
+<<<<<<< HEAD
+=======
+    <!-- Photo Grid -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/photogrid/images-grid.css') }}">
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <!-- Icofont -->
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/icon/icofont/icofont.min.css') }}">
 
@@ -40,9 +52,19 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.theme.default.css') }}">
 
+<<<<<<< HEAD
     <!-- Plyr -->
     {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css" /> --}}
 
+=======
+    <!-- Select2 -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2_bootstrap4/dist/select2-bootstrap4.min.css') }}">
+
+    <!-- Plyr -->
+
+     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-notifications.min.css')}}">
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 </head>
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
@@ -76,7 +98,11 @@
                     </li>
                   
                     <li class="nav-item">
+<<<<<<< HEAD
                         <a class="nav-link" href=""> Job </a>
+=======
+                        <a class="nav-link" href="http://jobs.myanmaritc.com/" target="_blank"> Job </a>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                     </li>
                   
                     <li class="nav-item {{ Request::segment(1) ==='contact' ? 'active' :'' }}">
@@ -92,7 +118,11 @@
                     
                     @else
 
+<<<<<<< HEAD
                     <li class="nav-item dropdown mr-5">
+=======
+                    <li class="nav-item dropdown dropdown-notifications mr-5">
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
@@ -123,17 +153,29 @@
                           
                             <div class="dropdown-divider"></div>
                           
+<<<<<<< HEAD
                             <a class="dropdown-item" href="account.html"> My Account </a>
+=======
+                            <a class="dropdown-item" href="{{ route('frontend.account') }}"> My Account </a>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
 
                             <a class="dropdown-item" href="{{ route('frontend.panel') }}"> 
                                 My Dashboard 
                             </a>
 
+<<<<<<< HEAD
                             <a class="dropdown-item" href="changepassword.html"> Change Password </a>
 
                             <a class="dropdown-item" href="notification.html"> Notifications 
                                 <span class="badge badge-pill badge-danger"> +1 </span> 
+=======
+                            <a class="dropdown-item" href="{{ route('frontend.secret') }}"> Change Password </a>
+
+                            <a class="dropdown-item noti" href="{{ route('frontend.notification')}}"> Notifications 
+                                <span class="badge badge-pill badge-danger">0 </span> 
+                               
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                             </a>
 
                             <div class="dropdown-divider"></div>
@@ -190,7 +232,11 @@
 
                                 <div class="row">
                                     <div class="offset-4 col-4 offset-4">
+<<<<<<< HEAD
                                         <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
+=======
+                                        <a class="btn btn-block btn-primary mt-5 hvr-icon-grow-rotate" href="tel:+95798323199"> Call Now <i class="fas fa-phone-alt ml-3 hvr-icon"></i> </a>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                                     </div>
                                 </div>
 
@@ -198,6 +244,7 @@
 
                             @php $i++; } else{  @endphp
 
+<<<<<<< HEAD
                             <div class="carousel-item active">
                                 <p> No class now</p>                    
 
@@ -206,10 +253,21 @@
                                         <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
                                     </div>
                                 </div>
+=======
+                            <div class="carousel-item @if($i==0) {{'active'}} @endif">
+                                {{-- <p> No class now</p>                    
+
+                                <div class="row">
+                                    <div class="offset-4 col-4 offset-4">
+                                        <a class="btn btn-block btn-primary mt-5 hvr-icon-grow-rotate" href="tel:+95798323199"> Call Now <i class="fas fa-phone-alt ml-3 hvr-icon"></i> </a>
+                                    </div>
+                                </div> --}}
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                             </div>  
 
                             @php }; }else{ @endphp
                     
+<<<<<<< HEAD
                             <div class="carousel-item active">
                                 <p> No class now</p>                    
 
@@ -218,6 +276,16 @@
                                         <a class="btn btn-block btn-primary mt-5" href="tel:+95798323199"> Call Now </a>
                                     </div>
                                 </div>
+=======
+                            <div class="carousel-item @if($i==0) {{'active'}} @endif">
+                                {{-- <p> No class now</p>                    
+
+                                <div class="row">
+                                    <div class="offset-4 col-4 offset-4">
+                                        <a class="btn btn-block btn-primary mt-5 hvr-icon-grow-rotate" href="tel:+95798323199"> Call Now <i class="fas fa-phone-alt ml-3 hvr-icon"></i> </a>
+                                    </div>
+                                </div> --}}
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
                             </div> 
                         
@@ -225,7 +293,11 @@
                             @endforeach
                             @else
                         
+<<<<<<< HEAD
                                 <div class="carousel-item active">
+=======
+                                <div class="carousel-item @if($i==0) {{'active'}} @endif">
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                                     <p> No class now</p>                    
 
                                     <div class="row">
@@ -407,11 +479,70 @@
     <script src="{{ asset('mmitui/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
+<<<<<<< HEAD
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <!-- Plyr -->
     
   @yield('script')
+=======
+    {{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
+    <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    
+
+    <!-- Select2 -->
+    <script src="{{asset('sb_admin2/vendor/select2/dist/js/select2.min.js')}}"></script>
+    
+    <!-- Plyr -->
+    {{-- <script src="https://cdn.plyr.io/3.6.2/demo.js" crossorigin="anonymous"></script>
+    <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script> --}}
+
+  @yield('script')
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <script type="text/javascript">
+    //  var notificationsWrapper   = $('.dropdown-notifications');
+      var notificationsToggle    = $('.noti');
+     // var notificationsCountElem = notificationsToggle.find('i[data-count]');
+     var notificationsCountElem = notificationsToggle.find('span').text();
+     // alert(notificationsCountElem);
+      var notificationsCount     = parseInt(notificationsCountElem);
+     // console.log(notificationsCount);
+      //var notifications          = notificationsWrapper.find('ul.dropdown-menu');
+        showNoti();
+        function showNoti(){
+        $.get("/getnoti",function(response){
+        var count = response.length;
+        if(count > 0){
+        notificationsToggle.find('span').html(count);
+    }
+    });
+    }
+     /* if (notificationsCount <= 0) {
+        notificationsToggle.hide();
+      }*/
+
+      // Enable pusher logging - don't include this in production
+      // Pusher.logToConsole = true;
+          Pusher.logToConsole = true;
+
+     var pusher = new Pusher('0569f3090279c1cbab87', {
+      cluster: 'ap1'
+    });
+
+      // Subscribe to the channel we specified in our Laravel Event
+      var channel = pusher.subscribe('my-channel');
+
+      // Bind a function to a Event (the full Laravel class)
+      channel.bind('my-event', function(data) {
+      //  alert(JSON.stringify(data));
+        
+        showNoti();
+        notificationsToggle.show();
+      });
+    </script>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 </body>
 
 </html>

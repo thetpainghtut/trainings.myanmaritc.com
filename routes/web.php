@@ -24,6 +24,17 @@ Route::get('blog_detail/{id}','FrontendController@blog_detail')->name('frontend.
 Route::post('oldstduent','FrontendController@oldstduent')->name('oldstduent');
 
 
+<<<<<<< HEAD
+=======
+// nyiyelin
+Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
+
+Route::post('student_profile_update','FrontendController@student_profile_update')->name('frontend.student_profile_update');
+
+Route::post('secret_password_change','FrontendController@secret_password_change')->name('frontend.secret_password_change');
+
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
 
 //Honey Htun
@@ -66,6 +77,14 @@ Route::resource('roles','RoleController')->middleware('role:Admin');
 
 Route::resource('students','StudentController');
 
+<<<<<<< HEAD
+=======
+// nyiyelin
+Route::post('resend_mail','StudentController@resend_mail')->name('resend_mail');
+Route::post('student_status_change','StudentController@student_status_change')->name('student_status_change');
+
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 Route::resource('units','UnitController');
 
 Auth::routes();
@@ -116,8 +135,18 @@ Route::resource('/expenses','ExpenseController');
 Route::resource('inquires','InquireController');
 
 Route::post('installment','InquireController@preinstallment')->name('installment.store');
+<<<<<<< HEAD
 Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
 
+=======
+
+Route::post('full_installment','InquireController@fullinstallment')->name('fullinstallment.store');
+
+Route::post('postpone','InquireController@postpone')->name('postpone.store');
+
+Route::get('postpone_list/{id}','InquireController@postpone_list')->name('postpone_list');
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 //Monthly Report
 Route::get('/export/{month}/{year}', 'ExportController@monthlyreport')->name('monthlyreport');
 Route::get('/report', 'ReportController@report')->name('report');
@@ -146,6 +175,12 @@ Route::resource('lessons','LessonController');
 Route::post('show_subject','LessonController@show_subject')->name('show_subject');
 Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
 
+<<<<<<< HEAD
+=======
+//Honey
+Route::post('assign_batchsubject','LessonController@assign_batchsubject')->name('assign_batchsubject');
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
 Route::resource('projecttypes','ProjecttypeController');
@@ -157,6 +192,35 @@ Route::resource('feedbacks','FeedbackController');
 Route::get('panel','PanelController@index')->name('frontend.panel');
 Route::get('takelesson/{id}','PanelController@takelesson')->name('frontend.takelesson');
 
+<<<<<<< HEAD
+=======
+Route::get('channel/{id}','PanelController@channel')->name('frontend.channel');
+Route::post('allchannel','PanelController@allchannel')->name('allchannel');
+
+Route::get('takequiz','PanelController@takequiz')->name('frontend.takequiz');
+Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer');
+
+Route::get('secret','PanelController@secret')->name('frontend.secret');
+Route::get('account','PanelController@account')->name('frontend.account');
+Route::get('notification','PanelController@notification')->name('frontend.notification');
+
+//Honey
+Route::post('lesson_student','PanelController@lesson_student')->name('lesson_student');
+
+// nyiyelin
+Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
+Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.forgetpassword');
+Route::post('resetpassword','PanelController@resetpassword')->name('frontend.resetpassword');
+Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
+Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
+
+
+
+
+
+
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 // Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');
 
 Route::get('playcourse/{bid}/{sid}', [
@@ -165,4 +229,14 @@ Route::get('playcourse/{bid}/{sid}', [
 ]);
 
 
+<<<<<<< HEAD
 
+=======
+Route::post('postassign','PostController@postassign')->name('postassign');
+Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');
+Route::post('assignproduct','PostController@assignproduct')->name('assignproduct');
+Route::post('projecttitle','PanelController@projecttitle')->name('projecttitle');
+
+Route::get('/getnoti', 'PostController@getnoti')->name('getnoti');
+Route::post('notiread','PanelController@notiread')->name('notiread');
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7

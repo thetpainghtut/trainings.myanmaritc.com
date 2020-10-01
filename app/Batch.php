@@ -61,4 +61,14 @@ class Batch extends Model
     {
         return $this->hasMany('App\Feedback');
     }
+<<<<<<< HEAD
+=======
+
+
+    public function subjects()
+    {
+        return $this->belongsToMany('App\Subject')->withTimestamps();
+    }
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

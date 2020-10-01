@@ -44,6 +44,7 @@ class LoginController extends Controller
         if($user->hasRole('Admin')){
             return redirect('/students');
         }
+<<<<<<< HEAD
 // <<<<<<< HEAD
 //         elseif($user->hasRole('Mentor')) {
 //             return redirect('/students');
@@ -59,10 +60,28 @@ class LoginController extends Controller
 // =======
 
 // >>>>>>> 8fc8234fc4c81f694865982cba68a374b6426b01
+=======
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         elseif(Auth::user()->staffs)
         {   
             Auth::logout();
             return redirect()->route('login')->with('msg','You are not our members anymore') ;
+<<<<<<< HEAD
+=======
+            
+        }elseif($user->hasRole('Student')){
+        if(Auth::user()->student->batches){
+            foreach (Auth::user()->student->batches as  $value) {
+                if($value->pivot->status == "Active"){
+                    return redirect('/panel');
+                }else{
+                    Auth::logout();
+                return redirect()->route('login')->with('msg','You are not our student anymore') ;
+                }
+            }
+            }
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         }
         
         elseif($user->hasRole('Mentor')) {

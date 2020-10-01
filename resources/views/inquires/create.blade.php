@@ -2,12 +2,37 @@
 
 @section('content')
 
+<<<<<<< HEAD
     <h1 class="h3 mb-4 text-gray-800"> Inquires </h1>
+=======
+    <div class="row">
+        <div class="col-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('inquires.index') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('inquires.show',$batch->id)}}"> {{ $batch->title }} </a></li>
+
+                    <li class="breadcrumb-item active" aria-current="page"> Inquire</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-2">
+            <a href="{{route('inquires.index')}}" class="btn btn-outline-primary float-right btn-sm">
+                <i class="fas fa-backward mr-2"></i>
+                Go Back
+            </a>
+        </div>
+    </div> 
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> Create New Inquire
+<<<<<<< HEAD
                 <a href="{{route('inquires.index')}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-backward mr-2"></i> Go Back </a>
+=======
+               
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             </h5>
         </div>
         <div class="card-body">
@@ -97,10 +122,17 @@
                 <div class="form-group row">
                     <label for="inputCourse" class="col-sm-2 col-form-label">Course</label>
                     <div class="col-sm-10">
+<<<<<<< HEAD
                         <select class="form-control" id="inputCourse">
                             <option value="">Choose Course</option>
                             @foreach($courses as $course)
                                 <option value="{{$course->id}}">{{$course->name}}</option>
+=======
+                        <select class="form-control" id="inputCourse" disabled="">
+                            <option value="">Choose Course</option>
+                            @foreach($courses as $course)
+                                <option value="{{$course->id}}" {{ ($course->id == $batch_course->id)? "selected":"" }}>{{$course->name}}</option>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                             @endforeach
                         </select>
                     </div>
@@ -145,13 +177,40 @@
                 var batches_data =`<label for="inputBatch" class="col-sm-2 col-form-label">Batch</label>
                                     <div class="col-sm-10">
                                         <select name="batch_id" class="form-control" >
+<<<<<<< HEAD
                                         <option value="">Choose Batch</option>`;
+=======
+                                        <option>Choose Batch</option>
+                                       `;
                                             $.each(response,function(i,v) {
                                             batches_data+=`<option value="${v.id}">${v.title} (${v.startdate})</option>`;
                                             })
                 batches_data+=`</select></div>`;
                 $('#inputBatch').html(batches_data);
             })
+        })
+
+        $(function() {
+
+            var course_id = $("#inputCourse").val();
+            //console.log(course_id);
+            $.post('/getBatches',{course_id:course_id},function(response){
+               // console.log(response);
+                var batches_data =`<label for="inputBatch" class="col-sm-2 col-form-label">Batch</label>
+                                    <div class="col-sm-10">
+                                        <select name="batch_id" class="form-control">
+                                        `;
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+                                            $.each(response,function(i,v) {
+                                            batches_data+=`<option value="${v.id}">${v.title} (${v.startdate})</option>`;
+                                            })
+                batches_data+=`</select></div>`;
+                $('#inputBatch').html(batches_data);
+            })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         })
     })
 </script>

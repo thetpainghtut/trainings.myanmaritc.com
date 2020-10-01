@@ -65,4 +65,13 @@ class Student extends Model
     {
         return $this->belongsTo('App\Inquire', 'inquireno');
     }
+<<<<<<< HEAD
+=======
+
+    public function lessons()
+    {
+        return $this->belongsToMany('App\Lesson');
+
+    }
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

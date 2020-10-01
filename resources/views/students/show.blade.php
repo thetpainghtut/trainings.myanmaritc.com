@@ -14,11 +14,24 @@
 			    <div class="card-body">
 					<div class="row">
 						<div class="col-12">
+<<<<<<< HEAD
 							<h5 class="float-right"> 
 					    		{{ $student->batch->course->name }}
 					    		( {{ $student->batch->course->location->city->name }} )
 
 					    		{{ $student->batch->title }}
+=======
+							<h5 class="float-right">
+								@foreach($student->batches as $student_batch)
+								@if($student_batch->pivot->status=="Active")
+					    		{{ $student_batch->course->name }}
+					    		{{-- nyiyelin --}}
+					    		( {{ $student_batch->location->name }} )
+
+					    		( {{ $student_batch->title }} )
+					    		@endif
+					    		@endforeach
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 					    	</h5>
 						</div>
 					</div>
@@ -50,7 +63,11 @@
 
 				          	<div class="row my-5">
 				          		<div class="col-6">
+<<<<<<< HEAD
 				          			<p class="border-bottom border-secondary text-dark text-center"> {{ $student->education }} </p>
+=======
+				          			<p class="border-bottom border-secondary text-dark text-center"> {{ $student->degree }} </p>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 				          			<p class="text-center font-italic font-weight-lighter"> ( Education ) </p>
 				          		</div>
 

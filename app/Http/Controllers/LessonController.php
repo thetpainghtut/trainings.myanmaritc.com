@@ -8,7 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Lesson;
 use App\Subject;
 use App\Course;
+<<<<<<< HEAD
 use Owenoj\LaravelGetId3\GetId3;
+=======
+use App\Batch;
+use Owenoj\LaravelGetId3\GetId3;
+use Carbon;
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
 class LessonController extends Controller
 {
@@ -215,13 +221,47 @@ class LessonController extends Controller
 
     }
 
+<<<<<<< HEAD
     public function view_lesson($id){
+=======
+    public function view_lesson($id)
+    {
+        // $course_id = $_GET['course_id'];
+        // $course = Course::find($course_id);
+        // $batches = $course->batches;
+        $today_date = Carbon\Carbon::now();
+        
+        // $batches = Batch::all();
+        $batches = Batch::where([['startdate','<=',$today_date],['enddate','>=',$today_date]])->get();
+       
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
         $subject = Subject::find($id);
 
         $lessons = Lesson::where('subject_id','=',$id)->get();
 
+<<<<<<< HEAD
         return view('lessons.video',compact('lessons','subject'));
+=======
+        return view('lessons.video',compact('lessons','subject','batches'));
+
+    }
+
+    public function assign_batchsubject(Request $request)
+    {
+
+        $request->validate([
+            'batch' => 'required'
+        ]);
+
+        $subject_id = request('subject_id');
+        $batch_id = request('batch');
+       
+        $batch = Batch::find($batch_id);
+        $batch->subjects()->attach($subject_id);
+
+        return response()->json($batch);
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
     }
 }

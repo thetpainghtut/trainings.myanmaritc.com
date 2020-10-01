@@ -35,3 +35,8 @@ class Course extends Model
         return $this->hasMany('App\Unit');
     }
 }
+<<<<<<< HEAD
+=======
+
+ 
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7

@@ -12,13 +12,24 @@ use App\Education;
 use App\Township;
 use App\Journal;
 use App\User;
+<<<<<<< HEAD
 
 
+=======
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use App\Http\Resources\StudentResource;
+use App\Lesson;
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 class FrontendController extends Controller
 {
   public function index($value='')
   {
     return view('frontend.index');
+<<<<<<< HEAD
+=======
+     
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
   }
 
   public function csr($value='')
@@ -163,4 +174,103 @@ class FrontendController extends Controller
     return response()->json(['user'=>$user]);
 
   }
+<<<<<<< HEAD
+=======
+
+  public function update_password(Request $request)
+  {
+    // dd($request);
+    $request->validate([
+      'email' => 'required',
+      'changepassword' => 'required|confirmed|min:8',
+      'changepassword_confirmation' => 'required',
+      'currentpassword' => 'required',
+    ]);
+    $email = $request->email;
+    $changepassword = $request->changepassword;
+    $confirmpassword = $request->confirmpassword;
+    $currentpassword = $request->currentpassword;
+
+    $user = User::where('email',$email)->first();
+
+    if(Hash::check($currentpassword,$user->password)){
+        $user->password = Hash::make($changepassword);
+        $user->save();
+
+        return redirect()->route('login')->with('success','Successfully change Password!');
+    }else{
+      return back()->with('msg','You password and email does not match in our record.
+        And fill again');
+    }
+
+  }
+
+
+  public function student_profile_update(Request $request)
+  {
+    // dd($request);
+      $request->validate([
+                        'name'=>'required',
+                        'phone' => 'required',
+                        'email' => 'required',
+                        'address' => 'required',
+                      ]);
+
+      if($request->hasfile('logo'))
+      {
+          $hasphoto = $request->file('logo');
+          $name = time().'.'.$hasphoto->getClientOriginalExtension();
+          $dir = '/storage/images/students/';
+          
+          $hasphoto->move(public_path().$dir,$name);
+          $file_path = $dir.$name;
+
+      }else{
+        $file_path = $request->oldlogo;
+      }
+      $user_id = Auth::id();
+      $user = User::find($user_id);
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->save();
+
+      $student = Student::where('user_id',$user_id)->first();
+      $student->namee = $request->name;
+      $student->email = $request->email;
+      $student->photo = $file_path;
+      $student->address = $request->address;
+      $student->save();
+
+      return redirect()->route('frontend.account')->with('msg','Successfullly Update your profile');
+
+  }
+
+
+
+  public function secret_password_change(Request $request)
+  {
+    $request->validate([
+      'changepassword' => 'required|confirmed|min:8',
+      'changepassword_confirmation' => 'required',
+      'currentpassword' => 'required',
+    ]);
+
+    $user = Auth::user();
+    $changepassword = $request->changepassword;
+    $changepassword_confirmation = $request->changepassword_confirmation;
+    $currentpassword = $request->currentpassword;
+
+    if(Hash::check($currentpassword,$user->password)){
+      $user->password = Hash::make($changepassword);
+      $user->save();
+      return back()->with('msg','Successfully change password');
+    }else{
+      return back()->with('error','Current password does not match in our records!');
+    }
+  }
+
+
+
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

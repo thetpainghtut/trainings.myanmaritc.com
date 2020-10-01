@@ -13,6 +13,11 @@ use App\Education;
 use App\Township;
 use Rabbit;
 use App\User;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,6 +35,10 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+<<<<<<< HEAD
+=======
+      // dd($request);
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
       $courses = Course::all();
       $batches = Batch::all();
 
@@ -38,9 +47,17 @@ class StudentController extends Controller
       if (request('batch')) {
         $bid = request('batch');
         $groups = Group::where('batch_id',$bid)->get();
+<<<<<<< HEAD
         $students = Student::where('batch_id',$bid)->get();
 
         return view('students.index',compact('students','courses','batches','groups','bid'));
+=======
+        $batch = Batch::find($bid);
+        // $students = Student::where('batch_id',$bid)->get();
+
+
+        return view('students.index',compact('courses','batches','groups','bid','batch'));
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
       }else{
         $students = Student::all();
         // Return 
@@ -75,6 +92,10 @@ class StudentController extends Controller
       // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
+<<<<<<< HEAD
+=======
+      // dd($request->batch_id);
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
@@ -125,7 +146,13 @@ class StudentController extends Controller
         $townshipid = $township->id;
         $city = $township->city->name;
 
+<<<<<<< HEAD
         if ($user_id) {
+=======
+
+        if ($user_id) {
+          // // dd('hi');
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             $user = User::find($user_id);
             $user->name = $namee;
             $user->email= $email;
@@ -152,17 +179,28 @@ class StudentController extends Controller
             $student->because = $because;
             $student->township_id = $townshipid;
             $student->user_id = $user_id;
+<<<<<<< HEAD
+=======
+            $student->status=null;
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             $student->save();
 
             $student->subjects()->detach();
             $student->subjects()->attach($subjects);
 
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             return 'ok';
 
         }
         else{
+<<<<<<< HEAD
+=======
+          // dd('hello');
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             $user = new User;
             $user->name = request('namee');
             $user->email=request('email');
@@ -199,6 +237,7 @@ class StudentController extends Controller
             $subjects = request('subjects');
 
             // Save student_subject
+<<<<<<< HEAD
             // $student->subjects()->detach();
             $student->subjects()->attach($subjects);
 
@@ -207,6 +246,24 @@ class StudentController extends Controller
 
 
             return 'ok';
+=======
+            $student->subjects()->detach();
+            $student->subjects()->attach($subjects);
+
+            $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
+            // mail
+
+            $data = array('name' => $request->namee,
+                          'email' => $request->email,
+                          'password' => '123456789',);
+
+            Mail::to($request->email)->send(new SendMail($data));
+
+
+
+            return 'confirm';
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         }
         // Save Data
 
@@ -235,9 +292,18 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function edit($id)
     {
         //
+=======
+    public function edit(Request $request,$id)
+    {
+
+        $student = Student::find($id);
+        $townships = Township::all();
+        return view('students.edit',compact('student','townships'));
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -249,7 +315,67 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         //
+=======
+      // dd($request);
+        $request->validate([
+          'namee' => 'required',
+          'namem' => 'required',
+          'email' => 'required',
+          'gender' => 'required',
+          'dob' => 'required',
+          'phone' => 'required',
+          'address' => 'required',
+          'father' => 'required',
+          'mother' => 'required',
+        ]);
+        $namee = $request->namee;
+        $namem = $request->namem;
+        $email = $request->email;
+        $gender = $request->gender;
+        $dob = $request->dob;
+        $phone = $request->phone;
+        $address = $request->address;
+        $father = $request->father;
+        $mother = $request->mother;
+        $course_id = $request->course_id;
+        $batch_id = $request->batch_id;
+
+        if($request->hasfile('newphoto')){
+          $photo = $request->file('newphoto');
+          $dir = '/storage/images/students/';
+          $file = time().'.'.$photo->getClientOriginalExtension();
+          $photo->move(public_path().$dir,$file);
+          $filepath = $dir.$file;
+        }else{
+          $filepath = $request->oldphoto;
+        }
+
+        $student = Student::find($id);
+        $student->namee = $namee;
+        $student->namem = $namem;
+        $student->photo = $filepath;
+
+        $student->email = $email;
+        $student->gender = $gender;
+        $student->dob = $dob;
+        $student->phone = $phone;
+        $student->address = $address;
+        $student->p1 = $father;
+        $student->p2 = $mother;
+        $student->save();
+
+        $user_id = $student->user_id;
+        $user = User::find($user_id);
+        $user->name = $namee;
+        $user->email = $email;
+        $user->save();
+        return redirect('students?course='.$course_id.'.&batch='.$batch_id)->with('msg','Successfully Update!');
+
+
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -270,5 +396,44 @@ class StudentController extends Controller
         return redirect()->route('students.index');
     }
 
+<<<<<<< HEAD
+=======
+    public function resend_mail(Request $request)
+    {
+
+      $student_id = $request->student_id;
+      $student = Student::find($student_id);
+
+      $data = array('name' => $student->namee,
+                    'email' => $student->email,
+                    'password' => '123456789',
+                    );
+      Mail::to($student->email)->send(new SendMail($data));
+      return 'ok';
+    }
+
+    public function student_status_change(Request $request)
+    {
+      // dd($request);
+      $request->validate([
+                        'student_id' => 'required',
+                        'status' => 'required',
+            ]);
+      $student_id = $request->student_id;
+      $batch_id = $request->batch_id;
+      $status = $request->status;
+      $receive_no = $request->receive_no;
+      $batch = Batch::find($batch_id);
+      $pivotstatus = "Deactive( ".$status.' )';
+
+      $batch->students()->updateExistingPivot($student_id,['receiveno'=>$receive_no,'status'=>$pivotstatus]);
+     // dd($/data);
+      $student = Student::find($student_id);
+      // $student->status = $status;
+      $student->save();
+      return response()->json('student');
+    }
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
   
 }

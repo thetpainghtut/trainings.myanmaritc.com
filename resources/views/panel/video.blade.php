@@ -1,7 +1,11 @@
 @extends('template')
 @section('content')
 
+<<<<<<< HEAD
 	<!-- Header -->
+=======
+    <!-- Header -->
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -38,6 +42,7 @@
                         @foreach($lessons as $key => $lesson)
                             <div class="card mb-0">
                                 <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ $lesson->id }}">
+<<<<<<< HEAD
                                     <a class="card-title"> 
                                         <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
                                     </a>
@@ -49,6 +54,50 @@
                                            
                                         <source src="{{ asset($lesson->file) }}" type="video/mp4" />
                                     </video>
+=======
+                                     @php
+                                        $student = Auth::user()->student;
+                                        $student_id = $student->id;
+                                    @endphp
+                                    @foreach($lesson->students as $lesson_student)
+                                        @php
+                                            $lesson_pid = $lesson_student->pivot->lesson_id;
+                                            $student_pid = $lesson_student->pivot->student_id;
+
+                                        @endphp
+                                        @if($lesson->id == $lesson_pid && $student_id == $student_pid)
+                                        <a class="card-title"> 
+                                            <i class="far fa-check-circle mr-3 text-success"></i> {{ $lesson->title }}
+                                        </a>
+                                        @else
+                                        <a class="card-title"> 
+                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
+                                        </a>
+
+                                        @endif
+                                         @php
+                                         break;
+                                        @endphp
+                                    @endforeach
+
+                                    @if($lesson->students->isEmpty())
+                                        <a class="card-title"> 
+                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
+                                        </a>
+                                    @endif
+                                    
+                                </div>
+                                <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
+                                    <div class="video-player">
+                                    <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline data-poster="{{ asset($subject->logo) }}" data-id="{{ $lesson->id}}" data-duration="{{ $lesson->duration }}">
+                                           
+
+                                        
+                                        <source src="{{ asset($lesson->file) }}" type="video/mp4" />
+
+                                    </video>
+                                    </div>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
                                 </div>
                             </div>
@@ -75,9 +124,38 @@
     <script type="text/javascript">
         $(document).ready(function(){
             window.player = player;
+<<<<<<< HEAD
 
         });
 
+=======
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.lesson_video_play').on('play',function(){
+               
+                var lesson_id = $(this).data('id');
+                var duration = $(this).data('duration');
+                var current_time = this.currentTime;
+                // alert(current_time);
+                console.log(lesson_id,duration);
+            })
+            $('.lesson_video_play').on('pause',function(){
+               
+                var lesson_id = $(this).data('id');
+                var duration = $(this).data('duration');
+                var current_time = this.currentTime;
+                var pause_time = current_time.toFixed(2)
+                if(duration == pause_time){
+                    $.post('/lesson_student',{lesson_id:lesson_id},function(res){
+                        console.log(res);
+                    })
+                }
+            });
+        })
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             var player = Plyr.setup('.js-player',{
                 invertTime: false,
                 i18n: {
@@ -87,10 +165,14 @@
                     start: "Start",
                     end: "End",
                     seekTime : 10
+<<<<<<< HEAD
 
 
                 },
 
+=======
+                },
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 controls: [
                     'play-large', // The large play button in the center
                     'restart', // Restart playback
@@ -104,6 +186,7 @@
                     'captions', // Toggle captions
                     'settings', // Settings menu
                     'fullscreen', // Toggle fullscreen
+<<<<<<< HEAD
 
                 ],
                 events: ["ended", "progress", "stalled", "playing", "waiting", "canplay", "canplaythrough", "loadstart", "loadeddata", "loadedmetadata", "timeupdate", "volumechange", "play", "pause", "error", "seeking", "seeked", "emptied", "ratechange", "cuechange", "download", "enterfullscreen", "exitfullscreen", "captionsenabled", "captionsdisabled", "languagechange", "controlshidden", "controlsshown", "ready", "statechange", "qualitychange", "adsloaded", "adscontentpause", "adscontentresume", "adstarted", "adsmidpoint", "adscomplete", "adsallcomplete", "adsimpression", "adsclick"],
@@ -116,10 +199,20 @@
 
             // players.currentTime = 10;
 
+=======
+                    'airplay'
+                ],
+                events: ["ended", "progress", "stalled", "playing", "waiting", "canplay", "canplaythrough", "loadstart", "loadeddata", "loadedmetadata", "timeupdate", "volumechange", "play", "pause", "error", "seeking", "seeked", "emptied", "ratechange", "cuechange", "download", "enterfullscreen", "exitfullscreen", "captionsenabled", "captionsdisabled", "languagechange", "controlshidden", "controlsshown", "ready", "statechange", "qualitychange", "adsloaded", "adscontentpause", "adscontentresume", "adstarted", "adsmidpoint", "adscomplete", "adsallcomplete", "adsimpression", "adsclick"],
+                
+                clickToPlay: true,
+            });
+            // players.currentTime = 10;
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             document.querySelector('.plyr').addEventListener('seeking', () => {
                 console.log('seeking');
                 player.currentTime = 30;
                 // console.log(currentTime);
+<<<<<<< HEAD
                 
                 
 
@@ -132,5 +225,12 @@
 
 
 
+=======
+                // console.log(player.airPlay);
+                player.currentTime=10;
+                console.log(player.currentTime);
+            });
+        });
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     </script>
 @endsection

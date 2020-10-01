@@ -26,6 +26,10 @@ class CreateInquiresTable extends Migration
             $table->longText('knowledge')->nullable();
             $table->string('camp');
             $table->string('acceptedyear')->nullable();
+<<<<<<< HEAD
+=======
+            $table->longText('message')->nullable();
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
             $table->unsignedBigInteger('education_id');
             $table->foreign('education_id')

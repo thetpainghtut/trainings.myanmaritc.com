@@ -27,4 +27,12 @@ class Projecttype extends Model
     {
         return $this->hasOne('App\Project');
     }
+<<<<<<< HEAD
+=======
+
+    public function batches()
+    {
+        return $this->belongsToMany('App\Batch');
+    }
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

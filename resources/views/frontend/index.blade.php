@@ -1,5 +1,25 @@
 @extends('template')
 @section('content')
+<<<<<<< HEAD
+=======
+<style type="text/css">
+
+    .modal-body {
+        position:relative;
+        padding:0px;
+    }
+    .close {
+        position:absolute;
+        right:-30px;
+        top:0;
+        z-index:999;
+        font-size:2rem;
+        font-weight: normal;
+        color:#fff;
+        opacity:1;
+    }
+</style>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
@@ -8,10 +28,18 @@
                     <h1 class="display-4 text-white mt-3 mb-2" style="font-family: Poppins_Bold"> Myanmar <span style="color: #f5a40c; text-decoration:underline;font-family: Poppins_Bold"> IT </span> </h1>
                   
                     <p class="lead mb-3 text-white mmfont">  အိုင်တီလမ်းကြောင်းပေါ်လျှောက်လှမ်းချင်တဲ့ ကျောင်းသားလူငယ်လေးတွေ လိုအပ်တဲ့အရည်အချင်းတွေဖြည့်တင်းပြီး လုပ်ငန်းခွင်ထဲ အရည်အချင်းအချင်းရှိရှိနဲ့ ဝင်ရောက်နိုင်ဖို့ အကောင်းဆုံးကြိုးစားပေးမည် MMIT </p>
+<<<<<<< HEAD
                   
                     <a class="btn btn-outline-light rounded-pill py-2 px-4 my-3 hvr-icon-wobble-horizontal" href="landing-multipurpose.html">
                     Video<i class="fas fa-arrow-right ml-2 hvr-icon"></i>
                     </a>
+=======
+
+                    <button type="button" class="btn btn-outline-light rounded-pill py-2 px-4 my-3 hvr-icon-wobble-horizontal video-btn" data-toggle="modal" data-src="{{ asset('mmitui/about.mp4') }}" data-target="#myModal">
+                        Video<i class="fas fa-arrow-right ml-2 hvr-icon"></i>
+                    </button>
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 order-lg-2 order-md-1 order-sm-1">
                     <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_4kA0aR.json"  background="transparent"  speed="1"   loop  autoplay class="mx-auto d-block"></lottie-player>
@@ -20,6 +48,27 @@
         </div>
     </header>
 
+<<<<<<< HEAD
+=======
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>        
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <!-- Header -->
 
     @if(session('status'))
@@ -102,7 +151,11 @@
                         <!-- Blog Title -->
                         <h5 class="mb-4 card-title"> Recruitment </h5>
                         <!-- Blog Body -->
+<<<<<<< HEAD
                         <p> We know very well about Myanmar IT Professionals and Myanmar. Our recruitment experts have enough experience in the placement of temporary and permanent staff for your organization. </p>
+=======
+                        <p> We have been working with IT companies in Myanmar since 2015.We know very well about Myanmar IT Professionals and Myanmar. Our recruitment experts have good experience in the placement of temporary and permanent staff for your organization. </p>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         
                     </div>
                 </div>
@@ -116,9 +169,15 @@
                   
                     <div class="col-lg-9 col-md-12 col-sm-12 col-12 p-4">
                         <!-- Blog Title -->
+<<<<<<< HEAD
                         <h5 class="mb-4 card-title"> Outsystems Outsourcing </h5>
                         <!-- Blog Body -->
                         <p>We work on web application development, iOS and Android Appliction Develpment using Outsystems low-code platform. We are the first outsourcing company using Outsystems in Myanmar.  </p>
+=======
+                        <h5 class="mb-4 card-title"> IT Staff Outsourcing </h5>
+                        <!-- Blog Body -->
+                        <p>We provide IT Staff Outsourcing service for local and international companies who would like to hire temporary staff for their short term project requirements. Some of our clients would like to use HR Management service for their IT Department and we provide IT Staff Outsourcing based on their requirements. </p>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         
                     </div>
                 </div>
@@ -132,9 +191,15 @@
                   
                     <div class="col-lg-9 col-md-12 col-sm-12 col-12 p-4">
                         <!-- Blog Title -->
+<<<<<<< HEAD
                         <h5 class="mb-4 card-title"> Software Development </h5>
                         <!-- Blog Body -->
                         <p> We provide customize software and web development services for our clients from Myanmar. </p>
+=======
+                        <h5 class="mb-4 card-title"> Software Development local and Offshore </h5>
+                        <!-- Blog Body -->
+                        <p> We provide web application and mobile application development services for our clients from Myanmar. Our development experience includes E-commerce,Medical Record System, Learning Management System, Payroll Management System, Mobile Phone Service Record System, POS System, Bus Ticket System. We also work Offshore Jobs with Japanese Companies. </p>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         
                     </div>
                 </div>
@@ -150,7 +215,11 @@
                         <!-- Blog Title -->
                         <h5 class="mb-4 card-title"> Training </h5>
                         <!-- Blog Body -->
+<<<<<<< HEAD
                         <p> We provide PHP web development training and iOS,Android Appliction Develpment Training and Office Staff/HR Training for Myanmar talents. </p>
+=======
+                        <p> We provide Web Application development training with PHP/Java , Mobile Application Development Training and Office Staff/HR Training for Myanmar talents. We introduce our graduated students with our client companies. From 2020 January, we have started Japanese and IT Bootcamp for local IT graduates who would like to work in Japan as IT Engineers.  </p>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         
                     </div>
                 </div>
@@ -234,6 +303,39 @@
         </section>
     </div>
     <!-- COURSE -->
+<<<<<<< HEAD
 
 
+=======
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        var videoSrc;  
+        $('.video-btn').click(function() {
+            videoSrc = $(this).data( "src" );
+        });
+        // console.log(videoSrc);
+
+          
+          
+        // when the modal is opened autoplay it  
+        $('#myModal').on('shown.bs.modal', function (e) {
+            
+        // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+        $("#video").attr('src',videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" ); 
+        })
+          
+
+
+        // stop playing the youtube video when I close the modal
+        $('#myModal').on('hide.bs.modal', function (e) {
+            // a poor man's stop video
+            console.log(videoSrc);
+            $("#video").attr('src',''); 
+        }) 
+    });
+</script>
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 @endsection
