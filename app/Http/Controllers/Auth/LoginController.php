@@ -50,7 +50,8 @@ class LoginController extends Controller
             Auth::logout();
             return redirect()->route('login')->with('msg','You are not our members anymore') ;
             
-        }elseif(Auth::user()->student->batches){
+        }elseif($user->hasRole('Student')){
+        if(Auth::user()->student->batches){
             foreach (Auth::user()->student->batches as  $value) {
                 if($value->pivot->status == "Active"){
                     return redirect('/panel');
@@ -58,6 +59,7 @@ class LoginController extends Controller
                     Auth::logout();
                 return redirect()->route('login')->with('msg','You are not our student anymore') ;
                 }
+            }
             }
         }
         

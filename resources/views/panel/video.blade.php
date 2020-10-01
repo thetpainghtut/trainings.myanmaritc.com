@@ -50,8 +50,6 @@
                                         
                                         <source src="{{ asset($lesson->file) }}" type="video/mp4" />
 
-                                        {{-- <iframe src="{{ asset($lesson->file) }}"></iframe> --}}
-
                                     </video>
                                     </div>
 
@@ -100,18 +98,12 @@
                 var current_time = this.currentTime;
                 var pause_time = current_time.toFixed(2)
                 if(duration == pause_time){
-                    alert(pause_time);
-                    alert(lesson_id);
-                    $.post('lesson_student',{lesson_id:lesson_id},function(res){
+                    $.post('/lesson_student',{lesson_id:lesson_id},function(res){
                         console.log(res);
                     })
                 }
-               
-                // console.log(lesson_id,duration);
-            })
-        });
+            });
             var player = Plyr.setup('.js-player',{
-
                 invertTime: false,
                 i18n: {
                     rewind: 'Rewind 5s',
@@ -142,10 +134,13 @@
             });
             // players.currentTime = 10;
             document.querySelector('.plyr').addEventListener('seeking', () => {
+                console.log('seeking');
+                player.currentTime = 30;
+                // console.log(currentTime);
                 // console.log(player.airPlay);
                 player.currentTime=10;
                 console.log(player.currentTime);
-                
             });
+        });
     </script>
 @endsection

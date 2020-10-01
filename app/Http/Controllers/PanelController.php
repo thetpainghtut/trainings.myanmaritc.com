@@ -23,14 +23,24 @@ use Illuminate\Support\Facades\Hash;
 
 class PanelController extends Controller
 {
-    public function index()
+
+    public function __construct($value='')
     {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {        
+        
         $auth = Auth::user();
         $studentinfo = $auth->student;
 
         $studentbatches = $studentinfo->batches;
 
-    	return view('panel.dashboard',compact('studentinfo','studentbatches'));
+        return view('panel.dashboard',compact('studentinfo','studentbatches'));
+              
+        
+       
     }
 
     public function takelesson($batchid){
@@ -195,7 +205,33 @@ class PanelController extends Controller
 
     public function lesson_student(Request $request)
     {
-        dd($request);
+        $lesson_id = request('lesson_id');
+        $lesson = Lesson::find($lesson_id);
+        $user = Auth::user();
+        $student = $user->student;
+        $student_id = $student->id;
+
+        if($lesson->students->isEmpty())
+        {            
+            $lesson->students()->attach($student_id);            
+
+        }else{
+            
+            foreach($lesson->students as $less_student)
+            {
+                $student_pid = $less_student->pivot->student_id;
+                $lesson_pid = $less_student->pivot->lesson_id;
+
+                if($lesson_id == $lesson_pid && $student_id == $student_pid)
+                {
+                    break;
+                }else{
+
+                    $lesson->students()->attach($student_id);
+                }
+            }
+        }
+        return response()->json($lesson);
     }
 
 
