@@ -65,4 +65,10 @@ class Student extends Model
     {
         return $this->belongsTo('App\Inquire', 'inquireno');
     }
+
+    public function lessons()
+    {
+        return $this->belongsToMany('App\Lesson');
+
+    }
 }

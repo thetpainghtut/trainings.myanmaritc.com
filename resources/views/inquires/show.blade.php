@@ -58,7 +58,7 @@
                                         <td>{{$no_payment->inquireno}}</td>
                                         <td>{{$no_payment->education->name}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$no_payment->name}}" data-inquireno="{{$no_payment->inquireno}}" data-receiveno="{{$no_payment->receiveno}}" data-gender="{{$no_payment->gender}}"  data-phone="{{$no_payment->phone}}" data-installmentdate="{{$no_payment->installmentdate}}" data-installmentamount="{{$no_payment->installmentamount}}" data-knowledge="{{$no_payment->knowledge}}" data-camp="{{$no_payment->camp}}" data-education="{{$no_payment->education->name}}" data-acceptedyear="{{$no_payment->acceptedyear}}" data-batch="{{$no_payment->batch->title}}" ><i class="fas fa-info"></i>
+                                            <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$no_payment->name}}" data-inquireno="{{$no_payment->inquireno}}" data-receiveno="{{$no_payment->receiveno}}" data-gender="{{$no_payment->gender}}"  data-phone="{{$no_payment->phone}}" data-installmentdate="{{$no_payment->installmentdate}}" data-installmentamount="{{$no_payment->installmentamount}}" data-knowledge="{{$no_payment->knowledge}}" data-camp="{{$no_payment->camp}}" data-education="{{$no_payment->education->name}}" data-acceptedyear="{{$no_payment->acceptedyear}}" data-batch="{{$no_payment->batch->title}}" data-message="{{$no_payment->message}}"><i class="fas fa-info"></i>
                                             </a>
 
                                             <div class="btn-group">
@@ -114,7 +114,7 @@
                                     <td>{{$first_payment->inquireno}}</td>
                                     <td>{{$first_payment->education->name}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$first_payment->name}}" data-inquireno="{{$first_payment->inquireno}}" data-receiveno="{{$first_payment->receiveno}}" data-gender="{{$first_payment->gender}}"  data-phone="{{$first_payment->phone}}" data-installmentdate="{{$first_payment->installmentdate}}" data-installmentamount="{{$first_payment->installmentamount}}" data-knowledge="{{$first_payment->knowledge}}" data-camp="{{$first_payment->camp}}" data-education="{{$first_payment->education->name}}" data-acceptedyear="{{$first_payment->acceptedyear}}" data-batch="{{$first_payment->batch->title}}" ><i class="fas fa-info"></i>
+                                        <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$first_payment->name}}" data-inquireno="{{$first_payment->inquireno}}" data-receiveno="{{$first_payment->receiveno}}" data-gender="{{$first_payment->gender}}"  data-phone="{{$first_payment->phone}}" data-installmentdate="{{$first_payment->installmentdate}}" data-installmentamount="{{$first_payment->installmentamount}}" data-knowledge="{{$first_payment->knowledge}}" data-camp="{{$first_payment->camp}}" data-education="{{$first_payment->education->name}}" data-acceptedyear="{{$first_payment->acceptedyear}}" data-batch="{{$first_payment->batch->title}}" data-message="{{$first_payment->message}}"><i class="fas fa-info"></i>
                                         </a>
 
                                         <div class="btn-group">
@@ -166,7 +166,7 @@
                                     <td>{{$full_payment->inquireno}}</td>
                                     <td>{{$full_payment->education->name}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$full_payment->name}}" data-inquireno="{{$full_payment->inquireno}}" data-receiveno="{{$full_payment->receiveno}}" data-gender="{{$full_payment->gender}}"  data-phone="{{$full_payment->phone}}" data-installmentdate="{{$full_payment->installmentdate}}" data-installmentamount="{{$full_payment->installmentamount}}" data-knowledge="{{$full_payment->knowledge}}" data-camp="{{$full_payment->camp}}" data-education="{{$full_payment->education->name}}" data-acceptedyear="{{$full_payment->acceptedyear}}" data-batch="{{$full_payment->batch->title}}" ><i class="fas fa-info"></i>
+                                        <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$full_payment->name}}" data-inquireno="{{$full_payment->inquireno}}" data-receiveno="{{$full_payment->receiveno}}" data-gender="{{$full_payment->gender}}"  data-phone="{{$full_payment->phone}}" data-installmentdate="{{$full_payment->installmentdate}}" data-installmentamount="{{$full_payment->installmentamount}}" data-knowledge="{{$full_payment->knowledge}}" data-camp="{{$full_payment->camp}}" data-education="{{$full_payment->education->name}}" data-acceptedyear="{{$full_payment->acceptedyear}}" data-batch="{{$full_payment->batch->title}}" data-message="{{$full_payment->message}}"><i class="fas fa-info"></i>
                                         </a>
 
                                         <div class="btn-group">
@@ -287,6 +287,13 @@
                         <label class="col-md-5 offset-md-1">Batch:</label>
                         <div class="col-md-6">
                             <p class="inquire_batch"></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-md-5 offset-md-1">Message:</label>
+                        <div class="col-md-6">
+                            <p class="message"></p>
                         </div>
                     </div>
                 </div>
@@ -461,6 +468,7 @@
                 var education = $(this).data('education');
                 var acceptedyear = $(this).data('acceptedyear');
                 var batch = $(this).data('batch');
+                var message = $(this).data('message');
                 
                 $('.inquire_no').text(inquireno);
                 $('.receive_no').text(receiveno);
@@ -474,6 +482,7 @@
                 $('.education').text(education);
                 $('.acceptedyear').text(acceptedyear);
                 $('.inquire_batch').text(batch);
+                $('.message').text(message);
                 $('.detail_modal').modal('show');
             })
 

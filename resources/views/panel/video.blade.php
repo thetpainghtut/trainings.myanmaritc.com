@@ -38,9 +38,37 @@
                         @foreach($lessons as $key => $lesson)
                             <div class="card mb-0">
                                 <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ $lesson->id }}">
-                                    <a class="card-title"> 
-                                        <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
-                                    </a>
+                                     @php
+                                        $student = Auth::user()->student;
+                                        $student_id = $student->id;
+                                    @endphp
+                                    @foreach($lesson->students as $lesson_student)
+                                        @php
+                                            $lesson_pid = $lesson_student->pivot->lesson_id;
+                                            $student_pid = $lesson_student->pivot->student_id;
+
+                                        @endphp
+                                        @if($lesson->id == $lesson_pid && $student_id == $student_pid)
+                                        <a class="card-title"> 
+                                            <i class="far fa-check-circle mr-3 text-success"></i> {{ $lesson->title }}
+                                        </a>
+                                        @else
+                                        <a class="card-title"> 
+                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
+                                        </a>
+
+                                        @endif
+                                         @php
+                                         break;
+                                        @endphp
+                                    @endforeach
+
+                                    @if($lesson->students->isEmpty())
+                                        <a class="card-title"> 
+                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
+                                        </a>
+                                    @endif
+                                    
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
                                     <div class="video-player">
@@ -98,16 +126,14 @@
                 var current_time = this.currentTime;
                 var pause_time = current_time.toFixed(2)
                 if(duration == pause_time){
-                    alert(pause_time);
-                    alert(lesson_id);
-                    $.post('lesson_student',{lesson_id:lesson_id},function(res){
+
+                    $.post('/lesson_student',{lesson_id:lesson_id},function(res){
+
                         console.log(res);
                     })
                 }
-               
-                // console.log(lesson_id,duration);
-            })
-        });
+            });
+        })
             var player = Plyr.setup('.js-player',{
 
                 invertTime: false,
@@ -140,10 +166,14 @@
             });
             // players.currentTime = 10;
             document.querySelector('.plyr').addEventListener('seeking', () => {
+
+                console.log('seeking');
+                player.currentTime = 30;
+                // console.log(currentTime);
+
                 // console.log(player.airPlay);
                 player.currentTime=10;
                 console.log(player.currentTime);
-                
             });
     </script>
 @endsection
