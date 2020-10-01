@@ -31,7 +31,7 @@
             <div class="row justify-content-center">
 
                 @foreach($subjects as $subject)
-               
+
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="card my-3">
                         <div class="card-body">
@@ -47,6 +47,7 @@
                                     $duration = $lesson->duration;
 
                                     $total += $duration++;
+
                                 @endphp
                             @endforeach
 
@@ -59,10 +60,10 @@
                                 $minutes = $dt->diffInMinutes($dt->copy()->addSeconds($total)->subDays($days)->subHours($hours));
 
                                 $totaltimes = Carbon\CarbonInterval::days($days)->hours($hours)->minutes($minutes)->forHumans();
-                            }
-                            else{
-                                $totaltimes = '0 Second';
-                            }
+                                }
+                                else{
+                                    $totaltimes = '0 Second';
+                                }
                             @endphp
 
                             <p class="card-text"> {{ $lectures }} Lectures  •  {{ $totaltimes }} </p>
@@ -71,24 +72,50 @@
                                
                             @php
                                 $subject_pid = $sub_batch->pivot->subject_id;
+
+                                $batch_pid = $sub_batch->pivot->batch_id;
                             @endphp
                            
-                            @if($subject->id == $subject_pid)
+                            @if($subject->id == $subject_pid && $batch->id == $batch_pid)
                                 <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
                                     Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
                                 </a>
-                            @php
-                            break;
-                            @endphp
+                                @php
+                                    break;
+
+                                @endphp
+
+                            @else
+                                <button class="btn btn-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
                            
                             @endif
 
                             @endforeach
                             @if($subject->batches->isEmpty())
-                             <button class="btn btn-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
-                             <!-- Disabled -->
+                                <button class="btn btn-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
+                                 <!-- Disabled -->
                             @endif
-                            <p class="float-right"> 8 / 8 </p>
+
+                            @php
+                                $student = Auth::user()->student;
+                                $stu_less_count = 0;
+                            @endphp
+
+                            @foreach($student->lessons as $lesson)
+                                @php
+                                    $subject_pid = $lesson->subject_id;
+
+                                @endphp
+                                @if($subject->id == $subject_pid)
+                                    @php
+                                       $stu_less =1;
+                                       $stu_less_count += $stu_less;
+                                       
+                                    @endphp                                   
+                                @endif
+                            @endforeach
+                             <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
+                          
                         </div>
                     </div>
                 </div>

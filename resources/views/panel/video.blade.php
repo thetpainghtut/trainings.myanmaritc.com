@@ -97,17 +97,11 @@
                 var current_time = this.currentTime;
                 var pause_time = current_time.toFixed(2)
                 if(duration == pause_time){
-                    alert(pause_time);
-                    alert(lesson_id);
-
-                    $.post('lesson_student',{lesson_id:lesson_id},function(res){
+                    $.post('/lesson_student',{lesson_id:lesson_id},function(res){
                         console.log(res);
 
                     })
-
                 }
-               
-                console.log(lesson_id,duration);
             })
 
         });
@@ -121,8 +115,6 @@
                     start: "Start",
                     end: "End",
                     seekTime : 10
-
-
                 },
 
                 controls: [
@@ -154,11 +146,6 @@
                 console.log('seeking');
                 player.currentTime = 30;
                 // console.log(currentTime);
-                
-                
-
-                
-
             });
     </script>
 @endsection
