@@ -49,9 +49,18 @@ class LoginController extends Controller
         {   
             Auth::logout();
             return redirect()->route('login')->with('msg','You are not our members anymore') ;
-        }elseif(Auth::user()->student->status!=''){
-            Auth::logout();
-            return redirect()->route('login')->with('msg','You are not our student anymore') ;
+            
+        }elseif($user->hasRole('Student')){
+        if(Auth::user()->student->batches){
+            foreach (Auth::user()->student->batches as  $value) {
+                if($value->pivot->status == "Active"){
+                    return redirect('/panel');
+                }else{
+                    Auth::logout();
+                return redirect()->route('login')->with('msg','You are not our student anymore') ;
+                }
+            }
+            }
         }
         
         elseif($user->hasRole('Mentor')) {

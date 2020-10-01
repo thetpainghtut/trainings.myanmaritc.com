@@ -126,16 +126,13 @@
                 var current_time = this.currentTime;
                 var pause_time = current_time.toFixed(2)
                 if(duration == pause_time){
-
                     $.post('/lesson_student',{lesson_id:lesson_id},function(res){
-
                         console.log(res);
                     })
                 }
             });
         })
             var player = Plyr.setup('.js-player',{
-
                 invertTime: false,
                 i18n: {
                     rewind: 'Rewind 5s',
@@ -166,14 +163,13 @@
             });
             // players.currentTime = 10;
             document.querySelector('.plyr').addEventListener('seeking', () => {
-
                 console.log('seeking');
                 player.currentTime = 30;
                 // console.log(currentTime);
-
                 // console.log(player.airPlay);
                 player.currentTime=10;
                 console.log(player.currentTime);
             });
+        });
     </script>
 @endsection

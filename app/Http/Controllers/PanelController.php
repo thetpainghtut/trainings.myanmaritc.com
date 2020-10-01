@@ -23,14 +23,24 @@ use Illuminate\Support\Facades\Hash;
 
 class PanelController extends Controller
 {
-    public function index()
+
+    public function __construct($value='')
     {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {        
+        
         $auth = Auth::user();
         $studentinfo = $auth->student;
 
         $studentbatches = $studentinfo->batches;
 
-    	return view('panel.dashboard',compact('studentinfo','studentbatches'));
+        return view('panel.dashboard',compact('studentinfo','studentbatches'));
+              
+        
+       
     }
 
     public function takelesson($batchid){

@@ -372,12 +372,12 @@ class StudentController extends Controller
       $status = $request->status;
       $receive_no = $request->receive_no;
       $batch = Batch::find($batch_id);
-      $pivotstatus = "Deactive";
+      $pivotstatus = "Deactive( ".$status.' )';
 
       $batch->students()->updateExistingPivot($student_id,['receiveno'=>$receive_no,'status'=>$pivotstatus]);
      // dd($/data);
       $student = Student::find($student_id);
-      $student->status = $status;
+      // $student->status = $status;
       $student->save();
       return response()->json('student');
     }
