@@ -71,7 +71,7 @@
 
 
                             @foreach($batch->students as $row)
-                            @if($row->status== null && $row->pivot->status=='Active')
+                            @if($row->pivot->status=='Active')
                                 <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{$row->namee}}</td>

@@ -44,11 +44,13 @@
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
                                     <div class="video-player">
-                                    <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline data-poster="{{ asset($subject->logo) }}" data-id="{{ $lesson->id}}" data-duration="{{ $lesson->duration }}">
+                                    {{-- <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline data-poster="{{ asset($subject->logo) }}" data-id="{{ $lesson->id}}" data-duration="{{ $lesson->duration }}">
                                            
 
                                         
-                                        <source src="{{ asset($lesson->file) }}" type="video/mp4" />
+                                        <source src="{{ asset($lesson->file) }}" type="video/mp4" /> --}}
+
+                                        {{-- <iframe src="{{ asset($lesson->file) }}"></iframe> --}}
 
                                     </video>
                                     </div>

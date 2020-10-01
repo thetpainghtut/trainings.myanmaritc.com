@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \App\Console\Commands\ReportCommand::class
     ];
 
     /**
@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('everyMinute:update')
+                 ->everyMinute();
     }
 
     /**
@@ -35,7 +35,12 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        // $schedule->command('emails:send nyiyelin4@gmail.com --force')->everyMinute();
+        // $schedule->command('nyiyelin4')
+        //          ->everyMinute()
+        //          ->sendOutputTo($filePath)
+        //          ->emailOutputTo('nyiyelin4@gmail.com');
+        // $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
     }
