@@ -38,21 +38,25 @@
                     @foreach($studentinfo->lessons as $lesson)
                         @php
                             $subject = $lesson->subject;
-
+                            $subject_batch_id=0;
                         @endphp
-                        @foreach($subject->courses as $subject_course)
-                           
-                            @if($course->id == $subject_course->id )
-                                @php
-                                   $stu_less =1;
-                                   $seen_less_total += $stu_less;
-                                   
-                                @endphp                                   
-                            @endif
-
+                        @foreach($subject->batches as $subject_batch)
+                            @php
+                            $subject_batch_id = $subject_batch->pivot->batch_id;
+                            @endphp
                            
                         @endforeach
+                        @if($studentbatch->id == $subject_batch_id)
+                      
+                            @php
+                               
+                               $seen_less_total = $studentinfo->lessons->count();
+                               
+                            @endphp                                   
+                        @endif
+                        
                     @endforeach
+                    
                     <!-- End of Student lesson count -->
 
 
@@ -72,7 +76,6 @@
 
                      @if($studentbatch->pivot->status == "Active")
                         <div class="col-lg-4 col-md-6 col-sm-12 my-3 ">
-                   course_subjects -> {{ $subjects }} <br>lesson total -> {{ $lesson_total}} <br>seen_less_total {{ $studentinfo->lessons->count()}} <br> percentage -> {{ $percentage}}
                             <div class="card ">
                                 <img class="card-img-top course_img" src="{{ asset($studentbatch->course->logo) }}" alt="Card image cap">
                                 <div class="card-body">
