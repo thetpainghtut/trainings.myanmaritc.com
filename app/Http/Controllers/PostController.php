@@ -8,6 +8,7 @@ use App\Batch;
 use Carbon;
 use App\Post;
 use Auth;
+use App\Student;
 use App\Events\MyEvent;
 use App\User;
 use Illuminate\Support\Facades\Notification;
@@ -120,13 +121,22 @@ class PostController extends Controller
         $post->topic_id = request('topic');
         $post->user_id = Auth::id();
         //event(new MyEvent($post));
+        
         if($post->save()){
             $post->batches()->attach(request('batch'));
-            /*$user = User::all();
-            Notification::send($user,new PostNotification($post));*/
-        event(new MyEvent($post));
+            $postnoti = [
+            'id' => $post->id,
+            'title' => request('title'),
+            'topic_id' => request('topic'),
+            'user_id' => Auth::id(),
+            'batch' => request('batch')
+        ];
+       // dd($postnoti);
 
-            
+            Notification::send($post,new PostNotification($postnoti));
+            event(new MyEvent($postnoti));
+
+           // dd($post->notifications);
 
             
         }
@@ -272,4 +282,30 @@ class PostController extends Controller
             return redirect()->route('posts.index')->with('success','This Batch Post Assign is Successfully!!');
         }
     }
+
+    public function getnoti(){
+        $noti_data=array();
+        if(Auth::check()){
+        $user  = Auth::user();
+        $student = $user->student;
+        $batch = $student->batches;
+        $cs = array();
+        foreach($batch as $b){
+        foreach($b->posts as $pos){
+            if($pos->pivot->batch_id == $b->id){
+         foreach($pos->unreadNotifications as $notification)
+                {
+
+                    array_push($noti_data, $notification);
+
+                }
+               
+            }
+            }
+            }
+            return $noti_data;
+            }
+            
+    }
+
 }

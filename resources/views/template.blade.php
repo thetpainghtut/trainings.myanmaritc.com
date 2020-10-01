@@ -442,7 +442,15 @@
       var notificationsCount     = parseInt(notificationsCountElem);
      // console.log(notificationsCount);
       //var notifications          = notificationsWrapper.find('ul.dropdown-menu');
-
+        showNoti();
+        function showNoti(){
+        $.get("/getnoti",function(response){
+        var count = response.length;
+        if(count > 0){
+        notificationsToggle.find('span').html(count);
+    }
+    });
+    }
      /* if (notificationsCount <= 0) {
         notificationsToggle.hide();
       }*/
@@ -460,11 +468,9 @@
 
       // Bind a function to a Event (the full Laravel class)
       channel.bind('my-event', function(data) {
-        alert(JSON.stringify(data));
-       
-        notificationsCount += 1;
-        notificationsToggle.find('span').html(notificationsCount);
-        console.log(notificationsCount);
+      //  alert(JSON.stringify(data));
+        
+        showNoti();
         notificationsToggle.show();
       });
     </script>

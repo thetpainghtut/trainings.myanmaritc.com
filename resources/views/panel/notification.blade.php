@@ -21,46 +21,72 @@
 
                     <div id="accordion" class="accordion border-bottom">
                         <div class="card mb-0">
-                            @foreach($posts as $post)
-                            <div class="card-header collapsed" data-toggle="collapse" href="#collapse{{$post->id}}">
-                                <a class="card-title">
-                                    <i class="far fa-calendar-alt mr-3 icon"></i>
-                                    {{date('F d, Y', strtotime($post->created_at))}}
-                                     | 
 
-                                    <i class="far fa-clock ml-3 icon"></i>
-                                    {{$post->created_at->diffForHumans()}}
-                                </a>
-                            </div>
-                            
-                            <div id="collapse{{$post->id}}" class="card-body collapse" data-parent="#accordion">
-                                @foreach($batch as $bat)
-                                <a href="{{route('frontend.channel',$bat->id)}}" class="notiTitle"> {{$post->title}} </a>
-                                @endforeach
+<?php
 
-                                <small class="d-block text-muted"> 
-                                    @if($post->topic->name == 'Announcement')
-                                        <i class="fas fa-bullhorn mr-2"></i>
-                                        @elseif($post->topic->name == 'Schedule')
-                                        <i class="icofont-calendar mr-2"></i>  
-                                        @elseif($post->topic->name == 'Assignment')
-                                        <i class="far fa-check-square mr-2"></i>
-                                        @elseif($post->topic->name == 'Live Recording') 
-                                        <i class="fas fa-video mr-2"></i> 
-                                        @elseif($post->topic->name == 'Assignment') 
-                                        <i class="far fa-check-square mr-2"></i>
-                                        @elseif($post->topic->name == 'Post') 
-                                        <i class="fas fa-envelope mr-2"></i> 
-                                        @else
-                                          <i class="icofont-question-circle mr-2"></i>
-                                        @endif
-                                        {{$post->topic->name}} 
-                                </small>
+ $user  = Auth::user();
+        $student = $user->student;
+        $batch = $student->batches;
+        $cs = array();
+        foreach($batch as $b){
+        foreach($b->posts as $pos){
+            if($pos->pivot->batch_id == $b->id){
+         foreach($pos->unreadNotifications as $notification)
+                {
 
-                                <footer class="blockquote-footer mt-3 text-dark">By  <cite title="Source Title">{{$post->user->name}}</cite></footer>
+                    $topid=$notification->data['topic_id'];
+                    $title=$notification->data['title'];
+                    $userid=$notification->data['user_id'];
+                    $created_at=$notification->created_at;
+                    $pid = $notification->data['id'];
+                    ?>
 
-                            </div>
-                            @endforeach
+                    <div class="card-header collapsed" data-poid="{{$pid}}" data-baid="{{$b->id}}">
+                        <a class="card-title">
+                            <i class="far fa-calendar-alt mr-3 icon"></i>
+                            {{date('F d, Y', strtotime($created_at))}}
+                             | 
+
+                            <i class="far fa-clock ml-3 icon"></i>
+                            {{$created_at->diffForHumans()}}
+                        </a>
+                    </div>
+                    <div id="collapse{{$pid}}" class="card-body collapse" data-parent="#accordion">
+                        
+                        <a href="{{route('frontend.channel',$b->id)}}" class="notiTitle"> {{$title}} </a>
+                      
+
+                        <small class="d-block text-muted"> 
+                            @php $tpname = App\Topic::find($topid); @endphp
+                            @if($tpname->name == 'Announcement')
+                                <i class="fas fa-bullhorn mr-2"></i>
+                                @elseif($tpname->name == 'Schedule')
+                                <i class="icofont-calendar mr-2"></i>  
+                                @elseif($tpname->name == 'Assignment')
+                                <i class="far fa-check-square mr-2"></i>
+                                @elseif($tpname->name == 'Live Recording') 
+                                <i class="fas fa-video mr-2"></i> 
+                                @elseif($tpname->name == 'Assignment') 
+                                <i class="far fa-check-square mr-2"></i>
+                                @elseif($tpname->name == 'Post') 
+                                <i class="fas fa-envelope mr-2"></i> 
+                                @else
+                                  <i class="icofont-question-circle mr-2"></i>
+                                @endif
+                                {{$tpname->name}} 
+                        </small>
+                        @php $us = App\User::find($userid); @endphp
+                        <footer class="blockquote-footer mt-3 text-dark">By  <cite title="Source Title">{{$us->name}}</cite></footer>
+
+                    </div>
+                    <?php
+                }
+               
+            }
+            }
+            }
+?>
+                           
                             
                             <!-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                                 <a class="card-title">
@@ -156,7 +182,22 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.collapsed').click(function(){
+                var poid = $(this).data('poid');
+                var baid = $(this).data('baid');
+                $.post('notiread',{poid:poid,baid:baid},function(response){
+                    console.log(response);
+                    if(response == 'Successful'){
+                        $('#collapse'+poid).collapse('show');
+                        showNoti();
+                    }
+                })
+            })
         });
 
     </script>

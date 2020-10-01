@@ -10,10 +10,10 @@ use Illuminate\Notifications\Notification;
 class PostNotification extends Notification
 {
     use Queueable;
-    protected $post;
+    protected $postnoti;
 
-    public function __construct($post){
-        $this->post = $post;
+    public function __construct($postnoti){
+        $this->postnoti = $postnoti;
     }
     
     public function via($notifiable)
@@ -21,13 +21,14 @@ class PostNotification extends Notification
         return ['database'];
     }
 
-    public function toDatabase(){
-
-    }
     public function toArray($notifiable)
     {
         return [
-            'data'=>'We Have New Post'.$this->post->title.'Added By'.auth()->user()->name
+             'id' => $this->postnoti['id'],
+            'title' => $this->postnoti['title'],
+            'topic_id' => $this->postnoti['topic_id'],
+            'user_id' => $this->postnoti['user_id'],
+            'batch_id' => $this->postnoti['batch']
         ];
     }
 }
