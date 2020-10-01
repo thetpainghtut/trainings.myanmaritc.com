@@ -194,6 +194,9 @@ Route::post('lesson_student','PanelController@lesson_student')->name('lesson_stu
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
 Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.forgetpassword');
+Route::post('resetpassword','PanelController@resetpassword')->name('frontend.resetpassword');
+Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
+Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
 
 
 
@@ -208,5 +211,13 @@ Route::get('playcourse/{bid}/{sid}', [
     'uses' => 'PanelController@playcourse'
 ]);
 
-Route::post('postassign','PostController@postassign')->name('postassign');
 
+Route::post('postassign','PostController@postassign')->name('postassign');
+Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');
+Route::post('assignproduct','PostController@assignproduct')->name('assignproduct');
+Route::post('projecttitle','PanelController@projecttitle')->name('projecttitle');
+
+Route::get('/test', function () {
+    event(new App\Events\MyEvent('Welcome'));
+    return "Event has been sent!";
+});

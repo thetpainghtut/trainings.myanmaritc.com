@@ -8,6 +8,10 @@ use App\Batch;
 use Carbon;
 use App\Post;
 use Auth;
+use App\Events\MyEvent;
+use App\User;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PostNotification;
 class PostController extends Controller
 {
     /**
@@ -26,10 +30,12 @@ class PostController extends Controller
             $posts = Post::whereHas('user',function($q) use ($id){
                 $q->where('user_id',$id);
             })->get();
-            $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->with('teachers','teachers.staff','staff.user')->where('staff.user_id',$id)->get();
+            $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('teachers','batch_teacher.teacher_id','=','teachers.id')->join('staff','teachers.staff_id','=','staff.id')->where('staff.user_id',$id)->get();
         }elseif($role[0] == 'Admin'){
             $posts = Post::all();
             $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+            
+            
         }
         else{
             $posts = [];
@@ -82,6 +88,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        
+        /*$user = Auth::id();*/
+       
         //
         $request->validate([
             'title'=>'required',
@@ -92,17 +101,17 @@ class PostController extends Controller
             'batch' => 'required'
         ]);
 
-        $data=[];
+        $imagess=[];
         if ($request->hasfile('image')) {
             foreach($request->file('image') as $image)
             {
                 $name=$image->getClientOriginalName();
                 $image->move(public_path().'/storage/images/posts/', $name);  
                 $filename = '/storage/images/posts/'.$name; 
-                array_push($data, $filename); 
+                array_push($imagess, $filename); 
             }
         }
-        $photoString = implode(',', $data);
+        $photoString = implode(',', $imagess);
 
         $post = new Post();
         $post->title = request('title');
@@ -110,11 +119,19 @@ class PostController extends Controller
         $post->file = $photoString;
         $post->topic_id = request('topic');
         $post->user_id = Auth::id();
-        $post->save();
+        //event(new MyEvent($post));
+        if($post->save()){
+            $post->batches()->attach(request('batch'));
+            /*$user = User::all();
+            Notification::send($user,new PostNotification($post));*/
+        event(new MyEvent($post));
 
-        $post->batches()->attach(request('batch'));
+            
 
+            
+        }
         return redirect()->route('posts.index');
+        
     }
 
     /**
@@ -236,10 +253,23 @@ class PostController extends Controller
 
     public function postassign(Request $request)
     {
+        $request->validate([
+            'post' => 'required',
+            'batch' => 'required'
+        ]);
         $po = request('post');
         $batch = request('batch');
-        $post= Post::find($po);
-        $post->batches()->attach($batch);
-        return redirect()->route('posts.index');
+
+        //$post= Post::find($po);
+
+        $post = Post::join('batch_post','batch_post.post_id','=','posts.id')->where('batch_post.batch_id',$batch)->where('batch_post.post_id',$po)->get();
+       
+        if(count($post) > 0){
+            return redirect()->route('posts.index')->with('danger','This Batch Post Assign is Already Taken!!');
+        }else{
+            $addpost = Post::find($po);
+            $addpost->batches()->attach($batch);
+            return redirect()->route('posts.index')->with('success','This Batch Post Assign is Successfully!!');
+        }
     }
 }

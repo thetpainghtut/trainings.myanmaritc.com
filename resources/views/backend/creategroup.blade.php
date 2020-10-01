@@ -31,7 +31,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="inputCourse">Select Batch:</label>
-                        <select name="batch" class="form-control" disabled="disabled" id="batch">
+                        <select name="batch" class="form-control batch_group" disabled="disabled" id="batch">
                             <option value="">Choose Batch</option>
                             @foreach($batches as $row)
                                 <option value="{{$row->id}}">{{$row->title}}</option>

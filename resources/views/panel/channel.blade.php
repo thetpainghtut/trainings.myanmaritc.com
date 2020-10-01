@@ -8,13 +8,32 @@
                 <div class="col-12 text-white">
                     
                     <?php
-                    $words = explode(" ", $post[0]->batches[0]->title);
-            
-                    ?>
-                    @if($words[0] == 'PHP')
-                    <h1 class="display-4 mt-5 mb-2">PHP Developer Bootcamp Channel, </h1>
-                    <p> {{$words[1]}} - {{$words[2]}} </p>
-                    @endif
+                    
+                    foreach($post[0]->batches as $bs){
+
+                    $words[] = explode(" ", $bs->title);
+                
+                  
+                    }
+                    foreach($words as $w){
+                        $c = explode(" ",$batch->title);
+                       
+                        if($w[0] == $c[0]){?>
+                            <h1 class="display-4 mt-5 mb-2">{{$c[0]}} Developer Bootcamp Channel, </h1>
+                            <p> {{$w[1]}} - {{$w[2]}} </p>
+
+                        <?php
+                            break;
+
+                        }else{
+                            continue;
+                        }
+
+
+                    }?>
+
+                   
+                    
                    
                 </div>
             </div>
@@ -31,18 +50,80 @@
                         <li class="list-group-item topic0 active">
                             <a href="javascript:void(0)" class="text-white topics" data-id=0> All Topics </a>
                         </li>
-
-                        @foreach($topics as $topic)
-                        @if(count($topic->posts)>0)
-                        <li class="list-group-item topic{{$topic->id}}">
+                        <?php 
+                         ?>
+@foreach($topics as $topic)
+@if(in_array($topic->id,$b))
+ <li class="list-group-item topic{{$topic->id}}">
+    <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
+</li>
+@if($topic->name == 'Project Title')
+    @if($status == 1)
+    <li class="list-group-item topic" style="background-color: #faf7f5">
+        <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+    </li>
+    @else
+        @if(count($projecttypes) > 0)
+            @foreach($projecttypes as $pt)
+            <li class="list-group-item ptopic{{$pt->id}}">
+                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
+            </li>
+            @endforeach
+        @else
+            <li class="list-group-item topic" style="background-color: #faf7f5">
+                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            </li>
+        @endif
+    @endif
+@endif
+@else
+<li class="list-group-item topic" style="background-color: #faf7f5">
+    <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+</li>
+@endif
+@endforeach
+                       <!--  @foreach($topics as $topic)
+                        @foreach($topic->posts as $pb)
+                       @foreach($pb->batches as $p)
+                       @if($p->id == $batch->id)
+                       <li class="list-group-item topic{{$topic->id}}">
                             <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
                         </li>
+                        @php break; @endphp
                         @else
-                        <li class="list-group-item topic">
-                            <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock"></i></a>
+                        <li class="list-group-item topic" style="background-color: #faf7f5">
+                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+                            </li>
+                       @endif
+                       @endforeach
+                        @endforeach
+                        @if($topic->posts->isEmpty())
+                        @if($topic->name == 'Project Title')
+                            @if($status == 1)
+                            <li class="list-group-item topic" style="background-color: #faf7f5">
+                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+                            </li>
+                            @else
+                            @if(count($projecttypes) > 0)
+                                @foreach($projecttypes as $pt)
+                                <li class="list-group-item ptopic{{$pt->id}}">
+                                    <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
+                                </li>
+                                @endforeach
+                            @else
+                            <li class="list-group-item topic" style="background-color: #faf7f5">
+                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+                            </li>
+                            @endif
+                            @endif
+                        @else
+                        <li class="list-group-item topic" style="background-color: #faf7f5">
+                            <a href="javascript:void(0)" class="primarytext disabled" > {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
                         </li>
                         @endif
-                        @endforeach
+                        @endif
+                        
+                       @endforeach -->
                         <!-- <li class="list-group-item topic2">
                             <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
                         </li> -->
@@ -122,6 +203,37 @@
                         @endforeach
                     </div>
 
+                    <div class="row" id="proj">
+                       
+                        <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class" style="height: 300px;">
+                            <form action="{{route('projecttitle')}}" method="POST">
+                                @csrf
+                            <input type="hidden" name="projtypeid" id="projtypeid">
+                            <div class="row">
+                                <div class="col-6 mt-5">
+                                   <label for="ptitle">Project Title</label>
+                                    <input type="text" name="ptitle" class="form-control" id="ptitle">
+                                </div>
+                                <div class="col-6 mt-5">
+                                    <label for="inputStudent">Select Student:</label>
+                                    <select name="student[]" class="js-example-basic-multiple form-control" id="inputStudent" multiple="multiple">
+
+                                        @foreach($batchstudents as $bstudent)
+                                        <option value="{{$bstudent->id}}">{{$bstudent->namee}}</option>
+                                        @endforeach      
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                               <div class="col-12 mt-3">
+                                <input type="submit" value="Submit" class="btn btn-primary">
+                               </div>
+                            </div>
+                            </form>
+                        </div>
+                        
+                    </div>
                     <div class="signup-step-container">
                         <div class="container">
                             <div class="row d-flex justify-content-center">
@@ -304,6 +416,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -315,6 +428,13 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
+
+            $(".js-example-basic-multiple").select2({
+              placeholder: "Choose At Least Two",
+              theme: 'bootstrap4',
+            });
+
+            $('#proj').hide();
         var DURATION_IN_SECONDS = {
           epochs: ['year', 'month', 'day', 'hour', 'minute'],
           year: 31536000,
@@ -848,6 +968,7 @@
                 $('#alltopics').show();
                 $('#alltopics').html(html);
                 $('.signup-step-container').hide();
+                $('#proj').hide();
             });
             /*if (id == 1) {
 
@@ -977,8 +1098,22 @@
 
         });
             
+        $('.ptopics').on('click',function(){
+            var id = $(this).data('id');
+    
+            $('.list-group li.active a').removeClass('text-white');
+            $('.list-group li.active a').addClass('primarytext');
+            $('.active').removeClass('active');
 
-        });
+            $('.ptopic'+id).addClass('active');
+            $('.list-group li.active a').addClass('text-white');
+            $('.list-group li.active a').removeClass('primarytext');
+            $('#alltopics').hide();
+            $('.signup-step-container').hide();
+            $('#proj').show();
+            $('#projtypeid').val(id);
+        })
+    });
 
     </script>
 @endsection

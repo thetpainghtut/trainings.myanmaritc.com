@@ -1,7 +1,7 @@
 @extends('template')
 @section('content')
 
-	<!-- Header -->
+    <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -43,11 +43,15 @@
                                     </a>
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
-
-                                    <video class="js-player lesson_video_play" controls crossorigin playsinline data-poster="{{ asset($subject->logo) }}" data-id="{{ $lesson->id}}" data-duration="{{ $lesson->duration }}">
+                                    <div class="video-player">
+                                    <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline data-poster="{{ asset($subject->logo) }}" data-id="{{ $lesson->id}}" data-duration="{{ $lesson->duration }}">
                                            
+
+                                        
                                         <source src="{{ asset($lesson->file) }}" type="video/mp4" />
+
                                     </video>
+                                    </div>
 
                                 </div>
                             </div>
@@ -74,13 +78,11 @@
     <script type="text/javascript">
         $(document).ready(function(){
             window.player = player;
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $('.lesson_video_play').on('play',function(){
                
                 var lesson_id = $(this).data('id');
@@ -89,7 +91,6 @@
                 // alert(current_time);
                 console.log(lesson_id,duration);
             })
-
             $('.lesson_video_play').on('pause',function(){
                
                 var lesson_id = $(this).data('id');
@@ -97,16 +98,15 @@
                 var current_time = this.currentTime;
                 var pause_time = current_time.toFixed(2)
                 if(duration == pause_time){
-                    $.post('/lesson_student',{lesson_id:lesson_id},function(res){
-                        console.log(res);
 
+                    $.post('/lesson_student',{lesson_id:lesson_id},function(res){
+
+                        console.log(res);
                     })
                 }
-            })
-
-        });
-
+            });
             var player = Plyr.setup('.js-player',{
+
                 invertTime: false,
                 i18n: {
                     rewind: 'Rewind 5s',
@@ -116,7 +116,6 @@
                     end: "End",
                     seekTime : 10
                 },
-
                 controls: [
                     'play-large', // The large play button in the center
                     'restart', // Restart playback
@@ -130,22 +129,22 @@
                     'captions', // Toggle captions
                     'settings', // Settings menu
                     'fullscreen', // Toggle fullscreen
-
+                    'airplay'
                 ],
                 events: ["ended", "progress", "stalled", "playing", "waiting", "canplay", "canplaythrough", "loadstart", "loadeddata", "loadedmetadata", "timeupdate", "volumechange", "play", "pause", "error", "seeking", "seeked", "emptied", "ratechange", "cuechange", "download", "enterfullscreen", "exitfullscreen", "captionsenabled", "captionsdisabled", "languagechange", "controlshidden", "controlsshown", "ready", "statechange", "qualitychange", "adsloaded", "adscontentpause", "adscontentresume", "adstarted", "adsmidpoint", "adscomplete", "adsallcomplete", "adsimpression", "adsclick"],
                 
-
-                // clickToPlay: true,
-
+                clickToPlay: true,
             });
-
-
             // players.currentTime = 10;
-
             document.querySelector('.plyr').addEventListener('seeking', () => {
+
                 console.log('seeking');
                 player.currentTime = 30;
                 // console.log(currentTime);
+
+                // console.log(player.airPlay);
+                player.currentTime=10;
+                console.log(player.currentTime);
             });
     </script>
 @endsection

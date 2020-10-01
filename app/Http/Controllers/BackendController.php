@@ -7,6 +7,8 @@ use App\Course;
 use App\Batch;
 use App\Student;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\BatchStudentResource;
+
 
 class BackendController extends Controller
 {
@@ -22,12 +24,18 @@ class BackendController extends Controller
     {
         $bid = request('bid');
 
-        $students = Student::whereDoesntHave('groups')->where('batch_id',$bid)->get();
+        // nyiyelin
+        $students = Student::whereDoesntHave('groups')->get();
+        // dd($students);
+        $batch_students = BatchStudentResource::collection($students);
+
+
+        // $students = Student::whereDoesntHave('groups')->where('batch_id',$bid)->get();
 
         // $students = Student::whereDoesntHave('groups', function (Builder $query) use ($bid) {
         //   $query->where('batch_id', $bid);
         // })->get();
 
-        return $students;
+        return response()->json($batch_students);
     }
 }

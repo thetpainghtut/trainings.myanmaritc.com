@@ -21,28 +21,48 @@
 
                     <div id="accordion" class="accordion border-bottom">
                         <div class="card mb-0">
-                            <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                            @foreach($posts as $post)
+                            <div class="card-header collapsed" data-toggle="collapse" href="#collapse{{$post->id}}">
                                 <a class="card-title">
                                     <i class="far fa-calendar-alt mr-3 icon"></i>
-                                    September 25, 2020 | 
+                                    {{date('F d, Y', strtotime($post->created_at))}}
+                                     | 
 
                                     <i class="far fa-clock ml-3 icon"></i>
-                                    10 Hours ago
+                                    {{$post->created_at->diffForHumans()}}
                                 </a>
                             </div>
                             
-                            <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Secret Message </a>
+                            <div id="collapse{{$post->id}}" class="card-body collapse" data-parent="#accordion">
+                                @foreach($batch as $bat)
+                                <a href="{{route('frontend.channel',$bat->id)}}" class="notiTitle"> {{$post->title}} </a>
+                                @endforeach
 
                                 <small class="d-block text-muted"> 
-                                    <i class="fas fa-clipboard-check mr-2"></i> Survey 
+                                    @if($post->topic->name == 'Announcement')
+                                        <i class="fas fa-bullhorn mr-2"></i>
+                                        @elseif($post->topic->name == 'Schedule')
+                                        <i class="icofont-calendar mr-2"></i>  
+                                        @elseif($post->topic->name == 'Assignment')
+                                        <i class="far fa-check-square mr-2"></i>
+                                        @elseif($post->topic->name == 'Live Recording') 
+                                        <i class="fas fa-video mr-2"></i> 
+                                        @elseif($post->topic->name == 'Assignment') 
+                                        <i class="far fa-check-square mr-2"></i>
+                                        @elseif($post->topic->name == 'Post') 
+                                        <i class="fas fa-envelope mr-2"></i> 
+                                        @else
+                                          <i class="icofont-question-circle mr-2"></i>
+                                        @endif
+                                        {{$post->topic->name}} 
                                 </small>
 
-                                <footer class="blockquote-footer mt-3 text-dark">By  <cite title="Source Title">Ya Thaw Myat Noe</cite></footer>
+                                <footer class="blockquote-footer mt-3 text-dark">By  <cite title="Source Title">{{$post->user->name}}</cite></footer>
 
                             </div>
+                            @endforeach
                             
-                            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <!-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                                 <a class="card-title">
                                     <i class="far fa-calendar-alt mr-3 icon"></i>
                                     September 24, 2020 | 
@@ -52,7 +72,7 @@
                                 </a>
                             </div>
                             <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Vue </a>
+                                <a href="" class="notiTitle"> Vue </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-video mr-2"></i> Live Recording 
@@ -73,7 +93,7 @@
                             </div>
                             <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
                                 
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> VUECLI repo </a>
+                                <a href="" class="notiTitle"> VUECLI repo </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="far fa-check-square mr-2"></i> Assignment 
@@ -93,7 +113,7 @@
                             </div>
                             <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
                                 
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Project Flow Date & Time </a>
+                                <a href="" class="notiTitle"> Project Flow Date & Time </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-bullhorn mr-2"></i> Announcement 
@@ -114,14 +134,14 @@
                             </div>
                             <div id="collapseFive" class="card-body collapse" data-parent="#accordion">
 
-                                <a href="{{ route('frontend.channel') }}" class="notiTitle"> Laravel Project Doc Ref </a>
+                                <a href="" class="notiTitle"> Laravel Project Doc Ref </a>
 
                                 <small class="d-block text-muted"> 
                                     <i class="fas fa-envelope mr-2"></i> Post 
                                 </small>
 
                                 <footer class="blockquote-footer mt-3 text-dark">By  <cite title="Source Title">Ya Thaw Myat Noe</cite></footer>
-                            </div>
+                            </div> -->
                             
                         </div>
                     </div>

@@ -13,6 +13,14 @@ use App\Lesson;
 use App\Post;
 use App\Topic;
 use App\User;
+use Carbon;
+use App\Projecttype;
+use App\Project;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgetMail;
+use Illuminate\Support\Facades\Hash;
+
 class PanelController extends Controller
 {
     public function index()
@@ -68,7 +76,26 @@ class PanelController extends Controller
     }
 
     public function notification(){
-        return view('panel.notification');
+        $uid = Auth::id();
+        $now = Carbon\Carbon::now();
+        $batch = Batch::whereHas('students',function($q) use ($uid){
+            $q->where('user_id',$uid);
+        })->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $posts = array();
+        foreach ($batch as $key => $value) {
+            $id = $value->id;
+           $posts = Post::whereHas('batches', function ($q) use($id){
+  
+                    $q->where('batch_id',$id);
+                })->get();
+        }
+        
+        /*foreach ($posts as $k) {
+            $d  = $k->batches->where('startdate','<=',$now)->where('enddate','>=',$now);
+           
+        }
+         dd($batch);*/
+        return view('panel.notification',compact('posts','batch'));
     }
     
 
@@ -78,9 +105,50 @@ class PanelController extends Controller
   
                     $q->where('batch_id', $id);
                 })->get();
+
         if(count($post) > 0){
         $topics = Topic::all();
-        return view('panel.channel',compact('post','topics'));
+        $batch = Batch::find($id);
+        $ptypes = Projecttype::whereHas('batches',function($q) use ($id){
+            $q->where('batch_id',$id);
+        })->get();
+
+        $projecttypes = array();
+        foreach ($ptypes as $p) {
+            $projecttypes = $p->doesntHave('project')->get();
+        }
+       
+        $c = array();
+        foreach ($ptypes as $key => $value) {
+            $c = $value->project->students;
+        }
+        $e = array();
+        foreach ($c as $v) {
+            $e = $v->where('user_id',Auth::id())->get();
+        }
+        
+        
+        if(count($e) > 0){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+
+        $bposts = $batch->posts;
+
+    //dd($bposts);
+        $bap = Batch::join('batch_post','batch_post.batch_id','=','batches.id')->join('posts','posts.id','=','batch_post.post_id')->join('topics','topics.id','=','posts.topic_id')->where('batches.id',$batch->id)->select('topics.id')->groupBy('topics.id')->get();
+        $b = [];
+        foreach ($bap as $key => $value) {
+            $cc = $value->id;
+            array_push($b, $cc);
+        }
+        $batchstudents = Student::whereHas('batches',function($q) use ($id){
+            $q->where('batch_id',$id);
+        })->get();
+
+        
+        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status','b'));
         }else{
             return redirect()->back();
         }
@@ -96,6 +164,27 @@ class PanelController extends Controller
         }
         
         return response()->json(['posts'=>$posts]);
+    }
+
+    public function projecttitle(Request $request)
+    {
+        //dd($request);
+        $request->validate([
+            'projtypeid' => 'required',
+            'ptitle' => 'required',
+            'student' => 'required'
+        ]);
+
+        $project = new Project();
+        $project->title = request('ptitle');
+        $project->projecttype_id = request('projtypeid');
+        $project->save();
+
+        foreach(request('student') as $stu){
+            $project->students()->attach($stu);
+        }
+
+        return redirect()->back();
     }
 
     public function change_password($value='')
@@ -140,6 +229,38 @@ class PanelController extends Controller
     public function forgetpassword()
     {
         return view('auth.forgetpassword');
+    }
+
+    public function resetpassword(Request $request)
+    {
+        $codeno = rand(10,999999);
+        
+        $data = array('email' => $request->email,'codeno'=>$codeno);
+
+        Mail::to($request->email)->send(new ForgetMail($data));
+        return redirect()->back()->with('msg','Email Sent!');
+    }
+
+    public function resetandeditpassword(Request $request)
+    {
+        $codeno = $request->codeno;
+        $email = $request->email;
+        return view('auth.resetupdatepassword',compact('codeno','email'));
+    }
+
+    public function resetupdatepassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required|min:8',
+        ]);
+        $email = $request->email;
+        $password = $request->password;
+        // dd($password);
+        $user = User::where('email',$email)->first();
+        $user->password=Hash::make($password);
+        $user->save();
+        return redirect()->route('login')->with('success','Password reset success!');
     }
 
     
