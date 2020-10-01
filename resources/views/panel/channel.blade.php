@@ -48,14 +48,14 @@
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                     <ul class="list-group ">
                         <li class="list-group-item topic0 active">
-                            <a href="javascript:void(0)" class="text-white topics" data-id=0> All Topics </a>
+                            <a href="javascript:void(0)" class="text-white topics" data-bid="{{$batch->id}}" data-id=0> All Topics </a>
                         </li>
                         <?php 
                          ?>
 @foreach($topics as $topic)
 @if(in_array($topic->id,$b))
  <li class="list-group-item topic{{$topic->id}}">
-    <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
+    <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
 </li>
 @if($topic->name == 'Project Title')
     @if($status == 1)
@@ -66,7 +66,7 @@
         @if(count($projecttypes) > 0)
             @foreach($projecttypes as $pt)
             <li class="list-group-item ptopic{{$pt->id}}">
-                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
+                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
             </li>
             @endforeach
         @else
@@ -867,10 +867,11 @@
 
         $('.topics').on('click',function(){
             var id = $(this).data('id');
-            console.log(id);
+            var bid = $(this).data('bid');
+            
             var html='';
 
-            $.post('/allchannel',{id:id},function(response){
+            $.post('/allchannel',{id:id,bid:bid},function(response){
                 //console.log(response.posts);
                 $.each(response.posts,function(i,v){
                     console.log(v);
@@ -1100,7 +1101,7 @@
             
         $('.ptopics').on('click',function(){
             var id = $(this).data('id');
-    
+            var bid = $(this).data('bid');
             $('.list-group li.active a').removeClass('text-white');
             $('.list-group li.active a').addClass('primarytext');
             $('.active').removeClass('active');

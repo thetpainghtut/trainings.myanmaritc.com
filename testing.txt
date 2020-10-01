@@ -1,0 +1,40 @@
+ @foreach($posts as $post)
+                            <div class="card-header collapsed" data-toggle="collapse" href="#collapse{{$post->id}}">
+                                <a class="card-title">
+                                    <i class="far fa-calendar-alt mr-3 icon"></i>
+                                    {{date('F d, Y', strtotime($post->created_at))}}
+                                     | 
+
+                                    <i class="far fa-clock ml-3 icon"></i>
+                                    {{$post->created_at->diffForHumans()}}
+                                </a>
+                            </div>
+                            
+                            <div id="collapse{{$post->id}}" class="card-body collapse" data-parent="#accordion">
+                                @foreach($batch as $bat)
+                                <a href="{{route('frontend.channel',$bat->id)}}" class="notiTitle"> {{$post->title}} </a>
+                                @endforeach
+
+                                <small class="d-block text-muted"> 
+                                    @if($post->topic->name == 'Announcement')
+                                        <i class="fas fa-bullhorn mr-2"></i>
+                                        @elseif($post->topic->name == 'Schedule')
+                                        <i class="icofont-calendar mr-2"></i>  
+                                        @elseif($post->topic->name == 'Assignment')
+                                        <i class="far fa-check-square mr-2"></i>
+                                        @elseif($post->topic->name == 'Live Recording') 
+                                        <i class="fas fa-video mr-2"></i> 
+                                        @elseif($post->topic->name == 'Assignment') 
+                                        <i class="far fa-check-square mr-2"></i>
+                                        @elseif($post->topic->name == 'Post') 
+                                        <i class="fas fa-envelope mr-2"></i> 
+                                        @else
+                                          <i class="icofont-question-circle mr-2"></i>
+                                        @endif
+                                        {{$post->topic->name}} 
+                                </small>
+
+                                <footer class="blockquote-footer mt-3 text-dark">By  <cite title="Source Title">{{$post->user->name}}</cite></footer>
+
+                            </div>
+                            @endforeach
