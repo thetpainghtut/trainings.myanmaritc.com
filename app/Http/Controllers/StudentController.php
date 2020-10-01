@@ -63,8 +63,9 @@ class StudentController extends Controller
       $subjects = Subject::all();
       $courses = Course::all();
       $batches = Batch::all();
+      $townships = Township::all();
 
-      return view('students.create',compact('subjects','courses','batches'));
+      return view('students.create',compact('subjects','courses','batches','townships'));
     }
 
     /**
@@ -379,5 +380,88 @@ class StudentController extends Controller
       return response()->json('student');
     }
 
-  
+    public function getInquire(Request $request){
+      $receiveno = $request->inputReceiveno;
+
+      $inquire = Inquire::where('receiveno', '=', $receiveno)->first();
+
+      return response()->json(['inquire'=>$inquire]);
+    }
+
+    public function storestudent(Request $request){
+      $inquireno = request('receiveno');
+      $batch_id = request('batch');
+
+      $namee = request('namee');
+      $namem = request('namem');
+      $degree = request('degree');
+
+      // dd($degree);
+
+
+      $township_id = request('city');
+      $accepted_year = request('accepted_year');
+      $address = request('address');
+      $email = request('email');
+      $phone = request('phone');
+      $dob = request('dob');
+      $gender = request('gender');
+      $subjects = request('subjects');
+      $p1 = request('p1');
+      $p1_rs = request('p1_rs');
+      $p1_phone = request('p1_phone');
+      $p2 = request('p2');
+      $p2_rs = request('p2_rs');
+      $p2_phone = request('p2_phone');
+      $because = request('because');
+
+      $township = Township::find($township_id);
+
+      $townshipid = $township->id;
+      $city = $township->city->name;
+
+      $user = new User;
+      $user->name = request('namee');
+      $user->email=request('email');
+      $user->password=Hash::make("123456789");
+      $user->save();
+
+      $user->assignRole('Student');
+      $id = $user->id;
+
+
+      $student = new Student;
+      $student->namee = $namee;
+      $student->namem = $namem;
+      $student->email = $email;
+      $student->phone = $phone;
+      $student->address = $address;
+      $student->degree = $degree;
+      $student->city = $city;
+      $student->accepted_year = $accepted_year;
+      $student->dob = $dob;
+      $student->gender = $gender;
+      $student->p1 = $p1;
+      $student->p1_phone = $p1_phone;
+      $student->p1_relationship = $p1_rs;
+      $student->p2 = $p2;
+      $student->p2_phone = $p2_phone;
+      $student->p2_relationship = $p2_rs;
+      $student->because = $because;
+      $student->township_id = $townshipid;
+      $student->user_id = $id;
+      $student->save();
+
+
+      $subjects = request('subjects');
+
+      // Save student_subject
+      $student->subjects()->detach();
+      $student->subjects()->attach($subjects);
+
+      $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
+        return redirect()->route('students.index');
+
+    }
 }

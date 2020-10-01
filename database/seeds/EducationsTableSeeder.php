@@ -55,7 +55,6 @@ class EducationsTableSeeder extends Seeder
             array("TU (Pakokku)", "TU"),
             array("TU (Mandalay)", "TU"),
             array("TU (Kyaukse)", "TU"),
-            array("TU (Mandalay)", "TU"),
             array("TU (Meiktila)", "TU"),
             array("TU (Mawlamyine)", "TU"),
             array("TU (Sittwe)", "TU"),

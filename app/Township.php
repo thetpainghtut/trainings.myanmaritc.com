@@ -10,7 +10,7 @@ class Township extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name','city_id','user_id'
+        'name', 'mmr_name', 'city_id','user_id'
     ];
 
     public function inquires()
@@ -18,9 +18,8 @@ class Township extends Model
     	return $this->hasMany('App\Inquire');
     }
 
-    public function city()
-    {
-    	return $this->belongsTo('App\City');
+    public function city(){
+        return $this->belongsTo('App\City');
     }
 
     public function user()

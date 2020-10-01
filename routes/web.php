@@ -160,6 +160,9 @@ Route::get('/attendances/export/{section_id}','AttendanceController@Export');*/
 
 
 // Version(2.0)
+Route::post('storestudent','StudentController@storestudent')->name('storestudent');
+Route::post('getInquire','StudentController@getInquire')->name('getInquire');
+
 Route::resource('lessons','LessonController');
 Route::post('show_subject','LessonController@show_subject')->name('show_subject');
 Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');

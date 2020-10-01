@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Staff;
 use App\Teacher;
 use App\Mentor;
+use Illuminate\Support\Facades\DB;
 
 use App\User;
 
@@ -38,6 +39,12 @@ class StaffsTableSeeder extends Seeder
             $teacher->course_id=2;
             $teacher->degree='Degree Something';
             $teacher->save();
+
+            $anothercourse_teacher=new Teacher;
+            $anothercourse_teacher->staff_id=$staff->id;
+            $anothercourse_teacher->course_id=6;
+            $anothercourse_teacher->degree='Degree Something';
+            $anothercourse_teacher->save();
 
         	$user=User::find($a);
         	$user->assignRole('Teacher');

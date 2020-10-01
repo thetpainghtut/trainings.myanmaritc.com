@@ -14,6 +14,7 @@ class SubjectsTableSeeder extends Seeder
     public function run()
     {
         $php_jp_subjectLists = [
+            array("Web Development", "/storage/images/subjects/domain.png"),
             array("HTML", "/storage/images/subjects/html.png"),
             array("CSS", "/storage/images/subjects/css.png"),
             array("JavaScript", "/storage/images/subjects/js.png"),
@@ -25,19 +26,19 @@ class SubjectsTableSeeder extends Seeder
             array("Laravel", "/storage/images/subjects/laravel.png"),
             array("API", "/storage/images/subjects/api.png"),
             array("Vue", "/storage/images/subjects/vue.png"),
-            //12
+            //13
             array("UI / UX", "/storage/images/subjects/front-end.png"),
         ];
 
         $php_subjectLists = [
-            //13
+            //14
             array("Project Management", "/storage/images/subjects/project-management.png")
         ];
 
         $android_subjectLists = [
             array("Kotlin", "/storage/images/subjects/kotlin.png"),
             array("Flutter", "/storage/images/subjects/flutter.png"),
-            // 16
+            // 17
             array("Java", "/storage/images/subjects/java.png")
 
         ];
@@ -49,7 +50,7 @@ class SubjectsTableSeeder extends Seeder
 
         $jp_subjectLists = [
             array("Database Design and Development", "/storage/images/subjects/database.png"),
-            // 20
+            // 21
             array("Python", "/storage/images/subjects/python.png"),
             array("Japan", "/storage/images/subjects/japan.png"),
             array("Wordpress", "/storage/images/subjects/wordpress.png")
@@ -60,7 +61,7 @@ class SubjectsTableSeeder extends Seeder
             array("Microsoft Excel", "/storage/images/subjects/microsoft-excel.png"),
             array("Microsoft Powerpoint", "/storage/images/subjects/microsoft-powerpoint.png"),
             array("HR", "/storage/images/subjects/hr.png"),
-            // 27
+            // 28
             array("Photoshop", "/storage/images/subjects/photoshop.png")
         ];
         $ios_subjectLists = [
@@ -112,7 +113,7 @@ class SubjectsTableSeeder extends Seeder
 
         DB::table('course_subject')->insert([
             'course_id' => 5,
-            'subject_id' => 16
+            'subject_id' => 17
         ]);
 
         foreach ($jp_subjectLists as $jp_subjectList) 
@@ -137,7 +138,7 @@ class SubjectsTableSeeder extends Seeder
 
         DB::table('course_subject')->insert([
             'course_id' => 2,
-            'subject_id' => 27
+            'subject_id' => 28
         ]);
 
         foreach ($ios_subjectLists as $ios_subjectList) 
@@ -152,7 +153,7 @@ class SubjectsTableSeeder extends Seeder
 
         DB::table('course_subject')->insert([
             'course_id' => 7,
-            'subject_id' => 20
+            'subject_id' => 21
         ]);
 
         DB::table('course_subject')->insert([

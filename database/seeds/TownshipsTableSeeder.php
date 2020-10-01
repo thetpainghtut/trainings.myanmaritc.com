@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Township;
 
 class TownshipsTableSeeder extends Seeder
 {
@@ -11,656 +12,346 @@ class TownshipsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
-        //Lanmadaw
-        DB::table('townships')->insert([
-            'name'       => 'Lanmadaw',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
 
-        //Latha
-        DB::table('townships')->insert([
-            'name'       => 'Latha',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kyauktada
-        DB::table('townships')->insert([
-            'name'       => 'Kyauktada',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-
-        //Pabedan
-        DB::table('townships')->insert([
-            'name'       => 'Pabedan',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        
-        //Pazundaung
-        DB::table('townships')->insert([
-            'name'       => 'Pazundaung',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        
-        //Ahlone
-        DB::table('townships')->insert([
-            'name'       => 'Ahlone',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kyeemyindaing
-        DB::table('townships')->insert([
-            'name'       => 'Kyeemyindaing',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Sanchaung
-        DB::table('townships')->insert([
-            'name'       => 'Sanchaung',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Bahan
-        DB::table('townships')->insert([
-            'name'       => 'Bahan',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-
-        //Botahtaung
-        DB::table('townships')->insert([
-            'name'       => 'Botahtaung',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Mingalartaungnyunt
-        DB::table('townships')->insert([
-            'name'       => 'Mingalartaungnyunt',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Tamwe
-        DB::table('townships')->insert([
-            'name'       => 'Tamwe',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Yankin
-        DB::table('townships')->insert([
-            'name'       => 'Yankin',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dagon
-        DB::table('townships')->insert([
-            'name'       => 'Dagon',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dagon Myothit (East)
-        DB::table('townships')->insert([
-            'name'       => 'Dagon Myothit (East)',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dagon Myothit (North)
-        DB::table('townships')->insert([
-            'name'       => 'Dagon Myothit (North)',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dagon Myothit (South)
-        DB::table('townships')->insert([
-            'name'       => 'Dagon Myothit (South)',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dagon Myothit (Seikkan)
-        DB::table('townships')->insert([
-            'name'       => 'Dagon Myothit (Seikkan)',
-            'user_id'    => '1',
-            'city_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kamaryut
-        DB::table('townships')->insert([
-            'name'       => 'Kamaryut',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Insein
-        DB::table('townships')->insert([
-            'name'       => 'Insein',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Hlaing
-        DB::table('townships')->insert([
-            'name'       => 'Hlaing',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-
-        //Hlaingtharya
-        DB::table('townships')->insert([
-            'name'       => 'Hlaingtharya',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Mayangone
-        DB::table('townships')->insert([
-            'name'       => 'Mayangone',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Mingaladon
-        DB::table('townships')->insert([
-            'name'       => 'Mingaladon',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //North Okkalapa
-        DB::table('townships')->insert([
-            'name'       => 'North Okkalapa',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //South Okkalapa
-        DB::table('townships')->insert([
-            'name'       => 'South Okkalapa',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Thingangyun
-        DB::table('townships')->insert([
-            'name'       => 'Thingangyun',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Thaketa
-        DB::table('townships')->insert([
-            'name'       => 'Thaketa',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Thanlyin
-        DB::table('townships')->insert([
-            'name'       => 'Thanlyin',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dala
-        DB::table('townships')->insert([
-            'name'       => 'Dala',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Dawbon
-        DB::table('townships')->insert([
-            'name'       => 'Dawbon',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Hmawbi
-        DB::table('townships')->insert([
-            'name'       => 'Hmawbi',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Hlegu
-        DB::table('townships')->insert([
-            'name'       => 'Hlegu',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Htantabin
-        DB::table('townships')->insert([
-            'name'       => 'Htantabin',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kawhmu
-        DB::table('townships')->insert([
-            'name'       => 'Kawhmu',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kayan
-        DB::table('townships')->insert([
-            'name'       => 'Kayan',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kungyangon
-        DB::table('townships')->insert([
-            'name'       => 'Kungyangon',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Shwepyithar
-        DB::table('townships')->insert([
-            'name'       => 'Shwepyithar',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Taikkyi
-        DB::table('townships')->insert([
-            'name'       => 'Taikkyi',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Thongwa
-        DB::table('townships')->insert([
-            'name'       => 'Thongwa',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Twantay
-        DB::table('townships')->insert([
-            'name'       => 'Twantay',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kyauktan
-        DB::table('townships')->insert([
-            'name'       => 'Kyauktan',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Seikgyikanaungto
-        DB::table('townships')->insert([
-            'name'       => 'Seikgyikanaungto',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Palae Myothit
-        DB::table('townships')->insert([
-            'name'       => 'Palae Myothit',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Palae Myothit
-        DB::table('townships')->insert([
-            'name'       => 'Palae Myothit',
-            'city_id'    => '1',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        
-        //Aung Myay Thar Zan
-        DB::table('townships')->insert([
-            'name'       => 'Aung Myay Thar Zan',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Chan Aye Thar Zan
-        DB::table('townships')->insert([
-            'name'       => 'Chan Aye Thar Zan',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Chan Mya Thazi
-        DB::table('townships')->insert([
-            'name'       => 'Chan Mya Thazi',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Chan Mya Thar Si
-        DB::table('townships')->insert([
-            'name'       => 'Chan Mya Thar Si',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kyaukpadaung
-        DB::table('townships')->insert([
-            'name'       => 'Kyaukpadaung',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Kyaukse
-        DB::table('townships')->insert([
-            'name'       => 'Kyaukse',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Maha Aungmye
-        DB::table('townships')->insert([
-            'name'       => 'Maha Aungmye',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Mahlaing
-        DB::table('townships')->insert([
-            'name'       => 'Mahlaing',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Meiktila
-        DB::table('townships')->insert([
-            'name'       => 'Meiktila',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Mogok
-        DB::table('townships')->insert([
-            'name'       => 'Mogok',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Myingyan
-        DB::table('townships')->insert([
-            'name'       => 'Myingyan',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Myittha
-        DB::table('townships')->insert([
-            'name'       => 'Myittha',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Natogyi
-        DB::table('townships')->insert([
-            'name'       => 'Natogyi',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Ngazun
-        DB::table('townships')->insert([
-            'name'       => 'Ngazun',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Nyaung-U
-        DB::table('townships')->insert([
-            'name'       => 'Nyaung-U',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Patheingyi
-        DB::table('townships')->insert([
-            'name'       => 'Patheingyi',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Pyawbwe 
-        DB::table('townships')->insert([
-            'name'       => 'Pyawbwe ',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Pyigyidagun 
-        DB::table('townships')->insert([
-            'name'       => 'Pyigyidagun ',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Pyinoolwin
-        DB::table('townships')->insert([
-            'name'       => 'Pyinoolwin',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Singu
-        DB::table('townships')->insert([
-            'name'       => 'Singu',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Sintgaing
-        DB::table('townships')->insert([
-            'name'       => 'Sintgaing',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Tada-U
-        DB::table('townships')->insert([
-            'name'       => 'Tada-U',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Taungtha
-        DB::table('townships')->insert([
-            'name'       => 'Taungtha',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Thabeikkyin
-        DB::table('townships')->insert([
-            'name'       => 'Thabeikkyin',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Thazi
-        DB::table('townships')->insert([
-            'name'       => 'Thazi',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Wundwin
-        DB::table('townships')->insert([
-            'name'       => 'Wundwin',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        //Yamethin
-        DB::table('townships')->insert([
-            'name'       => 'Yamethin',
-            'city_id'    => '2',
-            'user_id'    => '1',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $townshiplists = [
+            // Yangon
+            array('Hlaing', 'လှိုင်', '14'),
+            array('Insein', 'အင်းစိန်', '14'),
+            array('Tamwe', 'တာမွေ', '14'),
+            array('Mayangone', 'မရမ်းကုန်း', '14'),
+            array('Thaketa', 'သာကေတ', '14'),
+            array('Thingangyun', 'သင်္ဃန်းကျွန်း', '14'),
+            array('Yankin', 'ရန်ကင်း', '14'),
+            array('Pazundaung', 'ပုဇွန်တောင်', '14'),
+            array('Ahlone', 'အလုံ', '14'),
+            array('Bahan', 'ဗဟန်း', '14'),
+            array('Dagon', 'ဒဂုံ', '14'),
+            array('Kamaryut', 'ကမာရွတ်', '14'),
+            array('Kyauktada', 'ကျောက်တံတား', '14'),
+            array('Kyeemyindaing', 'ကြည့်မြင်တိုင်', '14'),
+            array('Lanmadaw', 'လမ်းမတော်', '14'),
+            array('Latha', 'လသာ', '14'),
+            array('Pabedan', 'ပန်းဘဲတန်း', '14'),
+            array('Sanchaung', 'စမ်းချောင်း', '14'),
+            array('Seikkan', 'ဆိပ်ကမ်း', '14'),
+            array('Ahlone', 'အလုံ', '14'),
+            array('Ahlone', 'အလုံ', '14'),
+            array('Ahlone', 'အလုံ', '14'),
+            array('Ahlone', 'အလုံ', '14'),
+            array('Hlaingtharya', 'လှိုင်သာယာ', '14'),
+            array('Hlegu', 'လှည်းကူး', '14'),
+            array('Hmawbi', 'မှော်ဘီ', '14'),
+            array('Htantabin', 'ထန်းတပင်', '14'),
+            array('Mingaladon', 'မင်္ဂလာဒုံ', '14'),
+            array('Shwepyithar', 'ရွှေပြည်သာ', '14'),
+            array('Taikkyi', 'တိုက်ကြီး', '14'),
+            array('Botahtaung', 'ဗိုလ်တထောင်', '14'),
+            array('Dagon Myothit (East)', 'ဒဂုံမြို့သစ် (အရှေ့ပိုင်း)', '14'),
+            array('Dagon Myothit (North)', 'ဒဂုံမြို့သစ် (မြောက်ပိုင်း)', '14'),
+            array('Dagon Myothit (Seikkan)', 'ဒဂုံမြို့သစ် (ဆိပ်ကမ်း)', '14'),
+            array('Dagon Myothit (South)', 'ဒဂုံမြို့သစ် (တောင်ပိုင်း)', '14'),
+            array('Dawbon', 'ဒေါပုံ', '14'),
+            array('Mingalartaungnyunt', 'မင်္ဂလာတောင်ညွန့်', '14'),
+            array('North Okkalapa', 'မြောက်ဥက္ကလာပ', '14'),
+            array('South Okkalapa', 'တောင်ဥက္ကလာပ', '14'),
+            array('North Okkalapa', 'မြောက်ဥက္ကလာပ', '14'),
+            array('Thanlyin', 'သန်လျင်', '14'),
+            array('Thongwa', 'သုံးခွ', '14'),
+            array('Twantay', 'တွံတေး', '14'),
+            array('Seikgyikanaungto', 'ဆိပ်ကြီး/ခနောင်တို', '14'),
+            array('Kyauktan', 'ကျောက်တန်း', '14'),
+            array('Kungyangon', 'ကွမ်းခြံကုန်း', '14'),
+            array('Kayan', 'ခရမ်း', '14'),
+            array('Kawhmu', 'ကော့မှူး', '14'),
+            array('Dala', 'ဒလ', '14'),
+            array('Cocokyun', 'ကိုကိုးကျွန်း', '14'),
+
+            // Mandalay
+            array('Amarapura', 'အမရပူရ', '8'),
+            array('Aungmyaythazan', 'အောင်မြေသာစံ', '8'),
+            array('Chanayethazan', 'ချမ်းအေးသာစံ', '8'),
+            array('Chanmyathazi', 'ချမ်းမြသာစည်', '8'),
+            array('Mahaaungmyay', 'မဟာအောင်မြေ', '8'),
+            array('Patheingyi', 'ပုသိမ်ကြီး', '8'),
+            array('Pyigyitagon', 'ပြည်ကြီးတံခွန်', '8'),
+            array('Madaya', 'မတ္တရာ', '8'),
+            array('Mogoke', 'မိုးကုတ်', '8'),
+            array('Pyinoolwin', 'ပြင်ဦးလွင်', '8'),
+            array('Singu', 'စဉ့်ကူး', '8'),
+            array('Thabeikkyin', 'သပိတ်ကျင်း', '8'),
+            array('Kyaukse', 'ကျောက်ဆည်', '8'),
+            array('Myittha', 'မြစ်သား', '8'),
+            array('Sintgaing', 'စဉ့်ကိုင်', '8'),
+            array('Tada-U', 'တံတားဦး', '8'),
+            array('Myingyan', 'မြင်းခြံ', '8'),
+            array('Natogyi', 'နွားထိုးကြီး', '8'),
+            array('Ngazun', 'ငါန်းဇွန်', '8'),
+            array('Taungtha', 'တောင်သာ', '8'),
+            array('Nyaung-U', 'ညောင်ဦး', '8'),
+            array('Kyaukpadaung', 'ကျောက်ပန်းတောင်း', '8'),
+            array('Pyawbwe', 'ပျော်ဘွယ်', '8'),
+            array('Yamethin', 'ရမည်းသင်း', '8'),
+            array('Mahlaing', 'မလှိုင်', '8'),
+            array('Meiktila', 'မိတ္ထီလာ', '8'),
+            array('Thazi', 'သာစည်', '8'),
+            array('Wundwin', 'ဝမ်းတွင်း', '8'),
+
+            // Ayeyarwady
+            array('Kangyidaunt', 'ကန်ကြီးထောင့်', '1'),
+            array('Kyaunggon', 'ကျောင်းကုန်း', '1'),
+            array('Kyonpyaw', 'ကျုံပျော်', '1'),
+            array('Ngapudaw', 'ငပုတော', '1'),
+            array('Pathein', 'ပုသိမ်', '1'),
+            array('Thabaung', 'သာပေါင်း', '1'),
+            array('Yegyi', 'ရေကြည်', '1'),
+            array('Hinthada', 'ဟင်္သာတ', '1'),
+            array('Ingapu', 'အင်္ဂပူ', '1'),
+            array('Kyangin', 'ကြံခင်း', '1'),
+            array('Lemyethna', 'လေးမျက်နှာ', '1'),
+            array('Myanaung', 'မြန်အောင်', '1'),
+            array('Zalun', 'ဇလွန်', '1'),
+            array('Einme', 'အိမ်မဲ', '1'),
+            array('Myaungmya', 'မြောင်းမြ', '1'),
+            array('Wakema', 'ဝါးခယ်မ', '1'),
+            array('Labutta', 'လပွတ္တာ', '1'),
+            array('45gyun', 'မော်လမြိုင်ကျွန်း', '1'),
+            array('Danubyu', 'ဓနုဖြူ', '1'),
+            array('Maubin', 'မအူပင်', '1'),
+            array('Nyaungdon', 'ညောင်တုန်း', '1'),
+            array('Pantanaw', 'ပန်းတနော်', '1'),
+            array('Bogale', 'ဘိုကလေး', '1'),
+            array('Dedaye', 'ဒေးဒရဲ', '1'),
+            array('Kyaiklat', 'ကျိုက်လတ်', '1'),
+            array('Pyapon', 'ဖျာပုံ', '1'),
+            array('Einme', 'အိမ်မဲ', '1'),
+
+            //Bago
+            array('Bago', 'ပဲခူး', '2'),
+            array('Daik-U', 'ဒိုက်ဦး', '2'),
+            array('Kyauktaga', 'ကျောက်တံခါး', '2'),
+            array('Nyaunglebin', 'ညောင်လေးပင်', '2'),
+            array('Shwegyin', 'ရွှေကျင်', '2'),
+            array('Thanatpin', 'သနပ်ပင်', '2'),
+            array('Waw', 'ဝေါ', '2'),
+            array('Kawa', 'ကဝ', '2'),
+            array('Htantabin', 'ထန်းတပင်', '2'),
+            array('Kyaukkyi', 'ကျောက်ကြီး', '2'),
+            array('Oktwin', 'အုတ်တွင်း', '2'),
+            array('Phyu', 'ဖြူး', '2'),
+            array('Taungoo', 'တောင်ငူ', '2'),
+            array('Yedashe', 'ရေတာရှည်', '2'),
+            array('Padaung', 'ပန်းတောင်း', '2'),
+            array('Paukkhaung', 'ပေါက်ခေါင်း', '2'),
+            array('Paungde', 'ပေါင်းတည်', '2'),
+            array('Pyay', 'ပြည်', '2'),
+            array('Shwedaung', 'ရွှေတောင်', '2'),
+            array('Thegon', 'သဲကုန်း', '2'),
+            array('Gyobingauk', 'ကြို့ပင်ကောက်', '2'),
+            array('Letpadan', 'လက်ပံတန်း', '2'),
+            array('Minhla', 'မင်းလှ', '2'),
+            array('Monyo', 'မိုးညို', '2'),
+            array('Nattalin', 'နတ်တလင်း', '2'),
+            array('Okpho', 'အုတ်ဖို', '2'),
+            array('Thayarwady', 'သာယာဝတီ', '2'),
+            array('Zigon', 'ဇီးကုန်း', '2'),
+
+            // Chin
+            array('Falam', 'ဖလမ်း', '3'),
+            array('Tedim', 'တီးတိန်', '3'),
+            array('Tonzang', 'တွန်းဇန်', '3'),
+            array('Kanpetlet', 'ကန်ပက်လက်', '3'),
+            array('Mindat', 'မင်းတပ်', '3'),
+            array('Hakha', 'ဟားခါး', '3'),
+            array('Matupi', 'မတူပီ', '3'),
+            array('Paletwa', 'ပလက်ဝ', '3'),
+
+            // Kachin
+            array('Chipwi', 'ချီ​ဖွေ', '4'),
+            array('Injangyang', 'အင်ဂျန်းယန်', '4'),
+            array('Myitkyina', 'မြစ်ကြီးနား', '4'),
+            array('Tanai', 'တနိုင်း', '4'),
+            array('Tsawlaw', 'ဆော့လော်', '4'),
+            array('Waingmaw', 'ဝိုင်းမော်', '4'),
+            array('Hpakant', 'ဖားကန့်', '4'),
+            array('Mogaung', 'မိုးကောင်း', '4'),
+            array('Mohnyin', 'မိုးညှင်း', '4'),
+            array('Bhamo', 'ဗန်းမော်', '4'),
+            array('Mansi', 'မံစီ', '4'),
+            array('Momauk', 'မိုးမောက်', '4'),
+            array('Shwegu', 'ရွှေကူ', '4'),
+            array('Khaunglanhpu', 'ခေါင်လန်ဖူး', '4'),
+            array('Machanbaw', 'မချမ်းဘော', '4'),
+            array('Nawngmun', 'နောင်မွန်း', '4'),
+            array('Puta-O', 'ပူတာအို', '4'),
+            array('Sumprabum', 'ဆွမ်ပရာဘွမ်', '4'),
+
+            // Kayah
+            array('Demoso', 'ဒီးမော့ဆို', '5'),
+            array('Hpruso', 'ဖရူဆို', '5'),
+            array('Loikaw', 'လွိုင်ကော်', '5'),
+            array('Shadaw', 'ရှားတော', '5'),
+            array('Bawlake', 'ဘောလခဲ', '5'),
+            array('Hpasawng', 'ဖားဆောင်း', '5'),
+            array('Mese', 'မယ်စဲ', '5'),
+
+            // Kayin
+            array('Hlaingbwe', 'လှိုင်းဘွဲ့', '6'),
+            array('Hpa-An', 'ဘားအံ', '6'),
+            array('Thandaunggyi', 'သံတောင်ကြီး', '6'),
+            array('Myawaddy', 'မြဝတီ', '6'),
+            array('Kyainseikgyi', 'ကြာအင်းဆိပ်ကြီး', '6'),
+            array('Kawkareik', 'ကော့ကရိတ်', '6'),
+            array('Hpapun', 'ဖာပွန်', '6'),
+
+            // Magway
+            array('Chauk', 'ချောက်', '7'),
+            array('Magway', 'မကွေး', '7'),
+            array('Myothit', 'မြို့သစ်', '7'),
+            array('Natmauk', 'နတ်မောက်', '7'),
+            array('Taungdwingyi', 'တောင်တွင်းကြီး', '7'),
+            array('Yenangyaung', 'ရေနံချောင်း', '7'),
+            array('Minbu', 'မင်းဘူး', '7'),
+            array('Ngape', 'ငဖဲ', '7'),
+            array('Pwintbyu', 'ပွင့်ဖြူ', '7'),
+            array('Salin', 'စလင်း', '7'),
+            array('Sidoktaya', 'စေတုတ္ထရာ', '7'),
+            array('Aunglan', 'အောင်လံ', '7'),
+            array('Kamma', 'ကံမ', '7'),
+            array('Mindon', 'မင်းတုန်း', '7'),
+            array('Minhla', 'မင်းလှ', '7'),
+            array('Sinbaungwe', 'ဆင်ပေါင်ဝဲ', '7'),
+            array('Thayet', 'သရက်', '7'),
+            array('Myaing', 'မြိုင်', '7'),
+            array('Pakokku', 'ပခုက္ကူ', '7'),
+            array('Pauk', 'ပေါက်', '7'),
+            array('Seikphyu', 'ဆိပ်ဖြူ', '7'),
+            array('Yesagyo', 'ရေစကြို', '7'),
+            array('Gangaw', 'ဂန့်ဂေါ', '7'),
+            array('Saw', 'ဆော', '7'),
+            array('Tilin', 'ထီးလင်း', '7'),
+
+            // Mon
+            array('Chaungzon', 'ချောင်းဆုံ', '9'),
+            array('Kyaikmaraw', 'ကျိုက်မရော', '9'),
+            array('Mawlamyine', 'မော်လမြိုင်', '9'),
+            array('Mudon', 'မုဒုံ', '9'),
+            array('Thanbyuzayat', 'သံဖြူဇရပ်', '9'),
+            array('Ye', 'ရေး', '9'),
+            array('Bilin', 'ဘီးလင်း', '9'),
+            array('Kyaikto', 'ကျိုက်ထို', '9'),
+            array('Paung', 'ပေါင်', '9'),
+            array('Thaton', 'သထုံ', '9'), 
+
+            // Rakhine
+            array('Pauktaw', 'ပေါက်တော', '10'),
+            array('Ponnagyun', 'ပုဏ္ဏားကျွန်း', '10'),
+            array('Rathedaung', 'ရသေ့တောင်', '10'),
+            array('Sittwe', 'စစ်တွေ', '10'),
+            array('Buthidaung', 'ဘူးသီးတောင်', '10'),
+            array('Maungdaw', 'မောင်တော', '10'),
+            array('Ann', 'အမ်း', '10'),
+            array('Kyaukpyu', 'ကျောက်ဖြူ', '10'),
+            array('Munaung', 'မာန်အောင်', '10'),
+            array('Ramree', 'ရမ်းဗြဲ', '10'),
+            array('Thandwe', 'သံတွဲ', '10'),
+            array('Toungup', 'တောင်ကုတ်', '10'),
+            array('Kyauktaw', 'ကျောက်တော်', '10'),
+            array('Minbya', 'မင်းပြား', '10'),
+            array('Mrauk-U', 'မြောက်ဦး', '10'),
+            array('Myebon', 'မြေပုံ', '10'),
+            array('Gwa', 'ဂွ', '10'),
+
+            // Shan
+            array('Kalaw', 'ကလော', '11'),
+            array('Lawksawk', 'ရပ်စောက်', '11'),
+            array('Nyaungshwe', 'ညောင်ရွှေ', '11'),
+            array('Pekon', 'ဖယ်ခုံ', '11'),
+            array('Taunggyi', 'တောင်ကြီး', '11'),
+            array('Kunhing', 'ကွန်ဟိန်း', '11'),
+            array('Kyethi', 'ကျေးသီး', '11'),
+            array('Laihka', 'လဲချား', '11'),
+            array('Loilen', 'လွိုင်လင်', '11'),
+            array('Monghsu', 'မိုင်းရှူး', '11'),
+            array('Mongkaing', 'မိုင်းကိုင်', '11'),
+            array('Nansang', 'နမ့်စန်', '11'),
+            array('Langkho', 'လင်းခေး', '11'),
+            array('Mawkmai', 'မောက်မယ်', '11'),
+            array('Mongnai', 'မိုးနဲ', '11'),
+            array('Mongpan', 'မိုင်းပန်', '11'),
+            array('Hseni', 'သိန္နီ', '11'),
+            array('Kunlong', 'ကွမ်းလုံ', '11'),
+            array('Lashio', 'လားရှိုး', '11'),
+            array('Kutkai', 'ကွတ်ခိုင်', '11'),
+            array('Muse', 'မူဆယ်', '11'),
+            array('Namhkan', 'နမ့်ခမ်း', '11'),
+            array('Hsipaw', 'သီပေါ', '11'),
+            array('Kyaukme', 'ကျောက်မဲ', '11'),
+            array('Namtu', 'နမ္မတူ', '11'),
+            array('Nawnghkio', 'နောင်ချို', '11'),
+
+            // Sagaing
+            array('Myaung', 'မြောင်', '12'),
+            array('Myinmu', 'မြင်းမူ', '12'),
+            array('Sagaing', 'စစ်ကိုင်း', '12'),
+            array('Shwebo', 'ရွှေဘို', '12'),
+            array('Tabayin', 'ဒီပဲယင်း', '12'),
+            array('Taze', 'တန့်ဆည်', '12'),
+            array('Wetlet', 'ဝက်လက်', '12'),
+            array('Ye-U', 'ရေဦး', '12'),
+            array('Khin-U', 'ခင်ဦး', '12'),
+            array('Ayadaw', 'အရာတော်', '12'),
+            array('Budalin', 'ဘုတလင်', '12'),
+            array('Chaung-U', 'ချောင်းဦး', '12'),
+            array('Monywa', 'မုံရွာ', '12'),
+            array('Banmauk', 'ဗန်းမောက်', '12'),
+            array('Indaw', 'အင်းတော်', '12'),
+            array('Katha', 'ကသာ', '12'),
+            array('Kale', 'ကလေး', '12'),
+            array('Kalewa', 'ကလေးဝ', '12'),
+            array('Mingin', 'မင်းကင်း', '12'),
+            array('Tamu', 'တမူး', '12'),
+            array('Mawlaik', 'မော်လိုက်', '12'),
+            array('Paungbyin', 'ဖောင်းပြင်', '12'),
+            array('Hkamti', 'ခန္တီး', '12'),
+            array('Homalin', 'ဟုမ္မလင်း', '12'),
+            array('Kani', 'ကနီ', '12'),
+            array('Kyunhla', 'ကျွန်းလှ', '12'),
+            array('Kanbalu', 'ကန့်ဘလူ', '12'),
+            array('Kawlin', 'ကောလင်း', '12'),
+            array('Pinlebu', 'ပင်လည်ဘူး', '12'),
+            array('Wuntho', 'ဝန်းသို', '12'),
+
+            // Tanintharyi
+            array('Dawei', 'ထားဝယ်', '13'),
+            array('Launglon', 'လောင်းလုံး', '13'),
+            array('35chaung', 'သရက်ချောင်း', '13'),
+            array('Yebyu', 'ရေဖြူ', '13'),
+            array('Kyunsu', 'ကျွန်းစု', '13'),
+            array('Myeik', 'မြိတ်', '13'),
+            array('Palaw', 'ပုလော', '13'),
+            array('Tanintharyi', 'တနင်္သာရီ', '13'),
+            array('Bokpyin', 'ဘုတ်ပြင်း', '13'),
+            array('Kawthoung', 'ကော့သောင်း', '13'),
+
+            // Nay Pyi Taw
+            array('Oke Ta Ra Thi Ri', 'ဥတ္တရသီရိ', '15'),
+            array('Poke Ba Thi Ri', 'ပုဗ္ဗသီရိ', '15'),
+            array('Tatkon', 'တပ်ကုန်း', '15'),
+            array('Zay Yar Thi Ri', 'ဇေယျာသီရိ', '15'),
+            array('Det Khi Na Thi Ri', 'ဒက္ခိဏသီရိ', '15'),
+            array('Lewe', 'လယ်ဝေး', '15'),
+            array('Pyinmana', 'ပျဉ်းမနား', '15'),
+            array('Za Bu Thi Ri', 'ဇမ္ဗူသီရိ', '15'),
+        ];
+
+        foreach ($townshiplists as $townshiplist) 
+        {
+            $township = new Township;
+            $township->name = $townshiplist[0];
+            $township->mmr_name = $townshiplist[1];
+            $township->city_id = $townshiplist[2];
+            $township->user_id = 1;
+            $township->save();
+        }
     }
 }

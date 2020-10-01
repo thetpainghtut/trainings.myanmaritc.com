@@ -36,7 +36,7 @@ class CreateStudentsTable extends Migration
             $table->text('because');
             $table->string('status',100)->nullable();
 
-            $table->unsignedBigInteger('township_id');
+            $table->unsignedBigInteger('township_id')->nullable();
             $table->foreign('township_id')
                   ->references('id')->on('townships')
                   ->onDelete('cascade');
