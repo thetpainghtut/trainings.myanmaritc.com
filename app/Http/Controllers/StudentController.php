@@ -461,7 +461,7 @@ class StudentController extends Controller
 
       $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
 
-        return redirect()->route('students.index');
+        return redirect()->route('students.create');
 
     }
 }

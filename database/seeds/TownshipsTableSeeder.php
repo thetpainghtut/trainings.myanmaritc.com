@@ -54,7 +54,6 @@ class TownshipsTableSeeder extends Seeder
             array('Mingalartaungnyunt', 'မင်္ဂလာတောင်ညွန့်', '14'),
             array('North Okkalapa', 'မြောက်ဥက္ကလာပ', '14'),
             array('South Okkalapa', 'တောင်ဥက္ကလာပ', '14'),
-            array('North Okkalapa', 'မြောက်ဥက္ကလာပ', '14'),
             array('Thanlyin', 'သန်လျင်', '14'),
             array('Thongwa', 'သုံးခွ', '14'),
             array('Twantay', 'တွံတေး', '14'),
@@ -342,6 +341,9 @@ class TownshipsTableSeeder extends Seeder
             array('Lewe', 'လယ်ဝေး', '15'),
             array('Pyinmana', 'ပျဉ်းမနား', '15'),
             array('Za Bu Thi Ri', 'ဇမ္ဗူသီရိ', '15'),
+
+            array('Pinlaung', 'ပင်လောင်', '11'),
+
         ];
 
         foreach ($townshiplists as $townshiplist) 
