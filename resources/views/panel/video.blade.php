@@ -170,6 +170,6 @@
                 player.currentTime=10;
                 console.log(player.currentTime);
             });
-        });
+        
     </script>
 @endsection

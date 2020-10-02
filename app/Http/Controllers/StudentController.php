@@ -375,6 +375,16 @@ class StudentController extends Controller
       $pivotstatus = "Deactive( ".$status.' )';
 
       $batch->students()->updateExistingPivot($student_id,['receiveno'=>$receive_no,'status'=>$pivotstatus]);
+      foreach ($batch->students as $batch_student) {
+        if($batch_student->lessons){
+          foreach ($batch_student->lessons as $student_lesson) {
+            if($student_lesson->pivot->status == 0){
+              $batch_student->lessons()->newPivotStatement()->where('status',0)->delete();
+              // var_dump($batch_student->lessons();
+            }
+          }
+        }
+      }
      // dd($/data);
       $student = Student::find($student_id);
       // $student->status = $status;

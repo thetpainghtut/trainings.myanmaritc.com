@@ -24,7 +24,7 @@ class Lesson extends Model
     }
 
     public function students()
-    {
-        return $this->belongsToMany('App\Student')->withTimestamps();
+    {               
+        return $this->belongsToMany('App\Student')->withPivot('status')->withTimestamps();
     }
 }

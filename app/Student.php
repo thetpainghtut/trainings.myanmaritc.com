@@ -68,7 +68,7 @@ class Student extends Model
 
     public function lessons()
     {
-        return $this->belongsToMany('App\Lesson');
+        return $this->belongsToMany('App\Lesson')->withPivot('status')->withTimestamps();
 
     }
 }

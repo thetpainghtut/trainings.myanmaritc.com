@@ -57,9 +57,24 @@ class ReportCommand extends Command
     $lessons = Lesson::all();
     $students = Student::all();
     $date = date('Y-m-d');
-    $batches = Batch::where('enddate','>',$date)->get();
+    $batches = Batch::where('enddate','>=',$date)->get();
 
     foreach ($batches as $batch) {
+
+
+        // if($batch->enddate = $date){
+
+        // foreach ($batch->students as $batch_student_status) {
+
+        //     foreach ($batch_student_status->lessons as $student_lesson) {
+
+        //       if($batch_student_status->pivot->status == 0){
+        //                 $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
+        //             }
+        //         }
+        //     }
+        // }
+
       foreach ($batch->subjects as $batch_subject) {
           $count = count($batch_subject->lessons);
           $subname = $batch_subject->name;
@@ -74,38 +89,55 @@ class ReportCommand extends Command
             
                 foreach ($batch->students as $batch_student) {
 
-                if($batch_student->pivot->status == "Active" && $batch_student->pivot->student_id == $lesson_student->pivot->student_id ){
+                if($batch_student->pivot->status == "Active" && $batch_student->pivot->student_id === $lesson_student->pivot->student_id && $batch_student->lessons && $lesson_student->pivot->status == 0){
 
                   $s_count = count($batch_student->lessons);
 
 
                   if($count != $s_count){
 
-                    $text = "Your ".$subname.' tutorials are not finish.Watch and learn your tutorials!';
+                    $text = 'Your  tutorials are not finish.Watch and learn your tutorials! 
+                        http://localhost:8000/panel
+                        ';
 
-                    Mail::raw($text,function($message) use ($lesson_student){
+                    Mail::raw($text,function($message) use ($batch_student){
                         $message->from('nyiyl345@gmail.com');
-                        $message->to($lesson_student->email)->subject('Alert for your tutorial!');
+                        $message->to($batch_student->email)->subject('Alert for your tutorial!');
+
                     });
+                    
+
 
                     $this->info('Minute Update has been send successfully');
-                  }else{
-                    $text = "You have to watch ".$sub_lesson->name;
+                break;
 
-                    Mail::raw($text,function($message) use ($lesson_student){
+                  }else{
+                    $text = 'There are tutorial video to watch
+                        http://localhost:8000/panel>
+                        ';
+
+                    Mail::raw($text,function($message) use ($batch_student){
                         $message->from('nyiyl345@gmail.com');
-                        $message->to($lesson_student->email)->subject('Error Mail send');
+                        $message->to($batch_student->email)->subject('Something to watch');
+
                     });
                   }
-                  break;
+                     // break;
 
-                }if($lesson_student->pivot->lesson_id != $sub_lesson->id){
-                    $text = "You have to watch ".$sub_lesson->name;
 
-                    Mail::raw($text,function($message) use ($lesson_student){
+                }
+                if($batch_student->pivot->status == "Active" && $batch_student->pivot->student_id !== $lesson_student->pivot->student_id && $batch_student->lessons && $lesson_student->pivot->status == 0){
+                    $text = 'You have not watched  tutorial.Watch and learn tutorial
+                        http://localhost:8000/panel
+                        ';
+
+                    Mail::raw($text,function($message) use ($batch_student){
                         $message->from('nyiyl345@gmail.com');
-                        $message->to($lesson_student->email)->subject('To watch tutorial');
+                        $message->to($batch_student->email)->subject('To watch tutorial');
+
                     });
+                    break;
+
                 }
                 } 
               }
@@ -116,3 +148,5 @@ class ReportCommand extends Command
 
     }
 }
+
+
