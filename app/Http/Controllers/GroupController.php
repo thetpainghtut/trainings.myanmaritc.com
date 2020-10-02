@@ -68,6 +68,8 @@ class GroupController extends Controller
 
         $group = new Group;
 
+        // dd(request('members'));
+
         $group->name = request('name');
         $group->batch_id = request('batch');
         $group->save();

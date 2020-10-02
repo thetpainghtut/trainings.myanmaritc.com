@@ -32,6 +32,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call(BatchTableSeeder::class);
         $this->call(InquireTableSeeder::class);
+
+        $this->call(CSRTableSeeder::class);
+        $this->call(StudentTableSeeder::class);
+
+        $this->call(PostTableSeeder::class);
+        
+        
         
     }
 }
