@@ -205,6 +205,14 @@ class PanelController extends Controller
         return response()->json(['posts'=>$posts]);
     }
 
+    public function notideail($pid,$bid){
+        $topics = Topic::all();
+        $postid = Post::find($pid);
+        $topid = $postid->topic_id;
+        $batch = Batch::find($bid);
+        return view('panel.notificationread',compact('topics','postid','topid','batch'));
+    }
+
     public function projecttitle(Request $request)
     {
         //dd($request);

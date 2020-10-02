@@ -17,6 +17,8 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
 
+            $table->text('link')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('projecttype_id');
             $table->foreign('projecttype_id')
                   ->references('id')->on('projecttypes')
@@ -39,6 +41,8 @@ class CreateProjectsTable extends Migration
                   ->references('id')->on('students')
                   ->onDelete('cascade');
         });
+
+       
     }
 
     /**
