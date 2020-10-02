@@ -27,6 +27,7 @@ class CreateLessonStudentTable extends Migration
                   ->onDelete('cascade');
 
 
+
             $table->timestamps();
         });
     }
