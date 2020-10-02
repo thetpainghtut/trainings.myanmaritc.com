@@ -73,7 +73,9 @@
                                 $student = Auth::user()->student;
                                 $stu_less_count = 0;
                             @endphp
-
+                            @php
+                            $susubject_batch_id =0;
+                            @endphp
                             @foreach($student->lessons as $lesson)
                                 @php
                                     $subject_pid = $lesson->subject_id;
@@ -82,11 +84,17 @@
                                    
                                 @endphp
                                   <!-- get subject batch -->
+
                                     @foreach($lesson_subject->batches as $subject_batch)
+                                        
+                                        @if($batch->id == $subject_batch->pivot->batch_id)
                                         @php
                                             $subject_batch_id = $subject_batch->pivot->batch_id;
+                                            break;
                                         @endphp
+                                        @endif
                                     @endforeach
+                                    {{$subject_batch_id}}
                                     <!-- get subject batch -->
                                 @if($subject->id == $subject_pid && $batch->id == $subject_batch_id)
                                     @php

@@ -53,7 +53,7 @@
                                     </div>
                                     <div id="collapse{{$pid}}" class="card-body collapse" data-parent="#accordion">
 
-                                        <a href="{{route('frontend.channel',$b->id)}}" class="notiTitle"> {{$title}} </a>
+                                        <a href="{{route('notideail',['pid' => $pid, 'bid' => $b->id] ) }}" class="notiTitle"> {{$title}} </a>
 
 
                                         <small class="d-block text-muted"> 
@@ -215,7 +215,7 @@
                     </div>
                     <div id="collapse{{$rpid}}" class="card-body collapse  @if ($x === 0) show @endif" data-parent="#accordion1">
                         
-                        <a href="{{route('frontend.channel',$rbatch)}}" class="notiTitle"> {{$rtitle}} </a>
+                        <a href="{{route('notideail',['pid' => $rpid, 'bid' => $rbatch] ) }}" class="notiTitle"> {{$rtitle}} </a>
                       
 
                         <small class="d-block text-muted"> 

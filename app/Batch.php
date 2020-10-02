@@ -68,4 +68,9 @@ class Batch extends Model
         return $this->belongsToMany('App\Subject')->withTimestamps();
     }
 
+    public function projecttypes()
+    {
+        return $this->belongsToMany('App\Projecttype');
+    }
+
 }
