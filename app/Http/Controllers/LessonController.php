@@ -10,6 +10,7 @@ use App\Subject;
 use App\Course;
 use App\Batch;
 use Owenoj\LaravelGetId3\GetId3;
+use Carbon;
 
 class LessonController extends Controller
 {
@@ -221,8 +222,11 @@ class LessonController extends Controller
         // $course_id = $_GET['course_id'];
         // $course = Course::find($course_id);
         // $batches = $course->batches;
-
-        $batches = Batch::all();
+        $today_date = Carbon\Carbon::now();
+        
+        // $batches = Batch::all();
+        $batches = Batch::where([['startdate','<=',$today_date],['enddate','>=',$today_date]])->get();
+       
 
         $subject = Subject::find($id);
 

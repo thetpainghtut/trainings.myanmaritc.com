@@ -166,6 +166,7 @@ Route::post('getInquire','StudentController@getInquire')->name('getInquire');
 Route::resource('lessons','LessonController');
 Route::post('show_subject','LessonController@show_subject')->name('show_subject');
 Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
+
 //Honey
 Route::post('assign_batchsubject','LessonController@assign_batchsubject')->name('assign_batchsubject');
 
@@ -196,6 +197,9 @@ Route::post('lesson_student','PanelController@lesson_student')->name('lesson_stu
 // nyiyelin
 Route::get('change_password','PanelController@change_password')->name('frontend.change_password');
 Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.forgetpassword');
+Route::post('resetpassword','PanelController@resetpassword')->name('frontend.resetpassword');
+Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
+Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
 
 
 
@@ -210,5 +214,11 @@ Route::get('playcourse/{bid}/{sid}', [
     'uses' => 'PanelController@playcourse'
 ]);
 
-Route::post('postassign','PostController@postassign')->name('postassign');
 
+Route::post('postassign','PostController@postassign')->name('postassign');
+Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');
+Route::post('assignproduct','PostController@assignproduct')->name('assignproduct');
+Route::post('projecttitle','PanelController@projecttitle')->name('projecttitle');
+
+Route::get('/getnoti', 'PostController@getnoti')->name('getnoti');
+Route::post('notiread','PanelController@notiread')->name('notiread');

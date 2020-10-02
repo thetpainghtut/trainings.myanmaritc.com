@@ -13,6 +13,9 @@
 
     <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
 
+    <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+    
+
     <!-- Custom Font -->
     <link href="{{ asset('mmitui/css/font.css')}}" rel="stylesheet">
 
@@ -43,9 +46,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('mmitui/vendor/owlcarousel/assets/owl.theme.default.css') }}">
 
-    <!-- Plyr -->
-    {{-- <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/demo.css" /> --}}
+    <!-- Select2 -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/select2_bootstrap4/dist/select2-bootstrap4.min.css') }}">
 
+    <!-- Plyr -->
+
+     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-notifications.min.css')}}">
 </head>
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
@@ -95,7 +102,7 @@
                     
                     @else
 
-                    <li class="nav-item dropdown mr-5">
+                    <li class="nav-item dropdown dropdown-notifications mr-5">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
@@ -135,8 +142,9 @@
 
                             <a class="dropdown-item" href="{{ route('frontend.secret') }}"> Change Password </a>
 
-                            <a class="dropdown-item" href="{{ route('frontend.notification')}}"> Notifications 
-                                <span class="badge badge-pill badge-danger"> +1 </span> 
+                            <a class="dropdown-item noti" href="{{ route('frontend.notification')}}"> Notifications 
+                                <span class="badge badge-pill badge-danger">0 </span> 
+                               
                             </a>
 
                             <div class="dropdown-divider"></div>
@@ -410,12 +418,62 @@
     <script src="{{ asset('mmitui/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    {{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
     <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
-
-    <!-- Plyr -->
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     
+
+    <!-- Select2 -->
+    <script src="{{asset('sb_admin2/vendor/select2/dist/js/select2.min.js')}}"></script>
+    
+    <!-- Plyr -->
+    {{-- <script src="https://cdn.plyr.io/3.6.2/demo.js" crossorigin="anonymous"></script>
+    <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script> --}}
+
   @yield('script')
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <script type="text/javascript">
+    //  var notificationsWrapper   = $('.dropdown-notifications');
+      var notificationsToggle    = $('.noti');
+     // var notificationsCountElem = notificationsToggle.find('i[data-count]');
+     var notificationsCountElem = notificationsToggle.find('span').text();
+     // alert(notificationsCountElem);
+      var notificationsCount     = parseInt(notificationsCountElem);
+     // console.log(notificationsCount);
+      //var notifications          = notificationsWrapper.find('ul.dropdown-menu');
+        showNoti();
+        function showNoti(){
+        $.get("/getnoti",function(response){
+        var count = response.length;
+        if(count > 0){
+        notificationsToggle.find('span').html(count);
+    }
+    });
+    }
+     /* if (notificationsCount <= 0) {
+        notificationsToggle.hide();
+      }*/
+
+      // Enable pusher logging - don't include this in production
+      // Pusher.logToConsole = true;
+          Pusher.logToConsole = true;
+
+     var pusher = new Pusher('0569f3090279c1cbab87', {
+      cluster: 'ap1'
+    });
+
+      // Subscribe to the channel we specified in our Laravel Event
+      var channel = pusher.subscribe('my-channel');
+
+      // Bind a function to a Event (the full Laravel class)
+      channel.bind('my-event', function(data) {
+      //  alert(JSON.stringify(data));
+        
+        showNoti();
+        notificationsToggle.show();
+      });
+    </script>
 </body>
 
 </html>

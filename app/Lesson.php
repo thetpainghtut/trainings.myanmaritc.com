@@ -22,4 +22,9 @@ class Lesson extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function students()
+    {
+        return $this->belongsToMany('App\Student')->withTimestamps();
+    }
 }

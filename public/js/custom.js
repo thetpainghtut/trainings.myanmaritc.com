@@ -31,24 +31,34 @@ $(document).ready(function () {
 
   $('#members').prop('disabled',true);
 
-  // $('#batch').change(function () {
-  //   $('#members').prop('disabled',false);
-  //   $(".js-example-basic-multiple").html('').select2({
-  //     placeholder: "Choose members",
-  //     theme: 'bootstrap4',
+  $('.batch_group').change(function () {
+    $('#members').prop('disabled',false);
+    $(".js-example-basic-multiple").html('').select2({
+      placeholder: "Choose members",
+      theme: 'bootstrap4',
 
-  //   });
-  //   var bid = $(this).val();
-  //   $.post('/getstudentformembers',{bid:bid},function (response) {
-  //     // console.log(response);
-  //     var html='<select class="js-example-basic-multiple form-control" name="members[]" multiple="multiple" id="members">';
-  //     $.each(response,function (i,v) {
-  //       html += '<option value="'+v.id+'">'+v.namee+'</option>';
-  //     })
-  //     html += '</select>';
-  //     $('#members').html(html);
-  //   });
-  // });
+    });
+    var bid = $(this).val();
+    
+    $.post('/getstudentformembers',{bid:bid},function (response) {
+      // console.log(response);
+
+      var html='<select class="js-example-basic-multiple form-control" name="members[]" multiple="multiple" id="members">';
+
+      $.each(response,function (i,v) {
+        $.each(v.batch,function(a,b) {
+          // console.log(b.pivot);
+          if(b.id == bid && b.pivot.status=="Active"){
+          html += '<option value="'+v.id+'">'+v.namee+'</option>'; 
+        }
+        })
+
+      })
+
+      html += '</select>';
+      $('#members').html(html);
+    });
+  });
 
   
 })

@@ -52,7 +52,7 @@
                                 <td>{{$batch_inquire->inquireno}}</td>
                                 <td>{{$batch_inquire->education->name}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$batch_inquire->name}}" data-inquireno="{{$batch_inquire->inquireno}}" data-receiveno="{{$batch_inquire->receiveno}}" data-gender="{{$batch_inquire->gender}}"  data-phone="{{$batch_inquire->phone}}" data-installmentdate="{{$batch_inquire->installmentdate}}" data-installmentamount="{{$batch_inquire->installmentamount}}" data-knowledge="{{$batch_inquire->knowledge}}" data-camp="{{$batch_inquire->camp}}" data-education="{{$batch_inquire->education->name}}" data-acceptedyear="{{$batch_inquire->acceptedyear}}" data-batch="{{$batch_inquire->batch->title}}" ><i class="fas fa-info"></i>
+                                    <a href="#" class="btn btn-primary inquire_detail btn-sm" data-name="{{$batch_inquire->name}}" data-inquireno="{{$batch_inquire->inquireno}}" data-receiveno="{{$batch_inquire->receiveno}}" data-gender="{{$batch_inquire->gender}}"  data-phone="{{$batch_inquire->phone}}" data-installmentdate="{{$batch_inquire->installmentdate}}" data-installmentamount="{{$batch_inquire->installmentamount}}" data-knowledge="{{$batch_inquire->knowledge}}" data-camp="{{$batch_inquire->camp}}" data-education="{{$batch_inquire->education->name}}" data-acceptedyear="{{$batch_inquire->acceptedyear}}" data-batch="{{$batch_inquire->batch->title}}" data-message="{{$batch_inquire->message}}"><i class="fas fa-info"></i>
                                     </a>
 
                                     <form method="post" action="{{route('inquires.destroy',$batch_inquire->id)}}" class="d-inline-block btn-sm">
@@ -165,6 +165,13 @@
                             <p class="inquire_batch"></p>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <label class="col-md-5 offset-md-1">Message:</label>
+                        <div class="col-md-6">
+                            <p class="message"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -222,6 +229,7 @@
                 var education = $(this).data('education');
                 var acceptedyear = $(this).data('acceptedyear');
                 var batch = $(this).data('batch');
+                var message = $(this).data('message');
                 
                 $('.inquire_no').text(inquireno);
                 $('.receive_no').text(receiveno);
@@ -235,6 +243,7 @@
                 $('.education').text(education);
                 $('.acceptedyear').text(acceptedyear);
                 $('.inquire_batch').text(batch);
+                $('.message').text(message);
                 $('.detail_modal').modal('show');
             })
            

@@ -23,7 +23,13 @@ class GradingController extends Controller
   public function form($id)
   {
       $student = Student::findOrFail($id);
-      $units = Unit::where('course_id', $student->batch->course['id'])->get();
+      foreach ($student->batches as $value) {
+        if ($value->pivot->status=="Active") {
+          $units = Unit::where('course_id', $value->course_id)->get();
+        }
+      };
+     
+      
       return view('grading.form',compact('student','units'));
   }
     /**
@@ -59,7 +65,12 @@ class GradingController extends Controller
     {
       $requeststudent = request('student_id');
       $student = Student::find($requeststudent);
-      $units = Unit::where('course_id', $student->batch->course['id'])->get();
+      foreach ($student->batches as $value) {
+        if ($value->pivot->status=="Active") {
+          $units = Unit::where('course_id', $value->course_id)->get();
+        }
+      };
+      // $units = Unit::where('course_id', $student->batch->course['id'])->get();
 
       // $units = Unit::all();
       foreach ($units as $row) {
