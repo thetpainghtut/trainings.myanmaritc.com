@@ -107,10 +107,11 @@
                             @endphp
                            
                             @if($subject->id == $subject_pid && $batch->id == $batch_pid)
-                                @if($stu_less_count > 0)
-                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
+                                @if($lectures == $stu_less_count)
+                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
                                     Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
                                 </a>
+                               
                                 @else
                                  <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
                                     Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>

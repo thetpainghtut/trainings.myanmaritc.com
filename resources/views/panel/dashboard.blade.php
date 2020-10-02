@@ -25,6 +25,7 @@
                         $lesson_total = 0;
 
                         $seen_less_total = 0;
+                        $percentage = 0;
                     @endphp
 
                     @foreach($course->subjects as $subject)
@@ -69,10 +70,12 @@
                         @endphp
 
                     @endforeach
-                     @php
-                        $percentage_decimal = (($seen_less_total/$lesson_total)*100);
-                        $percentage = round($percentage_decimal);
-                    @endphp
+                    @if($lesson_total > 0)
+                        @php
+                            $percentage_decimal = (($seen_less_total/$lesson_total)*100);
+                            $percentage = round($percentage_decimal);
+                        @endphp
+                    @endif
 
                      @if($studentbatch->pivot->status == "Active")
                         <div class="col-lg-4 col-md-6 col-sm-12 my-3 ">
