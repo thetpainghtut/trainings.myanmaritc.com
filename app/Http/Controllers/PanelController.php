@@ -23,14 +23,24 @@ use Illuminate\Support\Facades\Hash;
 
 class PanelController extends Controller
 {
-    public function index()
+
+    public function __construct($value='')
     {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {        
+        
         $auth = Auth::user();
         $studentinfo = $auth->student;
 
         $studentbatches = $studentinfo->batches;
 
-    	return view('panel.dashboard',compact('studentinfo','studentbatches'));
+        return view('panel.dashboard',compact('studentinfo','studentbatches'));
+              
+        
+       
     }
 
     public function takelesson($batchid){
@@ -87,7 +97,7 @@ class PanelController extends Controller
            $posts = Post::whereHas('batches', function ($q) use($id){
   
                     $q->where('batch_id',$id);
-                })->get();
+                })->orderBy('id','desc')->get();
         }
         
         /*foreach ($posts as $k) {
@@ -96,6 +106,29 @@ class PanelController extends Controller
         }
          dd($batch);*/
         return view('panel.notification',compact('posts','batch'));
+    }
+
+
+    public function notiread(Request $request)
+    {
+        $poid = Post::find($request->poid);
+        $baid = request('baid');
+        $pid = $poid->id;
+        $ptitle = $poid->title;
+        $ptopic = $poid->topic_id;
+        $puser = $poid->user_id;
+        $p = $poid->batches;
+        foreach ($p as $key => $value) {
+            if($value->pivot->batch_id == $baid){
+                $poid->unreadNotifications()->update(['read_at' => now()]);
+                echo "Successful";
+            }
+        }
+ 
+
+       // $post = (object)['id'=>$pid,'title'=>$ptitle,'topic_id'=>$ptopic,'user_id'=>$puser,'batch_id'=>$baid];
+        //$post->unreadNotifications();
+
     }
     
 
@@ -157,12 +190,18 @@ class PanelController extends Controller
     public function allchannel(Request $request)
     {
         $id = $request->id;
+        $bid = $request->bid;
         if($id == 0){
-            $posts = Post::with('topic','user','user.staff')->get();
+            $posts = Post::with('topic','user','user.staff')->whereHas('batches',function($q) use ($bid){
+                $q->where('batch_id',$bid);
+            })->get();
+
         }else{
-            $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->get();
+            $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->whereHas('batches',function($q) use ($bid){
+                $q->where('batch_id',$bid);
+            })->get();
         }
-        
+       
         return response()->json(['posts'=>$posts]);
     }
 

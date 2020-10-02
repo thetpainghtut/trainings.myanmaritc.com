@@ -14,12 +14,14 @@ use App\Journal;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
-
+use App\Http\Resources\StudentResource;
+use App\Lesson;
 class FrontendController extends Controller
 {
   public function index($value='')
   {
     return view('frontend.index');
+     
   }
 
   public function csr($value='')
