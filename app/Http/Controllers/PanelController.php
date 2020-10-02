@@ -240,26 +240,49 @@ class PanelController extends Controller
         $student = $user->student;
         $student_id = $student->id;
 
-        if($lesson->students->isEmpty())
-        {            
+        /*student lesson yae first statement pae condition phyit nay*/
+
+        /*if($lesson->students->isEmpty())
+        {      
+        // dd('no student');      
             $lesson->students()->attach($student_id);            
 
         }else{
             
             foreach($lesson->students as $less_student)
             {
+                // dd($less_student->pivot);
                 $student_pid = $less_student->pivot->student_id;
                 $lesson_pid = $less_student->pivot->lesson_id;
 
                 if($lesson_id == $lesson_pid && $student_id == $student_pid)
                 {
+                    // dd("equal student id ");
                     break;
                 }else{
-
+                    // dd("not equal student id $student_pid");
                     $lesson->students()->attach($student_id);
                 }
             }
+        }*/
+        /*student lesson yae first statement pae condition phyit nay*/
+
+        if($student->lessons->isEmpty()){
+            $lesson->students()->attach($student);
+        }else{
+            foreach ($student->lessons as $student_lesson) {
+                $pivot_lesson_id = $student_lesson->pivot->lesson_id;
+                if($lesson_id == $pivot_lesson_id){
+                    continue;
+                    echo "$pivot_lesson_id equal lesson id";
+                    // break;
+                }else{
+                    $lesson->students()->attach($student);
+                    break;
+                }
+            }
         }
+
         return response()->json($lesson);
     }
 
