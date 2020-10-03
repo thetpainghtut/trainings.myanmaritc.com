@@ -173,6 +173,8 @@
   
         @yield('content')
 
+        @if(Request::segment(1) === null || Request::segment(1) === 'csr' || Request::segment(1) === 'allcourses' || Request::segment(1) ==='contact' || Request::segment(1) ==='blog' || Request::segment(1) ==='blog_detail' || Request::segment(1) ==='course_detail')
+
         <!-- New Course -->
         <div class="container-fluid" id="newcourse_ad">
             <div class="row p-5">
@@ -391,6 +393,7 @@
             </div>
         </div>
         <!-- Feedback - RANDOM  -->
+        @endif
 
 
     </div>
