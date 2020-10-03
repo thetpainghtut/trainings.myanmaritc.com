@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PostTableSeeder::class);
         
         $this->call(LessonSeeder::class);
+        $this->call(GroupTableSeeder::class);
         
         
     }
