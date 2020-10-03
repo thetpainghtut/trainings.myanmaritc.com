@@ -19,9 +19,6 @@ class CreateProjectsTable extends Migration
             $table->string('link')->nullable();
             $table->string('status')->nullable();
 
-
-            $table->text('link')->nullable();
-            $table->string('status')->nullable();
             $table->unsignedBigInteger('projecttype_id');
             $table->foreign('projecttype_id')
                   ->references('id')->on('projecttypes')
