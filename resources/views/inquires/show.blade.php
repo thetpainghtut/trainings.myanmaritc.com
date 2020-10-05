@@ -455,7 +455,7 @@
                 }
             });
 
-            $('.inquire_detail').click(function(){
+            $('tbody').on('click','.inquire_detail',function(){
                 var inquireno = $(this).data('inquireno');
                 var receiveno = $(this).data('receiveno');
                 var name = $(this).data('name');
@@ -517,14 +517,14 @@
                 })
             })
         
-            $('.edit_install').click(function(){
+            $('tbody').on('click','.edit_install',function(){
                 var id = $(this).data('id');
                 $('#install_id').val(id);
           
                 $('.install_modal').modal('show');
             })
         
-            $('.full_install').click(function(){
+            $('tbody').on('click','.full_install',function(){
                 var id = $(this).data('id');
                 var fees = $(this).data('fees');
                 var install_amount = $(this).data('amount');
@@ -539,7 +539,7 @@
                 $('.fullinstall_modal').modal('show');
             })
 
-            $('.postpone').click(function(){
+            $('tbody').on('click','.postpone',function(){
                 var id = $(this).data('id');
                 $('#postpone_id').val(id);
                 $('.postpone_modal').modal('show');

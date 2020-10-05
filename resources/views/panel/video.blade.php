@@ -38,36 +38,38 @@
                         @foreach($lessons as $key => $lesson)
                             <div class="card mb-0">
                                 <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ $lesson->id }}">
-                                     @php
+                                    <!-- condition of icon change when seeing lessons this login student -->
+                                    @php
                                         $student = Auth::user()->student;
                                         $student_id = $student->id;
+                                        $seen_lesson_data = 0;
                                     @endphp
-                                    @foreach($lesson->students as $lesson_student)
+
+                                    @foreach($student->lessons as $lesson_student)
                                         @php
                                             $lesson_pid = $lesson_student->pivot->lesson_id;
                                             $student_pid = $lesson_student->pivot->student_id;
-
+                                            $status = $lesson_student->pivot->status;
                                         @endphp
-                                        @if($lesson->id == $lesson_pid && $student_id == $student_pid)
+
+                                        @if($lesson->id == $lesson_pid && $status == 0)
+                                            @php
+                                                $seen_lesson_data = 1;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+
+                                    @if($seen_lesson_data == 1)
                                         <a class="card-title"> 
                                             <i class="far fa-check-circle mr-3 text-success"></i> {{ $lesson->title }}
                                         </a>
-                                        @else
-                                        <a class="card-title"> 
-                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
-                                        </a>
-
-                                        @endif
-                                         @php
-                                         break;
-                                        @endphp
-                                    @endforeach
-
-                                    @if($lesson->students->isEmpty())
+                                    @else
                                         <a class="card-title"> 
                                             <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
                                         </a>
                                     @endif
+
+                                    <!-- condition of icon change when seeing lessons this login student -->
                                     
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">

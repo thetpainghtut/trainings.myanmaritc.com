@@ -274,20 +274,28 @@ class PanelController extends Controller
             }
         }*/
         /*student lesson yae first statement pae condition phyit nay*/
-
+        $equal_lesson_id = 0;
         if($student->lessons->isEmpty()){
             $lesson->students()->attach($student);
         }else{
             foreach ($student->lessons as $student_lesson) {
                 $pivot_lesson_id = $student_lesson->pivot->lesson_id;
-                if($lesson_id == $pivot_lesson_id){
-                    continue;
-                    echo "$pivot_lesson_id equal lesson id";
-                    // break;
-                }else{
-                    $lesson->students()->attach($student);
-                    break;
+                $status = $student_lesson->pivot->status;
+                // if($lesson_id == $pivot_lesson_id){
+                //     continue;
+                //     echo "$pivot_lesson_id equal lesson id";
+                //     // break;
+                // }else{
+                //     $lesson->students()->attach($student);
+                //     break;
+                // }
+                if($lesson_id == $pivot_lesson_id && $status == 0){
+                    $equal_lesson_id = 1;
                 }
+            }
+
+            if($equal_lesson_id == 0){
+                $lesson->students()->attach($student);
             }
         }
 

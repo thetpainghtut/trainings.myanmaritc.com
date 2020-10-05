@@ -43,7 +43,9 @@
                         @php
                             $subject = $lesson->subject;
                             $subject_batch_id=0;
+                            $status = $lesson->pivot->status;
                         @endphp
+
                         @foreach($subject->batches as $subject_batch)
                             
                            @if($studentbatch->id == $subject_batch->pivot->batch_id)
@@ -53,11 +55,12 @@
                                 @endphp
                             @endif
                         @endforeach
-                        @if($studentbatch->id == $subject_batch_id)
+
+                        @if($studentbatch->id == $subject_batch_id && $status == 0)
                       
                             @php
-                               
-                               $seen_less_total = $studentinfo->lessons->count();
+                                $stu_less =1;                                       
+                               $seen_less_total += $stu_less;
                                
                             @endphp                                   
                         @endif
