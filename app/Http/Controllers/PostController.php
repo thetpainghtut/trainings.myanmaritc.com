@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-
-=======
 use App\Topic;
 use App\Batch;
 use Carbon;
@@ -16,7 +13,6 @@ use App\Events\MyEvent;
 use App\User;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostNotification;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 class PostController extends Controller
 {
     /**
@@ -26,9 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-<<<<<<< HEAD
-=======
+
         $user = Auth::user();
         $id = Auth::id();
         $role = $user->getRoleNames();
@@ -57,7 +51,6 @@ class PostController extends Controller
         }*/
        
         return view('posts.index',compact('posts','batches'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -67,9 +60,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
-<<<<<<< HEAD
-=======
+
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
         $user = Auth::user();
@@ -88,7 +79,6 @@ class PostController extends Controller
 
         }
         return view('posts.create',compact('topics','batches'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -99,9 +89,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        //
-=======
+
         
         /*$user = Auth::id();*/
        
@@ -155,7 +143,6 @@ class PostController extends Controller
         }
         return redirect()->route('posts.index');
         
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -166,12 +153,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
-<<<<<<< HEAD
-=======
+
         $post = Post::find($id);
         return view('posts.detail',compact('post'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -182,9 +166,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
-<<<<<<< HEAD
-=======
         $post = Post::find($id);
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
@@ -203,7 +184,6 @@ class PostController extends Controller
            
         }
         return view('posts.edit',compact('post','topics','batches'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -215,9 +195,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-<<<<<<< HEAD
-=======
+
         $request->validate([
             'title'=>'required',
             'content' => 'required',
@@ -266,7 +244,6 @@ class PostController extends Controller
         $post->batches()->attach(request('batch'));
 
         return redirect()->route('posts.index');
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -277,10 +254,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
-<<<<<<< HEAD
-    }
-=======
         $post = Post::find($id);
         $post->batches()->detach();
         $post->delete();
@@ -334,5 +307,4 @@ class PostController extends Controller
             
     }
 
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

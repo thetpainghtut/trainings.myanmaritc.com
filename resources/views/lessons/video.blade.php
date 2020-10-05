@@ -21,10 +21,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> {{ $subject->name }} Lesson
-<<<<<<< HEAD
-=======
-               <button class="btn btn-outline-primary float-right assign_batch" >Assign</button>
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+            <button class="btn btn-outline-primary float-right assign_batch" >Assign</button>
             </h5>
         </div>
         <div class="card-body">
@@ -71,11 +68,6 @@
             </div>
         </div>
     </div>
-
-<<<<<<< HEAD
-
-@endsection
-=======
    
 
 <!-- Modal -->
@@ -182,4 +174,3 @@
         })
     </script>
 @endsection
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7

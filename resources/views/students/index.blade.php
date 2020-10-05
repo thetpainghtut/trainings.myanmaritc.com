@@ -2,13 +2,10 @@
 @section('content')
     
     <h1 class="h3 mb-4 text-gray-800"> Students </h1>
-<<<<<<< HEAD
-    
-=======
+
     @if(session('msg'))
         <h6 class="text-success">{{session('msg')}}</h6>
     @endif
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> All Students 
@@ -51,17 +48,10 @@
                 </div>
             </form>
 
-<<<<<<< HEAD
-            @isset($groups)
-                @if(count($groups) > 0)
-                <table class="table table-bordered my-3">
-                    <thead>
-=======
             @isset($batch)
                 {{-- @if(count($batch) > 0) --}}
                 <table class="table table-bordered my-3">
                     <thead class="bg-primary text-white">
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         <tr>
                             <th>No</th>
                             <th>Name</th>
@@ -72,15 +62,6 @@
                         </tr>
                     </thead>
                     <tbody>
-<<<<<<< HEAD
-                        @foreach($groups as $group)
-                            <tr>
-                                <td colspan="6" class="bg-dark text-white">{{$group->name}} Group</td>
-                            </tr>
-                            @php $i = 1; @endphp
-
-                            @foreach($group->students as $row)
-=======
                         {{-- @foreach($groups as $group)
                             <tr>
                                 <td colspan="6" class="bg-dark text-white">{{$group->name}} Group</td>
@@ -94,38 +75,11 @@
 
                             @foreach($batch->students as $row)
                             @if($row->pivot->status=='Active')
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                                 <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{$row->namee}}</td>
                                     <td>{{$row->email}}</td>
                                     <td>{{$row->phone}}</td>
-<<<<<<< HEAD
-                                    <td>{{$row->batch->course->name}} - {{$row->batch->title}}</td>
-                                    <td>
-                                        <a href="{{route('students.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a>
-                                        
-                                        <a href="{{route('students.edit',$row->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                               
-                                        <form method="post" action="{{route('students.destroy',$row->id)}}" class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- @if($row->trashed())
-                                                <button type="submit" class="btn btn-danger">Restore</button>
-                                            @else --}}
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            {{-- @endif --}}
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
-                @else
-                    <h2 class="my-3">Please, Create Group!!!</h2>
-                @endif
-=======
                                     <td>{{$batch->course->name}} - {{$batch->title}}</td>
                                     <td>
                                         <a href="{{route('students.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a>
@@ -150,13 +104,9 @@
                 {{-- @else
                     <h2 class="my-3">Please, Create Group!!!</h2> --}}
                 {{-- @endif --}}
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             @endif
         </div>
     </div>
-
-<<<<<<< HEAD
-=======
 
 {{-- delete modal --}}
      <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
@@ -194,15 +144,11 @@
             </div>
         </div>
     </div>
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     
 @endsection
 
 @section('script')
   <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
-<<<<<<< HEAD
-@endsection
-=======
 
   <script type="text/javascript">
       $(document).ready(function() {
@@ -292,13 +238,3 @@
       });
   </script>
 @endsection
-
-
-
-
-
-
-
-
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7

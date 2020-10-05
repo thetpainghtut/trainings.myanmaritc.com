@@ -31,10 +31,6 @@
             <div class="row justify-content-center">
 
                 @foreach($subjects as $subject)
-<<<<<<< HEAD
-=======
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="card my-3">
                         <div class="card-body">
@@ -50,10 +46,6 @@
                                     $duration = $lesson->duration;
 
                                     $total += $duration++;
-<<<<<<< HEAD
-=======
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                                 @endphp
                             @endforeach
 
@@ -66,27 +58,14 @@
                                 $minutes = $dt->diffInMinutes($dt->copy()->addSeconds($total)->subDays($days)->subHours($hours));
 
                                 $totaltimes = Carbon\CarbonInterval::days($days)->hours($hours)->minutes($minutes)->forHumans();
-<<<<<<< HEAD
-                            }
-                            else{
-                                $totaltimes = '0 Second';
-                            }
-=======
                                 }
                                 else{
                                     $totaltimes = '0 Second';
                                 }
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                             @endphp
 
                             <p class="card-text"> {{ $lectures }} Lectures  •  {{ $totaltimes }} </p>
 
-<<<<<<< HEAD
-                            <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow"> 
-                                Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                            </a>
-                            <p class="float-right"> 8 / 8 </p>
-=======
                             <!-- seen lesson count -->
                             @php
                                 $student = Auth::user()->student;
@@ -162,8 +141,6 @@
 
                             
                              <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
-                          
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                         </div>
                     </div>
                 </div>
@@ -179,10 +156,7 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
             
-
         });
-
     </script>
 @endsection

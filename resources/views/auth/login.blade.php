@@ -36,12 +36,8 @@
                                 <h3 class="font-weight-light my-4 text-center">Login</h3>
                                 @if(session('msg'))
                                  <h5 class="my-4 text-center text-danger">{{session('msg')}}</h5>
-<<<<<<< HEAD
-=======
                                 @elseif(session('success'))
                                  <h5 class="my-4 text-center text-success">{{session('success')}}</h5>
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                                 @endif
                             </div>
                             <div class="card-body">
@@ -71,22 +67,14 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-<<<<<<< HEAD
-                                        <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
-=======
                                         <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" name ="remember" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                                     </div>
                                     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <button class="btn btn-block btn-outline-primary">Login</button>
                                     </div>
                                 </form>
-<<<<<<< HEAD
-=======
 
                                 <a href="{{route('frontend.forgetpassword')}}">Forget password?</a>
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                             </div>
                            
                         </div>

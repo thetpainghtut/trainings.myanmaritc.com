@@ -5,14 +5,9 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\Course;
 use App\Batch;
-<<<<<<< HEAD
-
-use Illuminate\Http\Request;
-=======
 use Illuminate\Http\Request;
 use App\Student;
 use App\Http\Resources\BatchStudentResource;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
 class GroupController extends Controller
 {
@@ -27,19 +22,6 @@ class GroupController extends Controller
       $batches = Batch::all();
 
       $batchid = 0;
-<<<<<<< HEAD
-
-      if (request('batch')) {
-        $bid = request('batch');
-        $groups = Group::where('batch_id',$bid)->get();
-
-        $batchid = $bid;
-        
-        return view('groups.index',compact('groups','courses','batches', 'batchid'));
-      }else{
-        $groups = Group::all();
-        return view('groups.index',compact('groups','courses','batches','batchid'));
-=======
       $courseid = 0;
 
 
@@ -55,7 +37,6 @@ class GroupController extends Controller
       }else{
         $groups = Group::all();
         return view('groups.index',compact('groups','courses','batches','batchid','courseid'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
       }
       
     }
@@ -115,18 +96,12 @@ class GroupController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function edit(Group $group)
-    {
-        return view('groups.edit',compact('group'));
-=======
     public function edit(Group $group,Request $request)
     {   
         $batchid = $request->batch_data_id;
         $courseid = $request->course_data_id;
         $batch_data = Batch::find($request->batch_data_id);
         return view('groups.edit',compact('group','batch_data','batchid','courseid'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -138,12 +113,9 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-<<<<<<< HEAD
-=======
         // dd($request);
         $batchid = $request->batch_data_id;
         $courseid = $request->course_data_id;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         $request->validate([
             "name" => 'required',
             "batch_id" => 'required',
@@ -151,19 +123,12 @@ class GroupController extends Controller
 
         $group->name = request('name');
         $group->batch_id = request('batch_id');
-<<<<<<< HEAD
-
-        $group->save();
-
-        return redirect()->route('groups.index');
-=======
         $members = $request->members;
         $group->save();
         $group->students()->detach();
         $group->students()->attach($members);
 
         return redirect('groups?course='.$courseid.'&batch='.$batchid)->with('msg','Successfully Update!');
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**

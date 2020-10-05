@@ -26,17 +26,8 @@ class InquireController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        //
-        $no_payment_inquires = Inquire::where('status',0)->get();
-        $first_payment_inquires = Inquire::where('status',1)->get();
-        return view('inquires.index',compact('no_payment_inquires','first_payment_inquires'));
-=======
         $courses = Course::all();
         return view('inquires.index',compact('courses'));
-
-       
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -44,28 +35,19 @@ class InquireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function create()
-    {
-        //
-=======
+
     public function create(Request $request)
     {
         $batch_id = request('batch_id');
         $batch = Batch::find($batch_id);
         $batch_course = $batch->course;
-       
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         $educations = Education::all();
         //$courses = Course::all();
         $courses = Course::has('batches')->get();
         $batches = Batch::all();
         $townships = Township::all();
-<<<<<<< HEAD
-        return view('inquires.create',compact('educations','batches','townships','courses'));
-=======
+
         return view('inquires.create',compact('educations','batches','townships','courses','batch_course','batch'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -133,11 +115,7 @@ class InquireController extends Controller
         $inquires->user_id = Auth::id();
         $inquires->save();
 
-<<<<<<< HEAD
-        return redirect()->route('inquires.index');
-=======
         return redirect()->route('inquires.show',$id);
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 
     }
 
@@ -148,11 +126,7 @@ class InquireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-<<<<<<< HEAD
-        //
-=======
-        
+    { 
         $batch = Batch::find($id);
          $no_payment_inquires = Inquire::where([['status',0],['batch_id',$id],['message','=',null]])->get();
         $first_payment_inquires = Inquire::where([['status',1],['batch_id',$id],['message','=',null]])->get();
@@ -160,7 +134,6 @@ class InquireController extends Controller
          //dd($no_payment_inquires,$first_payment_inquires,$full_payment_inquires);
 
         return view('inquires.show',compact('batch','no_payment_inquires','first_payment_inquires','full_payment_inquires'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -322,8 +295,6 @@ class InquireController extends Controller
         
         return $fillter_batches;
     }
-<<<<<<< HEAD
-=======
 
     public function postpone(Request $request)
     {
@@ -345,5 +316,4 @@ class InquireController extends Controller
         $batches = $course->batches;
         return view('inquires.postpone_list',compact('batches','course'));
     }
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

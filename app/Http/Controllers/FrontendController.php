@@ -12,28 +12,16 @@ use App\Education;
 use App\Township;
 use App\Journal;
 use App\User;
-<<<<<<< HEAD
-
-
-=======
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\Http\Resources\StudentResource;
 use App\Lesson;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+
 class FrontendController extends Controller
 {
   public function index($value='')
   {
     return view('frontend.index');
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-     
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
-=======
-
->>>>>>> 0c4166f754bb61bbce9c49ae86a3af3b3961f398
   }
 
   public function csr($value='')
@@ -178,8 +166,6 @@ class FrontendController extends Controller
     return response()->json(['user'=>$user]);
 
   }
-<<<<<<< HEAD
-=======
 
   public function update_password(Request $request)
   {
@@ -272,9 +258,4 @@ class FrontendController extends Controller
       return back()->with('error','Current password does not match in our records!');
     }
   }
-
-
-
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

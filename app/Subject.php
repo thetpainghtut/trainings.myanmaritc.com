@@ -27,15 +27,12 @@ class Subject extends Model
 	}
 
 	public function journals()
-    {
-        return $this->belongsToMany('App\Journal');
-    }
-<<<<<<< HEAD
-=======
+  {
+    return $this->belongsToMany('App\Journal');
+  }
 
-    public function batches()
-    {
-    	return $this->belongsToMany('App\Batch');
-    }
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+  public function batches()
+  {
+  	return $this->belongsToMany('App\Batch');
+  }
 }

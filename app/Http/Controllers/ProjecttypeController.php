@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-
-=======
 use App\Projecttype;
 use App\Batch;
 use Carbon;
 use Auth;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 class ProjecttypeController extends Controller
 {
     /**
@@ -20,9 +16,6 @@ class ProjecttypeController extends Controller
      */
     public function index()
     {
-        //
-<<<<<<< HEAD
-=======
         $user = Auth::user();
         $id = Auth::id();
         $role = $user->getRoleNames();
@@ -48,7 +41,6 @@ class ProjecttypeController extends Controller
         }
         
 
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -69,9 +61,7 @@ class ProjecttypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-<<<<<<< HEAD
-=======
+
         $request->validate([
             'projecttype' => 'required',
             'batch' => 'required'
@@ -93,7 +83,6 @@ class ProjecttypeController extends Controller
 
        /* $projecttype->batches()->attach($batch);
         return redirect()->route('projecttypes.index');*/
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -140,8 +129,7 @@ class ProjecttypeController extends Controller
     {
         //
     }
-<<<<<<< HEAD
-=======
+
 
     public function assingpttype(Request $request){
         $pid = request('pid');
@@ -149,5 +137,4 @@ class ProjecttypeController extends Controller
         $batch = Batch::join('courses','courses.id','=','batches.course_id')->join('course_projecttype','course_projecttype.course_id','=','courses.id')->where('course_projecttype.projecttype_id',$pid)->where('startdate','<=',$now)->where('enddate','>=',$now)->select('batches.*')->get();
         return response()->json(['batches'=>$batch]);
     }
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

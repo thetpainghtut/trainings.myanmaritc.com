@@ -22,12 +22,9 @@ class Lesson extends Model
     {
         return $this->belongsTo('App\User');
     }
-<<<<<<< HEAD
-=======
 
     public function students()
     {               
         return $this->belongsToMany('App\Student')->withPivot('status')->withTimestamps();
     }
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 }

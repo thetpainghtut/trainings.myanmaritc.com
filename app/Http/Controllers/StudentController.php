@@ -13,11 +13,8 @@ use App\Education;
 use App\Township;
 use Rabbit;
 use App\User;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,10 +32,7 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-<<<<<<< HEAD
-=======
       // dd($request);
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
       $courses = Course::all();
       $batches = Batch::all();
 
@@ -47,17 +41,11 @@ class StudentController extends Controller
       if (request('batch')) {
         $bid = request('batch');
         $groups = Group::where('batch_id',$bid)->get();
-<<<<<<< HEAD
-        $students = Student::where('batch_id',$bid)->get();
-
-        return view('students.index',compact('students','courses','batches','groups','bid'));
-=======
         $batch = Batch::find($bid);
         // $students = Student::where('batch_id',$bid)->get();
 
 
         return view('students.index',compact('courses','batches','groups','bid','batch'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
       }else{
         $students = Student::all();
         // Return 
@@ -93,10 +81,9 @@ class StudentController extends Controller
       // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
-<<<<<<< HEAD
-=======
+
       // dd($request->batch_id);
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
@@ -147,13 +134,9 @@ class StudentController extends Controller
         $townshipid = $township->id;
         $city = $township->city->name;
 
-<<<<<<< HEAD
-        if ($user_id) {
-=======
 
         if ($user_id) {
           // // dd('hi');
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             $user = User::find($user_id);
             $user->name = $namee;
             $user->email= $email;
@@ -180,28 +163,19 @@ class StudentController extends Controller
             $student->because = $because;
             $student->township_id = $townshipid;
             $student->user_id = $user_id;
-<<<<<<< HEAD
-=======
             $student->status=null;
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             $student->save();
 
             $student->subjects()->detach();
             $student->subjects()->attach($subjects);
 
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
-<<<<<<< HEAD
 
-=======
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             return 'ok';
 
         }
         else{
-<<<<<<< HEAD
-=======
           // dd('hello');
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
             $user = new User;
             $user->name = request('namee');
             $user->email=request('email');
@@ -238,16 +212,6 @@ class StudentController extends Controller
             $subjects = request('subjects');
 
             // Save student_subject
-<<<<<<< HEAD
-            // $student->subjects()->detach();
-            $student->subjects()->attach($subjects);
-
-            $student->batches()->attach($student->id,['receiveno' => $inquireno, 'status' => 'Active']);
-
-
-
-            return 'ok';
-=======
             $student->subjects()->detach();
             $student->subjects()->attach($subjects);
 
@@ -264,7 +228,6 @@ class StudentController extends Controller
 
 
             return 'confirm';
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         }
         // Save Data
 
@@ -293,18 +256,12 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function edit($id)
-    {
-        //
-=======
     public function edit(Request $request,$id)
     {
 
         $student = Student::find($id);
         $townships = Township::all();
         return view('students.edit',compact('student','townships'));
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -316,9 +273,6 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-        //
-=======
       // dd($request);
         $request->validate([
           'namee' => 'required',
@@ -373,10 +327,6 @@ class StudentController extends Controller
         $user->email = $email;
         $user->save();
         return redirect('students?course='.$course_id.'.&batch='.$batch_id)->with('msg','Successfully Update!');
-
-
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     /**
@@ -397,8 +347,6 @@ class StudentController extends Controller
         return redirect()->route('students.index');
     }
 
-<<<<<<< HEAD
-=======
     public function resend_mail(Request $request)
     {
 
@@ -445,10 +393,6 @@ class StudentController extends Controller
       return response()->json('student');
     }
 
-<<<<<<< HEAD
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
-  
-=======
     public function getInquire(Request $request){
       $receiveno = $request->inputReceiveno;
 
@@ -533,5 +477,4 @@ class StudentController extends Controller
         return redirect()->route('students.create');
 
     }
->>>>>>> 0c4166f754bb61bbce9c49ae86a3af3b3961f398
 }

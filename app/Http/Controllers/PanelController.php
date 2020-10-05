@@ -10,14 +10,6 @@ use App\Batch;
 use App\Course;
 use App\Subject;
 use App\Lesson;
-<<<<<<< HEAD
-
-
-class PanelController extends Controller
-{
-    public function index()
-    {
-=======
 use App\Post;
 use App\Topic;
 use App\User;
@@ -39,21 +31,12 @@ class PanelController extends Controller
 
     public function index()
     {        
-        
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
         $auth = Auth::user();
         $studentinfo = $auth->student;
 
         $studentbatches = $studentinfo->batches;
 
-<<<<<<< HEAD
-    	return view('panel.dashboard',compact('studentinfo','studentbatches'));
-=======
         return view('panel.dashboard',compact('studentinfo','studentbatches'));
-              
-        
-       
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     }
 
     public function takelesson($batchid){
@@ -79,11 +62,6 @@ class PanelController extends Controller
         $lessons = Lesson::where('subject_id','=',$subjectid)->get();
 
         return view('panel.video',compact('lessons','subject', 'batch', 'course'));
-<<<<<<< HEAD
-
-    }
-}
-=======
     }
 
     public function takequiz(){
@@ -353,5 +331,3 @@ class PanelController extends Controller
 
     
 }
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
