@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLessonStudentTable extends Migration
+class CreateBatchQuizTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,18 @@ class CreateLessonStudentTable extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_student', function (Blueprint $table) {
+        Schema::create('batch_quiz', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('status')->default(0);
 
-
-            $table->unsignedBigInteger('lesson_id');
-            $table->foreign('lesson_id')
-                  ->references('id')->on('lessons')
+            $table->unsignedBigInteger('batch_id');
+            $table->foreign('batch_id')
+                  ->references('id')->on('batches')
                   ->onDelete('cascade');
 
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')
-                  ->references('id')->on('students')
+            $table->unsignedBigInteger('quiz_id');
+            $table->foreign('quiz_id')
+                  ->references('id')->on('quizzes')
                   ->onDelete('cascade');
-
-
 
             $table->timestamps();
         });
@@ -41,6 +37,6 @@ class CreateLessonStudentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lesson_student');
+        Schema::dropIfExists('batch_quiz');
     }
 }

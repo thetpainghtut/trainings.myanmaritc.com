@@ -78,6 +78,9 @@ class BatchController extends Controller
         $batch->teachers()->attach($teachers);
         $batch->mentors()->attach($mentors);
 
+        $subject_id = 1;
+        $batch->subjects()->attach($subject_id);
+
 
         // for($i=0; $i < count($teachers); $i++)
         // {

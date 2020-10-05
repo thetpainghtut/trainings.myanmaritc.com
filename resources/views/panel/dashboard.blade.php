@@ -48,6 +48,7 @@
                         $lesson_total = 0;
 
                         $seen_less_total = 0;
+                        $percentage = 0;
                     @endphp
 
                     @foreach($course->subjects as $subject)
@@ -58,16 +59,22 @@
                    
 
                     <!-- Student lesson count -->
+                    @php
+                        $subject_batch_id = 0;
+                    @endphp
                     @foreach($studentinfo->lessons as $lesson)
                         @php
                             $subject = $lesson->subject;
                             $subject_batch_id=0;
                         @endphp
                         @foreach($subject->batches as $subject_batch)
-                            @php
-                            $subject_batch_id = $subject_batch->pivot->batch_id;
-                            @endphp
-                           
+                            
+                           @if($studentbatch->id == $subject_batch->pivot->batch_id)
+                                @php
+                                    $subject_batch_id = $subject_batch->pivot->batch_id;
+                                    break;
+                                @endphp
+                            @endif
                         @endforeach
                         @if($studentbatch->id == $subject_batch_id)
                       
@@ -79,7 +86,7 @@
                         @endif
                         
                     @endforeach
-                    
+                   
                     <!-- End of Student lesson count -->
 
 
@@ -92,12 +99,15 @@
                         @endphp
 
                     @endforeach
-                     @php
-                        $percentage_decimal = (($seen_less_total/$lesson_total)*100);
-                        $percentage = round($percentage_decimal);
-                    @endphp
+                    @if($lesson_total > 0)
+                        @php
+                            $percentage_decimal = (($seen_less_total/$lesson_total)*100);
+                            $percentage = round($percentage_decimal);
+                        @endphp
+                    @endif
 
                      @if($studentbatch->pivot->status == "Active")
+                    
                         <div class="col-lg-4 col-md-6 col-sm-12 my-3 ">
                             <div class="card ">
                                 <img class="card-img-top course_img" src="{{ asset($studentbatch->course->logo) }}" alt="Card image cap">

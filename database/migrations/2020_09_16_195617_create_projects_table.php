@@ -16,6 +16,8 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->string('link')->nullable();
+            $table->string('status')->nullable();
 
             $table->unsignedBigInteger('projecttype_id');
             $table->foreign('projecttype_id')
@@ -39,6 +41,8 @@ class CreateProjectsTable extends Migration
                   ->references('id')->on('students')
                   ->onDelete('cascade');
         });
+
+       
     }
 
     /**

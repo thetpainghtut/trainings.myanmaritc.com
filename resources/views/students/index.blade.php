@@ -11,7 +11,9 @@
 >>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold text-primary"> All Students </h5>
+            <h5 class="m-0 font-weight-bold text-primary"> All Students 
+                <a href="{{route('students.create')}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-plus mr-2"></i>Add New</a>
+            </h5>
         </div>
         <div class="card-body">
 

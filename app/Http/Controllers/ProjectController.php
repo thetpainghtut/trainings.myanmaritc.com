@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Project;
+use App\Course;
+use App\Batch;
+use App\Projecttype;
 class ProjectController extends Controller
 {
     /**
@@ -14,6 +17,8 @@ class ProjectController extends Controller
     public function index()
     {
         //
+        $courses = Course::all();
+        return view('projects.index',compact('courses'));
     }
 
     /**
@@ -21,10 +26,16 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $b = $request->pb;
+        $p = $request->pbd;
+        $batch = Batch::find($b);
+        
+        return view('projects.create',compact('batch','p'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,6 +46,23 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'prjid' => 'required',
+            'batch' => 'required',
+            'title' => 'required',
+            'student' => 'required'
+        ]);
+
+        $project = new Project;
+        $project->title = request('title');
+        $project->projecttype_id = request('prjid');
+        $project->save();
+
+        foreach(request('student') as $stu){
+            $project->students()->attach($stu);
+        }
+
+        return redirect()->route('projectshow',['bid'=>request('batch'),'pjid'=>request('prjid')]);
     }
 
     /**
@@ -48,6 +76,12 @@ class ProjectController extends Controller
         //
     }
 
+    public function projectshow($bid,$pjid)
+    {
+        $batch = Batch::find($bid);
+
+        return view('projects.show',compact('batch','pjid'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,7 +92,12 @@ class ProjectController extends Controller
     {
         //
     }
-
+    public function projectedit($b,$pj){
+        $batch = Batch::find($b);
+        $prj = Project::find($pj);
+        
+        return view('projects.edit',compact('batch','prj'));
+    }
     /**
      * Update the specified resource in storage.
      *

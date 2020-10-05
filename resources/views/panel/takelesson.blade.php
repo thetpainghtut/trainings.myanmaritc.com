@@ -92,7 +92,9 @@
                                 $student = Auth::user()->student;
                                 $stu_less_count = 0;
                             @endphp
-
+                            @php
+                            $susubject_batch_id =0;
+                            @endphp
                             @foreach($student->lessons as $lesson)
                                 @php
                                     $subject_pid = $lesson->subject_id;
@@ -101,11 +103,17 @@
                                    
                                 @endphp
                                   <!-- get subject batch -->
+
                                     @foreach($lesson_subject->batches as $subject_batch)
+                                        
+                                        @if($batch->id == $subject_batch->pivot->batch_id)
                                         @php
                                             $subject_batch_id = $subject_batch->pivot->batch_id;
+                                            break;
                                         @endphp
+                                        @endif
                                     @endforeach
+                                    {{$subject_batch_id}}
                                     <!-- get subject batch -->
                                 @if($subject->id == $subject_pid && $batch->id == $subject_batch_id)
                                     @php
@@ -126,10 +134,11 @@
                             @endphp
                            
                             @if($subject->id == $subject_pid && $batch->id == $batch_pid)
-                                @if($stu_less_count > 0)
-                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
+                                @if($lectures == $stu_less_count)
+                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
                                     Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
                                 </a>
+                               
                                 @else
                                  <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
                                     Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>

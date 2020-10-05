@@ -120,10 +120,10 @@ class SubjectController extends Controller
 
         if($request->hasfile('logo')){
               $logo = $request->file('logo');
-              $upload_dir = public_path().'/storage/images/courses/';
+              $upload_dir = public_path().'/storage/images/subjects/';
               $name = time().'.'.$logo->getClientOriginalExtension();
               $logo->move($upload_dir,$name);
-              $path = '/storage/images/courses/'.$name;
+              $path = '/storage/images/subjects/'.$name;
         }else{
             $path = request('oldlogo');
         }

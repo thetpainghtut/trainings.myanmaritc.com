@@ -27,9 +27,13 @@ class FrontendController extends Controller
   {
     return view('frontend.index');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
      
 >>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+=======
+
+>>>>>>> 0c4166f754bb61bbce9c49ae86a3af3b3961f398
   }
 
   public function csr($value='')

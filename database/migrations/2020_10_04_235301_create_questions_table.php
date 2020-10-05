@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocationsTable extends Migration
+class CreateQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->longText('questiontext');
+            $table->longText('photo')->nullable();
+            $table->string('type');
+            $table->string('timer');
 
-            $table->unsignedBigInteger('city_id');
-            $table->foreign('city_id')
-                  ->references('id')->on('cities')
+            $table->unsignedBigInteger('quiz_id');
+            $table->foreign('quiz_id')
+                  ->references('id')->on('quizzes')
                   ->onDelete('cascade');
 
             $table->unsignedBigInteger('user_id');
@@ -27,7 +30,6 @@ class CreateLocationsTable extends Migration
                   ->references('id')->on('users')
                   ->onDelete('cascade');
 
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -39,6 +41,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('questions');
     }
 }

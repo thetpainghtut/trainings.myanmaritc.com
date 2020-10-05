@@ -114,9 +114,10 @@ class LessonController extends Controller
      */
     public function show($id)
     {
-        $subject = Subject::find($id);
 
         $lesson = Lesson::find($id);
+
+        $subject = $lesson->subject()->first();
 
         return view('lessons.detail',compact('lesson','subject'));
     }

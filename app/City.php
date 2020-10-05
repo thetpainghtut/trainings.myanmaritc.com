@@ -10,12 +10,17 @@ class City extends Model
     use SoftDeletes;
     
     protected $fillable = [
-        'name','zipcode','user_id'
+        'name', 'mmr_name', 'zipcode', 'country_id', 'user_id'
     ];
 
     public function locations()
     {
     	return $this->hasMany('App\Location');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
     }
 
     public function user()

@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $now = Carbon::now();
-        $batches = Batch::all();
-        View::share('batches',$batches);
+        // $batches = Batch::all();
+        // View::share('batches',$batches);
         Schema::defaultStringLength(191);
     }
 }
