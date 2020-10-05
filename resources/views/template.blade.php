@@ -58,7 +58,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ route('frontend.index') }}">
                 <img src="{{ asset('mmitui/image/logo.jpg') }}" class="img-fluid" style="width: 120px; height: 50px">
             </a>
           
