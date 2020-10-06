@@ -43,6 +43,7 @@
                                         $student = Auth::user()->student;
                                         $student_id = $student->id;
                                         $seen_lesson_data = 0;
+                                        $today_date = Carbon\Carbon::now();
                                     @endphp
 
                                     @foreach($student->lessons as $lesson_student)
@@ -50,13 +51,39 @@
                                             $lesson_pid = $lesson_student->pivot->lesson_id;
                                             $student_pid = $lesson_student->pivot->student_id;
                                             $status = $lesson_student->pivot->status;
-                                        @endphp
 
-                                        @if($lesson->id == $lesson_pid && $status == 0)
+                                            $lesson_student_subject = $lesson_student->subject;
+                                        @endphp
+                                        <!-- get subject batch -->
+                                        @foreach($lesson_student_subject->batches as $subject_batch)
+                                            
+                                            @if($batch->id == $subject_batch->pivot->batch_id)
                                             @php
-                                                $seen_lesson_data = 1;
+                                                $subject_batch_id = $subject_batch->pivot->batch_id;
+                                                break;
                                             @endphp
+                                            @endif
+                                        @endforeach
+                                        <!-- get subject batch -->
+
+                                        
+                                        <!-- new student seen lesson count -->
+                                        @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
+                              
+                                            @php                                     
+                                               $seen_lesson_data = 1;
+                                            @endphp  
+
                                         @endif
+                                        @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 0 && $batch->enddate >= $today_date)
+                                      
+                                            @php                                  
+                                               $seen_lesson_data = 1;
+                                               
+                                            @endphp  
+                                                                   
+                                        @endif
+                                        <!-- new student seen lesson count -->
                                     @endforeach
 
                                     @if($seen_lesson_data == 1)
