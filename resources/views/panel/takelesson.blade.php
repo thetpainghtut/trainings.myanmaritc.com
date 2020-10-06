@@ -147,25 +147,8 @@
                                     @endphp
                                 @endif
                                 <!-- new show hide -->
-                               <!-- button show hide -->
-                                {{--@if($subject->id == $subject_pid && $batch->id == $batch_pid)
-                                
-                                    @if($lectures == $stu_less_count)
-                                    <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
-                                        Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                                    </a>
-                                   
-                                    @else
-                                     <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
-                                        Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                                    </a>
-                                     @php
-                                        break;
 
-                                    @endphp
-                                    @endif
-                                    
-                                @endif--}}
+                               
                                <!-- button show hide -->
 
                             @endforeach
@@ -185,13 +168,7 @@
                             @else
                             <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
                             @endif
-                            <!-- new show hide -->
-                            {{--@if($subject->batches->isEmpty())
-                                <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
-                                
-                                 <!-- Disabled -->
-                            @endif--}}
-
+                           
                             
                              <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
                           

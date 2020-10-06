@@ -66,11 +66,7 @@
                                         @endforeach
                                         <!-- get subject batch -->
 
-                                        {{--@if($lesson->id == $lesson_pid && $status == 0)
-                                            @php
-                                                $seen_lesson_data = 1;
-                                            @endphp
-                                        @endif--}}
+                                        
                                         <!-- new student seen lesson count -->
                                         @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
                               
