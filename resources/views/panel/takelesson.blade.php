@@ -74,13 +74,14 @@
                                 $stu_less_count = 0;
                             @endphp
                             @php
-                            $susubject_batch_id =0;
+                            $subject_batch_id =0;
                             @endphp
                             @foreach($student->lessons as $lesson)
                                 @php
                                     $subject_pid = $lesson->subject_id;
 
                                     $lesson_subject = $lesson->subject;
+                                    $status = $lesson->pivot->status;
                                    
                                 @endphp
                                   <!-- get subject batch -->
@@ -94,9 +95,9 @@
                                         @endphp
                                         @endif
                                     @endforeach
-                                    {{$subject_batch_id}}
+                                  
                                     <!-- get subject batch -->
-                                @if($subject->id == $subject_pid && $batch->id == $subject_batch_id)
+                                @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0)
                                     @php
                                        $stu_less =1;
                                        $stu_less_count += $stu_less;
@@ -108,32 +109,34 @@
 
                             @foreach($subject->batches as $sub_batch)
                                
-                            @php
-                                $subject_pid = $sub_batch->pivot->subject_id;
-
-                                $batch_pid = $sub_batch->pivot->batch_id;
-                            @endphp
-                           
-                            @if($subject->id == $subject_pid && $batch->id == $batch_pid)
-                                @if($lectures == $stu_less_count)
-                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
-                                    Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                                </a>
-                               
-                                @else
-                                 <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
-                                    Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                                </a>
-                                @endif
                                 @php
+                                    $subject_pid = $sub_batch->pivot->subject_id;
+
+                                    $batch_pid = $sub_batch->pivot->batch_id;
+                                @endphp
+                               
+                                @if($subject->id == $subject_pid && $batch->id == $batch_pid)
+                                    @if($lectures == $stu_less_count)
+                                    <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
+                                        Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
+                                    </a>
+                                   
+                                    @else
+                                     <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
+                                        Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
+                                    </a>
+                                    @endif
+                                    @php
+                                        break;
+
+                                    @endphp
+                                @else
+                                <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
+                                    @php
                                     break;
 
-                                @endphp
-
-                            @else
-                                <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
-                           
-                            @endif
+                                    @endphp
+                                @endif
 
                             @endforeach
                             @if($subject->batches->isEmpty())
