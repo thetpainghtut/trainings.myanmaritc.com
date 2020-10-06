@@ -46,14 +46,16 @@
                                 $batchprojtypes =$batch->projecttypes;
                                 
                             @endphp
-                            @foreach($batchprojtypes as $bprj)
+                           @foreach($project as $pp)
                             <tr>
                                 <td>{{$i++}}</td>
-                                <td>{{$bprj->name}}</td>
-                                @if($bprj->project)
-                                <td>{{$bprj->project->title}}</td>
+                                
+                                <td>{{$pp->projecttype->name}}</td>
+                              
+                              
+                                <td>{{$pp->title}}</td>
                                 @php 
-                                $students = $bprj->project->students;
+                                $students = $pp->students;
                                 @endphp
                                 <td>{{count($students)}}</td>
                                 <td>
@@ -61,16 +63,14 @@
                                     {{$loop->first ? '':', '}}{{$stu->namee}}
                                     @endforeach
                                 </td>
-                                @else
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                @endif
+                                
+                             
                                 <td>
-                                    <a href="{{route('projectedit',['b'=>$batch->id,'pj'=>$bprj->project->id])}}" class="btn btn-warning btn-sm" >
+                                    <a href="{{route('projectedit',['b'=>$batch->id,'pj'=>$pp->id])}}" class="btn btn-warning btn-sm" >
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
+                                
                             </tr>
                             @endforeach
                             @if($batchprojtypes->isEmpty())

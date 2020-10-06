@@ -44,7 +44,7 @@
 
 
                 <div class="form-group row">
-                    <label for="inputLogo" class="col-sm-2 col-form-label"> File </label>
+                    <label for="inputLogo" class="col-sm-2 col-form-label"> Photo </label>
                     <div class="col-sm-10">
                         <input name="image[]" type="file" class="form-control" id="inputLogo" multiple>
                         <span class="text-danger">{{ $errors->first('image') }}</span>

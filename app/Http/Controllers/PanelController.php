@@ -130,6 +130,15 @@ class PanelController extends Controller
         //$post->unreadNotifications();
 
     }
+
+    public function prj(Request $request)
+    {
+
+        $poid = Projecttype::find($request->poid);
+        $baid = request('baid');
+        $projs =  Project::where('projecttype_id',$request->poid)->with('students')->get();
+        return response()->json(['projs'=>$projs]);
+    }
     
 
     public function channel($id){
@@ -146,11 +155,16 @@ class PanelController extends Controller
             $q->where('batch_id',$id);
         })->get();
 
-        $projecttypes = array();
+        /*$projecttypes = array();
         foreach ($ptypes as $p) {
             $projecttypes = $p->doesntHave('project')->get();
+        }*/
+        $btypes = array();
+        foreach ($ptypes as $key => $fa) {
+            array_push($btypes,$fa->id);
         }
-       
+        $prj = Project::whereIN('projecttype_id',$btypes)->get();
+        /*dd($prj);
         $c = array();
         foreach ($ptypes as $key => $value) {
             $c = $value->project->students;
@@ -160,12 +174,11 @@ class PanelController extends Controller
             $e = $v->where('user_id',Auth::id())->get();
         }
         
-        
         if(count($e) > 0){
             $status = 1;
         }else{
             $status = 0;
-        }
+        }*/
 
         $bposts = $batch->posts;
 
@@ -181,7 +194,7 @@ class PanelController extends Controller
         })->get();
 
         
-        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status','b'));
+        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes'));
         }else{
             return redirect()->back();
         }
@@ -232,6 +245,21 @@ class PanelController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function frontendproject(Request $request){
+       
+        $prjid  = $request->id;
+        $batchid = $request->bid;
+        
+        /*$project = Project::with('projecttype','students','projecttype.user','projecttype.user.staff')->where('id','=',$prjid)->get();*/
+        /*dd($projects);
+        $project = Project::find($prjid);
+        $projecttypes = Projecttype::find($project->projecttype_id);
+        dd($projecttypes);*/
+        $batch = Batch::find($batchid);
+
+        return response()->json(['project'=>$prjid,'batch'=>$batch]);
     }
 
     public function change_password($value='')

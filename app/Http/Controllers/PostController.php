@@ -97,8 +97,8 @@ class PostController extends Controller
             'title'=>'required',
             'content' => 'required',
             'topic' => 'required',
-            'image' => 'required',
-            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'sometimes',
+            'image.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'batch' => 'required'
         ]);
 
