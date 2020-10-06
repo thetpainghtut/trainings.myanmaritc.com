@@ -35,4 +35,9 @@ class Subject extends Model
     {
     	return $this->belongsToMany('App\Batch');
     }
+
+    public function quizzes()
+    {
+    	return $this->hasMany('App\Quizz');
+    }
 }
