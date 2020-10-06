@@ -66,17 +66,13 @@
                     <label for="inputStudent" class="col-sm-2 col-form-label">Select Student:</label>
                     <div class="col-sm-10">
                         <select name="student[]" class="js-example-basic-multiple form-control" id="inputStudent" multiple="multiple">
+                           @foreach($studen as $bstudent)
                            
-                            @foreach($batch->students as $bstudent)
-                            @foreach($bstudent->projects as $bproj)
-                            @if($bproj->projecttype_id != $p)
+                            
                             <option value="{{$bstudent->id}}">{{$bstudent->namee}}</option>
-                            @endif
+                          
                             @endforeach
-                            @if($bstudent->projects->isEmpty())
-                             <option value="{{$bstudent->id}}">{{$bstudent->namee}}</option>
-                            @endif
-                            @endforeach      
+                            
                         </select>
                     </div>
                 </div>

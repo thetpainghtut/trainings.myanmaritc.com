@@ -16,6 +16,7 @@ use App\User;
 use Carbon;
 use App\Projecttype;
 use App\Project;
+use App\Feedback;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetMail;
@@ -131,6 +132,15 @@ class PanelController extends Controller
         //$post->unreadNotifications();
 
     }
+
+    public function prj(Request $request)
+    {
+
+        $poid = Projecttype::find($request->poid);
+        $baid = request('baid');
+        $projs =  Project::where('projecttype_id',$request->poid)->with('students')->get();
+        return response()->json(['projs'=>$projs]);
+    }
     
 
     public function channel($id){
@@ -139,6 +149,12 @@ class PanelController extends Controller
   
                     $q->where('batch_id', $id);
                 })->get();
+        $b = Batch::find($id);
+        $enddate = $b->enddate;
+         $userid = Auth::user()->id;
+        $student = Student::where('user_id',$userid)->get();
+        $fee = Feedback::where('batch_id',$id)->where('student_id',$student[0]->id)->get();
+
 
         if(count($post) > 0){
         $topics = Topic::all();
@@ -147,11 +163,16 @@ class PanelController extends Controller
             $q->where('batch_id',$id);
         })->get();
 
-        $projecttypes = array();
+        /*$projecttypes = array();
         foreach ($ptypes as $p) {
             $projecttypes = $p->doesntHave('project')->get();
+        }*/
+        $btypes = array();
+        foreach ($ptypes as $key => $fa) {
+            array_push($btypes,$fa->id);
         }
-       
+        $prj = Project::whereIN('projecttype_id',$btypes)->get();
+        /*dd($prj);
         $c = array();
         foreach ($ptypes as $key => $value) {
             $c = $value->project->students;
@@ -161,12 +182,11 @@ class PanelController extends Controller
             $e = $v->where('user_id',Auth::id())->get();
         }
         
-        
         if(count($e) > 0){
             $status = 1;
         }else{
             $status = 0;
-        }
+        }*/
 
         $bposts = $batch->posts;
 
@@ -182,7 +202,7 @@ class PanelController extends Controller
         })->get();
 
         
-        return view('panel.channel',compact('post','topics','batch','projecttypes','batchstudents','status','b'));
+        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate','fee'));
         }else{
             return redirect()->back();
         }
@@ -235,6 +255,56 @@ class PanelController extends Controller
         return redirect()->back();
     }
 
+    public function frontendproject(Request $request){
+       
+        $prjid  = $request->id;
+        $batchid = $request->bid;
+        
+        /*$project = Project::with('projecttype','students','projecttype.user','projecttype.user.staff')->where('id','=',$prjid)->get();*/
+        /*dd($projects);
+        $project = Project::find($prjid);
+        $projecttypes = Projecttype::find($project->projecttype_id);
+        dd($projecttypes);*/
+        $batch = Batch::find($batchid);
+
+        return response()->json(['project'=>$prjid,'batch'=>$batch]);
+    }
+
+    public function feedback(Request $request)
+    {
+        $request->validate([
+            'trouble'=>'required',
+            'benefit' => 'required',
+            'teaching' => 'required',
+            'mentoring' => 'required',
+            'favourite' => 'required',
+            'speed' => 'required',
+            'maintain' => 'required',
+            'quote'=>'required',
+            'recommend' => 'required',
+            'live-rating' => 'required'
+        ]);
+        $userid = Auth::user()->id;
+        $student = Student::where('user_id',$userid)->get();
+
+        $feedback = new Feedback();
+        $feedback->trouble = request('trouble');
+        $feedback->benefit = request('benefit');
+        $feedback->teaching = request('teaching');
+        $feedback->mentoring = request('mentoring');
+        $feedback->favourite = request('favourite');
+        $feedback->speed = request('speed');
+        $feedback->maintain = request('maintain');
+        $feedback->quote = request('quote');
+        $feedback->recommend = request('recommend');
+        $feedback->stars = request('live-rating');
+        $feedback->student_id = $student[0]->id;
+        $feedback->batch_id = request('batchid');
+        $feedback->save();
+
+        return redirect()->route('frontend.channel',['id'=>request('batchid')]);
+    }
+
     public function change_password($value='')
     {
         return view('auth/changepassword');
@@ -275,20 +345,28 @@ class PanelController extends Controller
             }
         }*/
         /*student lesson yae first statement pae condition phyit nay*/
-
+        $equal_lesson_id = 0;
         if($student->lessons->isEmpty()){
             $lesson->students()->attach($student);
         }else{
             foreach ($student->lessons as $student_lesson) {
                 $pivot_lesson_id = $student_lesson->pivot->lesson_id;
-                if($lesson_id == $pivot_lesson_id){
-                    continue;
-                    echo "$pivot_lesson_id equal lesson id";
-                    // break;
-                }else{
-                    $lesson->students()->attach($student);
-                    break;
+                $status = $student_lesson->pivot->status;
+                // if($lesson_id == $pivot_lesson_id){
+                //     continue;
+                //     echo "$pivot_lesson_id equal lesson id";
+                //     // break;
+                // }else{
+                //     $lesson->students()->attach($student);
+                //     break;
+                // }
+                if($lesson_id == $pivot_lesson_id && $status == 0){
+                    $equal_lesson_id = 1;
                 }
+            }
+
+            if($equal_lesson_id == 0){
+                $lesson->students()->attach($student);
             }
         }
 

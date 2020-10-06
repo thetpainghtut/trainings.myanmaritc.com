@@ -209,10 +209,14 @@ class PrintController extends Controller
 
        $totaldate = $day.' '.$month.', '.$year;
       
-       $batchid = $studentid->batch_id;
-       $batch = Batch::find($batchid);
-       $batchname = $batch->title;
-       $courseid = $batch->course_id;
+       $batchid = $studentid->batches;
+       foreach($batchid as $b){
+        $batchname = $b->title;
+        $courseid = $b->course_id;
+       }
+       
+       
+       
        $course = Course::find($courseid);
        $coursename = $course->name;
        $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'totaldate' ,'batchname','coursename','remark'));

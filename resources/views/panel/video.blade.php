@@ -38,36 +38,65 @@
                         @foreach($lessons as $key => $lesson)
                             <div class="card mb-0">
                                 <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ $lesson->id }}">
-                                     @php
+                                    <!-- condition of icon change when seeing lessons this login student -->
+                                    @php
                                         $student = Auth::user()->student;
                                         $student_id = $student->id;
+                                        $seen_lesson_data = 0;
+                                        $today_date = Carbon\Carbon::now();
                                     @endphp
-                                    @foreach($lesson->students as $lesson_student)
+
+                                    @foreach($student->lessons as $lesson_student)
                                         @php
                                             $lesson_pid = $lesson_student->pivot->lesson_id;
                                             $student_pid = $lesson_student->pivot->student_id;
+                                            $status = $lesson_student->pivot->status;
 
+                                            $lesson_student_subject = $lesson_student->subject;
                                         @endphp
-                                        @if($lesson->id == $lesson_pid && $student_id == $student_pid)
+                                        <!-- get subject batch -->
+                                        @foreach($lesson_student_subject->batches as $subject_batch)
+                                            
+                                            @if($batch->id == $subject_batch->pivot->batch_id)
+                                            @php
+                                                $subject_batch_id = $subject_batch->pivot->batch_id;
+                                                break;
+                                            @endphp
+                                            @endif
+                                        @endforeach
+                                        <!-- get subject batch -->
+
+                                        
+                                        <!-- new student seen lesson count -->
+                                        @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
+                              
+                                            @php                                     
+                                               $seen_lesson_data = 1;
+                                            @endphp  
+
+                                        @endif
+                                        @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 0 && $batch->enddate >= $today_date)
+                                      
+                                            @php                                  
+                                               $seen_lesson_data = 1;
+                                               
+                                            @endphp  
+                                                                   
+                                        @endif
+                                        <!-- new student seen lesson count -->
+                                    @endforeach
+
+                                    @if($seen_lesson_data == 1)
                                         <a class="card-title"> 
                                             <i class="far fa-check-circle mr-3 text-success"></i> {{ $lesson->title }}
                                         </a>
-                                        @else
-                                        <a class="card-title"> 
-                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
-                                        </a>
-
-                                        @endif
-                                         @php
-                                         break;
-                                        @endphp
-                                    @endforeach
-
-                                    @if($lesson->students->isEmpty())
+                                    @else
                                         <a class="card-title"> 
                                             <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
                                         </a>
                                     @endif
+
+                                    <!-- condition of icon change when seeing lessons this login student -->
                                     
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
