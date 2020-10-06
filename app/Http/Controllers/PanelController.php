@@ -147,6 +147,8 @@ class PanelController extends Controller
   
                     $q->where('batch_id', $id);
                 })->get();
+        $b = Batch::find($id);
+        $enddate = $b->enddate;
 
         if(count($post) > 0){
         $topics = Topic::all();
@@ -194,7 +196,7 @@ class PanelController extends Controller
         })->get();
 
         
-        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes'));
+        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate'));
         }else{
             return redirect()->back();
         }

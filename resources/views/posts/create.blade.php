@@ -36,19 +36,38 @@
                         <select class="js-example-basic-multiple form-control" name="topic" id="topicName">
                             <option>Choose One</option>
                             @foreach($topics as $topic)
-                                <option value="{{$topic->id}}">{{$topic->name}}</option>
+                                <option value="{{$topic->id}}" data-name="{{$topic->name}}">{{$topic->name}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
 
-                <div class="form-group row">
+                <div class="form-group row" id="other">
                     <label for="inputLogo" class="col-sm-2 col-form-label"> Photo </label>
                     <div class="col-sm-10">
                         <input name="image[]" type="file" class="form-control" id="inputLogo" multiple>
                         <span class="text-danger">{{ $errors->first('image') }}</span>
                         <div id="preview_img"></div>
+                    </div>
+                </div>
+
+                <div class="form-group row" id="sub">
+                    <label for="inputsub" class="col-sm-2 col-form-label"> Subject </label>
+                    <div class="col-sm-10">
+                        
+                            <select class="form-control" name="subject">
+                                <option selected disabled>Choose One</option>
+                                @foreach($subjects as $subject)
+                                <option value="{{$subject->id}}">{{$subject->name}}</option>
+                                @endforeach
+                            </select>
+                            
+                      
+                       
+                        <!-- <input name="image[]" type="file" class="form-control" id="inputsub" multiple>
+                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                        <div id="preview_img"></div> -->
                     </div>
                 </div>
 
@@ -66,7 +85,7 @@
                         <select class="form-control" name="batch" id="batchName">
                             <option>Choose One</option>
                             @foreach($batches as $batch)
-                                <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
+                                <option value="{{$batch->batch_id}}" id="b">{{$batch->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -106,6 +125,8 @@
               theme: 'bootstrap4',
             });
 
+            $('#sub').hide();
+
             
             $('#inputLogo').on('change', function(){ //on file input change
 
@@ -139,6 +160,17 @@
                     alert("Your browser doesn't support File API!"); //if File API is absent
                 }
             });
+
+             $('#topicName').change(function(){
+                var topic = $(this).children("option:selected").data('name');
+                if(topic == 'Live Recording'){
+                    $('#other').hide();
+                    $('#sub').show();
+                }else{
+                     $('#other').show();
+                     $('#sub').hide();
+                }
+             })
 
         });
 

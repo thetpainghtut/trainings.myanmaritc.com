@@ -76,6 +76,18 @@
                 <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
             </li>
         @endif
+
+        @elseif($topic->name == 'Survey')
+            @if(Carbon\Carbon::now() == $enddate)
+            <li class="list-group-item stopic1">
+                <a href="javascript:void(0)" class="primarytext stopics" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
+            </li>
+        
+            @else
+            <li class="list-group-item topic" style="background-color: #faf7f5;">
+                <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            </li>
+            @endif
         @else
         <li class="list-group-item topic" style="background-color: #faf7f5">
             <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
@@ -1083,8 +1095,8 @@
                                 </a>
                             </div>
                             <div id="collapse${v.id}" class="card-body collapse" data-parent="#accordion">
-                                <table class="table table-striped">
-                                <thead>
+                                <table class="table table-striped table-bordered">
+                                <thead class="bg-primary text-white">
                                 <tr>
                                 <th>No</th>
                                 <th>Project Title</th>
