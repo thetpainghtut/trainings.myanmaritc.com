@@ -16,6 +16,7 @@ use App\User;
 use Carbon;
 use App\Projecttype;
 use App\Project;
+use App\Feedback;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetMail;
@@ -149,6 +150,10 @@ class PanelController extends Controller
                 })->get();
         $b = Batch::find($id);
         $enddate = $b->enddate;
+         $userid = Auth::user()->id;
+        $student = Student::where('user_id',$userid)->get();
+        $fee = Feedback::where('batch_id',$id)->where('student_id',$student[0]->id)->get();
+
 
         if(count($post) > 0){
         $topics = Topic::all();
@@ -196,7 +201,7 @@ class PanelController extends Controller
         })->get();
 
         
-        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate'));
+        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate','fee'));
         }else{
             return redirect()->back();
         }
@@ -262,6 +267,41 @@ class PanelController extends Controller
         $batch = Batch::find($batchid);
 
         return response()->json(['project'=>$prjid,'batch'=>$batch]);
+    }
+
+    public function feedback(Request $request)
+    {
+        $request->validate([
+            'trouble'=>'required',
+            'benefit' => 'required',
+            'teaching' => 'required',
+            'mentoring' => 'required',
+            'favourite' => 'required',
+            'speed' => 'required',
+            'maintain' => 'required',
+            'quote'=>'required',
+            'recommend' => 'required',
+            'live-rating' => 'required'
+        ]);
+        $userid = Auth::user()->id;
+        $student = Student::where('user_id',$userid)->get();
+
+        $feedback = new Feedback();
+        $feedback->trouble = request('trouble');
+        $feedback->benefit = request('benefit');
+        $feedback->teaching = request('teaching');
+        $feedback->mentoring = request('mentoring');
+        $feedback->favourite = request('favourite');
+        $feedback->speed = request('speed');
+        $feedback->maintain = request('maintain');
+        $feedback->quote = request('quote');
+        $feedback->recommend = request('recommend');
+        $feedback->stars = request('live-rating');
+        $feedback->student_id = $student[0]->id;
+        $feedback->batch_id = request('batchid');
+        $feedback->save();
+
+        return redirect()->route('frontend.channel',['id'=>request('batchid')]);
     }
 
     public function change_password($value='')

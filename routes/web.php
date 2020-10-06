@@ -227,3 +227,4 @@ Route::get('projectshow/{bid}/{pjid}','ProjectController@projectshow')->name('pr
 Route::get('projectedit/{b}/{pj}','ProjectController@projectedit')->name('projectedit');
 Route::post('frontendproject','PanelController@frontendproject')->name('frontendproject');
 Route::post('prj','PanelController@prj')->name('prj');
+Route::post('feedback','PanelController@feedback')->name('feedback');
