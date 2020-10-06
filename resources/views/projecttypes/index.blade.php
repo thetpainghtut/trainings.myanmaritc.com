@@ -73,7 +73,6 @@
             <div class="col-sm-10">
                 <select class="form-control batchName" name="batch" id="batchName">
                     
-                
 
    
                 </select>
@@ -116,13 +115,16 @@
                
                 if(response.batches.length > 0){
                      var html='';
+                     html+=`<option selected disabled>Choose One</option>`;
                 $.each(response.batches,function(i,v){
                     
-                    html+=('<option>Choose One</option><option value="'+v.id+'">'+v.title+'</option>');
+                    html+=('<option value="'+v.id+'">'+v.title+'</option>');
                 })
+
                $('.batchName').html(html);
                $('#ptypehidden').val(pid);
                 $('#assignprojectmodal').modal('show');
+                
                 }
             })
         })

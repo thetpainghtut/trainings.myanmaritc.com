@@ -57,76 +57,44 @@
  <li class="list-group-item topic{{$topic->id}}">
     <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
 </li>
+
+   
+
+@else
 @if($topic->name == 'Project Title')
-    @if($status == 1)
-    <li class="list-group-item topic" style="background-color: #faf7f5">
-        <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
-    </li>
-    @else
-        @if(count($projecttypes) > 0)
-            @foreach($projecttypes as $pt)
-            <li class="list-group-item ptopic{{$pt->id}}">
-                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
+    
+        @if(count($prj) > 0)
+
+            
+            <li class="list-group-item ptopic1">
+                <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$ptypes}}" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
             </li>
-            @endforeach
+           
+
         @else
-            <li class="list-group-item topic" style="background-color: #faf7f5">
-                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            <li class="list-group-item topic" style="background-color: #faf7f5;">
+                <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
             </li>
         @endif
-    @endif
-@endif
-@else
-<li class="list-group-item topic" style="background-color: #faf7f5">
-    <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
-</li>
-@endif
-@endforeach
-                       <!--  @foreach($topics as $topic)
-                        @foreach($topic->posts as $pb)
-                       @foreach($pb->batches as $p)
-                       @if($p->id == $batch->id)
-                       <li class="list-group-item topic{{$topic->id}}">
-                            <a href="javascript:void(0)" class="primarytext topics" data-id="{{$topic->id}}"> {{$topic->name}}</a>
-                        </li>
-                        @php break; @endphp
-                        @else
-                        <li class="list-group-item topic" style="background-color: #faf7f5">
-                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
-                            </li>
-                       @endif
-                       @endforeach
-                        @endforeach
-                        @if($topic->posts->isEmpty())
-                        @if($topic->name == 'Project Title')
-                            @if($status == 1)
-                            <li class="list-group-item topic" style="background-color: #faf7f5">
-                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
-                            </li>
-                            @else
-                            @if(count($projecttypes) > 0)
-                                @foreach($projecttypes as $pt)
-                                <li class="list-group-item ptopic{{$pt->id}}">
-                                    <a href="javascript:void(0)" class="primarytext ptopics" data-id="{{$pt->id}}"> {{$topic->name}}</a>
-                                </li>
-                                @endforeach
-                            @else
-                            <li class="list-group-item topic" style="background-color: #faf7f5">
-                                <a href="javascript:void(0)" class="primarytext disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
-                            </li>
-                            @endif
-                            @endif
-                        @else
-                        <li class="list-group-item topic" style="background-color: #faf7f5">
-                            <a href="javascript:void(0)" class="primarytext disabled" > {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
-                        </li>
-                        @endif
-                        @endif
-                        
-                       @endforeach -->
-                        <!-- <li class="list-group-item topic2">
-                            <a href="javascript:void(0)" class="primarytext topics"data-id=2> Assignment </a>
-                        </li> -->
+
+        @elseif($topic->name == 'Survey')
+            @if(Carbon\Carbon::now() == $enddate)
+            <li class="list-group-item stopic1">
+                <a href="javascript:void(0)" class="primarytext stopics" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
+            </li>
+        
+            @else
+            <li class="list-group-item topic" style="background-color: #faf7f5;">
+                <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            </li>
+            @endif
+        @else
+        <li class="list-group-item topic" style="background-color: #faf7f5">
+            <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+        </li>
+        @endif
+        @endif
+        @endforeach
 
                         
 
@@ -202,8 +170,15 @@
                         </div>
                         @endforeach
                     </div>
-
                     <div class="row" id="proj">
+                        <div class="col-12">
+                        <div id="accordion" class="accordion" >
+                            <div class="row" id="pp">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- <div class="row" id="proj">
                        
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class" style="height: 300px;">
                             <form action="{{route('projecttitle')}}" method="POST">
@@ -233,7 +208,7 @@
                             </form>
                         </div>
                         
-                    </div>
+                    </div> -->
                     <div class="signup-step-container">
                         <div class="container">
                             <div class="row d-flex justify-content-center">
@@ -1102,18 +1077,91 @@
         $('.ptopics').on('click',function(){
             var id = $(this).data('id');
             var bid = $(this).data('bid');
-            $('.list-group li.active a').removeClass('text-white');
-            $('.list-group li.active a').addClass('primarytext');
-            $('.active').removeClass('active');
+            var html = ''; var j=1;
+            $.post('/frontendproject',{id:id,bid:bid},function(response){
+                $.each(response.project,function(i,v){
+                    console.log(v.id);
+                    html+=`<div class="col-12  p-3 mb-5 bg-white rounded mb-4" >
+                            
+                        
+                    <div class="card-header collapsed" data-poid="${v.id}" data-baid="${response.batch.id}">
+                                <a class="card-title">
+                                    <i class="fab fa-bandcamp ml-3 icon"></i>
+                                    ${response.batch.title} | 
+                                    <i class="fab fa-r-project ml-3 icon"></i>
+                                    
+                                    ${v.name}
 
-            $('.ptopic'+id).addClass('active');
-            $('.list-group li.active a').addClass('text-white');
-            $('.list-group li.active a').removeClass('primarytext');
-            $('#alltopics').hide();
-            $('.signup-step-container').hide();
-            $('#proj').show();
-            $('#projtypeid').val(id);
+                                </a>
+                            </div>
+                            <div id="collapse${v.id}" class="card-body collapse" data-parent="#accordion">
+                                <table class="table table-striped table-bordered">
+                                <thead class="bg-primary text-white">
+                                <tr>
+                                <th>No</th>
+                                <th>Project Title</th>
+                                <th>Student Name</th>
+                                </tr>
+                                </thead>
+                                <tbody id='tbody${v.id}'>
+                                </tbody>
+                                </table>
+
+                            </div>
+                            </div>
+                            
+                  
+               `;
+                })
+                $('.list-group li.active a').removeClass('text-white');
+                $('.list-group li.active a').addClass('primarytext');
+                $('.active').removeClass('active');
+
+                $('.ptopic1').addClass('active');
+                $('.list-group li.active a').addClass('text-white');
+                $('.list-group li.active a').removeClass('primarytext');
+
+                $('#alltopics').hide();
+                $('.signup-step-container').hide();
+                $('#proj').show();
+                $('#pp').html(html);
+                $('#projtypeid').val(id);
+            })
+            
         })
+
+        $('#pp').on('click','.collapsed',function(){
+          
+                    var poid = $(this).data('poid');
+
+                    var baid = $(this).data('baid');
+                    $.post('/prj',{poid:poid,baid:baid},function(response){
+                      //console.log(response.projs);
+                        if(response.projs.length > 0){
+                        var html = ''; var j = 1;
+                        var js = [];
+                        $.each(response.projs,function(i,v){
+                            console.log(v);
+
+                            html+=`<tr>
+                            <td>${j++}</td>
+                            <td>${v.title}</td>
+                            <td>`;
+                            $.each(v.students,function(d,e){
+                              
+                               var c = '  ';
+                                html+=`${e.namee}${c}`;
+                            })
+                            html+=`</td>
+                            </tr>`;
+                             
+                        })
+                        $('#tbody'+poid).html(html);
+                        $('#collapse'+poid).collapse('show');
+                           
+                        }
+                    })
+                })
     });
 
     </script>
