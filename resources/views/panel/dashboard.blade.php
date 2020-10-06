@@ -26,6 +26,7 @@
 
                         $seen_less_total = 0;
                         $percentage = 0;
+                        $today_date = Carbon\Carbon::now();
                     @endphp
 
                     @foreach($course->subjects as $subject)
@@ -33,12 +34,12 @@
                             $subject_id = $subject->id;
                         @endphp
                     @endforeach
-                   
 
                     <!-- Student lesson count -->
                     @php
                         $subject_batch_id = 0;
                     @endphp
+
                     @foreach($studentinfo->lessons as $lesson)
                         @php
                             $subject = $lesson->subject;
@@ -55,22 +56,29 @@
                                 @endphp
                             @endif
                         @endforeach
-
-                        @if($studentbatch->id == $subject_batch_id && $status == 0)
+                        
+                        @if($studentbatch->id == $subject_batch_id && $status == 1 && $studentbatch->enddate <= $today_date)
                       
                             @php
                                 $stu_less =1;                                       
                                $seen_less_total += $stu_less;
                                
-                            @endphp                                   
+                            @endphp  
+
+                        @endif
+                        @if($studentbatch->id == $subject_batch_id && $status == 0 && $studentbatch->enddate >= $today_date)
+                      
+                            @php
+                                $stu_less =1;                                       
+                               $seen_less_total += $stu_less;
+                               
+                            @endphp  
+                                                   
                         @endif
                         
                     @endforeach
                    
                     <!-- End of Student lesson count -->
-
-
-                   
                    
                      @foreach($course->subjects as $subject) 
                         @php
@@ -79,6 +87,7 @@
                         @endphp
 
                     @endforeach
+
                     @if($lesson_total > 0)
                         @php
                             $percentage_decimal = (($seen_less_total/$lesson_total)*100);
