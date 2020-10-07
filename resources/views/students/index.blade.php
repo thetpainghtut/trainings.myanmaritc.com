@@ -81,14 +81,8 @@
                                     <td>{{$row->phone}}</td>
                                     <td>{{$batch->course->name}} - {{$batch->title}}</td>
                                     <td>
-                                        <a href="{{route('students.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a>
+                                        <a href="{{route('students.show',$row->id)}}?course={{$course_id}}&batch={{$batch_id}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a>
                                         
-                                        <a href="{{route('students.edit',$row->id)}}?course={{$course_id}}&batch={{$batch_id}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                               
-                                        
-                                            <button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{$row->id}}" data-batch_id = "{{$batch->id}}"
-                                            data-receive_no = "{{$row->pivot->receiveno}}"><i class="fas fa-trash"></i></button>
-                                            {{-- @endif --}}
                                         
 
                                             <button type="submit" class="btn btn-success send_mail btn-sm" data-student_id = "{{$row->id}}"><i class="fas fa-envelope"></i></button>
@@ -104,44 +98,6 @@
                     <h2 class="my-3">Please, Create Group!!!</h2> --}}
                 {{-- @endif --}}
             @endif
-        </div>
-    </div>
-
-
-{{-- delete modal --}}
-     <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Leave Message </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-        
-                <form id="student_leave">
-                    @csrf
-                        <input type="hidden" name="student_id" class="student_id">
-                        <input type="hidden" name="batch_id" class="batch_id">
-                        <input type="hidden" name="receive_no" class="receive_no">
-
-                        <div class="modal-body">
-                
-                            <div class="row my-3">
-                                <div class="col-md-10 offset-1" id="form-group-status">
-                                    <label for="reason">Reason</label>
-                               
-                                    <textarea type="text" class="form-control"  name="status" id="status"></textarea>
-                                    <span class="text-danger show-error"></span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                </form>
-            </div>
         </div>
     </div>
     
@@ -187,52 +143,6 @@
                     alert('Failed to resend mail!!');
                     
                 }
-             })
-         })
-
-         $('.delete').click(function(){
-            var student_id = $(this).data('student_id');
-            var batch_id = $(this).data('batch_id');
-            var receive_no = $(this).data('receive_no');
-
-            $('.student_id').val(student_id);
-            $('.batch_id').val(batch_id);
-            $('.receive_no').val(receive_no);
-
-
-            $('#exampleModal').modal('show');
-         })
-
-         $('#student_leave').submit(function(event) {
-             event.preventDefault();
-             var student_data = new FormData(this);
-             $.ajax({
-                url : '{{route("student_status_change")}}',
-                type : 'post',
-                data : student_data,
-                processData: false,
-                contentType: false,
-
-                success:function(data) {
-                    if(data){
-                        $('#exampleModal').modal('hide');
-                        location.reload();
-                    }
-                },
-                error:function (error) {
-                   if(error.status == 422){
-                    var errors = error.responseJSON;
-                    var data = errors.errors;
-                    $.each(data,function(i,v){
-                        showValidationErrors(i,v);
-                    });
-                    $('#exampleModal').modal('show');
-
-                   }
-                }
-
-
-
              })
          })
       });

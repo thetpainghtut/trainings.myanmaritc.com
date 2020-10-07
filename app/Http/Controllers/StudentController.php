@@ -11,6 +11,8 @@ use App\Group;
 use App\Inquire;
 use App\Education;
 use App\Township;
+use App\Unit;
+
 use Rabbit;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -241,10 +243,83 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+      $courseid = $request->course;
+      $batchid = $request->course;
+
       $student = Student::find($id);
-      return view('students.show',compact('student'));
+
+      $units = Unit::with(['students' => function($q) use($id)    {
+              $q->where('student_id', $id);
+            }]) 
+              ->where('course_id',$courseid)->get();
+
+      $students_units = Student::with(['batches' => function($q) use($batchid)    {
+              $q->where('batch_id', $batchid);
+            }]) 
+            ->whereHas('units', function($q1) use ($courseid)
+            { 
+              return $q1->where('course_id',$courseid);
+            })
+              ->where('id',$id)
+              ->get();
+
+      $student_symbol_groups = array(); 
+      $symbol_points=0;
+
+      foreach ($students_units as $value) 
+      {
+        $data_one = $value->units->groupBy('pivot.unit_id');
+
+        // echo $data_one;
+        $symbol_marks = array();
+
+        foreach ($data_one as $d_one_value) 
+        {
+          $unit_count = $d_one_value->count();
+
+          $unit_point_total = $d_one_value->sum('pivot.symbol');
+
+          $unit_point = round($unit_point_total / $unit_count);
+
+          $symbol;
+          switch ($unit_point) 
+          {
+                case (0 <= $unit_point &&  $unit_point <= 20):
+                  $symbol = 'E';
+                  break;
+                case (20 <= $unit_point && $unit_point <= 40):
+                  $symbol = 'D';
+                  break;
+                case (40 <= $unit_point && $unit_point <= 60):
+                  $symbol = 'C';
+                  break;
+                case (60 <= $unit_point && $unit_point <= 80):
+                  $symbol = 'B';
+                  break;
+                default:
+                  $symbol = 'A';
+                  break;
+            }
+
+            $points = $unit_point.'-'.$symbol;
+
+            // $marks[] = $points;
+
+            array_push($symbol_marks, $points);
+
+            // echo $points;
+        }
+
+
+        // echo "<hr>";
+
+        array_push($student_symbol_groups, $symbol_marks);
+      }
+      // dd($students_units);
+
+      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups'));
     }
 
     /**
@@ -291,8 +366,6 @@ class StudentController extends Controller
         $address = $request->address;
         $father = $request->father;
         $mother = $request->mother;
-        $course_id = $request->course_id;
-        $batch_id = $request->batch_id;
 
         if($request->hasfile('newphoto')){
           $photo = $request->file('newphoto');
@@ -323,7 +396,7 @@ class StudentController extends Controller
         $user->name = $namee;
         $user->email = $email;
         $user->save();
-        return redirect('students?course='.$course_id.'.&batch='.$batch_id)->with('msg','Successfully Update!');
+        return redirect('students/'.$id);
 
 
 

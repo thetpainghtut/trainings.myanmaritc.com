@@ -23,7 +23,9 @@ class PrintController extends Controller
     	$units = Unit::with('students')->where('course_id',$courseid)->get();
 
 
-		$students_units = Student::where('batch_id',$batchid)
+		$students_units = Student::with(['batches' => function($q) use($batchid)    {
+              return $q->where('batch_id', $batchid);
+            }]) 
 						->whereHas('units', function($q1) use ($courseid)
 						{ 
 							return $q1->where('course_id',$courseid);
@@ -33,6 +35,9 @@ class PrintController extends Controller
 
     	$student_symbol_groups = array(); 
     	$symbol_points=0;
+
+        // dd($students_units);
+
 
     	foreach ($students_units as $value) 
     	{
@@ -84,13 +89,12 @@ class PrintController extends Controller
     		array_push($student_symbol_groups, $symbol_marks);
     	}
 
-    	// dd($student_symbol_groups);
 
 
         // return view('pdf.grading',compact('students_units', 'units' ,'student_symbol_groups'));
 
 
-    	$pdf = PDF::loadView('pdf.grading', compact('students_units', 'units' ,'student_symbol_groups'));
+    	$pdf = PDF::loadView('pdf.grading', compact('students_units', 'units' ,'student_symbol_groups','batch'));
     	return $pdf->stream();
 
 	}
