@@ -361,6 +361,8 @@ class StudentController extends Controller
       return 'ok';
     }
 
+
+    // leave student to change status
     public function student_status_change(Request $request)
     {
       // dd($request);
@@ -374,24 +376,37 @@ class StudentController extends Controller
       $receive_no = $request->receive_no;
       $batch = Batch::find($batch_id);
       $pivotstatus = "Deactive( ".$status.' )';
+      $student = Student::find($student_id);
 
       $batch->students()->updateExistingPivot($student_id,['receiveno'=>$receive_no,'status'=>$pivotstatus]);
-      foreach ($batch->students as $batch_student) {
-        if($batch_student->lessons){
-          foreach ($batch_student->lessons as $student_lesson) {
-            if($student_lesson->pivot->status == 0){
-              $batch_student->lessons()->newPivotStatement()->where('status',0)->delete();
+
+      
+
+        if($student->lessons){          
+
+          foreach ($student->lessons as $student_lesson) {
+
+            if($student_lesson->pivot->status == '0' ){
+
+              var_dump($student->namee.'/'.$student_lesson->pivot->student_id);
+              $student->lessons()->wherePivot('status','=','0')->detach();
+              // $student->lessons()->newPivotStatementForId($student_id)->whereStatus('0')->delete();
               // var_dump($batch_student->lessons();
             }
           }
         }
-      }
-     // dd($/data);
+      // }
+      // dd($/data);
       $student = Student::find($student_id);
       // $student->status = $status;
       $student->save();
       return response()->json('student');
     }
+
+
+
+
+
 
     public function getInquire(Request $request){
       $receiveno = $request->inputReceiveno;

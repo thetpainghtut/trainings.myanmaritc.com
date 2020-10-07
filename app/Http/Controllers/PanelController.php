@@ -28,6 +28,7 @@ class PanelController extends Controller
     public function __construct($value='')
     {
         $this->middleware('auth');
+        $this->middleware('role:Student');
     }
 
     public function index()

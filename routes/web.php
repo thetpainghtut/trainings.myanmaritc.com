@@ -201,7 +201,10 @@ Route::post('resetpassword','PanelController@resetpassword')->name('frontend.res
 Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
 Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
 
-
+// quizzes
+Route::resource('quizzes','QuizzController');
+Route::resource('questions','QuestionController');
+Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
 
 
 
