@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 
 class Student extends Model
 {
-  use SoftDeletes;
+  use SoftDeletes,EagerLoadPivotTrait;
   
     protected $fillable = ['photo','namee','namem','email','phone','address','degree','city','accepted_year','dob','gender','p1','p1_phone','p1_relationship','p2','p2_phone','p2_relationship','because', 'status','township_id', 'user_id'];
 
@@ -69,6 +70,12 @@ class Student extends Model
     public function lessons()
     {
         return $this->belongsToMany('App\Lesson')->withPivot('status')->withTimestamps();
+
+    }
+
+    public function batch_student_lesson()
+    {
+        return $this->belongsToMany('App\Lesson','lesson_student')->withPivot('status')->withTimestamps()->wherePivot('status','=',0);
 
     }
 }

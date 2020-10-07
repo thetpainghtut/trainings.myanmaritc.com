@@ -275,6 +275,14 @@
                         <span> Blog </span>
                     </a>
                 </li>
+
+
+                <li class="nav-item {{ Request::segment(1) === 'quizzes' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('quizzes.index')}}">
+                        <i class="icofont-question"></i>
+                        <span> Quizz </span>
+                    </a>
+                </li>
             @endrole  
 
             <!-- Divider -->

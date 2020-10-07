@@ -62,91 +62,101 @@ class ReportCommand extends Command
     foreach ($batches as $batch) {
 
 
-        // if($batch->enddate = $date){
+        if($batch->enddate = $date){
 
-        // foreach ($batch->students as $batch_student_status) {
+        foreach ($batch->students as $batch_student_status) {
 
-        //     foreach ($batch_student_status->lessons as $student_lesson) {
+            foreach ($batch_student_status->lessons as $student_lesson) {
 
-        //       if($batch_student_status->pivot->status == 0){
-        //                 $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
-        //             }
-        //         }
-        //     }
-        // }
-
-      foreach ($batch->subjects as $batch_subject) {
-          $count = count($batch_subject->lessons);
-          $subname = $batch_subject->name;
-          
-          foreach ($batch_subject->lessons as $sub_lesson) {
-
-
-
-            foreach ($sub_lesson->students as $lesson_student) {
-              // var_dump($lesson_student->namee);
-              // var_dump($lesson_student->pivot->student_id);
-            
-                foreach ($batch->students as $batch_student) {
-
-                if($batch_student->pivot->status == "Active" && $batch_student->pivot->student_id === $lesson_student->pivot->student_id && $batch_student->lessons && $lesson_student->pivot->status == 0){
-
-                  $s_count = count($batch_student->lessons);
-
-
-                  if($count != $s_count){
-
-                    $text = 'Your  tutorials are not finish.Watch and learn your tutorials! 
-                        http://localhost:8000/panel
-                        ';
-
-                    Mail::raw($text,function($message) use ($batch_student){
-                        $message->from('nyiyl345@gmail.com');
-                        $message->to($batch_student->email)->subject('Alert for your tutorial!');
-
-                    });
-                    
-
-
-                    $this->info('Minute Update has been send successfully');
-                break;
-
-                  }else{
-                    $text = 'There are tutorial video to watch
-                        http://localhost:8000/panel>
-                        ';
-
-                    Mail::raw($text,function($message) use ($batch_student){
-                        $message->from('nyiyl345@gmail.com');
-                        $message->to($batch_student->email)->subject('Something to watch');
-
-                    });
-                  }
-                     // break;
-
-
+              if($batch_student_status->pivot->status == 0){
+                        $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
+                    }
                 }
-                if($batch_student->pivot->status == "Active" && $batch_student->pivot->student_id !== $lesson_student->pivot->student_id && $batch_student->lessons && $lesson_student->pivot->status == 0){
-                    $text = 'You have not watched  tutorial.Watch and learn tutorial
-                        http://localhost:8000/panel
-                        ';
-
-                    Mail::raw($text,function($message) use ($batch_student){
-                        $message->from('nyiyl345@gmail.com');
-                        $message->to($batch_student->email)->subject('To watch tutorial');
-
-                    });
-                    break;
-
-                }
-                } 
-              }
             }
-          }  
-      }
-        
+        }
 
+        $lessons = Lesson::all();
+        $students = Student::all();
+        $date = date('Y-m-d');
+        $data = Array();
+        $student = Array();
+        $lesson_stu = Array();
+
+        $batches = Batch::where('enddate','>=',$date)->get();
+
+        foreach ($batches as $batch) {
+
+          foreach ($batch->subjects as $batch_subject) {
+              $count = count($batch_subject->lessons);
+              $subname = $batch_subject->name;
+              
+              foreach ($batch_subject->lessons as $sub_lesson) {
+
+                    foreach ($batch->students as $batch_student) {
+                      
+                      foreach ($sub_lesson->students as $lesson_student) {
+
+
+                      if($batch_student->pivot->status == "Active" && $batch_student->pivot->student_id === $lesson_student->pivot->student_id && $batch_student->lessons && $lesson_student->pivot->status == 0){
+
+                        array_push($lesson_stu);
+
+                        $s_count =count($batch_student->lessons);
+
+
+                      if($count == $s_count){
+                        // var_dump($count.'/'.$s_count);
+
+                        $text = 'Your  tutorials are not finish.Watch and learn your tutorials! 
+                            http://localhost:8000/panel
+                            ';
+                            
+                            array_push($student,$batch_student->email);
+                            
+                      }
+
+                    }if($batch_student->pivot->status == "Active" && $lesson_student->pivot->status == 0 && $batch_student->id !== $lesson_student->pivot->student_id){
+
+                        $s_count =count($batch_student->lessons);
+
+
+                      if($count != $s_count){
+                        $text = 'You have not watched  tutorial.Watch and learn tutorial
+                            http://localhost:8000/panel
+                            ';
+                            
+                            array_push($data,$batch_student->email);
+                          }
+                           
+                        }
+                      }
+
+                    }    
+                }
+              }  
+          }
+      }
+
+     $stu_array = array_unique($student); 
+     $array = array_unique($data);
+     // dd($array);
+
+        foreach ($array as $email) {
+            
+
+            $text = 'Your  tutorials are not finish.Watch and learn your tutorials! ( http://localhost:8000/panel ) ';
+
+            Mail::raw($text,function($message) use ($email){
+                $message->from('nyiyl345@gmail.com');
+                $message->to($email)->subject('Alert for your tutorial!');
+
+            });
+            
+        }
     }
+
+    
+
 }
 
 

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Response;
 use Illuminate\Http\Request;
-use App\Course;
-use App\Batch;
-use App\Feedback;
 
-class FeedbackController extends Controller
+class ResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,6 @@ class FeedbackController extends Controller
     public function index()
     {
         //
-        $courses = Course::all();
-
-        return view('feedbacks.index',compact('courses'));
     }
 
     /**
@@ -46,29 +41,21 @@ class FeedbackController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Response $response)
     {
         //
-        
-        $feeds = Feedback::where('batch_id',$id)->get();
-        if(count($feeds) > 0){
-            $batch = Batch::find($id);
-            return view('feedbacks.show',compact('feeds','batch'));
-        }else{
-            return redirect()->back();
-        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Response $response)
     {
         //
     }
@@ -77,10 +64,10 @@ class FeedbackController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Response $response)
     {
         //
     }
@@ -88,10 +75,10 @@ class FeedbackController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Response $response)
     {
         //
     }

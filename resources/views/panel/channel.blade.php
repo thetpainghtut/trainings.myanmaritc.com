@@ -78,12 +78,18 @@
         @endif
 
         @elseif($topic->name == 'Survey')
-            @if(Carbon\Carbon::now() == $enddate)
+        @if(count($fee)==0)
+            @if(date('Y-m-d') == $enddate)
             <li class="list-group-item stopic1">
                 <a href="javascript:void(0)" class="primarytext stopics" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
             </li>
         
             @else
+            <li class="list-group-item topic" style="background-color: #faf7f5;">
+                <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            </li>
+            @endif
+         @else
             <li class="list-group-item topic" style="background-color: #faf7f5;">
                 <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
             </li>
@@ -172,9 +178,8 @@
                     </div>
                     <div class="row" id="proj">
                         <div class="col-12">
-                        <div id="accordion" class="accordion" >
-                            <div class="row" id="pp">
-                            </div>
+                        <div id="accordion" class="accordion pp" >
+                          
                         </div>
                     </div>
                     </div>
@@ -217,7 +222,7 @@
                                         <div class="wizard-inner">
                                             <div class="connecting-line"></div>
                                             <ul class="nav nav-tabs" role="tablist">
-                                                <li role="presentation" class="active">
+                                                <li role="presentation" class="step1">
                                                     <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">1 </span> <i>Step 1</i></a>
                                                 </li>
                                                 <li role="presentation" class="disabled">
@@ -232,157 +237,168 @@
                                             </ul>
                                         </div>
                         
-                                        <form role="form" action="" method="GET" class="login-box mmfont">
-                                            <div class="tab-content" id="main_form">
-                                                <div class="tab-pane active" role="tabpanel" id="step1">
-                                                    <h4 class="text-center">Step 1</h4>
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> သင်ကြားမှု ကာလအတွင်း ဘာအခက်အခဲတွေရှိခဲ့လဲ </label> 
-                                                                <input class="form-control" type="text" name="name" placeholder=""> 
-                                                            </div>
+                                        <form role="form" action="{{route('feedback')}}" method="POST" class="login-box mmfont">
+                                            @csrf
+                                        <input type="hidden" name="batchid" id="signhidden">
+                                        <div class="tab-content" id="main_form">
+                                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                                <h4 class="text-center">Step 1</h4>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> သင်ကြားမှု ကာလအတွင်း ဘာအခက်အခဲတွေရှိခဲ့လဲ </label> 
+                                                            <input class="form-control" type="text" name="trouble" placeholder=""> 
                                                         </div>
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> သင်တန်း ကနေ ကိုယ့်ကိုယ်ကို ဘာတွေအကျိုးရှိသွားတယ် ထင်မိလဲ  </label> 
-                                                                <input class="form-control" type="text" name="name" placeholder=""> 
-                                                            </div>
-                                                        </div>
-                                                        
                                                     </div>
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="default-btn next-step text-white">Continue to next step</button></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="tab-pane" role="tabpanel" id="step2">
-                                                    <h4 class="text-center">Step 2</h4>
-                                                    <div class="row">
-
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> ဆရာ ဆရာမ တွေနဲ့သင်ရတာအဆင်ပြေရဲ့လား။ အပြည့်အစုံပြောပြပေးပါ။ </label> 
-                                                                <input class="form-control" type="text" name="name" placeholder=""> 
-                                                            </div>
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> သင်တန်း ကနေ ကိုယ့်ကိုယ်ကို ဘာတွေအကျိုးရှိသွားတယ် ထင်မိလဲ  </label> 
+                                                            <input class="form-control" type="text" name="benefit" placeholder=""> 
                                                         </div>
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> Mentor တွေနဲ့ အဆင်ပြေရဲ့လား။ အပြည့်အစုံပြောပြပေးပါ။ </label> 
-                                                                <input class="form-control" type="email" name="name" placeholder=""> 
-                                                            </div>
-                                                        </div> 
-
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label>  သင်တန်း မှာအကြိုက်ဆုံးကဏ္ဍက ဘာဖြစ်မလဲ။ </label> 
-                                                                <input class="form-control" type="email" name="name" placeholder=""> 
-                                                            </div>
-                                                        </div>
-                                                    
                                                     </div>
                                                     
-                                                    
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                                        <li><button type="button" class="default-btn next-step text-white">Continue</button></li>
-                                                    </ul>
                                                 </div>
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="default-btn next-step text-white">Continue to next step</button></li>
+                                                </ul>
+                                            </div>
 
-                                                <div class="tab-pane" role="tabpanel" id="step3">
-                                                    <h4 class="text-center"> Lecture Speed </h4>
-                                                    <div class="row justify-content-center">
+                                            <div class="tab-pane" role="tabpanel" id="step2">
+                                                <h4 class="text-center">Step 2</h4>
+                                                <div class="row">
 
-                                                        <div class="col-md-6 col-lg-3 col-sm-6 col-6">
-                                                            <label>
-                                                              <input type="radio" name="product" class="card-input-element" />
-
-                                                                <div class="card card-input">
-                                                                    <img src="{{ asset('mmitui/image/lecturespeed1.gif') }}" class="card-img-top speedGif" alt="...">
-                                                                    <div class="card-body text-center">
-                                                                        <p class="card-text"> Slow </p>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> ဆရာ ဆရာမ တွေနဲ့သင်ရတာအဆင်ပြေရဲ့လား။ အပြည့်အစုံပြောပြပေးပါ။ </label> 
+                                                            <input class="form-control" type="text" name="teaching" placeholder=""> 
                                                         </div>
-                                                        <div class="col-md-6 col-lg-3 col-sm-6 col-6">
-                                                            <label>
-                                                                <input type="radio" name="product" class="card-input-element" />
-
-                                                                <div class="card card-input">
-                                                                    <img src="{{ asset('mmitui/image/lecturespeed2.gif') }}" class="card-img-top speedGif" alt="...">
-                                                                    <div class="card-body text-center">
-                                                                        <p class="card-text"> Normal </p>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
+                                                    </div>
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> Mentor တွေနဲ့ အဆင်ပြေရဲ့လား။ အပြည့်အစုံပြောပြပေးပါ။ </label> 
+                                                            <input class="form-control" type="text" name="mentoring" placeholder=""> 
                                                         </div>
+                                                    </div> 
 
-                                                        <div class="col-md-6 col-lg-3 col-sm-6 col-6">
-                                                            <label>
-                                                                <input type="radio" name="product" class="card-input-element" />
-
-                                                                <div class="card card-input">
-                                                                    <img src="{{ asset('mmitui/image/lecturespeed3.gif') }}" class="card-img-top speedGif" alt="...">
-                                                                    <div class="card-body text-center">
-                                                                        <p class="card-text"> Fast </p>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label>  သင်တန်း မှာအကြိုက်ဆုံးကဏ္ဍက ဘာဖြစ်မလဲ။ </label> 
+                                                            <input class="form-control" type="text" name="favourite" placeholder=""> 
                                                         </div>
+                                                    </div>
+                                                
+                                                </div>
+                                                
+                                                
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
+                                                    <li><button type="button" class="default-btn next-step text-white">Continue</button></li>
+                                                </ul>
+                                            </div>
 
-                                                        <div class="col-md-6 col-lg-3 col-sm-6 col-6">
-                                                            <label>
-                                                                <input type="radio" name="product" class="card-input-element" />
+                                            <div class="tab-pane" role="tabpanel" id="step3">
+                                                <h4 class="text-center"> Lecture Speed </h4>
+                                                <div class="row justify-content-center">
+
+                                                    <div class="col-md-6 col-lg-3 col-sm-6 col-6">
+                                                        <label>
+                                                          <input type="radio" name="speed"
+                                                          value="Slow" class="card-input-element" />
 
                                                             <div class="card card-input">
-                                                                    <img src="{{ asset('mmitui/image/lecturespeed4.gif') }}" class="card-img-top speedGif" alt="...">
-                                                                    <div class="card-body text-center">
-                                                                        <p class="card-text"> Super Rocket </p>
-                                                                    </div>
+                                                                <img src="{{ asset('mmitui/image/lecturespeed1.gif') }}" class="card-img-top speedGif" alt="...">
+                                                                <div class="card-body text-center">
+                                                                    <p class="card-text"> Slow </p>
                                                                 </div>
-                                                            </label>
-                                                        </div>
-                                                
-                                                    </div>
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                                        <li><button type="button" class="default-btn next-step text-white">Continue</button></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="tab-pane" role="tabpanel" id="step4">
-                                                    <h4 class="text-center">Step 4</h4>
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> မိမိအနေဖြင့် သင်တန်းကာလအတွင်းမှာ ဘယ် ကဏ္ဍလေးတွေကို ပြုပြင် စေချင်သလဲ </label> 
-                                                                <input class="form-control" type="text" name="name" placeholder=""> 
                                                             </div>
-                                                        </div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-3 col-sm-6 col-6">
+                                                        <label>
+                                                            <input type="radio" name="speed" value="Normal" class="card-input-element" />
 
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> မိမိရဲ့ လက်ဆွဲဆောင်ပုဒ် </label> 
-                                                                <input class="form-control" type="text" name="name" placeholder=""> 
+                                                            <div class="card card-input">
+                                                                <img src="{{ asset('mmitui/image/lecturespeed2.gif') }}" class="card-img-top speedGif" alt="...">
+                                                                <div class="card-body text-center">
+                                                                    <p class="card-text"> Normal </p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-12 my-2">
-                                                            <div class="form-group">
-                                                                <label> အပိတ်အနေနဲ့ ကိုယ့်သူငယ်ချင်းတွေကို လာတတ်ဖို့ ဘယ်လို recommend ပေးချင်သလဲ </label> 
-                                                                <input class="form-control" type="email" name="name" placeholder=""> 
-                                                            </div>
-                                                        </div>
-                                                    
+                                                        </label>
                                                     </div>
-                                                    
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="default-btn prev-step">Back</button></li>
-                                                        <li><button type="submit" class="default-btn next-step text-white">Finish</button></li>
-                                                    </ul>
+
+                                                    <div class="col-md-6 col-lg-3 col-sm-6 col-6">
+                                                        <label>
+                                                            <input type="radio" name="speed" value="Fast" class="card-input-element" />
+
+                                                            <div class="card card-input">
+                                                                <img src="{{ asset('mmitui/image/lecturespeed3.gif') }}" class="card-img-top speedGif" alt="...">
+                                                                <div class="card-body text-center">
+                                                                    <p class="card-text"> Fast </p>
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="col-md-6 col-lg-3 col-sm-6 col-6">
+                                                        <label>
+                                                            <input type="radio" name="speed" value="Super Rocket" class="card-input-element" />
+
+                                                        <div class="card card-input">
+                                                                <img src="{{ asset('mmitui/image/lecturespeed4.gif') }}" class="card-img-top speedGif" alt="...">
+                                                                <div class="card-body text-center">
+                                                                    <p class="card-text"> Super Rocket </p>
+                                                                </div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                            
                                                 </div>
-                                                <div class="clearfix"></div>
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
+                                                    <li><button type="button" class="default-btn next-step text-white">Continue</button></li>
+                                                </ul>
                                             </div>
+                                            <div class="tab-pane" role="tabpanel" id="step4">
+                                                <h4 class="text-center">Step 4</h4>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> မိမိအနေဖြင့် သင်တန်းကာလအတွင်းမှာ ဘယ် ကဏ္ဍလေးတွေကို ပြုပြင် စေချင်သလဲ </label> 
+                                                            <input class="form-control" type="text" name="maintain" placeholder=""> 
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> မိမိရဲ့ လက်ဆွဲဆောင်ပုဒ် </label> 
+                                                            <input class="form-control" type="text" name="quote" placeholder=""> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 my-2">
+                                                        <div class="form-group">
+                                                            <label> အပိတ်အနေနဲ့ ကိုယ့်သူငယ်ချင်းတွေကို လာတတ်ဖို့ ဘယ်လို recommend ပေးချင်သလဲ </label> 
+                                                            <input class="form-control" type="text" name="recommend" placeholder=""> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 my-2">
+                                                        <label>Rating</label>
+                                                        <!-- <span class="my-rating-9"></span>
+                                                        <input class="live-rating" name="live-rating" type="hidden"> -->
+                                                        <div id="rateYo"></div>
+                                                        <input type="hidden" name="live-rating" class="live-rating">
+                                                    </div>
+
+                                                 
+                                                </div>
+                                                
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="default-btn prev-step">Back</button></li>
+                                                    <li><button type="submit" class="default-btn next-step text-white">Finish</button></li>
+                                                </ul>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
                                             
                                         </form>
                                     </div>
@@ -401,6 +417,12 @@
 @endsection
 
 @section('script')
+
+
+<script src="{{asset('js/star.js')}}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{asset('css/rating.css')}}">
+
     <script type="text/javascript">
         $(document).ready(function(){
 
@@ -1081,10 +1103,8 @@
             $.post('/frontendproject',{id:id,bid:bid},function(response){
                 $.each(response.project,function(i,v){
                     console.log(v.id);
-                    html+=`<div class="col-12  p-3 mb-5 bg-white rounded mb-4" >
-                            
-                        
-                    <div class="card-header collapsed" data-poid="${v.id}" data-baid="${response.batch.id}">
+                    html+=`     
+                    <div class="card-header collapsed" data-toggle="collapse" data-poid="${v.id}" data-baid="${response.batch.id}" data-parent="#accordion" href="#collapse${v.id}">
                                 <a class="card-title">
                                     <i class="fab fa-bandcamp ml-3 icon"></i>
                                     ${response.batch.title} | 
@@ -1108,9 +1128,6 @@
                                 </table>
 
                             </div>
-                            </div>
-                            
-                  
                `;
                 })
                 $('.list-group li.active a').removeClass('text-white');
@@ -1124,14 +1141,14 @@
                 $('#alltopics').hide();
                 $('.signup-step-container').hide();
                 $('#proj').show();
-                $('#pp').html(html);
+                $('.pp').html(html);
                 $('#projtypeid').val(id);
             })
             
         })
 
-        $('#pp').on('click','.collapsed',function(){
-          
+        $('.pp').on('click','.collapsed',function(){
+         
                     var poid = $(this).data('poid');
 
                     var baid = $(this).data('baid');
@@ -1147,11 +1164,13 @@
                             <td>${j++}</td>
                             <td>${v.title}</td>
                             <td>`;
-                            $.each(v.students,function(d,e){
-                              
-                               var c = '  ';
-                                html+=`${e.namee}${c}`;
-                            })
+                            var output= [];
+                            for(var i=0; i<v.students.length; i++){
+                                output.push(v.students[i].namee);
+                            }
+
+                            html+=`${output.join(' , ')}`;
+                            
                             html+=`</td>
                             </tr>`;
                              
@@ -1161,7 +1180,48 @@
                            
                         }
                     })
-                })
+                });
+
+        $('.stopics').on('click',function(){
+
+            var baid = $(this).data('bid');
+            //alert(baid);
+             $('.list-group li.active a').removeClass('text-white');
+                $('.list-group li.active a').addClass('primarytext');
+                $('.active').removeClass('active');
+                $('.step1').addClass('active');
+                $('#step1').addClass('active');
+                $('.stopic1').addClass('active');
+                $('.list-group li.active a').addClass('text-white');
+                $('.list-group li.active a').removeClass('primarytext');
+
+                $('#alltopics').hide();
+               
+                $('#proj').hide();
+               
+               
+            $('.signup-step-container').show();
+            $('#signhidden').val(baid);
+        })
+        /*$(".my-rating-9").starRating({
+            initialRating: 0,
+            disableAfterRate: false,
+            onHover: function(currentIndex, currentRating, $el){
+              $('.live-rating').val(currentIndex);
+            },
+            onLeave: function(currentIndex, currentRating, $el){
+              $('.live-rating').val(currentRating);
+            }
+        });*/
+
+        $(function () {
+ 
+            $("#rateYo").rateYo()
+              .on("rateyo.set", function (e, data) {
+                $('.live-rating').val(data.rating);
+                 // alert("The rating is set to " + data.rating + "!");
+            });
+        });
     });
 
     </script>

@@ -210,7 +210,10 @@ Route::post('resetpassword','PanelController@resetpassword')->name('frontend.res
 Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
 Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
 
-
+// quizzes
+Route::resource('quizzes','QuizzController');
+Route::resource('questions','QuestionController');
+Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
 
 
 
@@ -236,3 +239,4 @@ Route::get('projectshow/{bid}/{pjid}','ProjectController@projectshow')->name('pr
 Route::get('projectedit/{b}/{pj}','ProjectController@projectedit')->name('projectedit');
 Route::post('frontendproject','PanelController@frontendproject')->name('frontendproject');
 Route::post('prj','PanelController@prj')->name('prj');
+Route::post('feedback','PanelController@feedback')->name('feedback');

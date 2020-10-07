@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Question;
+use App\Quizz;
 use Illuminate\Http\Request;
-use App\Course;
-use App\Batch;
-use App\Feedback;
 
-class FeedbackController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
-        $courses = Course::all();
 
-        return view('feedbacks.index',compact('courses'));
     }
 
     /**
@@ -27,9 +23,9 @@ class FeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -40,35 +36,29 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        //
-        
-        $feeds = Feedback::where('batch_id',$id)->get();
-        if(count($feeds) > 0){
-            $batch = Batch::find($id);
-            return view('feedbacks.show',compact('feeds','batch'));
-        }else{
-            return redirect()->back();
-        }
+        $quizz = Quizz::find($id);
+        $question = Question::where('quizz_id',$id);
+        return view('question.index',compact('question','quizz'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
         //
     }
@@ -77,10 +67,10 @@ class FeedbackController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -88,11 +78,18 @@ class FeedbackController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
         //
+    }
+
+
+    public function createform($id)
+    {
+        $quizz = Quizz::find($id);
+        return view('question.create',compact('quizz'));
     }
 }

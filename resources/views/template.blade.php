@@ -332,59 +332,38 @@
                         <div class="col-12">
                             <div id="client-testimonial-carousel" class="carousel slide" data-ride="carousel" style="height:300px;">
                                 <div class="carousel-inner" role="listbox">
-                                  <div class="carousel-item active text-center p-4">
-                                    <blockquote class="blockquote text-center">
-                                      <p class="mb-0 mmfont feedback_text"><i class="fa fa-quote-left"></i> Professional Full-stack Developer တယောက်အနေနဲ့ ရပ်တည်သွားချင်လို့ လာတတ်ဖြစ်တာပါ။ အစပိုင်းမှာ stress များခဲ့တယ်။ နောက်ပိုင်းရောက်တော့ ပိုပြီးလို့တောင် stress များတယ်။ နောက်ဆုံးမှာတော့ stress အားလုံးကို ကျော်လွှားနိုင်ခဲ့တယ်။ Thinking skills, problem solving skills တွေက member အချင်းချင်း အငြင်းပွားမှူတွေကနေတဆင့် တိုးတက်လာပါတယ်။ Mentor တွေကဆိုရင်တော့ ဆရာသက်ပေါ့ မေးခွန်း တခုမေးရင် အလွယ်တကူပြန်မဖြေတတ်ဘူး "try ကြည့်လေ ၊ try ပေါ့ " ဆိုတဲ့စကားလုံးကိုကြားရတာပေါ့။ နောက်ပိုင်းမှာ သိလိုက်ရတာက ကိုယ့်ကို တကယ်နားလည်ပြီး ရစေချင်လို့ဆိုတာပဲ။ တီချယ် ယသော်အပြုံးလေးကိုကြွေပါတယ်လို့။ ဆရာဟိန်းကို ကျေးဇူးတင်ပါတယ်။ error တခုတက်တိုင်း အမြဲအပူကပ်မေးတာတွေကို စိတ်ရှည်ရှည် နဲ့ ဖြေရှင်းပေးတယ်ပြီးတော့ "စိတ်အေးအေးထား"တဲ့။ "Food Party, Presentation time တွေကတော့ အရမ်းကြိုက်တဲ့ အစီအစဉ်လေးတွေပေါ့။ အရာရာ support ဖြစ်တဲ့အတွက် ကျေးဇူးတင်ပါတယ်။
-                                      </p>
-                                      <footer class="blockquote-footer mt-3"> Chan Ei Hmwe <br> <cite title="Source Title"> PHP Bootcamp Batch 3 </cite></footer>
-                                      <!-- Client review stars -->
-                                      <!-- "fas fa-star" for a full star, "far fa-star" for an empty star, "far fa-star-half-alt" for a half star. -->
-                                      <p class="client-review-stars">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star-half-alt text-warning"></i>
-                                        <i class="far fa-star"></i>
-                                      </p>
-                                    </blockquote>
-                                  </div>
-                                  <div class="carousel-item text-center p-4">
-                                    <blockquote class="blockquote text-center">
-                                      <p class="mb-0 mmfont feedback_text"><i class="fa fa-quote-left"></i> I joined bootcamp for programming langauge that are attractive to me. Projector is not sharpness for me. Laravel and PHP skills are quite improved. All of the mentors are be patient. Pizza Time 😍😍 I hard try best to become web developer. Conclusions, Thank you so much to all.
-                                      </p>
-                                      <footer class="blockquote-footer mt-3"> Pwint Wit Yee Oo <cite title="Source Title"> PHP Bootcamp Batch - 3</cite></footer>
-                                      <!-- Client review stars -->
-                                      <!-- "fas fa-star" for a full star, "far fa-star" for an empty star, "far fa-star-half-alt" for a half star. -->
-                                      <p class="client-review-stars">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                      </p>
-                                    </blockquote>
-                                  </div>
-                                  <div class="carousel-item text-center p-4">
-                                    <blockquote class="blockquote text-center">
-                                      <p class="mb-0 mmfont feedback_text"><i class="fa fa-quote-left"></i> Web Technology အကြောင်းအသေးစိတ်သိချင်လို့ လာတတ်ဖြစ်တာပါ။ ၁လအတွင်း အခက်အခဲရယ်ဆိုတာ မရှိပါဘူးဗျ။ Improving skills တွေကတော့ Ajax, Vuejs, Localstorage အသုံးပြုပုံတွေ Laravel ကို ပိုသုံးတတ်လာတယ်။ သဘောကောင်းတဲ့ ကိုကို မမ တွေနဲ့ စာသင်ခဲ့ပါတယ်။ Bootcamp မှာ အကြိုက်ဆုံး ကတော့ project များများ လုပ်ဖြစ်တယ်။ တခြားသင်တန်းတွေ နဲ့ လုံးဝမတူတာ ထူးခြားတာ အကြိုက်ဆုံးပါဗျ။ Bootcamp လည်းဒီထက်မက အောင်မြင်ပါစေ။ MIT က ဆရာတွေ အမတွေ ကျန်းမာပျော်ရွှင်ပါစေ။
-                                      </p>
-                                      <footer class="blockquote-footer mt-3">Kyaw Naing Thu <br> <cite title="Source Title"> PHP Bootcamp Batch 3 </cite></footer>
-                                      <!-- Client review stars -->
-                                      <!-- "fas fa-star" for a full star, "far fa-star" for an empty star, "far fa-star-half-alt" for a half star. -->
-                                      <p class="client-review-stars">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                        <i class="fas fa-star text-warning"></i>
-                                      </p>
-                                    </blockquote>
-                                  </div>
+                                    @foreach($feedbacks as $feed)
+                                      <div class="carousel-item @if ($loop->first) active @endif text-center p-4">
+                                        <blockquote class="blockquote text-center">
+                                          <p class="mb-0 mmfont feedback_text"><i class="fa fa-quote-left"></i> 
+                                            {{$feed->student->because}}{{$feed->trouble}}{{$feed->benefit}}{{$feed->teaching}}{{$feed->mentoring}}{{$feed->favourite}}{{$feed->quote}}{{$feed->recommend}}<!-- Professional Full-stack Developer တယောက်အနေနဲ့ ရပ်တည်သွားချင်လို့ လာတတ်ဖြစ်တာပါ။ အစပိုင်းမှာ stress များခဲ့တယ်။ နောက်ပိုင်းရောက်တော့ ပိုပြီးလို့တောင် stress များတယ်။ နောက်ဆုံးမှာတော့ stress အားလုံးကို ကျော်လွှားနိုင်ခဲ့တယ်။ Thinking skills, problem solving skills တွေက member အချင်းချင်း အငြင်းပွားမှူတွေကနေတဆင့် တိုးတက်လာပါတယ်။ Mentor တွေကဆိုရင်တော့ ဆရာသက်ပေါ့ မေးခွန်း တခုမေးရင် အလွယ်တကူပြန်မဖြေတတ်ဘူး "try ကြည့်လေ ၊ try ပေါ့ " ဆိုတဲ့စကားလုံးကိုကြားရတာပေါ့။ နောက်ပိုင်းမှာ သိလိုက်ရတာက ကိုယ့်ကို တကယ်နားလည်ပြီး ရစေချင်လို့ဆိုတာပဲ။ တီချယ် ယသော်အပြုံးလေးကိုကြွေပါတယ်လို့။ ဆရာဟိန်းကို ကျေးဇူးတင်ပါတယ်။ error တခုတက်တိုင်း အမြဲအပူကပ်မေးတာတွေကို စိတ်ရှည်ရှည် နဲ့ ဖြေရှင်းပေးတယ်ပြီးတော့ "စိတ်အေးအေးထား"တဲ့။ "Food Party, Presentation time တွေကတော့ အရမ်းကြိုက်တဲ့ အစီအစဉ်လေးတွေပေါ့။ အရာရာ support ဖြစ်တဲ့အတွက် ကျေးဇူးတင်ပါတယ်။ -->
+                                          </p>
+                                          <footer class="blockquote-footer mt-3"> {{$feed->student->namee}} <br> <cite title="Source Title"> {{$feed->batch->title}} </cite></footer>
+                                          <!-- Client review stars -->
+                                          <!-- "fas fa-star" for a full star, "far fa-star" for an empty star, "far fa-star-half-alt" for a half star. -->
+                                          
+                                          <!-- <p class="client-review-stars"> -->
+                                            <!-- <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                            <i class="far fa-star"></i> -->
+                                          <!-- </p> -->
+                                           <p style="text-align:center;margin-left: auto;margin-right: auto;" class="client-review-stars rateYo" data-rateyo-rating="{{$feed->stars}}"></p>
+                                        </blockquote>
+                                      </div>
+                                    @endforeach
+                                  <!--  -->
+                                  
                                 </div>
+
                                 <ol class="carousel-indicators">
-                                  <li data-target="#client-testimonial-carousel" data-slide-to="0" class="active"></li>
+                                     @foreach( $feedbacks as $photo )
+                                        <li data-target="#client-testimonial-carousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                                    @endforeach
+                                  <!-- <li data-target="#client-testimonial-carousel" data-slide-to="0" class="active"></li>
                                   <li data-target="#client-testimonial-carousel" data-slide-to="1"></li>
-                                  <li data-target="#client-testimonial-carousel" data-slide-to="2"></li>
+                                  <li data-target="#client-testimonial-carousel" data-slide-to="2"></li> -->
                                 </ol>
                               </div>
                         </div>
@@ -421,7 +400,7 @@
     <script src="{{ asset('mmitui/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
-    {{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> --}}
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> 
     <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
   <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     
@@ -432,8 +411,9 @@
     <!-- Plyr -->
     {{-- <script src="https://cdn.plyr.io/3.6.2/demo.js" crossorigin="anonymous"></script>
     <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script> --}}
-
-  @yield('script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+    @yield('script')
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <script type="text/javascript">
@@ -476,6 +456,14 @@
         showNoti();
         notificationsToggle.show();
       });
+
+
+        //Make sure that the dom is ready
+        $(function () {
+         
+          $(".rateYo").rateYo({readOnly: true});
+         
+        });
     </script>
 </body>
 
