@@ -271,6 +271,7 @@ class PanelController extends Controller
 
     public function feedback(Request $request)
     {
+        
         $request->validate([
             'trouble'=>'required',
             'benefit' => 'required',

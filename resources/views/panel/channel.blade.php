@@ -178,9 +178,8 @@
                     </div>
                     <div class="row" id="proj">
                         <div class="col-12">
-                        <div id="accordion" class="accordion" >
-                            <div class="row" id="pp">
-                            </div>
+                        <div id="accordion" class="accordion pp" >
+                          
                         </div>
                     </div>
                     </div>
@@ -223,7 +222,7 @@
                                         <div class="wizard-inner">
                                             <div class="connecting-line"></div>
                                             <ul class="nav nav-tabs" role="tablist">
-                                                <li role="presentation" class="active">
+                                                <li role="presentation" class="step1">
                                                     <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">1 </span> <i>Step 1</i></a>
                                                 </li>
                                                 <li role="presentation" class="disabled">
@@ -384,8 +383,10 @@
                                                     </div>
                                                     <div class="col-md-12 my-2">
                                                         <label>Rating</label>
-                                                        <span class="my-rating-9"></span>
-                                                        <input class="live-rating" name="live-rating" type="hidden">
+                                                        <!-- <span class="my-rating-9"></span>
+                                                        <input class="live-rating" name="live-rating" type="hidden"> -->
+                                                        <div id="rateYo"></div>
+                                                        <input type="hidden" name="live-rating" class="live-rating">
                                                     </div>
 
                                                  
@@ -416,6 +417,8 @@
 @endsection
 
 @section('script')
+
+
 <script src="{{asset('js/star.js')}}"></script>
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/rating.css')}}">
@@ -1100,10 +1103,8 @@
             $.post('/frontendproject',{id:id,bid:bid},function(response){
                 $.each(response.project,function(i,v){
                     console.log(v.id);
-                    html+=`<div class="col-12  p-3 mb-5 bg-white rounded mb-4" >
-                            
-                        
-                    <div class="card-header collapsed" data-poid="${v.id}" data-baid="${response.batch.id}">
+                    html+=`     
+                    <div class="card-header collapsed" data-toggle="collapse" data-poid="${v.id}" data-baid="${response.batch.id}" data-parent="#accordion" href="#collapse${v.id}">
                                 <a class="card-title">
                                     <i class="fab fa-bandcamp ml-3 icon"></i>
                                     ${response.batch.title} | 
@@ -1127,9 +1128,6 @@
                                 </table>
 
                             </div>
-                            </div>
-                            
-                  
                `;
                 })
                 $('.list-group li.active a').removeClass('text-white');
@@ -1143,14 +1141,14 @@
                 $('#alltopics').hide();
                 $('.signup-step-container').hide();
                 $('#proj').show();
-                $('#pp').html(html);
+                $('.pp').html(html);
                 $('#projtypeid').val(id);
             })
             
         })
 
-        $('#pp').on('click','.collapsed',function(){
-          
+        $('.pp').on('click','.collapsed',function(){
+         
                     var poid = $(this).data('poid');
 
                     var baid = $(this).data('baid');
@@ -1166,11 +1164,13 @@
                             <td>${j++}</td>
                             <td>${v.title}</td>
                             <td>`;
-                            $.each(v.students,function(d,e){
-                              
-                               var c = '  ';
-                                html+=`${e.namee}${c}`;
-                            })
+                            var output= [];
+                            for(var i=0; i<v.students.length; i++){
+                                output.push(v.students[i].namee);
+                            }
+
+                            html+=`${output.join(' , ')}`;
+                            
                             html+=`</td>
                             </tr>`;
                              
@@ -1189,7 +1189,8 @@
              $('.list-group li.active a').removeClass('text-white');
                 $('.list-group li.active a').addClass('primarytext');
                 $('.active').removeClass('active');
-
+                $('.step1').addClass('active');
+                $('#step1').addClass('active');
                 $('.stopic1').addClass('active');
                 $('.list-group li.active a').addClass('text-white');
                 $('.list-group li.active a').removeClass('primarytext');
@@ -1202,16 +1203,25 @@
             $('.signup-step-container').show();
             $('#signhidden').val(baid);
         })
-        $(".my-rating-9").starRating({
-    initialRating: 3.5,
-    disableAfterRate: false,
-    onHover: function(currentIndex, currentRating, $el){
-      $('.live-rating').val(currentIndex);
-    },
-    onLeave: function(currentIndex, currentRating, $el){
-      $('.live-rating').val(currentRating);
-    }
-  });
+        /*$(".my-rating-9").starRating({
+            initialRating: 0,
+            disableAfterRate: false,
+            onHover: function(currentIndex, currentRating, $el){
+              $('.live-rating').val(currentIndex);
+            },
+            onLeave: function(currentIndex, currentRating, $el){
+              $('.live-rating').val(currentRating);
+            }
+        });*/
+
+        $(function () {
+ 
+            $("#rateYo").rateYo()
+              .on("rateyo.set", function (e, data) {
+                $('.live-rating').val(data.rating);
+                 // alert("The rating is set to " + data.rating + "!");
+            });
+        });
     });
 
     </script>

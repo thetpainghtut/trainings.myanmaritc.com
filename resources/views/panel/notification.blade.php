@@ -41,7 +41,7 @@
                                 $pid = $notification->data['id'];
                                 ?>
                                 <div class="card mb-0 border-primary">
-                                    <div class="card-header collapsed" data-poid="{{$pid}}" data-baid="{{$b->id}}">
+                                    <div class="card-header collapsed" data-poid="{{$pid}}" data-baid="{{$b->id}}" href="#collapse{{$pid}}" data-toggle="collapse" data-parent="accordion">
                                         <a class="card-title text-dark">
                                             <i class="far fa-calendar-alt mr-3 icon"></i>
                                             {{date('F d, Y', strtotime($created_at))}}

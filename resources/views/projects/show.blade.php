@@ -22,7 +22,7 @@
     
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold text-primary"> {{ $batch->title}}
+            <h5 class="m-0 font-weight-bold text-primary"> {{ $batch->title}}   <small>({{$projecttype->name}})</small>
             </h5>
         </div>
         <div class="card-body">
@@ -33,7 +33,6 @@
                         <thead class="bg-primary text-white">
                             <tr>
                                 <th>No</th>
-                                <th>Project Type</th>
                                 <th>Project Title</th>
                                 <th>No of Student</th>
                                 <th>Student Name</th>
@@ -49,10 +48,6 @@
                            @foreach($project as $pp)
                             <tr>
                                 <td>{{$i++}}</td>
-                                
-                                <td>{{$pp->projecttype->name}}</td>
-                              
-                              
                                 <td>{{$pp->title}}</td>
                                 @php 
                                 $students = $pp->students;
