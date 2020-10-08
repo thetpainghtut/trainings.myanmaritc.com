@@ -1,0 +1,277 @@
+@font-face 
+{
+  font-family:'Unicode';
+  src: url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.woff') format('woff'), url('https://cdn.rawgit.com/LeonarAung/MyanmarFont/6cf1262f/mon3.ttf') format('ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_Bold';
+	src: url('../fonts/Gelasio/Gelasio-Bold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_BoldItalic';
+	src: url('../fonts/Gelasio/Gelasio-BoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_Italic';
+	src: url('../fonts/Gelasio/Gelasio-Italic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_Medium';
+	src: url('../fonts/Gelasio/Gelasio-Medium.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_MediumItalic';
+	src: url('../fonts/Gelasio/Gelasio-MediumItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_Regular';
+	src: url('../fonts/Gelasio/Gelasio-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_SemiBold';
+	src: url('../fonts/Gelasio/Gelasio-SemiBold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Gelasio_SemiBoldItalic';
+	src: url('../fonts/Gelasio/Gelasio-SemiBoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_Bold';
+	src: url('../fonts/Josefin_Sans/JosefinSans-Bold.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_BoldItalic';
+	src: url('../fonts/Josefin_Sans/JosefinSans-BoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_Italic';
+	src: url('../fonts/Josefin_Sans/JosefinSans-Italic.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_Light';
+	src: url('../fonts/Josefin_Sans/JosefinSans-Light.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_LightItalic';
+	src: url('../fonts/Josefin_Sans/JosefinSans-LightItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_Regular';
+	src: url('../fonts/Josefin_Sans/JosefinSans-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_Bold';
+	src: url('../fonts/Josefin_Sans/JosefinSans-Bold.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_SemiBold';
+	src: url('../fonts/Josefin_Sans/JosefinSans-SemiBold.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_SemiBoldItalic';
+	src: url('../fonts/Josefin_Sans/JosefinSans-SemiBoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_Thin';
+	src: url('../fonts/Josefin_Sans/JosefinSans-Thin.ttf');
+}
+
+@font-face
+{
+	font-family: 'JosefinSans_ThinItalic';
+	src: url('../fonts/Josefin_Sans/JosefinSans-ThinItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Karla_Bold';
+	src: url('../fonts/Karla/Karla-Bold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Karla_BoldItalic';
+	src: url('../fonts/Karla/Karla-BoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Karla_Italic';
+	src: url('../fonts/Karla/Karla-Italic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Karla_Regular';
+	src: url('../fonts/Karla/Karla-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_LightItalic';
+	src:url('../fonts/Montserrat/Montserrat-LightItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Medium';
+	src:url('../fonts/Montserrat/Montserrat-Medium.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_BoldItalic';
+	src:url('../fonts/Montserrat/Montserrat-BoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Light';
+	src:url('../fonts/Montserrat/Montserrat-Light.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_ThinItalic';
+	src:url('../fonts/Montserrat/Montserrat-ThinItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_ExtraLight';
+	src:url('../fonts/Montserrat/Montserrat-ExtraLight.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Thin';
+	src:url('../fonts/Montserrat/Montserrat-Thin.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Bold';
+	src:url('../fonts/Montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_MediumItalic';
+	src:url('../fonts/Montserrat/Montserrat-MediumItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_BlackItalic';
+	src:url('../fonts/Montserrat/Montserrat-BlackItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_SemiBold';
+	src:url('../fonts/Montserrat/Montserrat-SemiBold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_ExtraLightItalic';
+	src:url('../fonts/Montserrat/Montserrat-ExtraLightItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_ExtraBold';
+	src:url('../fonts/Montserrat/Montserrat-ExtraBold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Black';
+	src:url('../fonts/Montserrat/Montserrat-Black.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Regular';
+	src:url('../fonts/Montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_Italic';
+	src:url('../fonts/Montserrat/Montserrat-Italic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_SemiBoldItalic';
+	src:url('../fonts/Montserrat/Montserrat-SemiBoldItalic.ttf');
+}
+
+@font-face
+{
+	font-family: 'Montserrat_ExtraBoldItalic';
+	src:url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf');
+}
+
+
+@font-face
+{
+	font-family: 'Questrial_Regular';
+	src:url('../fonts/Questrial-Regular.ttf');
+}
+
+
+@font-face
+{
+	font-family: 'Poppins_Regular';
+	src:url('../fonts/Poppins/Poppins-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: 'Poppins_ExtraBold';
+	src:url('../fonts/Poppins/Poppins-ExtraBold.ttf');
+}
+
+@font-face
+{
+	font-family: 'Poppins_Bold';
+	src:url('../fonts/Poppins/Poppins-Bold.ttf');
+}

@@ -182,13 +182,16 @@
                     </a>
                 </li>
 
+                <!-- Teachel role only -->
+                @role('Teacher')
                 <li class="nav-item {{ Request::segment(1) === 'lessons' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('lessons.index')}}">
                         <i class="icofont-video-alt"></i>
                         <span> Lesson </span>
                     </a>
                 </li>
-
+                @endrole
+                <!-- Teachel role only -->
                 <li class="nav-item {{ Request::segment(1) === 'units' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('units.index')}}">
                         <i class="fas fa-star"></i>

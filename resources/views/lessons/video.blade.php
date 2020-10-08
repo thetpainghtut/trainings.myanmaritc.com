@@ -111,21 +111,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sorting Subject</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Sorting {{ $subject->name }} Lesson</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <form id="assign_batch_subject">
+            <form action="{{route('sorting_lesson')}}" method="POST">
+                @csrf
                 <input type="hidden" name="subject_id" value="{{ $subject->id }}">
                 <div class="modal-body">
                     <div class="row my-3">
                         <div class="col-md-10 offset-1">
                            
-                            <ul class="list-group" name="batch" id="sortable">
+                            <ul class="list-group" id="sortable">
                                 @foreach($lessons as $lesson)
-                               <li value="{{$lesson->id}}" class="list-group-item">{{$lesson->title}}</li>
+                               <li  class="list-group-item my-1">{{$lesson->title}}
+                                <input type="hidden" name="sortingdata[]" value="{{$lesson->id}}">
+                               </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -212,5 +215,14 @@
             })
         })
     </script>
-    
+
+<!-- sorting lesson data -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+  <!-- sorting lesson data-->
 @endsection

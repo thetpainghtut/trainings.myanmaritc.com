@@ -248,6 +248,11 @@ class StudentController extends Controller
       $courseid = $request->course;
       $batchid = $request->course;
 
+      /* progressbar*/
+      $course_data = Course::find($request->course);
+      $batch_data = Batch::find($request->batch);
+      // dd($course_data,$batch_data);
+      /*progressbar*/
       $student = Student::find($id);
 
       $units = Unit::with(['students' => function($q) use($id)    {
@@ -319,7 +324,7 @@ class StudentController extends Controller
       }
       // dd($students_units);
 
-      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups'));
+      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data'));
     }
 
     /**

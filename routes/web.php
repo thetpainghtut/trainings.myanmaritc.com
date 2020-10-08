@@ -178,6 +178,8 @@ Route::get('lesson_detail/{lid}/{cid}', [
     'as' => 'lesson_detail', 
     'uses' => 'LessonController@lesson_detail'
 ]);
+
+Route::post('sorting_lesson','LessonController@sorting_lesson')->name('sorting_lesson');
 /*Honey*/
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
@@ -214,7 +216,7 @@ Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('
 Route::resource('quizzes','QuizzController');
 Route::resource('questions','QuestionController');
 Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
-
+Route::post('assign_batchquizz','QuizzController@assign_batchquizz')->name('assign_batchquizz');
 
 
 

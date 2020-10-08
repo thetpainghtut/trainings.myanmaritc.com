@@ -29,7 +29,7 @@
                 <tr>
                     <th>No</th>
                     <th>Title</th>
-                    <th>Subject</th>
+                    
                     <th>Questions</th>
                     <th>Action</th>
                 </tr>
@@ -43,15 +43,16 @@
 
                     <td>{{$i}}</td>
                     <td>{{$quizz->title}}</td>
-                    <td>{{$subject->name}}</td>
-                    <td>0</td>
+                    
+                    <td>
+                        @php
+                            $count = count($quizz->questions);
+                        @endphp
+                        {{$count}}
+                    </td>
                     <td>
                         <a href="{{route('questions.show',$quizz->id)}}" class="btn btn-outline-success btn-sm">
                             <i class="fas fa-plus"></i>
-                        </a>
-
-                        <a href="" class="btn btn-outline-info btn-sm">
-                            <i class="fas fa-info"></i>
                         </a>
 
                         <button type="button" class="btn btn-outline-warning btn-sm edit_btn" data-id='{{$quizz->id}}' data-title='{{$quizz->title}}' data-photo='{{$quizz->photo}}' data-subject_id='{{$subject->id}}'>

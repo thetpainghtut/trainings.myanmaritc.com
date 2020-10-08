@@ -65,8 +65,8 @@ class PanelController extends Controller
 
 
     	$subject = Subject::find($subjectid);
-        $lessons = Lesson::where('subject_id','=',$subjectid)->get();
-
+        $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+        /*change order by sorting*/
         return view('panel.video',compact('lessons','subject', 'batch', 'course'));
     }
 
@@ -120,11 +120,18 @@ class PanelController extends Controller
         $ptopic = $poid->topic_id;
         $puser = $poid->user_id;
         $p = $poid->batches;
-        foreach ($p as $key => $value) {
+        /*foreach ($p as $key => $value) {
             if($value->pivot->batch_id == $baid){
-                $poid->unreadNotifications()->update(['read_at' => now()]);
-                echo "Successful";
+                foreach ($poid->unreadNotifications as $s) {
+                   dd($s);
+                }
             }
+        }*/
+        foreach ($poid->unreadNotifications as $s) {
+           if($s->data['batch_id'] == $baid){
+            $poid->unreadNotifications()->update(['read_at' => now()]);
+                echo "Successful";
+           }
         }
  
 
