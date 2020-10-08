@@ -11,11 +11,16 @@ class Quizz extends Model
 
     public function batches()
     {
-        return $this->belongsToMany('App\Batch')->withTimestamps();
+        return $this->belongsToMany('App\Batch','batch_quiz','quiz_id')->withTimestamps();
     }
 
-    public function subjects()
+    public function subject()
     {
-    	return $this->belongTo('App\Subject');
+    	return $this->belongsTo('App\Subject');
+    }
+
+    public function questions($value='')
+    {
+        return $this->hasMany('App\Question','quiz_id');
     }
 }

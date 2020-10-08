@@ -80,7 +80,7 @@
 		
 		<hr >
 
-		<div id="content" style="margin-top: 20px; margin-bottom: 50px;">
+		<div id="content" style="margin-top: 15px; margin-bottom: 30px;">
 			<div class="content_rowone">
 	  			<h1 class="text-center"> {{ $student->namee }} </h1>
 				<p class="text-center" style="margin-top: 7px;"> <i> Date Of Birth : {{ date('d - m - Y',strtotime($student->dob)) }} </i> </p>
@@ -105,22 +105,22 @@
 				<p style="margin: 10px 0;">
 					<span style="width: 150px; display: inline-block;"> Course </span>
 					<span> : </span>
-					<span> {{ $student->batch->course->name }} </span>
+					<span> {{ $batch->course->name }} </span>
 				</p>
 
 				<p style="margin: 10px 0;">
 					<span style="width: 150px; display: inline-block;"> Batch </span>
 					<span> : </span>
-					<span> Batch 14 (
-						{{ date('M  d , Y',strtotime($student->batch->startdate)) }} 
+					<span> {{ $batch->title }} (
+						{{ date('M  d , Y',strtotime($batch->startdate)) }} 
 						to 
-						{{ date('M  d , Y',strtotime($student->batch->enddate)) }} 
+						{{ date('M  d , Y',strtotime($batch->enddate)) }} 
 						) 
 					</span>
 				</p>
 			</div>
 
-			<div class="content_rowthree" style="margin-top: 40px;">
+			<div class="content_rowthree" style="margin-top: 20px;">
 				<table>
 					<tr>
 						<th> No </th>

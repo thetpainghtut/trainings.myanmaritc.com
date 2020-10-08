@@ -14,12 +14,20 @@ class FeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         //
         $courses = Course::all();
-
-        return view('feedbacks.index',compact('courses'));
+        if(request('batch')){
+            $batch = request('batch');
+            $feedbacks = Feedback::where('batch_id',$batch)->get();
+           
+            return view('feedbacks.index',compact('courses','feedbacks','batch'));
+        }else{
+            return view('feedbacks.index',compact('courses'));
+        }
+        
     }
 
     /**
