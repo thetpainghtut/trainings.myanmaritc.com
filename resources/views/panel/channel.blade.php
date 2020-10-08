@@ -872,8 +872,61 @@
                 //console.log(response.posts);
                 $.each(response.posts,function(i,v){
                     console.log(v);
+                    var date = new Date(v.created_at);
+                    var day = date.getDate();
+                    var month = date.getMonth();
+                    var year = date.getFullYear();
                     var images = v.file.split(',');
+                    if(v.topic.name == 'Live Recording'){
+                        html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
+                    <div class="row">`;
+                       if(v.user.staff==null){
+                        html+= `<div class="col-1">
+                            <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }else{
+                        html+= `<div class="col-1">
+                            <img src="${v.user.staff.photo}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }
+                        html+=`<div class="col-11">
+                            <p class="username d-block mb-0">${v.user.name}</p>
 
+                            <small class="text-muted mr-3">
+                                <i class="fas fa-video mr-1"></i> ${v.topic.name} 
+                            </small> •
+                            <small class="text-muted">
+                                <i class="far fa-clock ml-3"></i> ${timeSince(v.created_at)} ago 
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            <div class="row no-gutters bg-light position-relative">
+                                <div class="col-md-2 mb-md-0 p-md-4">
+                                    <img src="${v.file}" class="img-fluid" alt="...">
+                                </div>
+                              
+                                <div class="col-md-10 position-static p-4 pl-md-0">`;
+                                
+                                    
+                                    html+=`<!-- Blog Title --><h5 class="mt-0"> ${v.title} ( ${day}.${month}.${year} ) </h5>
+                                    <!-- Blog Body -->
+                                    <!-- <p> Vue Cli repo </p> -->
+                                    
+                                    <a href="${v.content}" class="stretched-link" target="_blank"> Download </a>
+                              </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>`;
+                    }else{
                     html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
                     <div class="row">`;
                     if(v.user.staff==null){
@@ -953,6 +1006,7 @@
                         </div>
                     </div>
                 </div>`;
+                }
                
                 });
                  $('.list-group li.active a').removeClass('text-white');
@@ -1147,7 +1201,7 @@
 
                     var baid = $(this).data('baid');
                     $.post('/prj',{poid:poid,baid:baid},function(response){
-                      //console.log(response.projs);
+                      
                         if(response.projs.length > 0){
                         var html = ''; var j = 1;
                         var js = [];
@@ -1167,7 +1221,7 @@
                             html+=`${output.join(' , ')}`;
                             if(v.link != null){
                                     html+=`</p>
-                                    <a href="${v.link}" class="card-link"> Link</a>`;
+                                    <a href="${v.link}" class="card-link" target="_blank"> Link</a>`;
                                     }else{
                                         html+=`</p><a href="#" class="card-link">Link</a>`;
                                     }
@@ -1179,6 +1233,8 @@
                         $('#tbody'+poid).html(html);
                         $('#collapse'+poid).collapse('show');
                            
+                        }else{
+                            $('#collapse'+poid).collapse('hide');
                         }
                     })
                 });

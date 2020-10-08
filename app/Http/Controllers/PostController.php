@@ -289,6 +289,17 @@ class PostController extends Controller
         }else{
             $addpost = Post::find($po);
             $addpost->batches()->attach($batch);
+            $postnoti = [
+            'id' => $addpost->id,
+            'title' => $addpost->title,
+            'topic_id' => $addpost->topic_id,
+            'user_id' => $addpost->user_id,
+            'batch' => $batch
+        ];
+       // dd($postnoti);
+
+            Notification::send($addpost,new PostNotification($postnoti));
+            event(new MyEvent($addpost));
             return redirect()->route('posts.index')->with('success','This Batch Post Assign is Successfully!!');
         }
     }
@@ -305,13 +316,20 @@ class PostController extends Controller
             if($pos->pivot->batch_id == $b->id){
          foreach($pos->unreadNotifications as $notification)
                 {
-
-                    array_push($noti_data, $notification);
-
+                    array_push($cs, $notification->data);
+                    
+                   
                 }
+
                
             }
             }
+            for($i=0;$i<count($cs);$i++){
+                if($cs[$i]['batch_id'] == $b->id){                        
+                       array_push($noti_data, $cs[$i]['batch_id']);
+                   }
+                
+                    }
             }
             return $noti_data;
             }

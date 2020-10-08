@@ -61,13 +61,13 @@ class FeedbackController extends Controller
     {
         //
         
-        $feeds = Feedback::where('batch_id',$id)->get();
+        /*$feeds = Feedback::where('batch_id',$id)->get();
         if(count($feeds) > 0){
             $batch = Batch::find($id);
             return view('feedbacks.show',compact('feeds','batch'));
         }else{
             return redirect()->back();
-        }
+        }*/
     }
 
     /**
