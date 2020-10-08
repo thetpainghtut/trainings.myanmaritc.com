@@ -272,8 +272,9 @@
                     $.post('notiread',{poid:poid,baid:baid},function(response){
                         console.log(response);
                         if(response == 'Successful'){
-                            $('#collapse'+poid).collapse('show');
                             showNoti();
+                            $('#collapse'+poid).collapse('show');
+                            
                         }
                     })
                 })

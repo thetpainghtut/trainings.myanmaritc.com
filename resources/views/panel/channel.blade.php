@@ -1115,17 +1115,11 @@
                                 </a>
                             </div>
                             <div id="collapse${v.id}" class="card-body collapse" data-parent="#accordion">
-                                <table class="table table-striped table-bordered">
-                                <thead class="bg-primary text-white">
-                                <tr>
-                                <th>No</th>
-                                <th>Project Title</th>
-                                <th>Student Name</th>
-                                </tr>
-                                </thead>
-                                <tbody id='tbody${v.id}'>
-                                </tbody>
-                                </table>
+                                <div class="row" id='tbody${v.id}'>
+
+                                </div>
+                              
+                               
 
                             </div>
                `;
@@ -1159,20 +1153,27 @@
                         var js = [];
                         $.each(response.projs,function(i,v){
                             console.log(v);
-
-                            html+=`<tr>
-                            <td>${j++}</td>
-                            <td>${v.title}</td>
-                            <td>`;
-                            var output= [];
+                            html+=`<div class="col-md-6 col-12">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="card-title">Project Title: ${v.title}</h5>
+                                    <h6 class="card-subtitle mb-2">Student Name</h6>
+                                    <p class="card-text">`;
+                                    var output= [];
                             for(var i=0; i<v.students.length; i++){
                                 output.push(v.students[i].namee);
                             }
 
                             html+=`${output.join(' , ')}`;
-                            
-                            html+=`</td>
-                            </tr>`;
+                            if(v.link != null){
+                                    html+=`</p>
+                                    <a href="${v.link}" class="card-link"> Link</a>`;
+                                    }else{
+                                        html+=`</p><a href="#" class="card-link">Link</a>`;
+                                    }
+                                  html+=`</div>
+                                </div></div>`;
+                           
                              
                         })
                         $('#tbody'+poid).html(html);
