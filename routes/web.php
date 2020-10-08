@@ -205,7 +205,7 @@ Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('
 Route::resource('quizzes','QuizzController');
 Route::resource('questions','QuestionController');
 Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
-
+Route::post('assign_batchquizz','QuizzController@assign_batchquizz')->name('assign_batchquizz');
 
 
 

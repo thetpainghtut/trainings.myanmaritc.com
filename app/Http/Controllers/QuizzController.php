@@ -130,6 +130,8 @@ class QuizzController extends Controller
         return "ok";
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -139,5 +141,15 @@ class QuizzController extends Controller
     public function destroy(Quizz $quizz)
     {
         //
+    }
+
+
+    public function assign_batchquizz(Request $request)
+    {
+        $quizz_id = Quizz::find($request->quizz_id);
+        $batch_id = $request->batch;
+
+        $quizz_id->batches()->attach($batch_id);
+        return 'ok';
     }
 }

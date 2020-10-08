@@ -8,7 +8,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('quizzes.index') }}">Home</a></li>
                 
-                <li class="breadcrumb-item"><a href="{{ route('quizzes.show',$question->quiz_id) }}"> {{$question->quiz->title}} </a></li>
+                <li class="breadcrumb-item">{{$question->quiz->title}}</li>
                 <li class="breadcrumb-item active" aria-current="page"> Question </li>
                 <li class="breadcrumb-item active" aria-current="page"> Edit </li>
             </ol>
@@ -87,7 +87,11 @@
                                 </nav>
                                 <div class="tab-content" id="nav-tabContent">
                                   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    @if($question->photo)
                                       <img src="{{asset($question->photo)}}" class="img-fluid mt-2" width="200px" >
+                                    @else
+                                        <p>No selected photo</p>
+                                    @endif
                                   </div>
                                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <input type="file" name="newphoto" class="form-control-file input_photo mt-2">

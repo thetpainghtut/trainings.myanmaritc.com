@@ -126,7 +126,68 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        dd($request);
+        $data = Array();
+        $request->validate([
+                'type' => 'required',
+                'question' => 'required',
+                'trueanswer' => 'required',
+                'answer' => 'required',
+        ]);
+        if($request->hasfile('newphoto')){
+            $photo = $request->file('newphoto');
+            $name = time().'.'.$photo->getClientOriginalExtension();
+            $dir = '/storage/images/questions/';
+            $photo->move(public_path().$dir,$name);
+            $filepath = $dir.$name;
+        }else{
+            $filepath=$request->oldphoto;;
+        }
+        $questiontext = $request->question;
+        $type = $request->type;
+        $timer = $request->timer;
+        $quizz_id = $request->quizz_id;
+
+        // $question = new Question;
+        $question->questiontext = $questiontext;
+        $question->photo = $filepath;
+        $question->timer = $timer;
+        $question->type = $type;
+        $question->quiz_id = $quizz_id;
+        $question->user_id = Auth::id();
+
+        $question->save();
+
+        $answer = $request->answer;
+        $trueanswer = $request->trueanswer;
+        // dd($trueanswer);
+        $true;
+        $answers = Check::where('question_id',$question->id)->get();
+        foreach ($answers as $value) {
+            $value->delete();
+        }
+        foreach ($answer as $key => $ans) {
+            $flipped = array_flip($trueanswer);
+            
+            // foreach ($answers as $value) {
+                $answer = new Check;
+
+                $answer->answer = $ans;
+                if(array_key_exists($key, $flipped)){
+                    $answer->rightanswer = "true";
+                    echo "true";
+                }else{
+                    $answer->rightanswer = "false";
+                    echo "false";
+                }
+                $answer->question_id = $question->id;
+                
+            // }
+            $answer->save();
+            
+
+        }
+        // die();
+        return redirect('questions/'.$quizz_id);
     }
 
     /**
@@ -137,7 +198,15 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        // dd($question);
+        $question->delete();
+        $answers = Check::where('question_id',$question->id)->get();
+        foreach ($answers as $value) {
+            $value->delete();
+        }
+        return back();
+
+
     }
 
 

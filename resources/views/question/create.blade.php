@@ -8,7 +8,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('quizzes.index') }}">Home</a></li>
                 
-                <li class="breadcrumb-item"><a href="{{ route('quizzes.show',$quizz->id) }}"> {{$quizz->title}} </a></li>
+                <li class="breadcrumb-item">{{$quizz->title}} </li>
                 <li class="breadcrumb-item active" aria-current="page"> Question </li>
                 <li class="breadcrumb-item active" aria-current="page"> Create </li>
             </ol>
