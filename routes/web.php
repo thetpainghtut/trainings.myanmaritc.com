@@ -178,6 +178,8 @@ Route::get('lesson_detail/{lid}/{cid}', [
     'as' => 'lesson_detail', 
     'uses' => 'LessonController@lesson_detail'
 ]);
+
+Route::post('sorting_lesson','LessonController@sorting_lesson')->name('sorting_lesson');
 /*Honey*/
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');

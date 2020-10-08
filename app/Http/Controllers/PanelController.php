@@ -65,8 +65,8 @@ class PanelController extends Controller
 
 
     	$subject = Subject::find($subjectid);
-        $lessons = Lesson::where('subject_id','=',$subjectid)->get();
-
+        $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+        /*change order by sorting*/
         return view('panel.video',compact('lessons','subject', 'batch', 'course'));
     }
 
