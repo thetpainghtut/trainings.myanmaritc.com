@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Course;
+use App\Batch;
+use App\Feedback;
 
 class FeedbackController extends Controller
 {
@@ -14,6 +17,9 @@ class FeedbackController extends Controller
     public function index()
     {
         //
+        $courses = Course::all();
+
+        return view('feedbacks.index',compact('courses'));
     }
 
     /**
@@ -46,6 +52,14 @@ class FeedbackController extends Controller
     public function show($id)
     {
         //
+        
+        $feeds = Feedback::where('batch_id',$id)->get();
+        if(count($feeds) > 0){
+            $batch = Batch::find($id);
+            return view('feedbacks.show',compact('feeds','batch'));
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**

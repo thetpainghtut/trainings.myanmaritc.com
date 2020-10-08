@@ -165,11 +165,20 @@ Route::post('getInquire','StudentController@getInquire')->name('getInquire');
 
 Route::resource('lessons','LessonController');
 Route::post('show_subject','LessonController@show_subject')->name('show_subject');
-Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
+//Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
 
-//Honey
+
+/*Honey*/
 Route::post('assign_batchsubject','LessonController@assign_batchsubject')->name('assign_batchsubject');
-
+Route::get('view_lesson/{sid}/{cid}', [
+    'as' => 'view_lesson', 
+    'uses' => 'LessonController@view_lesson'
+]);
+Route::get('lesson_detail/{lid}/{cid}', [
+    'as' => 'lesson_detail', 
+    'uses' => 'LessonController@lesson_detail'
+]);
+/*Honey*/
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
 Route::resource('projecttypes','ProjecttypeController');
@@ -201,6 +210,12 @@ Route::post('resetpassword','PanelController@resetpassword')->name('frontend.res
 Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
 Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
 
+// quizzes
+Route::resource('quizzes','QuizzController');
+Route::resource('questions','QuestionController');
+Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
+Route::post('assign_batchquizz','QuizzController@assign_batchquizz')->name('assign_batchquizz');
+
 // Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');
 
 Route::get('playcourse/{bid}/{sid}', [
@@ -219,3 +234,6 @@ Route::post('notiread','PanelController@notiread')->name('notiread');
 Route::get('notideail/{pid}/{bid}','PanelController@notideail')->name('notideail');
 Route::get('projectshow/{bid}/{pjid}','ProjectController@projectshow')->name('projectshow');
 Route::get('projectedit/{b}/{pj}','ProjectController@projectedit')->name('projectedit');
+Route::post('frontendproject','PanelController@frontendproject')->name('frontendproject');
+Route::post('prj','PanelController@prj')->name('prj');
+Route::post('feedback','PanelController@feedback')->name('feedback');

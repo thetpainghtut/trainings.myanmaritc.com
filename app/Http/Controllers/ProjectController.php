@@ -7,6 +7,7 @@ use App\Project;
 use App\Course;
 use App\Batch;
 use App\Projecttype;
+use App\Student;
 class ProjectController extends Controller
 {
     /**
@@ -32,8 +33,25 @@ class ProjectController extends Controller
         $b = $request->pb;
         $p = $request->pbd;
         $batch = Batch::find($b);
-        
-        return view('projects.create',compact('batch','p'));
+        $projecttype = Projecttype::find($p);
+        $projecttypes = Project::where('projecttype_id',$p)->get();
+        $data= array();
+        foreach($projecttypes as $proj)
+        {
+            array_push($data,$proj->students);
+        }
+
+        foreach ($data as $stub) {
+            foreach ($stub as $key => $value) {
+               $student[] = $value->id;
+            }
+           // $student[] = $stub[0]->id;
+        }
+       // dd($student);
+       // dd($projecttypes);
+        $studen = Student::whereNotIn('id',$student)->get();
+        //dd($studen);
+        return view('projects.create',compact('batch','p','projecttypes','studen'));
     }
 
 
@@ -78,9 +96,11 @@ class ProjectController extends Controller
 
     public function projectshow($bid,$pjid)
     {
-        $batch = Batch::find($bid);
 
-        return view('projects.show',compact('batch','pjid'));
+        $batch = Batch::find($bid);
+        $project = Project::where('projecttype_id',$pjid)->get();
+        $projecttype = Projecttype::find($pjid);
+        return view('projects.show',compact('batch','pjid','project','projecttype'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -95,8 +115,9 @@ class ProjectController extends Controller
     public function projectedit($b,$pj){
         $batch = Batch::find($b);
         $prj = Project::find($pj);
+        $student = $prj->students;
         
-        return view('projects.edit',compact('batch','prj'));
+        return view('projects.edit',compact('batch','prj','student'));
     }
     /**
      * Update the specified resource in storage.
@@ -108,6 +129,43 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'prjid' => 'required',
+            'batch' => 'required',
+            'title' => 'required',
+            'student' => 'required',
+        ]);
+
+        $link = request('link');
+        $award = request('award');
+
+        $project = Project::find($id);
+        $project->title = request('title');
+        $project->projecttype_id = request('prjid');
+        if($link){
+            $request->validate([
+                'link' => 'sometimes|active_url',
+            ]);
+            $project->link = $link;
+        }
+        if($award != null){
+            $request->validate([
+                'award' => 'required'
+            ]);
+            $project->status = $award;
+        }
+        //dd($project->students);
+          $project->save();
+
+        
+        //dd($c);
+           $project->students()->detach();
+        foreach(request('student') as $stu){
+           
+            $project->students()->attach($stu);
+        }
+
+        return redirect()->route('projectshow',['bid'=>request('batch'),'pjid'=>request('prjid')]);
     }
 
     /**

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>  Myanmar IT Consulting </title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="image/favicon.jpg" type="image/jpg" sizes="16x16">
+
+  <!-- Custom Font -->
+  <link href="css/font.css" rel="stylesheet">
+
+  <link href="css/custom.css" rel="stylesheet">
+  
+
+  <!-- Custom styles for this template-->
+  <link href="sb_admin2/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-primary">
+
+  <div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                  <img src="image/logo.jpg" height="360" class="img-fluid mx-auto d-block mt-3" style="width: 200px;">
+                    <div class="col-lg-12">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header justify-content-center">
+                              <h4 class="font-weight-light my-3"> NEW STUDENT REGISTRATION FORM </h4>
+                            </div>
+                            <div class="card-body">
+                                <form class="user" method="POST" action="{{ route('login') }}">
+
+                                  <h5 class="my-3"><u>Student Informations:</u></h5>
+                                  <div class="form-group row">
+                                    <div class="form-group col-md-6">
+                                      <label for="inputNameEnglish">Student's Name: (English)</label>
+                                      <input type="text" class="form-control" id="inputNameEnglish" placeholder="Mg Mg" name="namee"  required autocomplete="namee" autofocus>
+                                    </div>  
+
+                                    <div class="form-group col-md-6">
+                                      <label for="inputNameMyanmar">Student's Name: (Myanmar)</label>
+                                      <input type="text" class="form-control mmfont" id="inputNameMyanmar" placeholder="မောင်မောင်" name="namem" required autocomplete="namem">
+                                    </div>
+                                  </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
+                                    </div>
+                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <button class="btn btn-block btn-outline-primary">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="sb_admin2/vendor/jquery/jquery.min.js"></script>
+  <script src="sb_admin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- Core plugin JavaScript-->
+  <script src="sb_admin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="sb_admin2/js/sb-admin-2.min.js"></script>
+
+
+</body>
+
+</html>

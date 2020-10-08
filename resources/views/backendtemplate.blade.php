@@ -275,6 +275,14 @@
                         <span> Blog </span>
                     </a>
                 </li>
+
+
+                <li class="nav-item {{ Request::segment(1) === 'quizzes' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('quizzes.index')}}">
+                        <i class="icofont-question"></i>
+                        <span> Quizz </span>
+                    </a>
+                </li>
             @endrole  
 
             <!-- Divider -->
@@ -601,6 +609,10 @@
     <script src="{{asset('sb_admin2/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('sb_admin2/js/demo/datatables-demo.js')}}"></script>
     <script src="{{asset('yearpicker.js')}}" async></script>
+
+    <!-- Chart -->
+    <script src="{{ asset('sb_admin2/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('sb_admin2/js/demo/chart-pie-demo.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="{{asset('sb_admin2/vendor/jquery-easing/jquery.easing.min.js')}}"></script>

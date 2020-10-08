@@ -32,7 +32,7 @@
 
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 order-lg-2 order-md-1 order-sm-1">
-                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_4kA0aR.json"  background="transparent"  speed="1"   loop  autoplay class="mx-auto d-block"></lottie-player>
+                    <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_4kA0aR.json"  background="transparent"  speed="1"   loop  autoplay class="mx-auto d-block"></lottie-player>
                 </div>
             </div>
         </div>

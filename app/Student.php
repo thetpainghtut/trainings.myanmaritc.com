@@ -71,4 +71,10 @@ class Student extends Model
         return $this->belongsToMany('App\Lesson')->withPivot('status')->withTimestamps();
 
     }
+
+    public function batch_student_lesson()
+    {
+        return $this->belongsToMany('App\Lesson','lesson_student')->withPivot('status')->withTimestamps()->wherePivot('status','=',0);
+
+    }
 }

@@ -50,6 +50,9 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 {{ $b->title }}
                                             </div>
+                                            <div class="h5 mb-0 text-gray-800 p-3">
+                                                {{ $bproj->name }}
+                                            </div>
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> 
                                                
 

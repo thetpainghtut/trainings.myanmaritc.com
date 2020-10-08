@@ -20,6 +20,11 @@ class Course extends Model
         return $this->hasOne('App\Mentor');
     }
 
+    public function teacher()
+    {
+        return $this->hasOne('App\Teacher');
+    }
+
     public function projecttypes()
     {
         return $this->belongsToMany('App\Projecttype');

@@ -37,36 +37,65 @@
                         @foreach($lessons as $key => $lesson)
                             <div class="card mb-0">
                                 <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ $lesson->id }}">
+                                    <!-- condition of icon change when seeing lessons this login student -->
                                     @php
                                         $student = Auth::user()->student;
                                         $student_id = $student->id;
+                                        $seen_lesson_data = 0;
+                                        $today_date = Carbon\Carbon::now();
                                     @endphp
-                                    @foreach($lesson->students as $lesson_student)
+
+                                    @foreach($student->lessons as $lesson_student)
                                         @php
                                             $lesson_pid = $lesson_student->pivot->lesson_id;
                                             $student_pid = $lesson_student->pivot->student_id;
+                                            $status = $lesson_student->pivot->status;
 
+                                            $lesson_student_subject = $lesson_student->subject;
                                         @endphp
-                                        @if($lesson->id == $lesson_pid && $student_id == $student_pid)
+                                        <!-- get subject batch -->
+                                        @foreach($lesson_student_subject->batches as $subject_batch)
+                                            
+                                            @if($batch->id == $subject_batch->pivot->batch_id)
+                                            @php
+                                                $subject_batch_id = $subject_batch->pivot->batch_id;
+                                                break;
+                                            @endphp
+                                            @endif
+                                        @endforeach
+                                        <!-- get subject batch -->
+
+                                        
+                                        <!-- new student seen lesson count -->
+                                        @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
+                              
+                                            @php                                     
+                                               $seen_lesson_data = 1;
+                                            @endphp  
+
+                                        @endif
+                                        @if($lesson->id == $lesson_pid && $batch->id == $subject_batch_id && $status == 0 && $batch->enddate >= $today_date)
+                                      
+                                            @php                                  
+                                               $seen_lesson_data = 1;
+                                               
+                                            @endphp  
+                                                                   
+                                        @endif
+                                        <!-- new student seen lesson count -->
+                                    @endforeach
+
+                                    @if($seen_lesson_data == 1)
                                         <a class="card-title"> 
                                             <i class="far fa-check-circle mr-3 text-success"></i> {{ $lesson->title }}
                                         </a>
-                                        @else
-                                        <a class="card-title"> 
-                                            <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
-                                        </a>
-
-                                        @endif
-                                         @php
-                                         break;
-                                        @endphp
-                                    @endforeach
-
-                                    @if($lesson->students->isEmpty())
+                                    @else
                                         <a class="card-title"> 
                                             <i class="far fa-check-circle mr-3"></i> {{ $lesson->title }}
                                         </a>
                                     @endif
+
+                                    <!-- condition of icon change when seeing lessons this login student -->
                                     
                                 </div>
                                 <div id="collapse_{{ $lesson->id }}" class="card-body collapse @if($key == 0) show @endif" data-parent="#accordion">
@@ -873,41 +902,10 @@
                 }
             });
 
-            var player = Plyr.setup('.js-player',{
-                invertTime: false,
-                i18n: {
-                    rewind: 'Rewind 5s',
-                    fastForward: 'Forward 5s',
-                    seek: "Seek",
-                    start: "Start",
-                    end: "End",
-                    seekTime : 10
-
-                },
-                controls: [
-                    'play-large', // The large play button in the center
-                    'restart', // Restart playback
-                    'rewind', // Rewind by the seek time (default 10 seconds)
-                    'play', // Play/pause playback
-                    'fast-forward', // Fast forward by the seek time (default 10 seconds)
-                    'progress', // The progress bar and scrubber for playback and buffering
-                    'current-time', // The current time of playback
-                    'mute', // Toggle mute
-                    'volume', // Volume control
-                    'captions', // Toggle captions
-                    'settings', // Settings menu
-                    'fullscreen', // Toggle fullscreen
-                    'airplay'
-                ],
-                events: ["ended", "progress", "stalled", "playing", "waiting", "canplay", "canplaythrough", "loadstart", "loadeddata", "loadedmetadata", "timeupdate", "volumechange", "play", "pause", "error", "seeking", "seeked", "emptied", "ratechange", "cuechange", "download", "enterfullscreen", "exitfullscreen", "captionsenabled", "captionsdisabled", "languagechange", "controlshidden", "controlsshown", "ready", "statechange", "qualitychange", "adsloaded", "adscontentpause", "adscontentresume", "adstarted", "adsmidpoint", "adscomplete", "adsallcomplete", "adsimpression", "adsclick"],
-                
-                clickToPlay: true,
-            });
-            // players.currentTime = 10;
-            document.querySelector('.plyr').addEventListener('seeking', () => {
-                console.log('seeking');
-                player.currentTime = 30;
-                // console.log(currentTime);
+            $('.collapsed').click(function(){
+                //alert('honey');
+                $('.lesson_video_play').trigger('pause');
+            })
 
             // players.currentTime = 10;
             // document.querySelector('.plyr').addEventListener('seeking', () => {

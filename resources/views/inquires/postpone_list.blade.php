@@ -216,7 +216,7 @@
                 }
             });
 
-            $('.inquire_detail').click(function(){
+            $('tbody').on('click','.inquire_detail',function(){
                 var inquireno = $(this).data('inquireno');
                 var receiveno = $(this).data('receiveno');
                 var name = $(this).data('name');

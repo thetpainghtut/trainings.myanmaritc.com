@@ -70,19 +70,20 @@
                             @php
                                 $student = Auth::user()->student;
                                 $stu_less_count = 0;
-                            @endphp
-                            @php
-                            $susubject_batch_id =0;
+                                $subject_batch_id =0;
+                                $play_course_btn =0;
+                                $today_date = Carbon\Carbon::now();
                             @endphp
                             @foreach($student->lessons as $lesson)
                                 @php
                                     $subject_pid = $lesson->subject_id;
 
                                     $lesson_subject = $lesson->subject;
+                                    $status = $lesson->pivot->status;
                                    
                                 @endphp
-                                  <!-- get subject batch -->
 
+                                  <!-- get subject batch -->
                                     @foreach($lesson_subject->batches as $subject_batch)
                                         
                                         @if($batch->id == $subject_batch->pivot->batch_id)
@@ -92,53 +93,80 @@
                                         @endphp
                                         @endif
                                     @endforeach
-                                    {{$subject_batch_id}}
                                     <!-- get subject batch -->
-                                @if($subject->id == $subject_pid && $batch->id == $subject_batch_id)
+
+                                <!-- old student seen lesson count -->
+                                {{--@if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0)
                                     @php
                                        $stu_less =1;
                                        $stu_less_count += $stu_less;
                                        
                                     @endphp                                   
+                                @endif--}}
+                                <!-- old student seen lesson count -->
+
+                                <!-- new student seen lesson count -->
+                                @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
+                      
+                                    @php
+                                        $stu_less =1;                                       
+                                       $stu_less_count += $stu_less;
+                                       
+                                    @endphp  
+
                                 @endif
+                                @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0 && $batch->enddate >= $today_date)
+                              
+                                    @php
+                                        $stu_less =1;                                       
+                                       $stu_less_count += $stu_less;
+                                       
+                                    @endphp  
+                                                           
+                                @endif
+                                <!-- new student seen lesson count -->
+
                             @endforeach
                             <!-- seen lesson count -->
-
+                           
                             @foreach($subject->batches as $sub_batch)
                                
-                            @php
-                                $subject_pid = $sub_batch->pivot->subject_id;
-
-                                $batch_pid = $sub_batch->pivot->batch_id;
-                            @endphp
-                           
-                            @if($subject->id == $subject_pid && $batch->id == $batch_pid)
-                                @if($lectures == $stu_less_count)
-                                <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
-                                    Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                                </a>
-                               
-                                @else
-                                 <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
-                                    Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
-                                </a>
-                                @endif
                                 @php
-                                    break;
+                                    $subject_pid = $sub_batch->pivot->subject_id;
 
+                                    $batch_pid = $sub_batch->pivot->batch_id;
                                 @endphp
+                                <!-- new show hide -->
+                                @if($subject->id == $subject_pid && $batch->id == $batch_pid)
+                                    
+                                    @php
+                                    $play_course_btn = 1;
+                                    break;
+                                    @endphp
+                                @endif
+                                <!-- new show hide -->
 
-                            @else
-                                <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
-                           
-                            @endif
+                               
+                               <!-- button show hide -->
 
                             @endforeach
-                            @if($subject->batches->isEmpty())
-                                <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
-                                 <!-- Disabled -->
-                            @endif
 
+                            <!-- new show hide -->
+                            @if($play_course_btn == 1)
+                                @if($lectures == $stu_less_count)
+                                    <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
+                                        Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
+                                    </a>
+                                   
+                                    @else
+                                     <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-outline-primary hvr-icon-pulse-grow">
+                                        Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
+                                    </a>
+                                @endif
+                            @else
+                            <button class="btn btn-outline-primary hvr-icon-pulse-grow disabled">Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i></button>
+                            @endif
+                           
                             
                              <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
                         </div>

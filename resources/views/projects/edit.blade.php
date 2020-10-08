@@ -29,9 +29,10 @@
         </div>
         <div class="card-body">
 
-            <form method="post" action="{{route('projects.store')}}">
+            <form method="post" action="{{route('projects.update',$prj->id)}}">
                 @csrf
-                <input type="hidden" name="prjid" value="">
+                @method('PUT')
+                <input type="hidden" name="prjid" value="{{$prj->projecttype->id}}">
                 <input type="hidden" name="batch" value="{{$batch->id}}">
                 <div class="form-group row">
                     <label for="inputName" class="col-sm-2 col-form-label">Project Title</label>
@@ -68,13 +69,12 @@
                         <select name="student[]" class="js-example-basic-multiple form-control" id="inputStudent" multiple="multiple">
                            
                             @foreach($batch->students as $bstudent)
-                            @foreach($bstudent->projects as $bproj)
                             
-                            <option @foreach($prj->students as $prjstudent) @if($prjstudent->id == $bstudent->id){{'selected'}} @endif  @endforeach value="{{$bstudent->id}}">{{$bstudent->namee}}</option>
+                            
+                            <option @foreach($student as $prjstudent) @if($prjstudent->id == $bstudent->id){{'selected'}} @endif  @endforeach value="{{$bstudent->id}}">{{$bstudent->namee}}</option>
                             
                             @endforeach
-                            
-                            @endforeach      
+                                
                         </select>
                     </div>
                 </div>
@@ -82,20 +82,20 @@
                 <div class="form-group row">
                     <label for="inputLink" class="col-sm-2 col-form-label">Link</label>
                     <div class="col-sm-10">
-                        <input type="text" name="link" class="form-control" id="inputLink">
+                        <input type="text" name="link" class="form-control" id="inputLink" value="{{$prj->link}}">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="inputAward" class="col-sm-2 col-form-label">Award</label>
                     <div class="col-sm-10">
-                        <input type="text" name="award" class="form-control" id="inputAward">
+                        <input type="text" name="award" class="form-control" id="inputAward" value="{{$prj->status}}">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </form>

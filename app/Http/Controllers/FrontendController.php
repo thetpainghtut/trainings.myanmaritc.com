@@ -229,6 +229,7 @@ class FrontendController extends Controller
       $student->email = $request->email;
       $student->photo = $file_path;
       $student->address = $request->address;
+      $student->dob = $request->dob;
       $student->save();
 
       return redirect()->route('frontend.account')->with('msg','Successfullly Update your profile');

@@ -13,6 +13,7 @@ use App\Events\MyEvent;
 use App\User;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostNotification;
+use App\Subject;
 class PostController extends Controller
 {
     /**
@@ -66,7 +67,7 @@ class PostController extends Controller
         $user = Auth::user();
         $id = Auth::id();
         $role = $user->getRoleNames();
-        
+        $subjects = Subject::all();
 
         if($role[0] == 'Teacher'){
         $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('staff','staff.id','=','batch_teacher.teacher_id')->where('staff.user_id',$id)->get();
@@ -78,7 +79,7 @@ class PostController extends Controller
             $batches = [];
 
         }
-        return view('posts.create',compact('topics','batches'));
+        return view('posts.create',compact('topics','batches','subjects'));
     }
 
     /**
@@ -98,11 +99,19 @@ class PostController extends Controller
             'title'=>'required',
             'content' => 'required',
             'topic' => 'required',
-            'image' => 'required',
-            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'sometimes',
+            'image.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'batch' => 'required'
         ]);
-
+        $subject = request('subject');
+        if($subject){
+            $request->validate([
+                'subject' => 'required'
+            ]);
+            $subjectp = Subject::find($subject);
+           $photoString = $subjectp->logo;
+        }
+//dd($photoString);
         $imagess=[];
         if ($request->hasfile('image')) {
             foreach($request->file('image') as $image)
@@ -112,8 +121,9 @@ class PostController extends Controller
                 $filename = '/storage/images/posts/'.$name; 
                 array_push($imagess, $filename); 
             }
+            $photoString = implode(',', $imagess);
         }
-        $photoString = implode(',', $imagess);
+        
 
         $post = new Post();
         $post->title = request('title');
@@ -135,7 +145,7 @@ class PostController extends Controller
        // dd($postnoti);
 
             Notification::send($post,new PostNotification($postnoti));
-            event(new MyEvent($postnoti));
+            event(new MyEvent($post));
 
            // dd($post->notifications);
 
