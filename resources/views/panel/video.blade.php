@@ -902,6 +902,11 @@
                 }
             });
 
+            $('.collapsed').click(function(){
+                //alert('honey');
+                $('.lesson_video_play').trigger('pause');
+            })
+
             // players.currentTime = 10;
             // document.querySelector('.plyr').addEventListener('seeking', () => {
             //     console.log('seeking');

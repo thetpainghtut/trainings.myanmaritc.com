@@ -35,7 +35,7 @@
                                     </div>
                                 @else
                                     <div id="imagePreview" style="background-image: url('{{ asset('mmitui/image/user.png') }}');">
-                                        <input type="hidden" name="oldlogo" value="{{asset(Auth::user()->student->photo)}}">
+                                        <input type="hidden" name="oldlogo" value="mmitui/image/user.png">
                                     </div>
                                 @endif
                                 
@@ -64,11 +64,24 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                    <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" name="email" value="{{Auth::user()->email}}"/>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                            <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" name="email" value="{{Auth::user()->email}}"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputEmailAddress">DOB</label>
+                                            <input class="form-control py-4" id="inputEmailAddress" type="date" aria-describedby="dob" placeholder="Enter email address" name="dob" value="{{Auth::user()->student->dob}}"/>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
+
+                                
 
                                 <div class="form-group">
                                     <label class="small mb-1" for="address"> Address </label>

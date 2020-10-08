@@ -165,11 +165,20 @@ Route::post('getInquire','StudentController@getInquire')->name('getInquire');
 
 Route::resource('lessons','LessonController');
 Route::post('show_subject','LessonController@show_subject')->name('show_subject');
-Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
+//Route::get('view_lesson/{id}','LessonController@view_lesson')->name('view_lesson');
 
-//Honey
+
+/*Honey*/
 Route::post('assign_batchsubject','LessonController@assign_batchsubject')->name('assign_batchsubject');
-
+Route::get('view_lesson/{sid}/{cid}', [
+    'as' => 'view_lesson', 
+    'uses' => 'LessonController@view_lesson'
+]);
+Route::get('lesson_detail/{lid}/{cid}', [
+    'as' => 'lesson_detail', 
+    'uses' => 'LessonController@lesson_detail'
+]);
+/*Honey*/
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
 Route::resource('projecttypes','ProjecttypeController');
@@ -205,7 +214,7 @@ Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('
 Route::resource('quizzes','QuizzController');
 Route::resource('questions','QuestionController');
 Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
-
+Route::post('assign_batchquizz','QuizzController@assign_batchquizz')->name('assign_batchquizz');
 
 
 

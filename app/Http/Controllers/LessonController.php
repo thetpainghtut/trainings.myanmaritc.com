@@ -118,6 +118,17 @@ class LessonController extends Controller
         return view('lessons.detail',compact('lesson','subject'));
     }
 
+     public function lesson_detail($lesson_id,$course_id)
+    {
+
+        $lesson = Lesson::find($lesson_id);
+
+        $subject = $lesson->subject()->first();
+
+        return view('lessons.detail',compact('lesson','subject','course_id'));
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -218,22 +229,23 @@ class LessonController extends Controller
 
     }
 
-    public function view_lesson($id)
+    public function view_lesson($subject_id,$course_id)
     {
+        // dd($subject_id,$course_id);
         // $course_id = $_GET['course_id'];
         // $course = Course::find($course_id);
         // $batches = $course->batches;
         $today_date = Carbon\Carbon::now();
         
         // $batches = Batch::all();
-        $batches = Batch::where([['startdate','<=',$today_date],['enddate','>=',$today_date]])->get();
+        $batches = Batch::where([['startdate','<=',$today_date],['enddate','>=',$today_date],['course_id',$course_id]])->get();
        
+        // dd($batches);
+        $subject = Subject::find($subject_id);
 
-        $subject = Subject::find($id);
+        $lessons = Lesson::where('subject_id','=',$subject_id)->get();
 
-        $lessons = Lesson::where('subject_id','=',$id)->get();
-
-        return view('lessons.video',compact('lessons','subject','batches'));
+        return view('lessons.video',compact('lessons','subject','batches','course_id'));
 
     }
 

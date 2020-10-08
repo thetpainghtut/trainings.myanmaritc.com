@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('lessons.index') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('view_lesson',$subject->id)}}"> {{ $subject->name }} </a></li>
+                    <li class="breadcrumb-item"><a href="{{route('view_lesson',['sid' => $subject->id, 'cid' => $course_id])}}"> {{ $subject->name }} </a></li>
 
                     <li class="breadcrumb-item active" aria-current="page"> {{ $lesson->title }} </li>
                 </ol>

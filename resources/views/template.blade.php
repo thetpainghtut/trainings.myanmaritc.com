@@ -400,7 +400,9 @@
     <script src="{{ asset('mmitui/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <script src="{{ asset('mmitui/vendor/custom.js') }}"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> 
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
     <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
   <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     
