@@ -216,7 +216,7 @@
         })
     </script>
 
-<!-- sorting lesson -->
+<!-- sorting lesson data -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
   $( function() {
@@ -224,5 +224,5 @@
     $( "#sortable" ).disableSelection();
   } );
   </script>
-  <!-- sorting lesson -->
+  <!-- sorting lesson data-->
 @endsection

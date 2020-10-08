@@ -25,6 +25,7 @@
         
         @foreach($courses as $course)
             @foreach($teacher as $teacher_course)
+            <!-- Teacher course -->
             @if($course->id == $teacher_course->course_id)
             
             <div class="my-5">

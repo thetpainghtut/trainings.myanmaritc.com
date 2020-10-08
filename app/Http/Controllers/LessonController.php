@@ -72,7 +72,7 @@ class LessonController extends Controller
             $sorting = $lesson_subject->sorting;
             $sorting_data = ++$sorting;
         }
-        
+
         if($request->hasfile('video')){
 
             $file = $request->file('video');
@@ -110,11 +110,14 @@ class LessonController extends Controller
         $lesson->title = request('title');
         $lesson->file = $path;
         $lesson->duration = $duration_sec;
+        /*insert sorting*/
         if($lesson_subjects->isEmpty()){
         $lesson->sorting = 1;
         }else{
             $lesson->sorting = $sorting_data;
         }
+        /*insert sorting*/
+        
         $lesson->subject_id = request('subject');
         $lesson->user_id = Auth::user()->id;
         $lesson->save();

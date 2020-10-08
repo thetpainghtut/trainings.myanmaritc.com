@@ -248,11 +248,11 @@ class StudentController extends Controller
       $courseid = $request->course;
       $batchid = $request->course;
 
-      /*honey*/
+      /* progressbar*/
       $course_data = Course::find($request->course);
       $batch_data = Batch::find($request->batch);
       // dd($course_data,$batch_data);
-      /*honey*/
+      /*progressbar*/
       $student = Student::find($id);
 
       $units = Unit::with(['students' => function($q) use($id)    {
