@@ -10,6 +10,7 @@ $(document).ready(function(){
         function showNoti(){
         $.get("/getnoti",function(response){
         var count = response.length;
+        console.log(count);
         if(count > 0){
         notificationsToggle.find('span').html(count);
         }else {
