@@ -171,13 +171,14 @@
                         <span>Subjects</span>
                     </a>
                 </li>
-
+                @role('Teacher')
                 <li class="nav-item {{ Request::segment(1) === 'lessons' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('lessons.index')}}">
                         <i class="icofont-video-alt"></i>
                         <span> Lesson </span>
                     </a>
                 </li>
+                @endrole
 
                 <li class="nav-item {{ Request::segment(1) === 'units' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('units.index')}}">

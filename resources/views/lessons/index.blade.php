@@ -17,8 +17,16 @@
             </a>
         </div>
     </div>  
+        @php
+        $user = Auth::user();
+        $staff = $user->staff;
+        $teacher = $staff->teacher;
+        @endphp
         
         @foreach($courses as $course)
+            @foreach($teacher as $teacher_course)
+            @if($course->id == $teacher_course->course_id)
+            
             <div class="my-5">
                 <div class="row">
                     <div class="col-12">
@@ -87,6 +95,7 @@
                     @endforeach
                 </div>
             </div>
-
+            @endif
+            @endforeach
         @endforeach
 @endsection
