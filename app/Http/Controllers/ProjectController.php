@@ -99,8 +99,8 @@ class ProjectController extends Controller
 
         $batch = Batch::find($bid);
         $project = Project::where('projecttype_id',$pjid)->get();
-
-        return view('projects.show',compact('batch','pjid','project'));
+        $projecttype = Projecttype::find($pjid);
+        return view('projects.show',compact('batch','pjid','project','projecttype'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -10,7 +10,7 @@ class Lesson extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title','file', 'duration', 'subject_id', 'user_id'
+        'title','file', 'duration','sorting', 'subject_id', 'user_id'
     ];
 
     public function subject()
