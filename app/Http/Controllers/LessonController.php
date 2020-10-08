@@ -243,8 +243,8 @@ class LessonController extends Controller
         // dd($batches);
         $subject = Subject::find($subject_id);
 
-        $lessons = Lesson::where('subject_id','=',$subject_id)->get();
-
+        $lessons = Lesson::where('subject_id','=',$subject_id)->orderBy('sorting', 'asc')->get();
+        
         return view('lessons.video',compact('lessons','subject','batches','course_id'));
 
     }
@@ -264,5 +264,23 @@ class LessonController extends Controller
 
         return response()->json($batch);
 
+    }
+
+    public function sorting_lesson(Request $request){
+       
+       
+        $sorting_array=$request->sortingdata;
+        // dd($sorting_array);
+        $i=1;
+        foreach ($sorting_array as $sorting_data) {
+            // dd($sorting_data);
+            $lesson = Lesson::find($sorting_data);
+            $lesson->sorting = $i;
+            $lesson->save();
+            $i++;
+        }
+        return back();
+
+        
     }
 }
