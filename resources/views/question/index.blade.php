@@ -20,25 +20,100 @@
 
     </div>
 </div> 
-<div class="row">
+<div class="row ">
     <div class="col-md-9 col-sm-12">
-        <div class="card shadow">
+        @php $i=1; @endphp
+        @foreach($questions as $question)
+        <div class="card shadow mt-4">
             <div class="card-header">
-                Question
-                <button class="btn btn-outline-warning btn-sm float-right">
+
+
+                Question {{$i}} ( 
+                @if($question->type == "multicheck") 
+                <i class="icofont-check text-success"></i> 
+                @elseif($question->type == "checkbox")  
+                <i class="fas fa-tasks text-success"></i> 
+                @elseif($question->type == "truefasle") 
+                <i class="icofont-check-circled text-success"></i> / 
+                <i class="icofont-close-line-circled text-danger"></i> @endif )
+                @php
+
+                    $time = $question->timer/1000;
+                    $timer = $time.' seconds';
+                    if($time>60){
+                        $time = $time/60;
+                        $timer = $time.' minutes';
+                    }
+                @endphp
+                ( {{$timer}} )
+
+
+                <a href="{{route('questions.edit',$question->id)}}" class="btn btn-outline-warning btn-sm float-right">
                     <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm float-right mx-2">
+                </a>
+                <a href="" class="btn btn-outline-danger btn-sm float-right mx-2">
                     <i class="fas fa-trash"></i>
-                </button>
+                </a>
             </div>
             <div class="card-body">
-                <img src="{{asset($quizz->photo)}}" class=" rounded circle" width="200px">
+                @if($question->photo)
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img src="{{asset($quizz->photo)}}" class=" rounded circle" width="120px">
+                    </div>
+                    <div class="col-md-8">
+                        <h5 class="text-dark">{{$question->questiontext}}</h5>
+                        <hr>
+                        <h6 class="text-gray-dark">Answer</h6>
+                        <ol>
+                        @foreach($question->checks as $answer)
+                           
+                            <li class="text-dark ">
+
+                                {{$answer->answer}}
+                                @if($answer->rightanswer=='true') 
+                                    <i class="icofont-check-circled text-success d-inline-block font-weight-bold"></i>
+                                @endif
+
+                            </li>
+                        @endforeach
+                        </ol>
+
+                    </div>
+                </div>
+
+                @else
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <h5 class="text-gray-dark">{{$question->questiontext}}</h5>
+                            <hr>
+                            <h6 class="text-gray-dark">Answer</h6>
+                                <ol>
+                                    @foreach($question->checks as $answer)
+                                       
+                                        <li class="text-dark ">
+
+                                            {{$answer->answer}}
+                                            @if($answer->rightanswer=='true') 
+                                                <i class="icofont-check-circled text-success d-inline-block font-weight-bold"></i>
+                                            @endif
+
+                                        </li>
+                                    @endforeach
+                                </ol>
+                        </div>
+                    </div>
+
+                @endif
+                
             </div>
         </div>
+        @php $i++; @endphp
+        @endforeach
     </div>
-    {{-- <div class="col-md-3 col-sm-12 ">
-        <div class="card shadow">
+    <div class="col-md-3 col-sm-12" >
+        <div class="card shadow" style="position: fixed; margin-top: 0px">
             <div class="card-header">
                 {{$quizz->title}}
             </div>
@@ -46,7 +121,7 @@
                 <img src="{{asset($quizz->photo)}}" class="card-img rounded circle" width="200px">
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 
 
