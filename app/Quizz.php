@@ -23,4 +23,15 @@ class Quizz extends Model
     {
         return $this->hasMany('App\Question','quiz_id');
     }
+
+    public function user($value='')
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function response($value='')
+    {
+        return $this->hasOne('App\Response','quiz_id');
+       
+    }
 }

@@ -17,7 +17,10 @@ use Carbon;
 use App\Projecttype;
 use App\Project;
 use App\Feedback;
-
+use App\Question;
+use App\Quizz;
+use App\Response;
+use App\Responsedetail;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetMail;
 use Illuminate\Support\Facades\Hash;
@@ -74,8 +77,13 @@ class PanelController extends Controller
         return vieW('panel.quiz');
     }
 
-    public function quizanswer(){
-        return vieW('panel.quizanswer');
+    public function quizanswer($id){
+        $quiz = Quizz::find($id);
+        $student_id = Auth::user()->student->id;
+        $questions = Question::where('quiz_id',$id)->get();
+        $responses = Response::where('quiz_id',$id)->where('student_id',$student_id)->first();
+        $responsedetail = Responsedetail::where('response_id',$responses->id)->get();
+        return vieW('panel.quizanswer', compact('quiz','questions','responses','responsedetail'));
     }
 
     public function secret(){
@@ -158,7 +166,7 @@ class PanelController extends Controller
                 })->get();
         $b = Batch::find($id);
         $enddate = $b->enddate;
-         $userid = Auth::user()->id;
+        $userid = Auth::user()->id;
         $student = Student::where('user_id',$userid)->get();
         $fee = Feedback::where('batch_id',$id)->where('student_id',$student[0]->id)->get();
 
@@ -418,6 +426,40 @@ class PanelController extends Controller
         $user->password=Hash::make($password);
         $user->save();
         return redirect()->route('login')->with('success','Password reset success!');
+    }
+
+
+    // quiz
+    public function takequizz($id)
+    {
+        $quiz = Quizz::find($id);
+        $questions = Question::where('quiz_id',$id)->inRandomOrder()->limit(10)->get();
+        
+        return view('panel.takequizz',compact('questions','quiz'));
+    }
+
+    public function storeanswer(Request $request)
+    {
+        $score = $request->score;
+        $quiz_id = $request->quiz_id;
+        $data = $request->data;
+
+        $response = new Response;
+        $response->score = $score;
+        $response->status = 'good';
+        $response->student_id = Auth::user()->student->id;
+        $response->quiz_id = $quiz_id;
+        $response->save();
+
+        foreach ($data as $value) {
+            $responsedetail = new Responsedetail;
+            $responsedetail->check_id = $value['answer'];
+            $responsedetail->question_id = $value['question'];
+            $responsedetail->response_id = $response->id;
+            $responsedetail->save();
+        }
+        return 'ok';
+
     }
 
     

@@ -126,7 +126,7 @@
                            
                             <ul class="list-group" id="sortable">
                                 @foreach($lessons as $lesson)
-                               <li  class="list-group-item my-1">( {{$lesson->sorting}} )  {{$lesson->title}}
+                               <li  class="list-group-item my-1">{{$lesson->title}}
                                 <input type="hidden" name="sortingdata[]" value="{{$lesson->id}}">
                                </li>
                                 @endforeach
@@ -216,7 +216,7 @@
         })
     </script>
 
-<!-- sorting lesson -->
+<!-- sorting lesson data -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
   $( function() {
@@ -224,5 +224,5 @@
     $( "#sortable" ).disableSelection();
   } );
   </script>
-  <!-- sorting lesson -->
+  <!-- sorting lesson data-->
 @endsection

@@ -14,6 +14,10 @@ use Carbon;
 
 class LessonController extends Controller
 {
+    public function __construct($value='')
+    {
+        $this->middleware('role:Teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -58,6 +62,17 @@ class LessonController extends Controller
             "video" => 'required'
         ]);
 
+        $subject_id = request('subject');
+       
+        $lesson_subjects = Lesson::where('subject_id',$subject_id)->get();
+        //$sorting_data=0;
+        
+      
+        foreach($lesson_subjects as $lesson_subject){
+            $sorting = $lesson_subject->sorting;
+            $sorting_data = ++$sorting;
+        }
+
         if($request->hasfile('video')){
 
             $file = $request->file('video');
@@ -95,6 +110,14 @@ class LessonController extends Controller
         $lesson->title = request('title');
         $lesson->file = $path;
         $lesson->duration = $duration_sec;
+        /*insert sorting*/
+        if($lesson_subjects->isEmpty()){
+        $lesson->sorting = 1;
+        }else{
+            $lesson->sorting = $sorting_data;
+        }
+        /*insert sorting*/
+        
         $lesson->subject_id = request('subject');
         $lesson->user_id = Auth::user()->id;
         $lesson->save();
