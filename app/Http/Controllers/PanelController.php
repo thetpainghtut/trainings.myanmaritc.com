@@ -191,10 +191,12 @@ class PanelController extends Controller
 
     public function channel($id){
 
+
         $post = Post::whereHas('batches', function ($q) use ($id) {
   
                     $q->where('batch_id', $id);
                 })->get();
+        //dd($post);
         $b = Batch::find($id);
         $enddate = $b->enddate;
         $userid = Auth::user()->id;

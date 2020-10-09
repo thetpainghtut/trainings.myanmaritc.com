@@ -58,7 +58,26 @@ class StudentController extends Controller
           // Return 
           return view('students.index',compact('students','courses','batches','bid'));
         }
-      }else{
+      }elseif($role[0] == 'Business Development'){
+        $courses = Course::all();
+        $batches = Batch::all();
+
+        $bid = 0;
+
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+          }else{
+          $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
+      }elseif($role[0] == 'Teacher'){
         $userid = $user->id;
         $bid = 0;
         $batches = Batch::all();
@@ -71,6 +90,24 @@ class StudentController extends Controller
           array_push($courses,$value->course);
         }
        
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+        }else{
+            $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
+      }elseif($role[0] == 'Mentor'){
+        $staffs = Staff::where('user_id',$user->id)->get();
+        $courses = $staffs[0]->mentor[0]->course;
+         $batches = Batch::all();
+         $bid = 0;
         if (request('batch')) {
           $bid = request('batch');
           $groups = Group::where('batch_id',$bid)->get();

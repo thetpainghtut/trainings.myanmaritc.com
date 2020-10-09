@@ -26,7 +26,6 @@
                             <th>No</th>
                             <th>Project Name</th>
                             <th>User Name</th>
-                            <th>Course Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,11 +37,9 @@
                             <td>{{$i++}}</td>
                             <td>{{$projtype->name}}</td>
                             <td>{{$projtype->user->name}}</td>
-                            <td>@foreach($projtype->courses as $p) 
-                            {{$p}}  @endforeach</td>
                             
                             <td>
-                                <a href="#" class="btn btn-info asign"  data-id="{{$projtype->id}}">Assign</a>
+                                <a href="#" class="btn btn-info asign"  data-id="{{$projtype->id}}" data-course="{{$userid}}">Assign</a>
                             </td>
                         </tr>
                         
@@ -70,25 +67,13 @@
         
         <div class="form-group row">
             <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
-            @role('Admin')
+            
             <div class="col-sm-10">
                 <select class="form-control batchName" name="batch" id="batchName">
                     
-
-   
                 </select>
             </div>
-            @endrole
-            @role('Teacher')
-            <div class="col-sm-10">
-                <select class="form-control batchName" name="batch" id="batchName">
-                    <!-- <option>Choose One</option>
-                    @foreach($batches as $batch)
-                        <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
-                    @endforeach -->
-                </select>
-            </div>
-            @endrole
+           
         </div>
         
       </div>
@@ -111,14 +96,15 @@
 });
         $('.asign').on('click',function(){
             var pid = $(this).data('id');
-            $.post('/assingpttype',{pid:pid},function(response){
+            var userid = $(this).data('course');
+            $.post('/assingpttype',{pid:pid,userid:userid},function(response){
                // console.log(response.batches.length);
                
                 if(response.batches.length > 0){
                      var html='';
                      html+=`<option selected disabled>Choose One</option>`;
                 $.each(response.batches,function(i,v){
-                    
+                    console.log(v);
                     html+=('<option value="'+v.id+'">'+v.title+'</option>');
                 })
 

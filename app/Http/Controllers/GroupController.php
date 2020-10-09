@@ -46,7 +46,7 @@ class GroupController extends Controller
         $groups = Group::all();
         return view('groups.index',compact('groups','courses','batches','batchid','courseid'));
       }
-  }else{
+  }elseif($role[0] == 'Teacher'){
         $userid = $user->id;
         $batchid = 0;
         $courseid = 0;
@@ -60,6 +60,24 @@ class GroupController extends Controller
           array_push($courses,$value->course);
         }
        
+        if(request('batch')){
+            $bid = request('batch');
+        $cid = request('course');
+        $groups = Group::where('batch_id',$bid)->get();
+
+        $courseid = $cid;
+        $batchid = $bid;
+        return view('groups.index',compact('groups','courses','batches', 'batchid','courseid'));
+        }else{
+            $groups = Group::all();
+        return view('groups.index',compact('groups','courses','batches','batchid','courseid'));
+        }
+  }elseif($role[0] == 'Mentor'){
+     $staffs = Staff::where('user_id',$user->id)->get();
+        $courses = $staffs[0]->mentor[0]->course;
+        $batches = Batch::all();
+        $batchid = 0;
+        $courseid = 0;
         if(request('batch')){
             $bid = request('batch');
         $cid = request('course');

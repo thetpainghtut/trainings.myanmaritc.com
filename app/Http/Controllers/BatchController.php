@@ -18,7 +18,7 @@ use App\Staff;
 class BatchController extends Controller
 {
     public function __construct(){
-        $this->middleware(['role:Admin|Teacher|Business Development']);
+        $this->middleware(['role:Admin|Teacher|Business Development'])->except('getBatchesByCourse');
     }
     /**
      * Display a listing of the resource.
@@ -34,7 +34,12 @@ class BatchController extends Controller
             $batches = Batch::orderBy('startdate','asc')->get();
             // dd($batches);
             return view('batches.index',compact('batches'));
-        }else{
+        }elseif($role[0] == 'Business Development'){
+          $batches = Batch::orderBy('startdate','asc')->get();
+            // dd($batches);
+            return view('batches.index',compact('batches'));
+        }
+        elseif($role[0] == 'Teacher'){
             $userid = $user->id;
             $staff = Staff::with('teacher')->where('user_id',$userid)->get();
        
@@ -71,7 +76,15 @@ class BatchController extends Controller
             $users=User::role('Teacher')->get();
             // dd($users);
             return view('batches.create',compact('courses','users','locations'));
-        }else{
+        }elseif ($role[0] == 'Business Development') {
+          $courses = Course::all();
+            $locations = Location::all();
+
+            $users=User::role('Teacher')->get();
+            // dd($users);
+            return view('batches.create',compact('courses','users','locations'));
+        }
+        elseif($role[0] == 'Teacher'){
             $userid = $user->id;
             $staff = Staff::with('teacher')->where('user_id',$userid)->get();
        

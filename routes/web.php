@@ -60,7 +60,7 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController')->middleware('role:Admin|Business Development');
 
 Route::resource('batches','BatchController');
 
@@ -150,7 +150,7 @@ Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
 //Attendance
-Route::group(['middleware' => ['role:Teacher']], function () {
+Route::group(['middleware' => ['role:Teacher|Mentor|Intern Mentor']], function () {
   Route::resource('/attendances','AttendanceController');
   Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
 });

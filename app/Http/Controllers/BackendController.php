@@ -16,18 +16,27 @@ class BackendController extends Controller
     public function createGroup($value='')
     {
         $user = Auth::user()->id;
-        $staff = Staff::with('teacher')->where('user_id',$user)->get();
-       
-        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+        $role = Auth::user()->getRoleNames();
+        if($role[0] == 'Teacher'){
+            $staff = Staff::with('teacher')->where('user_id',$user)->get();
+           
+            $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
 
-        $courses = array();
-        foreach ($teacher as $key => $value) {
-          array_push($courses,$value->course);
+            $courses = array();
+            foreach ($teacher as $key => $value) {
+              array_push($courses,$value->course);
+            }
+            //$courses = Course::all();
+            $batches = Batch::all();
+
+            return view('backend.creategroup',compact('courses','batches'));
+        }elseif($role[0] == 'Mentor'){
+            $staffs = Staff::where('user_id',$user)->get();
+            $courses = $staffs[0]->mentor[0]->course;
+            $batches = Batch::all();
+
+            return view('backend.creategroup',compact('courses','batches'));
         }
-        //$courses = Course::all();
-        $batches = Batch::all();
-
-        return view('backend.creategroup',compact('courses','batches'));
     }
 
     public function getstudentformembers(Request $request)
