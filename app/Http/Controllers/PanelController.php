@@ -191,7 +191,17 @@ class PanelController extends Controller
     
 
     public function channel($id){
-
+         $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        /*change student batch condition*/
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $id){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
         $channel = $id;
 
         $post = Post::whereHas('batches', function ($q) use ($id) {
@@ -258,6 +268,9 @@ class PanelController extends Controller
         }else{
             return redirect()->back();
         }
+    }else{
+        return redirect()->back();
+    }
     }
 
     public function allchannel(Request $request)
