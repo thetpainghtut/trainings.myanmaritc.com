@@ -20,7 +20,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:Teacher']);
+        $this->middleware(['role:Teacher'])->except('getnoti');
     }
     /**
      * Display a listing of the resource.
