@@ -7,9 +7,14 @@ use App\Subject;
 use App\Course;
 use Auth;
 use Illuminate\Http\Request;
-
+use App\Teacher;
+use App\Staff;
 class QuizzController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,18 @@ class QuizzController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        //$courses = Course::all();
+        $user = Auth::user()->id;
+        //dd($user);
+       // $bid = request('batch');
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
         $subjects = Subject::all();
         return view('quizz.index',compact('subjects','courses'));
     }

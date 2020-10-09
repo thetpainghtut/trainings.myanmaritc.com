@@ -38,7 +38,8 @@
                             <td>{{$i++}}</td>
                             <td>{{$projtype->name}}</td>
                             <td>{{$projtype->user->name}}</td>
-                            <td>@foreach($projtype->courses as $p) {{$loop->first ? '':', '}}{{$p->name}} @endforeach</td>
+                            <td>@foreach($projtype->courses as $p) 
+                            {{$p}}  @endforeach</td>
                             
                             <td>
                                 <a href="#" class="btn btn-info asign"  data-id="{{$projtype->id}}">Assign</a>
@@ -80,11 +81,11 @@
             @endrole
             @role('Teacher')
             <div class="col-sm-10">
-                <select class="form-control" name="batch" id="batchName">
-                    <option>Choose One</option>
+                <select class="form-control batchName" name="batch" id="batchName">
+                    <!-- <option>Choose One</option>
                     @foreach($batches as $batch)
                         <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
             @endrole

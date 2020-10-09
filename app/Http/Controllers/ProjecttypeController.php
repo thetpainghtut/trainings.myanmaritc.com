@@ -7,8 +7,15 @@ use App\Projecttype;
 use App\Batch;
 use Carbon;
 use Auth;
+use App\Staff;
+use App\Teacher;
+
 class ProjecttypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,27 +26,27 @@ class ProjecttypeController extends Controller
         //
         $user = Auth::user();
         $id = Auth::id();
-        $role = $user->getRoleNames();
+    
         $now = Carbon\Carbon::now();
-        if($role[0] == 'Teacher'){
-            $projecttypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('teachers','teachers.course_id','=','courses.id')->join('staff','teachers.staff_id','=','staff.id')->where('staff.user_id',$id)->select('projecttypes.*')->get();
-           /*$projecttypes = Projecttype::with('courses','courses.batches','batches.teachers','batches.teachers.staff')->get();*/
+        $staff = Staff::with('teacher')->where('user_id',$id)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+       
+        foreach ($teacher as $k) {
           
-            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
-            return view('projecttypes.index',compact('projecttypes','batches'));
-        }elseif ($role[0] == 'Admin') {
-            $projecttypes = Projecttype::all();
-        
-            $now = Carbon\Carbon::now();
-            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
-           $ptypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('batches','batches.course_id','=','courses.id')->where('batches.startdate','<=',$now)->where('batches.enddate','>=',$now)->get();
-            
-            return view('projecttypes.index',compact('projecttypes','batches'));
-        }else{
-            $projecttypes = [];
-            $batches= [];
-            return view('projecttypes.index',compact('projecttypes','batches'));
+            $projecttypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->where('course_projecttype.course_id','=',$k->course_id)->get();
         }
+       // dd($projecttypes);
+       /* dd($projecttype);
+        //$projecttypes = Projecttype::with('courses')->get();
+        foreach ($projecttypes as $key => $value) {
+            dd($value->courses);
+        }*/
+       /*$projecttypes = Projecttype::with('courses','courses.batches','batches.teachers','batches.teachers.staff')->get();*/
+      
+        $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        return view('projecttypes.index',compact('projecttypes','batches'));
+        
         
 
     }
@@ -62,6 +69,7 @@ class ProjecttypeController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         //
         $request->validate([
             'projecttype' => 'required',

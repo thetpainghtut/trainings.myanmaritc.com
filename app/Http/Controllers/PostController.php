@@ -18,6 +18,10 @@ use App\Staff;
 use App\Teacher;
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -12,6 +12,10 @@ use Auth;
 use App\Staff;
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
