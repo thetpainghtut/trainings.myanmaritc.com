@@ -77,7 +77,27 @@ class StudentController extends Controller
           // Return 
           return view('students.index',compact('students','courses','batches','bid'));
         }
-      }elseif($role[0] == 'Teacher'){
+      }elseif($role[0] == 'Recruitment'){
+        $courses = Course::all();
+        $batches = Batch::all();
+
+        $bid = 0;
+
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+          }else{
+          $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
+      }
+      elseif($role[0] == 'Teacher'){
         $userid = $user->id;
         $bid = 0;
         $batches = Batch::all();

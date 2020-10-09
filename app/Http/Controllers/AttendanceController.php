@@ -290,6 +290,7 @@ class AttendanceController extends Controller
         $courses = Course::all();
         $batches = Batch::all();
         $requestbatch = request('batch');
+       // dd($requestbatch);
         if($requestbatch){
             $status = 1;
            
@@ -317,7 +318,9 @@ class AttendanceController extends Controller
         $startdate = request('startdate');
         $enddate = request('enddate');
         $batch = request('batch_id');
-        $students = Student::where('batch_id',$batch)
+        $students = Student::whereHas('batches',function($q) use($batch){
+                    $q->where('batch_id',$batch);
+                        })
                         ->whereHas('attendance',function( $q1 ) use ($startdate , $enddate) {
                             $q1->whereBetween('date', [$startdate,$enddate])->where('status','=','1');
                         })

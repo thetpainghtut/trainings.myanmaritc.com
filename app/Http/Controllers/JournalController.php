@@ -10,6 +10,10 @@ use Auth;
 
 class JournalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Admin|Teacher|Business Development|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
