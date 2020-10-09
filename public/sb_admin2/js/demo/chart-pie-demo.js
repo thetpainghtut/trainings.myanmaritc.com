@@ -7,11 +7,11 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Present", "Absencee"],
+    labels: ["Present", "Absencee", 'Remain'],
     datasets: [{
-      data: [55, 3],
-      backgroundColor: ['#1cc88a', '#FF0000'],
-      hoverBackgroundColor: ['#17a673', '#b53737'],
+      data: [55, 3, 20],
+      backgroundColor: ['#1cc88a', '#FF0000', '#D3D3D3'],
+      hoverBackgroundColor: ['#17a673', '#b53737', '#C0C0C0'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

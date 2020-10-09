@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\Batch;
 use App\Feedback;
+use Auth;
+use App\Teacher;
+use App\Staff;
 
 class FeedbackController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['role:Admin|Mentor|Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +24,9 @@ class FeedbackController extends Controller
     {
 
         //
+        $user = Auth::user();
+      $role = $user->getRoleNames();
+      if($role[0] == 'Admin'){
         $courses = Course::all();
         if(request('batch')){
             $batch = request('batch');
@@ -27,6 +36,29 @@ class FeedbackController extends Controller
         }else{
             return view('feedbacks.index',compact('courses'));
         }
+    }else{
+        $userid = $user->id;
+        $batchid = 0;
+        $courseid = 0;
+        $batches = Batch::all();
+        $staff = Staff::with('teacher')->where('user_id',$userid)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+
+        if(request('batch')){
+            $batch = request('batch');
+            $feedbacks = Feedback::where('batch_id',$batch)->get();
+           
+            return view('feedbacks.index',compact('courses','feedbacks','batch'));
+        }else{
+            return view('feedbacks.index',compact('courses'));
+        }
+    }
         
     }
 

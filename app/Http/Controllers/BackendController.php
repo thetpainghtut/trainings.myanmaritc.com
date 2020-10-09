@@ -8,13 +8,23 @@ use App\Batch;
 use App\Student;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\BatchStudentResource;
-
-
+use Auth;
+use App\Staff;
+use App\Teacher;
 class BackendController extends Controller
 {
     public function createGroup($value='')
     {
-        $courses = Course::all();
+        $user = Auth::user()->id;
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+        //$courses = Course::all();
         $batches = Batch::all();
 
         return view('backend.creategroup',compact('courses','batches'));

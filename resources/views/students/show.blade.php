@@ -272,7 +272,7 @@
                         <p> {{ $student->because }} </p>
                     </div>
 
-                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    {{-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                         <a class="card-title">
                             <i class="icofont-chart-flow mr-3 icon fa-lg"></i>
                             Projects
@@ -354,7 +354,7 @@
                                 <a href="viewanswer.html" class="btn btn-outline-primary btn-sm"> View Score </a>
                           </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                         <a class="card-title">
@@ -456,7 +456,11 @@
 @endsection
 
 @section('script')
-  <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+    <!-- Chart -->
+    <script src="{{ asset('sb_admin2/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('sb_admin2/js/demo/chart-pie-demo.js') }}"></script>
+
+    <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 
   <script type="text/javascript">
       $(document).ready(function() {

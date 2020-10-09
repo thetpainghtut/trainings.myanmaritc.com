@@ -62,18 +62,18 @@ class ReportCommand extends Command
     foreach ($batches as $batch) {
 
 
-        if($batch->enddate = $date){
+        // if($batch->enddate = $date){
 
-        foreach ($batch->students as $batch_student_status) {
+        // foreach ($batch->students as $batch_student_status) {
 
-            foreach ($batch_student_status->lessons as $student_lesson) {
+        //     foreach ($batch_student_status->lessons as $student_lesson) {
 
-              if($batch_student_status->pivot->status == 0){
-                        $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
-                    }
-                }
-            }
-        }
+        //       if($batch_student_status->pivot->status == 0){
+        //                 $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
+        //             }
+        //         }
+        //     }
+        // }
 
         $lessons = Lesson::all();
         $students = Student::all();
