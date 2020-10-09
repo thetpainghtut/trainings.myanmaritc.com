@@ -34,7 +34,7 @@
                 <form action="{{route('questions.update',$question->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="oldphoto" value="{{$question->photo}}">
+                    <input type="hidden" name="oldphoto" value="{{$question->photo}}" class="oldphoto">
                     <input type="hidden" name="quizz_id" value="{{$question->quiz_id}}">
                     <div class="row form-group mt-3">
                         <label class="col-form-label col-md-2">
@@ -88,9 +88,10 @@
                                 <div class="tab-content" id="nav-tabContent">
                                   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                     @if($question->photo)
-                                      <img src="{{asset($question->photo)}}" class="img-fluid mt-2" width="200px" >
+                                      <img src="{{asset($question->photo)}}" class="img-fluid mt-2 remove_photo" width="200px">
+                                      <i class="fas fa-trash text-danger delete_photo"></i>
                                     @else
-                                        <p>No selected photo</p>
+                                        <p class="nofile">No selected photo</p>
                                     @endif
                                   </div>
                                   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -213,6 +214,12 @@
         if(value == 'truefasle'){
             $('.btn_add_answer').hide();
         }
+        $('.delete_photo').click(function(){
+            $('.remove_photo').remove();
+            $('.delete_photo').remove();
+            $('.oldphoto').val(null);
+            $('.nofile').show();
+        })
 
         $('.input_photo').change(function(){
 
@@ -246,7 +253,28 @@
             }else if(data == 'checkbox'){
                 input_type = 'checkbox';
             }
-            if(last_array == "Answer3"){
+            if(last_array == "Answer2"){
+                html+=`
+                <div class="show_hide">
+                    <div class="form-group row mt-4 answer3">
+                            <label class="col-form-label col-md-2 answer_label">Answer3 </label>
+                            <div class="col-md-10 input-group">
+
+                                <input type="${input_type}" name="trueanswer[]" class="form-check-input data_check" value="3">
+
+                                <input type="text" name="answer[]" class="form-control" placeholder="Answer3">
+
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                  <i class="fas fa-trash text-danger delete_ans"></i>
+                                  </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>`;
+            }
+            else if(last_array == "Answer3"){
             
             
             html+=`

@@ -194,7 +194,7 @@ Route::get('channel/{id}','PanelController@channel')->name('frontend.channel');
 Route::post('allchannel','PanelController@allchannel')->name('allchannel');
 
 Route::get('takequiz','PanelController@takequiz')->name('frontend.takequiz');
-Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer');
+Route::get('quizanswer/{id}','PanelController@quizanswer')->name('frontend.quizanswer');
 
 Route::get('secret','PanelController@secret')->name('frontend.secret');
 Route::get('account','PanelController@account')->name('frontend.account');
@@ -209,6 +209,10 @@ Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.fo
 Route::post('resetpassword','PanelController@resetpassword')->name('frontend.resetpassword');
 Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
 Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
+Route::get('takequizz/{id}','PanelController@takequizz')->name('takequizz');
+Route::post('/storeanswer','PanelController@storeanswer')->name('storeanswer');
+
+
 
 // quizzes
 Route::resource('quizzes','QuizzController');

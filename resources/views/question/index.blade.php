@@ -134,6 +134,44 @@
                         <button class="btn btn-outline-success btn-block float-right"  data-toggle="modal" data-target="#assign_modal"> <i class="fas fa-plus mr-2"></i> Assign Batch</button>
                    
                 </div>
+                <div class="dropdown-divider"></div>
+                <div class="row mt-2 ">
+                    <h5 class="text-gray-dark">Batch</h5>
+                </div>
+                    {{-- @php
+                        $batch = array();
+                    @endphp
+                    @foreach ($quizz->batches as $value) 
+                    @php
+
+                        $order = $value->pivot->orderBy('id',"DESC")->limit(5)->get();
+                    @endphp
+
+                    @foreach ($order as $data) 
+
+                    @php
+                        $batch[] = $value->where('id',$data->batch_id)->get();
+                    @endphp
+
+                    @endforeach
+
+                    @endforeach --}}
+                
+                <div class="row">  
+                    @php
+                        $date = date('Y-m-d');
+                    @endphp
+                    <ol>
+                        @foreach($quizz->batches as $row)
+                            @if($row->enddate > $date)
+                                <li>{{$row->title}}</li>
+                               
+                            @endif
+                        @endforeach
+                    </ol>
+                </div>
+                   
+
             </div>
         </div>
     </div>
@@ -251,7 +289,7 @@
                     success: function(data){
                         if(data){
                             $('#assign_modal').modal('hide');
-                            // location.reload();
+                            location.reload();
                         }
                     },
                     error: function(error) {

@@ -49,7 +49,7 @@
                                                 @method('GET')
                                                 <input type="hidden" name="course_id" value="{{$course->id}}">
                                                 <button class="btn btn-outline-secondary m-2 btn-sm d-inline-block" type="submit">
-                                                    Questions
+                                                    Quiz
                                                     <span class="pl-2 fas fa-arrow-right"></span>
                                                 </button>
                                                 
