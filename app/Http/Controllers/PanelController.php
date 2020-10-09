@@ -49,10 +49,12 @@ class PanelController extends Controller
     }
 
     public function takelesson($batchid){
+
         $user = Auth::user();
         $student = $user->student;
         $student_batches = $student->batches;
         $variable=0;
+        /*change student batch condition*/
         foreach($student_batches as $student_batch){
             if($student_batch->id == $batchid){
                 $variable =1;
@@ -74,10 +76,13 @@ class PanelController extends Controller
     }
 
     public function playcourse($batchid, $subjectid){
+
         $user = Auth::user();
         $student = $user->student;
         $student_batches = $student->batches;
         $variable=0;
+        /*change student batch condition*/
+        
         foreach($student_batches as $student_batch){
             if($student_batch->id == $batchid){
                 $variable =1;
