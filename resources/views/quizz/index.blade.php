@@ -14,6 +14,8 @@
     </div>  
     @role('Teacher')    
         @foreach($courses as $course)
+            @foreach(Auth::user()->staff->teacher as $teacher_coures)
+            @if($teacher_coures->course_id == $course->id)
             <div class="my-5">
                 <div class="row">
                     <div class="col-12">
@@ -66,7 +68,8 @@
                    
                 </div>
             </div>
-
+            @endif
+            @endforeach
         @endforeach
     @endrole
     @role('Mentor')

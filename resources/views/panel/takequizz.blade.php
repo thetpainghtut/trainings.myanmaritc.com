@@ -27,12 +27,12 @@
                                 @foreach($questions as $question)
 
                                 <div class="question-{{$i}} questions" data-question = "question-{{$i}}" data-i = {{$i}}>
+                                    @if($question->photo)
+                                    <div class="mb-3">
+                                        <img src="{{$question->photo}}" width="500px" class="d-block">
+                                    </div>
+                                    @endif
                                     <h2 class="mb-4 d-inline-block">{{$i}} . {{$question->questiontext}}
-                                        @php 
-                                            $count = count($question->checks);
-                                            echo $count;
-                                        @endphp
-
                                     </h2>
                                     
                                     @if($question->type == "checkbox") 
@@ -49,7 +49,7 @@
                                    
                                     @foreach($question->checks as $answer)
                                     <label class="q{{$i}}Container qContainer">
-                                        {{$answer->answer}}( {{$answer->rightanswer}} )
+                                        {{$answer->answer}}
 
                                     <input type="{{$input_type}}"  name="question{{$i}}" value="{{$answer->rightanswer}}" class="quizinput" data-quiz_id = '{{$quiz->id}}' data-question_id='{{$question->id}}' data-answer_id = '{{$answer->id}}'>
 
@@ -57,7 +57,7 @@
                                     </label>
                                     @endforeach
 
-                                    <button  class="float-right btn btn-primary question{{$i}}next" data-question_next = 'question{{$i}}next'>question{{$i}}next ></button>
+                                    <button  class="float-right btn btn-primary question{{$i}}next" data-question_next = 'question{{$i}}next'>Next ></button>
                                 </div>
                                 @php
                                     $i++;

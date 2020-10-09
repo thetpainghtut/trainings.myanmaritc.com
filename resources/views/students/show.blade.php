@@ -504,6 +504,7 @@
          $('#student_leave').submit(function(event) {
              event.preventDefault();
              var student_data = new FormData(this);
+             
              $.ajax({
                 url : '{{route("student_status_change")}}',
                 type : 'post',
@@ -514,7 +515,7 @@
                 success:function(data) {
                     if(data){
                         $('#exampleModal').modal('hide');
-                        location.reload();
+                        // location.reload();
                     }
                 },
                 error:function (error) {

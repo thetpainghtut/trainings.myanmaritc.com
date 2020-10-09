@@ -31,7 +31,7 @@ class Quizz extends Model
 
     public function response($value='')
     {
-        return $this->hasOne('App\Response','quiz_id');
+        return $this->hasMany('App\Response','quiz_id');
        
     }
 }

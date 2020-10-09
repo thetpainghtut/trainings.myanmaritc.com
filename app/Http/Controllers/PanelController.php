@@ -108,13 +108,14 @@ class PanelController extends Controller
         return vieW('panel.quiz');
     }
 
-    public function quizanswer($id){
+    public function quizanswer($id,Request $request){
+        $channel = $request->channel;
         $quiz = Quizz::find($id);
         $student_id = Auth::user()->student->id;
         $questions = Question::where('quiz_id',$id)->get();
         $responses = Response::where('quiz_id',$id)->where('student_id',$student_id)->first();
         $responsedetail = Responsedetail::where('response_id',$responses->id)->get();
-        return vieW('panel.quizanswer', compact('quiz','questions','responses','responsedetail'));
+        return vieW('panel.quizanswer', compact('quiz','questions','responses','responsedetail','channel'));
     }
 
     public function secret(){
@@ -191,6 +192,7 @@ class PanelController extends Controller
 
     public function channel($id){
 
+        $channel = $id;
 
         $post = Post::whereHas('batches', function ($q) use ($id) {
   
@@ -198,11 +200,12 @@ class PanelController extends Controller
                 })->get();
         //dd($post);
         $b = Batch::find($id);
+        // dd($b->title);
         $enddate = $b->enddate;
         $userid = Auth::user()->id;
         $student = Student::where('user_id',$userid)->get();
         $fee = Feedback::where('batch_id',$id)->where('student_id',$student[0]->id)->get();
-
+        // dd($post);
 
         if(count($post) > 0){
         $topics = Topic::all();
@@ -249,8 +252,9 @@ class PanelController extends Controller
             $q->where('batch_id',$id);
         })->get();
 
+
         
-        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate','fee'));
+        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate','fee','channel'));
         }else{
             return redirect()->back();
         }
@@ -479,7 +483,7 @@ class PanelController extends Controller
 
         $response = new Response;
         $response->score = $score;
-        $response->status = 'good';
+        $response->status = 'Active';
         $response->student_id = Auth::user()->student->id;
         $response->quiz_id = $quiz_id;
         $response->save();
