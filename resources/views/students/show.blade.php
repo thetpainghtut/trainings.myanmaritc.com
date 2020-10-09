@@ -272,44 +272,57 @@
                         <p> {{ $student->because }} </p>
                     </div>
 
-                    {{-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                         <a class="card-title">
                             <i class="icofont-chart-flow mr-3 icon fa-lg"></i>
                             Projects
                         </a>
                     </div>
                     <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
-
+                        @php
+                        $studentone = $student->id;
+                         $project = App\Project::whereHas('students',function($q) use ($studentone){ $q->where('student_id',$studentone);})->get(); @endphp
+                         @foreach($project as $p)
+                         @if($p->link != NULL)
                     	<div class="row no-gutters bg-light position-relative mb-3">
                                         
                             <div class="col-md-12 p-4">
                                 <!-- Blog Title -->
-                                <h5 class="mt-0"> Project Title  </h5>
-                                <h5 class="mt-0 float-right"> Web Design  </h5>
+                                <h5 class="mt-0">Project Title:{{$p->title}}   </h5>
+                                <h5 class="mt-0 float-right"> {{$p->projecttype->name}} </h5>
 
                                 <!-- Blog Body -->
-                                <p> Youn Thiri Naing, Student One </p>
+                                <p> @foreach($p->students as $stu) {{ $loop->first ? '' : ', ' }}{{$stu->namee}} @endforeach</p>
                                 
-                                <a href="" class="btn btn-outline-primary btn-sm"> View Link </a>
+                                <a href="//{{$p->link}}" target="_blank" class="btn btn-outline-primary btn-sm"> View Link </a>
                           </div>
                         </div>
-
+                        @else
                         <div class="row no-gutters bg-light position-relative mb-3">
                                         
                             <div class="col-md-12 p-4">
                                 <!-- Blog Title -->
+                                <h5 class="mt-0"> No Project Title  </h5>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                        <!-- <div class="row no-gutters bg-light position-relative mb-3">
+                                        
+                            <div class="col-md-12 p-4">
+                               
                                 <h5 class="mt-0"> Project Title  </h5>
                                 <h5 class="mt-0 float-right"> Laravel Project  </h5>
 
-                                <!-- Blog Body -->
+                              
                                 <p> Youn Thiri Naing, Student One </p>
                                 
                                 <a href="" class="btn btn-outline-primary btn-sm"> View Link </a>
                           </div>
-                        </div>
+                        </div> -->
 
                     </div>
-
+{{--
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                         <a class="card-title">
                             <i class="far fa-calendar-alt mr-3 icon"></i>
