@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Unit;
 use Illuminate\Http\Request;
 use App\Course;
-
+use App\Staff;
+use App\Teacher;
+use Auth;
 
 class UnitController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +22,25 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::all();
+        $user = Auth::user()->id;
+        //dd($user);
+       // $bid = request('batch');
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
 
+        
+        $units = array();
+        foreach ($teacher as $key => $value) {
+          //array_push($courses,$value->course);
+          $unit = Unit::where('course_id',$value->course->id)->get();
+          foreach ($unit as $k) {
+              array_push($units,$k);
+          }
+        }
+        /*dd($units);
+        $units = Unit::all();
+*/
         return view('unit.index',compact('units'));
     }
 
@@ -28,7 +51,18 @@ class UnitController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
+        $user = Auth::user()->id;
+        //dd($user);
+       // $bid = request('batch');
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+       // $courses = Course::all();
         return view('unit.create',compact('courses'));
     }
 
@@ -90,7 +124,17 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        $courses=Course::all();
+        $user = Auth::user()->id;
+        //dd($user);
+       // $bid = request('batch');
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
         return view('unit.edit',compact('unit','courses'));
     }
 

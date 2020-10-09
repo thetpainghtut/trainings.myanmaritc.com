@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\topic;
+use App\Topic;
 use Auth;
 
 class TopicController extends Controller
