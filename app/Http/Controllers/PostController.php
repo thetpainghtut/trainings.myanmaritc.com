@@ -33,6 +33,7 @@ class PostController extends Controller
                 $q->where('user_id',$id);
             })->get();
             $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('teachers','batch_teacher.teacher_id','=','teachers.id')->join('staff','teachers.staff_id','=','staff.id')->where('staff.user_id',$id)->get();
+            dd($batches);
         }elseif($role[0] == 'Admin'){
             $posts = Post::all();
             $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();

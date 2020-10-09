@@ -13,9 +13,13 @@ use App\Inquire;
 use App\Location;
 
 use Spatie\Permission\Models\Role;
-
+use Auth;
+use App\Staff;
 class BatchController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['role:Admin|Teacher|Business Development']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +27,32 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batches = Batch::orderBy('startdate','asc')->get();
-        // dd($batches);
-        return view('batches.index',compact('batches'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        if($role[0] == 'Admin'){
+        
+            $batches = Batch::orderBy('startdate','asc')->get();
+            // dd($batches);
+            return view('batches.index',compact('batches'));
+        }else{
+            $userid = $user->id;
+            $staff = Staff::with('teacher')->where('user_id',$userid)->get();
+       
+            $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+            $batches=array();
+            foreach ($teacher as $key => $value) {
+                
+              $batch=Batch::where('course_id',$value->course->id)->orderBy('startdate','asc')->get();
+              foreach ($batch as $key => $value) {
+                 array_push($batches, $value);
+              }
+            }
+            
+           //dd($batches);
+            return view('batches.index',compact('batches'));
+            
+        }
     }
 
     /**
@@ -35,12 +62,30 @@ class BatchController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $locations = Location::all();
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        if($role[0] == 'Admin'){
+            $courses = Course::all();
+            $locations = Location::all();
 
-        $users=User::role('Teacher')->get();
-        // dd($users);
-        return view('batches.create',compact('courses','users','locations'));
+            $users=User::role('Teacher')->get();
+            // dd($users);
+            return view('batches.create',compact('courses','users','locations'));
+        }else{
+            $userid = $user->id;
+            $staff = Staff::with('teacher')->where('user_id',$userid)->get();
+       
+            $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+            $courses=array();
+            foreach ($teacher as $key => $value) {
+                array_push($courses, $value->course);
+            }
+            $locations = Location::all();
+
+            $users=User::role('Teacher')->get();
+            return view('batches.create',compact('courses','users','locations'));
+        }
     }
 
     /**

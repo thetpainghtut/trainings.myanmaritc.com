@@ -43,7 +43,7 @@
                 <div class="accordion border-bottom" id="accordionExample">
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseOne">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseOne">
                             <a class="card-title text-white">
                                 သင်ကြားမှု ကာလအတွင်း ဘာအခက်အခဲတွေရှိခဲ့လဲ
                             </a>
@@ -59,7 +59,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseTwo">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseTwo">
                             <a class="card-title text-white">
                                 သင်တန်း ကနေ ကိုယ့်ကိုယ်ကို ဘာတွေအကျိုးရှိသွားတယ် ထင်မိလဲ 
                             </a>
@@ -75,7 +75,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseThree">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseThree">
                             <a class="card-title text-white">
                                 ဆရာ ဆရာမ တွေနဲ့သင်ရတာအဆင်ပြေရဲ့လား။ အပြည့်အစုံပြောပြပေးပါ။ 
                             </a>
@@ -91,7 +91,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseFour">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseFour">
                             <a class="card-title text-white">
                                 Mentor တွေနဲ့ အဆင်ပြေရဲ့လား။ အပြည့်အစုံပြောပြပေးပါ။
                             </a>
@@ -107,7 +107,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseFive">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseFive">
                             <a class="card-title text-white">
                                သင်တန်း မှာအကြိုက်ဆုံးကဏ္ဍက ဘာဖြစ်မလဲ။
                             </a>
@@ -123,7 +123,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseSix">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseSix">
                             <a class="card-title text-white">
                                 Lecture Speed 
                             </a>
@@ -139,7 +139,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseSeven">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseSeven">
                             <a class="card-title text-white">
                                မိမိအနေဖြင့် သင်တန်းကာလအတွင်းမှာ ဘယ် ကဏ္ဍလေးတွေကို ပြုပြင် စေချင်သလဲ  
                             </a>
@@ -155,7 +155,7 @@
 
                     <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseEight">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseEight">
                             <a class="card-title text-white">
                                 မိမိရဲ့ လက်ဆွဲဆောင်ပုဒ်
                             </a>
@@ -171,7 +171,7 @@
 
                      <div class="card mb-0 border-primary">
                     
-                        <div class="card-header collapsed bg-primary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseNine">
+                        <div class="card-header collapsed bg-secondary" data-toggle="collapse" data-parent="#accordionExample" href="#collapseNine">
                             <a class="card-title text-white">
                                 အပိတ်အနေနဲ့ ကိုယ့်သူငယ်ချင်းတွေကို လာတတ်ဖို့ ဘယ်လို recommend ပေးချင်သလဲ
                             </a>

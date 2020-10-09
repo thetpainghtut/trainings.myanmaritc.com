@@ -88,12 +88,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('getBatchesByCourse','BatchController@getBatchesByCourse')->name('course.batches');
 
 // For Mentors
-
-Route::get('/creategroup', 'BackendController@createGroup')->name('students.group.create');
+Route::group(['middleware' => 'role:Teacher|Mentor'], function(){
+  Route::get('/creategroup', 'BackendController@createGroup')->name('students.group.create');
+});
 
 Route::post('/getstudentformembers','BackendController@getstudentformembers')->name('getstudentformembers');
 
+/*Route::group(['middleware' => 'role:Teacher|Mentor|Admin'], function(){*/
 Route::resource('groups','GroupController');
+/*});*/
 
 Route::get('grading_form/{id}','GradingController@form')->name('grading_form');
 
@@ -120,6 +123,11 @@ Route::post('show_batch','BatchController@show_batch')->name('show_batch');
 Route::resource('teacher','TeacherController')->middleware('role:Admin');
 
 //Income
+/*Route::group(['middleware' => 'role:Admin'], function()
+{
+    //Route::resource('incomes', 'IncomeController')->except(['create','store', 'update', 'destroy','edit' ]);
+  Route::resource('incomes','IncomeController')->only('index');
+});*/
 Route::resource('/incomes','IncomeController');
 
 //Expense
@@ -142,8 +150,11 @@ Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
 //Attendance
-Route::resource('/attendances','AttendanceController');
-Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+Route::group(['middleware' => ['role:Teacher']], function () {
+  Route::resource('/attendances','AttendanceController');
+  Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+});
+
 Route::get('/absence','AttendanceController@absence')->name('absence');
 Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
 Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');

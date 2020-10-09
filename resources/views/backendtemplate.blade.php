@@ -78,21 +78,23 @@
                 </div>
             @endrole
 
-            @role('Teacher|Admin')
+            @role('Teacher')
                 <li class="nav-item {{ Request::segment(1) === 'attendances' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('attendances.index')}}">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Attendances</span>
                     </a>
                 </li>
-
+            @endrole
+            @role('Teacher|Admin')
                 <li class="nav-item {{ Request::segment(1) === 'groups' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('groups.index')}}">
                         <i class="fas fa-users"></i>
                         <span>Groups</span>
                     </a>
                 </li>
-
+            @endrole
+            @role('Teacher')
                 <li class="nav-item {{ Request::segment(1) === 'creategroup' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('students.group.create')}}">
                         <i class="fas fa-users-cog"></i>
@@ -138,7 +140,7 @@
             @endrole
 
             <!-- Divider -->
-            @role('Admin|Business Development|Teacher|Mentor')
+            @role('Admin')
                 <hr class="sidebar-divider">
 
                 <div class="sidebar-heading">
@@ -153,7 +155,7 @@
                 </li>
             @endrole
           
-            @role("Business Development|Admin")
+            @role("Business Development|Admin|Teacher")
                 <li class="nav-item {{ Request::segment(1) === 'batches' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('batches.index')}}">
                         <i class="fas fa-swatchbook"></i>
@@ -163,7 +165,7 @@
             @endrole
 
 
-            @role('Teacher|Mentor|Admin')
+            @role('Teacher|Mentor')
           
                 <li class="nav-item {{ Request::segment(1) === 'subjects' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('subjects.index')}}">
@@ -236,7 +238,7 @@
                 </div>
             @endrole
 
-            @role('Admin')
+            @role('Teacher')
 
                 <li class="nav-item {{ Request::segment(1) === 'topics' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('topics.index')}}">
@@ -246,7 +248,7 @@
                 </li>
             @endrole 
 
-            @role('Admin|Teacher|Mentor')
+            @role('Teacher|Mentor')
 
                 <li class="nav-item {{ Request::segment(1) === 'projecttypes' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('projecttypes.index')}}">
@@ -268,14 +270,16 @@
                         <span> Channel Post </span>
                     </a>
                 </li>
-
+            @endrole
+            @role('Admin|Teacher')
                 <li class="nav-item {{ Request::segment(1) === 'journals' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('journals.index')}}">
                         <i class="icofont-blogger"></i>
                         <span> Blog </span>
                     </a>
                 </li>
-
+            @endrole
+            @role('Teacher')
 
                 <li class="nav-item {{ Request::segment(1) === 'quizzes' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('quizzes.index')}}">
