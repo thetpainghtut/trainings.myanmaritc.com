@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <h1 class="h3 mb-4 text-gray-800">Dashboard Page</h1>
   <div class="row">
-    @role('Admin|HR')
+    @role('Admin|Recruitment')
         <div class="col-md-4">
             <a href="report" class="nav-link">
                 <div class="card mb-3 shadow mx-3 mycard">

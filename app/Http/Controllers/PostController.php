@@ -14,8 +14,14 @@ use App\User;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostNotification;
 use App\Subject;
+use App\Staff;
+use App\Teacher;
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,23 +32,21 @@ class PostController extends Controller
         //
         $user = Auth::user();
         $id = Auth::id();
-        $role = $user->getRoleNames();
         $now = Carbon\Carbon::now();
-        if($role[0] == 'Teacher'){
-            $posts = Post::whereHas('user',function($q) use ($id){
-                $q->where('user_id',$id);
-            })->get();
-            $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('teachers','batch_teacher.teacher_id','=','teachers.id')->join('staff','teachers.staff_id','=','staff.id')->where('staff.user_id',$id)->get();
-        }elseif($role[0] == 'Admin'){
-            $posts = Post::all();
-            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
-            
-            
+        
+        $posts = Post::whereHas('user',function($q) use ($id){
+            $q->where('user_id',$id);
+        })->get();
+
+        $staff = Staff::where('user_id',$id)->get();
+        foreach ($staff[0]->teacher as $key => $value) {
+           //dd($value->course->batches);
+           foreach ($value->course->batches as $k) {
+               $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+           }
         }
-        else{
-            $posts = [];
-            $batches= [];
-        }
+        
+        
        /* foreach ($batches as $key => $value) {
             $b = $value;
             foreach ($b->posts as $c) {

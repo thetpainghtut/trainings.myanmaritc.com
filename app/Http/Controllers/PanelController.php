@@ -50,27 +50,58 @@ class PanelController extends Controller
 
     public function takelesson($batchid){
 
-    	$batch = Batch::find($batchid);
+        $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        /*change student batch condition*/
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $batchid){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
 
-    	$course = $batch->course;
+        	$batch = Batch::find($batchid);
 
-    	$subjects = $course->subjects;
+        	$course = $batch->course;
 
-    	return view('panel.takelesson',compact('batch','course','subjects'));
+        	$subjects = $course->subjects;
+
+        	return view('panel.takelesson',compact('batch','course','subjects'));
+        }else{
+            return back();
+        }
 
     }
 
     public function playcourse($batchid, $subjectid){
 
-    	$batch = Batch::find($batchid);
-    	// dd($batch);
-    	$course = $batch->course;
+        $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        /*change student batch condition*/
+        
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $batchid){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
+            $batch = Batch::find($batchid);
+            // dd($batch);
+            $course = $batch->course;
 
 
-    	$subject = Subject::find($subjectid);
-        $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
-        /*change order by sorting*/
-        return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+            $subject = Subject::find($subjectid);
+            $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+            /*change order by sorting*/
+            return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+        }else{
+            return back();
+        }
+    	
     }
 
     public function takequiz(){

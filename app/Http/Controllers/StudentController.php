@@ -19,13 +19,15 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
-
+use Auth;
+use App\Staff;
+use App\Teacher;
 class StudentController extends Controller
 {
-   /* public function __construct($value='')
+    public function __construct($value='')
     {
-        $this->middleware('role:Admin')->except('store','search_inquire');
-    }*/
+        $this->middleware('role:Admin|Mentor|Recruitment|Business Development|Teacher');
+    }
     
     /**
      * Display a listing of the resource.
@@ -35,23 +37,53 @@ class StudentController extends Controller
     public function index(Request $request)
     {
       // dd($request);
-      $courses = Course::all();
-      $batches = Batch::all();
+      $user = Auth::user();
+      $role = $user->getRoleNames();
+      if($role[0] == 'Admin'){
+        $courses = Course::all();
+        $batches = Batch::all();
 
-      $bid = 0;
+        $bid = 0;
 
-      if (request('batch')) {
-        $bid = request('batch');
-        $groups = Group::where('batch_id',$bid)->get();
-        $batch = Batch::find($bid);
-        // $students = Student::where('batch_id',$bid)->get();
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
 
 
-        return view('students.index',compact('courses','batches','groups','bid','batch'));
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+        }else{
+          $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
       }else{
-        $students = Student::all();
-        // Return 
-        return view('students.index',compact('students','courses','batches','bid'));
+        $userid = $user->id;
+        $bid = 0;
+        $batches = Batch::all();
+        $staff = Staff::with('teacher')->where('user_id',$userid)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+       
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+        }else{
+            $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
       }
     }
 
