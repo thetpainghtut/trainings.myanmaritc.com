@@ -415,49 +415,12 @@
     <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-    @yield('script')
+   
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-
+<script type="text/javascript" src="{{asset('js/noti.js')}}"></script>
+@yield('script')
     <script type="text/javascript">
     //  var notificationsWrapper   = $('.dropdown-notifications');
-      var notificationsToggle    = $('.noti');
-     // var notificationsCountElem = notificationsToggle.find('i[data-count]');
-     var notificationsCountElem = notificationsToggle.find('span').text();
-     // alert(notificationsCountElem);
-      var notificationsCount     = parseInt(notificationsCountElem);
-     // console.log(notificationsCount);
-      //var notifications          = notificationsWrapper.find('ul.dropdown-menu');
-        showNoti();
-        function showNoti(){
-        $.get("/getnoti",function(response){
-        var count = response.length;
-        if(count > 0){
-        notificationsToggle.find('span').html(count);
-    }
-    });
-    }
-     /* if (notificationsCount <= 0) {
-        notificationsToggle.hide();
-      }*/
-
-      // Enable pusher logging - don't include this in production
-      // Pusher.logToConsole = true;
-          Pusher.logToConsole = true;
-
-     var pusher = new Pusher('0569f3090279c1cbab87', {
-      cluster: 'ap1'
-    });
-
-      // Subscribe to the channel we specified in our Laravel Event
-      var channel = pusher.subscribe('my-channel');
-
-      // Bind a function to a Event (the full Laravel class)
-      channel.bind('my-event', function(data) {
-      //  alert(JSON.stringify(data));
-        
-        showNoti();
-        notificationsToggle.show();
-      });
 
 
         //Make sure that the dom is ready
@@ -467,6 +430,7 @@
          
         });
     </script>
+     
 </body>
 
 </html>

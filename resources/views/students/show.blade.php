@@ -59,8 +59,72 @@
 					    @endforeach
 	            	</p>
 
+                    <!-- Student lesson count -->
+                    @php
+                        $subject_batch_id = 0;
+                        $seen_less_total = 0;
+                        $lesson_total = 0;
+                        $percentage = 0;
+                        $today_date = Carbon\Carbon::now();
+                    @endphp
+
+                    @foreach($student->lessons as $lesson)
+                        @php
+                            $subject = $lesson->subject;
+                            $subject_batch_id=0;
+                            $status = $lesson->pivot->status;
+                        @endphp
+
+                        @foreach($subject->batches as $subject_batch)
+                            
+                           @if($batch_data->id == $subject_batch->pivot->batch_id)
+                                @php
+                                    $subject_batch_id = $subject_batch->pivot->batch_id;
+                                    break;
+                                @endphp
+                            @endif
+                        @endforeach
+                        
+                        @if($batch_data->id == $subject_batch_id && $status == 1 && $batch_data->enddate <= $today_date)
+                      
+                            @php
+                                $stu_less =1;                                       
+                               $seen_less_total += $stu_less;
+                               
+                            @endphp  
+
+                        @endif
+                        @if($batch_data->id == $subject_batch_id && $status == 0 && $batch_data->enddate >= $today_date)
+                      
+                            @php
+                                $stu_less =1;                                       
+                               $seen_less_total += $stu_less;
+                               
+                            @endphp  
+                                                   
+                        @endif
+                        
+                    @endforeach
+                   
+                    <!-- End of Student lesson count -->
+                   
+                     @foreach($course_data->subjects as $subject) 
+                        @php
+                            $lesson_count = $subject->lessons->count();
+                            $lesson_total += $lesson_count;
+                        @endphp
+
+                    @endforeach
+
+                    @if($lesson_total > 0)
+                        @php
+                            $percentage_decimal = (($seen_less_total/$lesson_total)*100);
+                            $percentage = round($percentage_decimal);
+                        @endphp
+                    @endif
+                    
 	            	<div class="progress my-4">
-                        <div class="progress-bar " role="progressbar" style="width: 25%; background-color: #004289" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        <div class="progress-bar " role="progressbar" style="width: {{$percentage}}%; background-color: #004289" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
                     </div>
 
 	            	<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
@@ -208,7 +272,7 @@
                         <p> {{ $student->because }} </p>
                     </div>
 
-                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    {{-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                         <a class="card-title">
                             <i class="icofont-chart-flow mr-3 icon fa-lg"></i>
                             Projects
@@ -290,7 +354,7 @@
                                 <a href="viewanswer.html" class="btn btn-outline-primary btn-sm"> View Score </a>
                           </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                         <a class="card-title">
@@ -392,7 +456,11 @@
 @endsection
 
 @section('script')
-  <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+    <!-- Chart -->
+    <script src="{{ asset('sb_admin2/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('sb_admin2/js/demo/chart-pie-demo.js') }}"></script>
+
+    <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 
   <script type="text/javascript">
       $(document).ready(function() {

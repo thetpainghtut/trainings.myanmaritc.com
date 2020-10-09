@@ -41,6 +41,7 @@ class ProjectController extends Controller
             array_push($data,$proj->students);
         }
 
+        if(count($data)>0){
         foreach ($data as $stub) {
             foreach ($stub as $key => $value) {
                $student[] = $value->id;
@@ -49,7 +50,11 @@ class ProjectController extends Controller
         }
        // dd($student);
        // dd($projecttypes);
+        
         $studen = Student::whereNotIn('id',$student)->get();
+    }else{
+        $studen = Student::all();
+    }
         //dd($studen);
         return view('projects.create',compact('batch','p','projecttypes','studen'));
     }
