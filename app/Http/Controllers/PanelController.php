@@ -46,28 +46,54 @@ class PanelController extends Controller
     }
 
     public function takelesson($batchid){
+        $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $batchid){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
 
-    	$batch = Batch::find($batchid);
+        	$batch = Batch::find($batchid);
 
-    	$course = $batch->course;
+        	$course = $batch->course;
 
-    	$subjects = $course->subjects;
+        	$subjects = $course->subjects;
 
-    	return view('panel.takelesson',compact('batch','course','subjects'));
+        	return view('panel.takelesson',compact('batch','course','subjects'));
+        }else{
+            return back();
+        }
 
     }
 
     public function playcourse($batchid, $subjectid){
+        $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $batchid){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
+            $batch = Batch::find($batchid);
+            // dd($batch);
+            $course = $batch->course;
 
-    	$batch = Batch::find($batchid);
-    	// dd($batch);
-    	$course = $batch->course;
 
-
-    	$subject = Subject::find($subjectid);
-        $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
-        /*change order by sorting*/
-        return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+            $subject = Subject::find($subjectid);
+            $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+            /*change order by sorting*/
+            return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+        }else{
+            return back();
+        }
+    	
     }
 
     public function takequiz(){
