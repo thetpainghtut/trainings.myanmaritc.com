@@ -18,7 +18,8 @@
         <div class="container my-2">
             <div class="row">
                 <div class="col-12">
-                    <h2> Your Answer </h2>
+                    <h2 class="d-inline-block"> Your Answer </h2>
+                    {{-- <a href="/channel/{{$channel}}" class="btn btn-outline-primary float-right ">Go Back</a> --}}
                     <hr>
                 </div>
                 <div class="col-12 shadow p-5 mb-5 bg-white rounded mb-4">
@@ -33,43 +34,70 @@
                                     <h2 class="mb-4">{{$i}}. {{$question->questiontext}}</h2>
                                     @foreach($question->checks as $answer)
                                     <p class="p-3 my-2  
-                                    @if($answer->rightanswer == 'true') 
-                                        @foreach($responsedetail as $detail)
+                                    @php
+                                        $array = array();
+                                        $error = array();
+                                    @endphp
+                                       
                                         
-                                            @if($answer->id === $detail->check_id)
-                                                correct_answer
-                                                text-light
-                                            @endif
-                                        
-                                        @endforeach
-                                    @if($responses->student_id !== Auth::user()->student->id)
-                                        @if($answer->id !== $answer->responsedetail->check_id)
-                                        wrong_answer
-                                        @endif
-                                    @else
-                                    @endif
-                                    @endif
-                                    ">
-                                    {{$answer->answer}}
-                                              
-                                      @if($answer->rightanswer == 'true') 
-                                        {{-- @foreach($responsedetail as $detail) --}}
-                                            {{-- @if($answer->id === $detail->check_id) --}}
-                                            @if($responses->student_id == Auth::user()->student->id)
+                                        @if($responses->student_id == Auth::user()->student->id)
                                             @foreach($responses->responsedetail as $detail)
-                                            @if($detail->check_id == $answer->id)
-                                                {{$answer->answer}} {{$answer->id}}
-                                                <i class="icofont-ui-check 
-                                                float-right text-light"></i>
-                                            @else
+                                            @if($answer->rightanswer == 'true' && $detail->check_id == $answer->id)
                                             
-                                                
+                                                @php
+                                                    array_push($array, $answer->id);
+                                                @endphp
+                                            @elseif($answer->rightanswer == 'false' && $detail->check_id == $answer->id)
+                                                @php
+                                                    array_push($error, $answer->id);
+                                                @endphp
                                             @endif
                                             @endforeach
+
+                                            @if($array != null)
+                                                correct_answer
+                                            @elseif($answer->rightanswer == 'true')
+                                                checkcorrect_answer
+                                            @elseif($error != null)
+                                                wrong_answer
                                             @endif
-                                            {{-- @endif --}}
-                                        {{-- @endforeach --}}
+                                        
+
+                                            
                                     @endif 
+                                    ">
+                                    {{$answer->answer}}
+                                        @php
+                                        $array = array();
+                                        $error = array();
+                                    @endphp
+                                       
+                                        
+                                        @if($responses->student_id == Auth::user()->student->id)
+                                            @foreach($responses->responsedetail as $detail)
+                                            @if($answer->rightanswer == 'true' && $detail->check_id == $answer->id)
+                                            
+                                                @php
+                                                    array_push($array, $answer->id);
+                                                @endphp
+                                            @elseif($answer->rightanswer == 'false' && $detail->check_id == $answer->id)
+                                                @php
+                                                    array_push($error, $answer->id);
+                                                @endphp
+                                            @endif
+                                            @endforeach
+
+                                            @if($array != null)
+                                                <i class="icofont-ui-check float-right answer_icon"></i>
+                                            @elseif($answer->rightanswer == 'true')
+                                                <i class="icofont-ui-check float-right answer_icon"></i>
+                                            @elseif($error != null)
+                                                 <i class="icofont-ui-close float-right"></i>
+                                            @endif
+                                        
+
+                                            
+                                    @endif
                                     </p>
                                     @endforeach
                                     
@@ -83,6 +111,8 @@
 
                             
                         </div>
+
+
                     </div>
                 </div>
 

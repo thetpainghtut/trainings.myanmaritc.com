@@ -8,14 +8,13 @@
                 <div class="col-12 text-white">
                     
                     <?php
-                    
                     foreach($post[0]->batches as $bs){
 
                     $words[] = explode(" ", $bs->title);
-                
-                  
                     }
+
                     foreach($words as $w){
+                        
                         $c = explode(" ",$batch->title);
                        
                         if($w[0] == $c[0]){?>
@@ -30,7 +29,8 @@
                         }
 
 
-                    }?>
+                    }
+                   ?>
 
                    
                     
@@ -452,7 +452,8 @@
                                             <p class="username d-block mb-0"> {{$quiz->user->name}} </p>
 
                                             <small class="text-muted mr-3">
-                                                <i class="icofont-question-circle"></i> Quizz
+                                                <i class="icofont-question-circle"></i> 
+                                                {{$quiz->subject->name}}
                                             </small> •
                                             <small class="text-muted">
                                                 <i class="far fa-clock ml-3"></i> 
@@ -476,13 +477,44 @@
                                                     </h5>
                                                     <!-- Blog Body -->
                                                     <p> ( 24.10.2020 ) </p>
-                                                    @if($quiz->response)
-                                                    @if($quiz->response->student_id == Auth::user()->student->id)
+                                                    @php
+                                                        $array = array();
+                                                        $score = 0;
+                                                        $stu_array = array();
+                                                    @endphp
+                                                    @if($quiz->response || Auth::user()->student->response)
 
-                                                    <a href="{{route('frontend.quizanswer',$quiz->id)}}" class="btn btn-outline-primary btn-sm"> View Score </a>
-                                                    @else
-                                                    <a href="{{route('takequizz',$quiz->id)}}" class="btn btn-outline-primary btn-sm start_question" > Start Quizz </a>
+                                                    @foreach($quiz->response as $response)
+                                                    @if($response->student_id == Auth::user()->student->id && $response->status == 'Active')
+                                                        @php
+                                                            array_push($array, Auth::user()->student->id);
+                                                            $score+=$response->score;
+                                                        @endphp
+
                                                     @endif
+
+                                                    @endforeach
+
+                                                    @foreach(Auth::user()->student->batches as $batch)
+                                                        @if($batch->pivot->status == 'Active')
+                                                            @php
+                                                                array_push($stu_array, Auth::user()->student->id);
+                                                                // dd($batch->pivot->status);
+                                                            @endphp
+                                                        @endif
+
+                                                    @endforeach
+
+                                                    @if($array != null && $stu_array != null)
+                                                    <a href="{{route('frontend.quizanswer',$quiz->id)}}?channel={{$channel}}" class="btn btn-outline-primary btn-sm"> View Score </a>
+                                                    <button class=" btn-sm btn btn-outline-success" disabled="">
+                                                    Total Score ( {{$score}} )
+                                                    </button>
+                                                    @else
+                                                        <a href="{{route('takequizz',$quiz->id)}}" class="btn btn-outline-primary btn-sm start_question" > Start Quizz </a>
+                                                    
+                                                    @endif
+
                                                     @else
                                                         <a href="{{route('takequizz',$quiz->id)}}" class="btn btn-outline-primary btn-sm start_question" > Start Quizz </a>
                                                     @endif

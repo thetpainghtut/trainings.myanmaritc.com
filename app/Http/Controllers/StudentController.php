@@ -12,7 +12,7 @@ use App\Inquire;
 use App\Education;
 use App\Township;
 use App\Unit;
-
+use App\Response;
 use Rabbit;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -246,7 +246,7 @@ class StudentController extends Controller
     public function show($id, Request $request)
     {
       $courseid = $request->course;
-      $batchid = $request->course;
+      $batchid = $request->batch;
 
       /* progressbar*/
       $course_data = Course::find($request->course);
@@ -443,7 +443,7 @@ class StudentController extends Controller
     // leave student to change status
     public function student_status_change(Request $request)
     {
-      // dd($request);
+      
       $request->validate([
                         'student_id' => 'required',
                         'status' => 'required',
@@ -473,8 +473,19 @@ class StudentController extends Controller
             }
           }
         }
-      // }
-      // dd($/data);
+        foreach ($batch->students as $batch_student_status) {
+
+          foreach ($batch_student_status->responses as $response) {
+                     
+                 if($response->status == "Active"){
+                  $response = Response::find($response->id);
+                  $response->status = "Deactive";
+                  $response->save();
+                 
+             }
+          }
+        }
+      
       $student = Student::find($student_id);
       // $student->status = $status;
       $student->save();

@@ -48,6 +48,7 @@ class QuizzController extends Controller
         $subject_id = $request->subject_id;
         $title = $request->title;
         $subject = Subject::find($subject_id);
+        $course = Course::find($request->course_id);
 
         if($request->hasfile('photo')){
             $photo = $request->file('photo');
@@ -65,7 +66,7 @@ class QuizzController extends Controller
         $quizz->subject_id = $subject_id;
         $quizz->user_id = Auth::id();
         $quizz->save();
-        return "ok";
+        return 'ok';
     }
 
     /**
