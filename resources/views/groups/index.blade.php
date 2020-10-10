@@ -16,9 +16,14 @@
                         <label for="inputCourse">Choose Course:</label>
                         <select name="course" class="form-control" id="course">
                             <option selected disabled>Please Choose Course:</option>
+                            @role('Teacher|Admin')
                             @foreach($courses as $row)
                                 <option value="{{$row->id}}">{{$row->name}}</option>
                             @endforeach
+                            @endrole
+                            @role('Mentor')
+                            <option value="{{$courses->id}}">{{$courses->name}}</option>
+                            @endrole
                         </select>
                     </div>
 

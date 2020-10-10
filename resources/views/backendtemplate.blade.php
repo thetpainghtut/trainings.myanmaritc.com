@@ -268,7 +268,7 @@
 
             @endrole 
 
-            @role('Teacher|Mentor')
+            @role('Teacher')
 
 
                 <li class="nav-item {{ Request::segment(1) === 'projecttypes' ? 'active' : '' }}">
@@ -299,7 +299,7 @@
                     </a>
                 </li>
             @endrole
-            @role('Admin|Teacher')
+            @role('Admin|Teacher|Mentor|Business Development')
 
                 <li class="nav-item {{ Request::segment(1) === 'journals' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('journals.index')}}">

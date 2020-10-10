@@ -17,7 +17,7 @@ class InquireController extends Controller
 {
      public function __construct($value='')
     {
-        $this->middleware('role:Admin|Reception');
+        $this->middleware('role:Admin|Business Development');
     }
     /**
      * Display a listing of the resource.

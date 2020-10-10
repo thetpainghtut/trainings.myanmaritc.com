@@ -20,7 +20,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:Teacher']);
+        $this->middleware(['role:Teacher'])->except('getnoti');
     }
     /**
      * Display a listing of the resource.
@@ -37,7 +37,7 @@ class PostController extends Controller
         $posts = Post::whereHas('user',function($q) use ($id){
             $q->where('user_id',$id);
         })->get();
-
+        $batches = array();
         $staff = Staff::where('user_id',$id)->get();
         foreach ($staff[0]->teacher as $key => $value) {
            //dd($value->course->batches);
@@ -45,7 +45,7 @@ class PostController extends Controller
                $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
            }
         }
-        
+       // dd($batches);
         
        /* foreach ($batches as $key => $value) {
             $b = $value;

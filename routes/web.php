@@ -60,7 +60,7 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController')->middleware('role:Admin|Business Development');
 
 Route::resource('batches','BatchController');
 
@@ -150,15 +150,15 @@ Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
 //Attendance
-Route::group(['middleware' => ['role:Teacher']], function () {
+Route::group(['middleware' => ['role:Teacher|Mentor|Intern Mentor']], function () {
   Route::resource('/attendances','AttendanceController');
   Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
 });
-
+Route::group(['middleware'=>['role:Admin|Recruitment|Business Development']],function(){
 Route::get('/absence','AttendanceController@absence')->name('absence');
 Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
 Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');
-
+});
 // Grade Print
 Route::resource('grades','GradingController');
 Route::get('grade_print/{id}','PrintController@grade');
