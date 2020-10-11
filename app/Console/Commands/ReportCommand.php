@@ -159,7 +159,7 @@ class ReportCommand extends Command
             $text = 'Your  tutorials are not finish.Watch and learn your tutorials! ( http://localhost:8000/panel ) ';
 
             Mail::raw($text,function($message) use ($email){
-                $message->from('nyiyl345@gmail.com');
+                $message->from('info@myanmarcodingbootcamp.com');
                 $message->to($email)->subject('Alert for your tutorial!');
 
             });
