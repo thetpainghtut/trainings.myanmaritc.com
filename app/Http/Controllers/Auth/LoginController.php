@@ -74,12 +74,9 @@ class LoginController extends Controller
         elseif($user->hasRole('Student')){
             return redirect('/panel');
         }
-<<<<<<< HEAD
-=======
         elseif($user->hasRole('Recruitment')){
             return redirect('/incomes');
         }
->>>>>>> 563e7dffbda7049a9d0e4353ff121c9e1d979afc
         else {
             return redirect('/');
         }
