@@ -29,7 +29,7 @@
         <main>
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header justify-content-center pt-5">
                                 <img src="{{ asset('logo.jpg') }}" class="img-fluid mx-auto d-block" style="width: 200px;">
@@ -59,7 +59,7 @@
                                     
 
                                     <div class="form-group hideForm d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <button type="submit" class="btn btn-outline-primary"> Save </button>
+                                        <button type="submit" class="btn btn-outline-primary btn-block"> Send </button>
                                     </div>
                        
 

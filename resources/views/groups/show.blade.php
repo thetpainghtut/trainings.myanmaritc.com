@@ -1,7 +1,7 @@
 @extends('backendtemplate')
 
 @section('content')
-    <h2 class="d-inline-block">{{$group->name}}</h2> (Batch - <span>{{$group->batch_id}}</span>)
+    <h2 class="d-inline-block">{{$group->name}}</h2> (Batch - <span>{{$group->batch->title}}</span>)
   
 
     <div class="row">
