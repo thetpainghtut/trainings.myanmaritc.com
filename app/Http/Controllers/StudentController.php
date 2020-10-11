@@ -335,8 +335,9 @@ class StudentController extends Controller
     public function show($id, Request $request)
     {
       $courseid = $request->course;
-      $batchid = $request->batch;
 
+      $batchid = $request->batch;
+      // dd($courseid);
       /* progressbar*/
       $course_data = Course::find($request->course);
       $batch_data = Batch::find($request->batch);
@@ -413,7 +414,7 @@ class StudentController extends Controller
       }
       // dd($students_units);
 
-      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data'));
+      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data','courseid'));
     }
 
     /**
@@ -537,6 +538,7 @@ class StudentController extends Controller
                         'student_id' => 'required',
                         'status' => 'required',
             ]);
+      $course_id = $request->course_id;
       $student_id = $request->student_id;
       $batch_id = $request->batch_id;
       $status = $request->status;
@@ -578,7 +580,7 @@ class StudentController extends Controller
       $student = Student::find($student_id);
       // $student->status = $status;
       $student->save();
-      return response()->json('student');
+      return redirect('students?course='.$course_id."&batch=".$batch_id)->with('msg','Already remove!');
     }
 
 

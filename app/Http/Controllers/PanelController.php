@@ -28,11 +28,12 @@ use Illuminate\Support\Facades\Hash;
 class PanelController extends Controller
 {
 
-    // public function __construct($value='')
-    // {
-    //     $this->middleware('auth');
-    //     $this->middleware('role:Student');
-    // }
+    public function __construct($value='')
+    {
+        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
+        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
+    }
+ 
 
     public function index()
     {        
