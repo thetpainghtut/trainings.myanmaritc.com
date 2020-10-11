@@ -8,6 +8,10 @@ use Auth;
 
 class ExpenseController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['role:Admin|Recruitment'],['only' => ['index']]); 
+        $this->middleware(['role:Recruitment'],['only' => ['create','edit','store','update','destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

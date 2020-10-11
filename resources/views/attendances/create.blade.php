@@ -1,20 +1,36 @@
 @extends('backendtemplate')
 @section('content')
 
-    <h1 class="h3 mb-4 text-gray-800"> All Student List </h1>
+    <h1 class="h3 mb-4 text-gray-800"> All Student Attendance List </h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary"> All Students 
+                
+            </h5>
+        </div>
+
+        <div class="card-body" id="over">
             <form method="get" action="{{route('attendances.index')}}">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputCourse">Choose Course:</label>
+                        @role('Teacher')
                         <select name="course" class="form-control" id="course">
                             <option disabled selected="">Please Select Course</option>
                             @foreach($couses as $row)
-                                <option value="{{$row->id}}">{{$row->name}} ( {{$row->lname}} )</option>
+                                <option value="{{$row->id}}">{{$row->name}}</option>
                             @endforeach
                         </select>
+                        @endrole
+                        @role('Mentor')
+                        <select name="course" class="form-control" id="course">
+                            <option disabled selected="">Please Select Course</option>
+                            
+                                <option value="{{$couses->id}}">{{$couses->name}}</option>
+                          
+                        </select>
+                        @endrole
                     </div>
 
                     <div class="form-group col-md-4">
@@ -29,10 +45,8 @@
                     </div> 
                 </div>
             </form>
-        </div>
-
-        <div class="card-body" id="over">
-
+            @isset($students)
+             @if(count($students) > 0)
             <form action="{{route('attendances.store')}}" method="post" >
                 @csrf
                 @if($attcount==0)
@@ -54,8 +68,8 @@
                         </div>
                     @endif
              
-                    @isset($students)
-                    @if(count($students) > 0)
+                    
+                   
 
                         @php
                             $i = 1;
@@ -93,14 +107,15 @@
                        
                             </div>
                         @endforeach
-                    @endif
+                   
               
                     <input type="submit" value="Save" class="btn btn-primary">
                 @endif
-                @endif
+                
             
             </form>
-
+             @endif
+            @endif
         </div>
     </div>
 

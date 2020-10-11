@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -165,10 +169,12 @@ class QuestionController extends Controller
         foreach ($answers as $value) {
             $value->delete();
         }
+        // dd($answer);
         foreach ($answer as $key => $ans) {
             $flipped = array_flip($trueanswer);
             
             // foreach ($answers as $value) {
+            if($ans != null){
                 $answer = new Check;
 
                 $answer->answer = $ans;
@@ -183,6 +189,7 @@ class QuestionController extends Controller
                 
             // }
             $answer->save();
+            }
             
 
         }

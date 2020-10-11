@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Subject;
 use Illuminate\Http\Request;
 use App\Course;
-
+use App\Teacher;
+use App\Staff;
+use Auth;
 class SubjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +21,19 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        $user = Auth::user()->id;
 
-        $course = Course::findOrFail(1);
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+         
+        }
+       // $courses = Course::all();
+         $course = Course::findOrFail($courses[0]->id);
         $subjects = $course->subjects()
             // ->wherePivot('course_id', '<', '2017-10-10')
             ->get();

@@ -6,7 +6,7 @@
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-white">
-                    <h1 class="display-4 mt-5 mb-2"> PHP Quizzes </h1>
+                    <h1 class="display-4 mt-5 mb-2"> {{$quiz->title}} </h1>
                 </div>
             </div>
         </div>
@@ -18,83 +18,101 @@
         <div class="container my-2">
             <div class="row">
                 <div class="col-12">
-                    <h2> Your Answer </h2>
+                    <h2 class="d-inline-block"> Your Answer </h2>
+                    {{-- <a href="/channel/{{$channel}}" class="btn btn-outline-primary float-right ">Go Back</a> --}}
                     <hr>
                 </div>
                 <div class="col-12 shadow p-5 mb-5 bg-white rounded mb-4">
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
+                                @php
+                                    $i=1;
+                                @endphp
+                                @foreach($questions as $question)
                                 <div class="d-block mb-5">
-                                    <h2 class="mb-4">1. What does CSS stand for?</h2>
-                                    
-                                    <p class="p-3 my-2 bg-light"> Creative Style Sheets </p>
-                                    <p class="p-3 my-2 correct_answer"> 
-                                        Cascading Style Sheets
-                                        <i class="icofont-ui-check float-right answer_icon"></i>
+                                    <h2 class="mb-4">{{$i}}. {{$question->questiontext}}</h2>
+                                    @foreach($question->checks as $answer)
+                                    <p class="p-3 my-2  
+                                    @php
+                                        $array = array();
+                                        $error = array();
+                                    @endphp
+                                       
+                                        
+                                        @if($responses->student_id == Auth::user()->student->id)
+                                            @foreach($responses->responsedetail as $detail)
+                                            @if($answer->rightanswer == 'true' && $detail->check_id == $answer->id)
+                                            
+                                                @php
+                                                    array_push($array, $answer->id);
+                                                @endphp
+                                            @elseif($answer->rightanswer == 'false' && $detail->check_id == $answer->id)
+                                                @php
+                                                    array_push($error, $answer->id);
+                                                @endphp
+                                            @endif
+                                            @endforeach
+
+                                            @if($array != null)
+                                                correct_answer
+                                            @elseif($answer->rightanswer == 'true')
+                                                checkcorrect_answer
+                                            @elseif($error != null)
+                                                wrong_answer
+                                            @endif
+                                        
+
+                                            
+                                    @endif 
+                                    ">
+                                    {{$answer->answer}}
+                                        @php
+                                        $array = array();
+                                        $error = array();
+                                    @endphp
+                                       
+                                        
+                                        @if($responses->student_id == Auth::user()->student->id)
+                                            @foreach($responses->responsedetail as $detail)
+                                            @if($answer->rightanswer == 'true' && $detail->check_id == $answer->id)
+                                            
+                                                @php
+                                                    array_push($array, $answer->id);
+                                                @endphp
+                                            @elseif($answer->rightanswer == 'false' && $detail->check_id == $answer->id)
+                                                @php
+                                                    array_push($error, $answer->id);
+                                                @endphp
+                                            @endif
+                                            @endforeach
+
+                                            @if($array != null)
+                                                <i class="icofont-ui-check float-right answer_icon"></i>
+                                            @elseif($answer->rightanswer == 'true')
+                                                <i class="icofont-ui-check float-right answer_icon"></i>
+                                            @elseif($error != null)
+                                                 <i class="icofont-ui-close float-right"></i>
+                                            @endif
+                                        
+
+                                            
+                                    @endif
                                     </p>
-                                    <p class="p-3 my-2 bg-light"> Computer Style Sheets </p>
+                                    @endforeach
+                                    
                                 </div>
-
-
-                                <div class="d-block mb-5">
-                                    <h2 class="mb-4"> 2. Where is the correct place to insert a JavaScript? </h2>
-                                    
-                                    <p class="p-3 my-2 checkcorrect_answer"> Both the 'head' section and the 'body' section are correct 
-                                        <i class="icofont-ui-check float-right answer_icon"></i>
-                                    </p>
-                                    <p class="p-3 my-2 wrong_answer"> 
-                                        The 'head' section
-                                        <i class="icofont-ui-close float-right"></i>
-                                    </p>
-                                    <p class="p-3 my-2 bg-light"> The 'body' section </p>
-                                </div>
-
-                                <div class="d-block mb-5">
-                                    <h2 class="mb-4"> 3. Which HTML attribute is used to define inline styles? </h2>
-                                    
-                                    
-                                    <p class="p-3 my-2 correct_answer"> 
-                                        Style
-                                        <i class="icofont-ui-check float-right answer_icon"></i>
-                                    </p>
-                                    <p class="p-3 my-2 bg-light"> Class </p>
-                                    <p class="p-3 my-2 bg-light"> Styles </p>
-                                </div>
-
-                                <div class="d-block mb-5">
-                                    <h2 class="mb-4"> 4. Which sign does jQuery use as a shortcut for jQuery? </h2>
-                                    
-                                    
-                                    
-                                    <p class="p-3 my-2 bg-light"> The ? sign </p>
-                                    <p class="p-3 my-2 bg-light"> The % sign </p>
-
-                                    <p class="p-3 my-2 correct_answer"> 
-                                        The $ sign
-                                        <i class="icofont-ui-check float-right answer_icon"></i>
-                                    </p>
-
-                                </div>
-
-
-                                <div class="d-block mb-5">
-                                    <h2 class="mb-4"> 5. How do you create a function in JavaScript? </h2>
-                                    
-                                    <p class="p-3 my-2 checkcorrect_answer"> function = myFunction() 
-                                        <i class="icofont-ui-check float-right answer_icon"></i>
-                                    </p>
-                                    <p class="p-3 my-2 wrong_answer"> 
-                                        function myFunction()
-                                        <i class="icofont-ui-close float-right"></i>
-                                    </p>
-                                    <p class="p-3 my-2 bg-light"> function:myFunction() </p>
-                                </div>
+                                @php
+                                    $i++;
+                                @endphp
+                                @endforeach
                             </div>
 
 
                             
                         </div>
+
+
                     </div>
                 </div>
 

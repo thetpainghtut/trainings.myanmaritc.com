@@ -8,14 +8,13 @@
                 <div class="col-12 text-white">
                     
                     <?php
-                    
                     foreach($post[0]->batches as $bs){
 
                     $words[] = explode(" ", $bs->title);
-                
-                  
                     }
+
                     foreach($words as $w){
+                        
                         $c = explode(" ",$batch->title);
                        
                         if($w[0] == $c[0]){?>
@@ -30,7 +29,8 @@
                         }
 
 
-                    }?>
+                    }
+                   ?>
 
                    
                     
@@ -94,6 +94,30 @@
                 <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
             </li>
             @endif
+        @elseif($topic->name == 'Quiz')
+        {{-- count --}}
+            @php
+                $current_date = date('Y-m-d')
+            @endphp
+            @if($batch->enddate > $current_date)
+                @if(count($batch->quizzes)>0)
+                    <li class="list-group-item batch_quiz">
+                        <a href="javascript:void(0)" class="primarytext quizz" data-bid="{{$batch->id}}"> {{$topic->name}}</a>
+                    </li>
+                
+                    @else
+                    <li class="list-group-item topic" style="background-color: #faf7f5;">
+                        <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+                    </li>
+                @endif
+            @else
+            <li class="list-group-item topic" style="background-color: #faf7f5;">
+                <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
+            </li>
+            @endif
+
+
+
         @else
         <li class="list-group-item topic" style="background-color: #faf7f5">
             <a href="javascript:void(0)" class="text-secondary disabled"> {{$topic->name}}  <i class="fas fa-lock text-secondary float-right"></i></a>
@@ -403,6 +427,105 @@
                                         </form>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- quiz --}}
+                    <div class="answer_quiz">
+                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+                            <div class="row">
+                                <!-- Record -->
+                                @foreach($batch->quizzes as $quiz)
+                                <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            @if($quiz->user->staff)
+                                            <img src="{{asset($quiz->user->staff->photo)}}" class="userprofile mr-2 d-inline">
+                                            @else
+                                            <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                            @endif
+                                            
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="username d-block mb-0"> {{$quiz->user->name}} </p>
+
+                                            <small class="text-muted mr-3">
+                                                <i class="icofont-question-circle"></i> 
+                                                {{$quiz->subject->name}}
+                                            </small> •
+                                            <small class="text-muted">
+                                                <i class="far fa-clock ml-3"></i> 
+                                                @php
+                                                    
+                                                @endphp
+                                                {{$quiz->pivot->created_at->diffForHumans()}}
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+
+                                            <div class="row no-gutters bg-light position-relative">
+                                                
+                                                <div class="col-md-12 p-4">
+                                                    <!-- Blog Title -->
+                                                    <h5 class="mt-0">
+                                                        {{$quiz->title}} 
+                                                    </h5>
+                                                    <!-- Blog Body -->
+                                                    <p> ( 24.10.2020 ) </p>
+                                                    @php
+                                                        $array = array();
+                                                        $score = 0;
+                                                        $stu_array = array();
+                                                    @endphp
+                                                    @if($quiz->response || Auth::user()->student->response)
+
+                                                    @foreach($quiz->response as $response)
+                                                    @if($response->student_id == Auth::user()->student->id && $response->status == 'Active')
+                                                        @php
+                                                            array_push($array, Auth::user()->student->id);
+                                                            $score+=$response->score;
+                                                        @endphp
+
+                                                    @endif
+
+                                                    @endforeach
+
+                                                    @foreach(Auth::user()->student->batches as $batch)
+                                                        @if($batch->pivot->status == 'Active')
+                                                            @php
+                                                                array_push($stu_array, Auth::user()->student->id);
+                                                                // dd($batch->pivot->status);
+                                                            @endphp
+                                                        @endif
+
+                                                    @endforeach
+
+                                                    @if($array != null && $stu_array != null)
+                                                    <a href="{{route('frontend.quizanswer',$quiz->id)}}?channel={{$channel}}" class="btn btn-outline-primary btn-sm"> View Score </a>
+                                                    <button class=" btn-sm btn btn-outline-success" disabled="">
+                                                    Total Score ( {{$score}} )
+                                                    </button>
+                                                    @else
+                                                        <a href="{{route('takequizz',$quiz->id)}}" class="btn btn-outline-primary btn-sm start_question" > Start Quizz </a>
+                                                    
+                                                    @endif
+
+                                                    @else
+                                                        <a href="{{route('takequizz',$quiz->id)}}" class="btn btn-outline-primary btn-sm start_question" > Start Quizz </a>
+                                                    @endif
+                                                    
+                                              </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -778,8 +901,8 @@
                     
                 </div>`;
 
-        var quizanswerURL = "{{ route('frontend.quizanswer') }}";
-        var quizURL = "{{ route('frontend.takequiz') }}";
+        var quizanswerURL = "";
+        var quizURL = "";
 
 
         html6 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
@@ -861,6 +984,7 @@
 
         /*$('#alltopics').html(html3+html7+html1+html2+html4);*/
         $('.signup-step-container').hide();
+        $('.answer_quiz').hide();
 
         $('.topics').on('click',function(){
             var id = $(this).data('id');
@@ -872,8 +996,61 @@
                 //console.log(response.posts);
                 $.each(response.posts,function(i,v){
                     console.log(v);
+                    var date = new Date(v.created_at);
+                    var day = date.getDate();
+                    var month = date.getMonth();
+                    var year = date.getFullYear();
                     var images = v.file.split(',');
+                    if(v.topic.name == 'Live Recording'){
+                        html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
+                    <div class="row">`;
+                       if(v.user.staff==null){
+                        html+= `<div class="col-1">
+                            <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }else{
+                        html+= `<div class="col-1">
+                            <img src="${v.user.staff.photo}" class="userprofile mr-2 d-inline">
+                            
+                        </div>`;
+                    }
+                        html+=`<div class="col-11">
+                            <p class="username d-block mb-0">${v.user.name}</p>
 
+                            <small class="text-muted mr-3">
+                                <i class="fas fa-video mr-1"></i> ${v.topic.name} 
+                            </small> •
+                            <small class="text-muted">
+                                <i class="far fa-clock ml-3"></i> ${timeSince(v.created_at)} ago 
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            <div class="row no-gutters bg-light position-relative">
+                                <div class="col-md-2 mb-md-0 p-md-4">
+                                    <img src="${v.file}" class="img-fluid" alt="...">
+                                </div>
+                              
+                                <div class="col-md-10 position-static p-4 pl-md-0">`;
+                                
+                                    
+                                    html+=`<!-- Blog Title --><h5 class="mt-0"> ${v.title} ( ${day}.${month}.${year} ) </h5>
+                                    <!-- Blog Body -->
+                                    <!-- <p> Vue Cli repo </p> -->
+                                    
+                                    <a href="${v.content}" class="stretched-link" target="_blank"> Download </a>
+                              </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>`;
+                    }else{
                     html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
                     <div class="row">`;
                     if(v.user.staff==null){
@@ -953,6 +1130,7 @@
                         </div>
                     </div>
                 </div>`;
+                }
                
                 });
                  $('.list-group li.active a').removeClass('text-white');
@@ -1147,7 +1325,7 @@
 
                     var baid = $(this).data('baid');
                     $.post('/prj',{poid:poid,baid:baid},function(response){
-                      //console.log(response.projs);
+                      
                         if(response.projs.length > 0){
                         var html = ''; var j = 1;
                         var js = [];
@@ -1167,7 +1345,7 @@
                             html+=`${output.join(' , ')}`;
                             if(v.link != null){
                                     html+=`</p>
-                                    <a href="${v.link}" class="card-link"> Link</a>`;
+                                    <a href="${v.link}" class="card-link" target="_blank"> Link</a>`;
                                     }else{
                                         html+=`</p><a href="#" class="card-link">Link</a>`;
                                     }
@@ -1179,6 +1357,8 @@
                         $('#tbody'+poid).html(html);
                         $('#collapse'+poid).collapse('show');
                            
+                        }else{
+                            $('#collapse'+poid).collapse('hide');
                         }
                     })
                 });
@@ -1202,6 +1382,29 @@
                
                
             $('.signup-step-container').show();
+            $('#signhidden').val(baid);
+        })
+
+
+        $('.quizz').on('click',function(){
+
+            var baid = $(this).data('bid');
+            //alert(baid);
+             $('.list-group li.active a').removeClass('text-white');
+                $('.list-group li.active a').addClass('primarytext');
+                $('.active').removeClass('active');
+                $('.step1').addClass('active');
+                $('#step1').addClass('active');
+                $('.batch_quiz').addClass('active');
+                $('.list-group li.active a').addClass('text-white');
+                $('.list-group li.active a').removeClass('primarytext');
+
+                $('#alltopics').hide();
+               
+                $('#proj').hide();
+               
+               
+            $('.answer_quiz').show();
             $('#signhidden').val(baid);
         })
         /*$(".my-rating-9").starRating({

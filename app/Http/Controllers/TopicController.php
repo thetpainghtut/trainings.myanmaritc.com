@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Topic;
+use Auth;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        $topics = Topic::all();
+
+        return view('topic.index',compact('topics'));
     }
 
     /**
@@ -23,6 +31,7 @@ class TopicController extends Controller
      */
     public function create()
     {
+        return view('topic.create');
         //
     }
 
@@ -34,7 +43,15 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:100',
+        ]);
+
+        $topic = new Topic;
+        $topic->name = request('name');
+        $topic->save();
+
+        return redirect()->route('topics.index');
     }
 
     /**
@@ -56,7 +73,10 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $topic = Topic::find($id);
+
+        return view('topic.edit',compact('topic'));
+
     }
 
     /**
@@ -68,7 +88,15 @@ class TopicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:100',
+        ]);
+
+        $topic = Topic::find($id);
+        $topic->name = request('name');
+        $topic->save();
+
+        return redirect()->route('topics.index');
     }
 
     /**
@@ -79,6 +107,9 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $topic = Topic::find($id);        
+        $topic->delete();
+
+        return redirect()->route('topics.index');
     }
 }

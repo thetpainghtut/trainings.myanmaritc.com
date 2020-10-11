@@ -7,7 +7,7 @@ $(document).ready(function () {
 
   $('#course').change(function () {
     var cid = $(this).val();
-    
+    console.log(cid);
     $.post("/getBatchesByCourse",{id:cid},function (res) {
       
       $('#batch').prop('disabled',false);

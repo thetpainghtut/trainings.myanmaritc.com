@@ -8,9 +8,15 @@ use App\Batch;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Http\Resources\BatchStudentResource;
-
+use Auth;
+use App\Teacher;
+use App\Staff;
 class GroupController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['role:Admin|Mentor|Teacher'],['only' => ['index','show','edit','update','destroy']]); 
+        $this->middleware(['role:Mentor|Teacher'],['only' => ['store']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,13 +24,15 @@ class GroupController extends Controller
      */
     public function index()
     {
-      $courses = Course::all();
+     
+      $user = Auth::user();
+      $role = $user->getRoleNames();
+      if($role[0] == 'Admin'){
+        $courses = Course::all();
       $batches = Batch::all();
 
       $batchid = 0;
       $courseid = 0;
-
-
       if (request('batch')) {
         $bid = request('batch');
         $cid = request('course');
@@ -38,6 +46,51 @@ class GroupController extends Controller
         $groups = Group::all();
         return view('groups.index',compact('groups','courses','batches','batchid','courseid'));
       }
+  }elseif($role[0] == 'Teacher'){
+        $userid = $user->id;
+        $batchid = 0;
+        $courseid = 0;
+        $batches = Batch::all();
+        $staff = Staff::with('teacher')->where('user_id',$userid)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+       
+        if(request('batch')){
+            $bid = request('batch');
+        $cid = request('course');
+        $groups = Group::where('batch_id',$bid)->get();
+
+        $courseid = $cid;
+        $batchid = $bid;
+        return view('groups.index',compact('groups','courses','batches', 'batchid','courseid'));
+        }else{
+            $groups = Group::all();
+        return view('groups.index',compact('groups','courses','batches','batchid','courseid'));
+        }
+  }elseif($role[0] == 'Mentor'){
+     $staffs = Staff::where('user_id',$user->id)->get();
+        $courses = $staffs[0]->mentor[0]->course;
+        $batches = Batch::all();
+        $batchid = 0;
+        $courseid = 0;
+        if(request('batch')){
+            $bid = request('batch');
+        $cid = request('course');
+        $groups = Group::where('batch_id',$bid)->get();
+
+        $courseid = $cid;
+        $batchid = $bid;
+        return view('groups.index',compact('groups','courses','batches', 'batchid','courseid'));
+        }else{
+            $groups = Group::all();
+        return view('groups.index',compact('groups','courses','batches','batchid','courseid'));
+        }
+  }
       
     }
 

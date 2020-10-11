@@ -7,7 +7,9 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> All Incomes
+                @role('Recruitment')
                 <a href="{{route('incomes.create')}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-plus mr-2"></i>Add New</a>
+                @endrole
             </h5>
         </div>
         <div class="card-body">

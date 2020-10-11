@@ -60,7 +60,7 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController')->middleware('role:Admin|Business Development');
 
 Route::resource('batches','BatchController');
 
@@ -88,12 +88,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('getBatchesByCourse','BatchController@getBatchesByCourse')->name('course.batches');
 
 // For Mentors
-
-Route::get('/creategroup', 'BackendController@createGroup')->name('students.group.create');
+Route::group(['middleware' => 'role:Teacher|Mentor'], function(){
+  Route::get('/creategroup', 'BackendController@createGroup')->name('students.group.create');
+});
 
 Route::post('/getstudentformembers','BackendController@getstudentformembers')->name('getstudentformembers');
 
+/*Route::group(['middleware' => 'role:Teacher|Mentor|Admin'], function(){*/
 Route::resource('groups','GroupController');
+/*});*/
 
 Route::get('grading_form/{id}','GradingController@form')->name('grading_form');
 
@@ -120,6 +123,11 @@ Route::post('show_batch','BatchController@show_batch')->name('show_batch');
 Route::resource('teacher','TeacherController')->middleware('role:Admin');
 
 //Income
+/*Route::group(['middleware' => 'role:Admin'], function()
+{
+    //Route::resource('incomes', 'IncomeController')->except(['create','store', 'update', 'destroy','edit' ]);
+  Route::resource('incomes','IncomeController')->only('index');
+});*/
 Route::resource('/incomes','IncomeController');
 
 //Expense
@@ -142,12 +150,15 @@ Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
 //Attendance
-Route::resource('/attendances','AttendanceController');
-Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+Route::group(['middleware' => ['role:Teacher|Mentor|Intern Mentor']], function () {
+  Route::resource('/attendances','AttendanceController');
+  Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
+});
+Route::group(['middleware'=>['role:Admin|Recruitment|Business Development']],function(){
 Route::get('/absence','AttendanceController@absence')->name('absence');
 Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
 Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');
-
+});
 // Grade Print
 Route::resource('grades','GradingController');
 Route::get('grade_print/{id}','PrintController@grade');
@@ -178,6 +189,8 @@ Route::get('lesson_detail/{lid}/{cid}', [
     'as' => 'lesson_detail', 
     'uses' => 'LessonController@lesson_detail'
 ]);
+
+Route::post('sorting_lesson','LessonController@sorting_lesson')->name('sorting_lesson');
 /*Honey*/
 Route::resource('topics','TopicController');
 Route::resource('posts','PostController');
@@ -194,7 +207,7 @@ Route::get('channel/{id}','PanelController@channel')->name('frontend.channel');
 Route::post('allchannel','PanelController@allchannel')->name('allchannel');
 
 Route::get('takequiz','PanelController@takequiz')->name('frontend.takequiz');
-Route::get('quizanswer','PanelController@quizanswer')->name('frontend.quizanswer');
+Route::get('quizanswer/{id}','PanelController@quizanswer')->name('frontend.quizanswer');
 
 Route::get('secret','PanelController@secret')->name('frontend.secret');
 Route::get('account','PanelController@account')->name('frontend.account');
@@ -209,6 +222,10 @@ Route::get('forgetpassword','PanelController@forgetpassword')->name('frontend.fo
 Route::post('resetpassword','PanelController@resetpassword')->name('frontend.resetpassword');
 Route::get('resetandeditpassword','PanelController@resetandeditpassword')->name('frontend.resetandeditpassword');
 Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('frontend.resetupdatepassword');
+Route::get('takequizz/{id}','PanelController@takequizz')->name('takequizz');
+Route::post('/storeanswer','PanelController@storeanswer')->name('storeanswer');
+
+
 
 // quizzes
 Route::resource('quizzes','QuizzController');

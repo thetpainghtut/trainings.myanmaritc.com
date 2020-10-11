@@ -7,8 +7,15 @@ use App\Projecttype;
 use App\Batch;
 use Carbon;
 use Auth;
+use App\Staff;
+use App\Teacher;
+
 class ProjecttypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,27 +25,36 @@ class ProjecttypeController extends Controller
     {
         $user = Auth::user();
         $id = Auth::id();
-        $role = $user->getRoleNames();
+    
         $now = Carbon\Carbon::now();
-        if($role[0] == 'Teacher'){
-            $projecttypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('teachers','teachers.course_id','=','courses.id')->join('staff','teachers.staff_id','=','staff.id')->where('staff.user_id',$id)->select('projecttypes.*')->get();
-           /*$projecttypes = Projecttype::with('courses','courses.batches','batches.teachers','batches.teachers.staff')->get();*/
-          
-            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
-            return view('projecttypes.index',compact('projecttypes','batches'));
-        }elseif ($role[0] == 'Admin') {
-            $projecttypes = Projecttype::all();
-        
-            $now = Carbon\Carbon::now();
-            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
-           $ptypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->join('courses','courses.id','=','course_projecttype.course_id')->join('batches','batches.course_id','=','courses.id')->where('batches.startdate','<=',$now)->where('batches.enddate','>=',$now)->get();
-            
-            return view('projecttypes.index',compact('projecttypes','batches'));
-        }else{
-            $projecttypes = [];
-            $batches= [];
-            return view('projecttypes.index',compact('projecttypes','batches'));
+        $staff = Staff::with('teacher')->where('user_id',$id)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+       //dd($teacher);
+       $courses  = array();
+
+        foreach ($teacher as $k) {
+
+            //array_push($course, $k->course);
+             $projecttypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->where('course_projecttype.course_id','=',$k->course->id)->get();
+           // array_push($courses, $k->course);
         }
+        //dd($teacher->course);
+     //dd($courses);   
+           
+            
+       //dd($projecttypes);
+       /* dd($projecttype);
+        //$projecttypes = Projecttype::with('courses')->get();
+        foreach ($projecttypes as $key => $value) {
+            dd($value->courses);
+        }*/
+       /*$projecttypes = Projecttype::with('courses','courses.batches','batches.teachers','batches.teachers.staff')->get();*/
+      
+        $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+        $userid = $id;
+        return view('projecttypes.index',compact('projecttypes','batches','userid'));
+        
         
 
     }
@@ -61,7 +77,8 @@ class ProjecttypeController extends Controller
      */
     public function store(Request $request)
     {
-
+        //dd($request);
+        //
         $request->validate([
             'projecttype' => 'required',
             'batch' => 'required'
@@ -133,8 +150,24 @@ class ProjecttypeController extends Controller
 
     public function assingpttype(Request $request){
         $pid = request('pid');
+        $id = request('userid');
+        //dd($pid);
+        $staff = Staff::with('teacher')->where('user_id',$id)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+        
         $now = Carbon\Carbon::now();
-        $batch = Batch::join('courses','courses.id','=','batches.course_id')->join('course_projecttype','course_projecttype.course_id','=','courses.id')->where('course_projecttype.projecttype_id',$pid)->where('startdate','<=',$now)->where('enddate','>=',$now)->select('batches.*')->get();
-        return response()->json(['batches'=>$batch]);
+        $batches = array();
+        foreach($teacher as $c){
+
+        $batch = Batch::where('course_id',$c->course->id)->get();
+        
+        foreach($batch as $b){
+        array_push($batches,$b);
+    }
+    }
+  // dd($batches);
+    //dd($batches[0]->title);
+        return response()->json(['batches'=>$batches]);
     }
 }

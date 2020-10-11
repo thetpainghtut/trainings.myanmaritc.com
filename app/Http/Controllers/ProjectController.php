@@ -8,8 +8,14 @@ use App\Course;
 use App\Batch;
 use App\Projecttype;
 use App\Student;
+use Auth;
+use App\Staff;
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +24,32 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        $courses = Course::all();
-        return view('projects.index',compact('courses'));
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        if($role[0] == 'Admin'){
+            $courses = Course::all();
+            return view('projects.index',compact('courses'));
+        }elseif ($role[0] == 'Teacher') {
+           $teacher = Staff::with('teacher')->where('user_id','=',$user->id)->get();
+           $c = array();
+
+           foreach($teacher as $t){
+            array_push($c, $t->teacher);
+           }
+           $courses = array();
+           foreach($c as $e){
+            foreach($e as $d){
+                array_push($courses,$d->course);
+            }
+           }
+
+           return view('projects.index',compact('courses'));
+        }elseif($role[0] == 'Mentor'){
+            $staffs = Staff::where('user_id',$user->id)->get();
+            $courses = $staffs[0]->mentor[0]->course;
+            return view('projects.index',compact('courses'));
+        }
+        
     }
 
     /**
@@ -41,6 +71,7 @@ class ProjectController extends Controller
             array_push($data,$proj->students);
         }
 
+        if(count($data)>0){
         foreach ($data as $stub) {
             foreach ($stub as $key => $value) {
                $student[] = $value->id;
@@ -49,7 +80,11 @@ class ProjectController extends Controller
         }
        // dd($student);
        // dd($projecttypes);
+        
         $studen = Student::whereNotIn('id',$student)->get();
+    }else{
+        $studen = Student::all();
+    }
         //dd($studen);
         return view('projects.create',compact('batch','p','projecttypes','studen'));
     }

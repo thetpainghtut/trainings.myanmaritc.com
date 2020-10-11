@@ -14,8 +14,14 @@ use App\User;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostNotification;
 use App\Subject;
+use App\Staff;
+use App\Teacher;
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher'])->except('getnoti');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,23 +32,21 @@ class PostController extends Controller
 
         $user = Auth::user();
         $id = Auth::id();
-        $role = $user->getRoleNames();
         $now = Carbon\Carbon::now();
-        if($role[0] == 'Teacher'){
-            $posts = Post::whereHas('user',function($q) use ($id){
-                $q->where('user_id',$id);
-            })->get();
-            $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('teachers','batch_teacher.teacher_id','=','teachers.id')->join('staff','teachers.staff_id','=','staff.id')->where('staff.user_id',$id)->get();
-        }elseif($role[0] == 'Admin'){
-            $posts = Post::all();
-            $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
-            
-            
+        
+        $posts = Post::whereHas('user',function($q) use ($id){
+            $q->where('user_id',$id);
+        })->get();
+        $batches = array();
+        $staff = Staff::where('user_id',$id)->get();
+        foreach ($staff[0]->teacher as $key => $value) {
+           //dd($value->course->batches);
+           foreach ($value->course->batches as $k) {
+               $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+           }
         }
-        else{
-            $posts = [];
-            $batches= [];
-        }
+       // dd($batches);
+        
        /* foreach ($batches as $key => $value) {
             $b = $value;
             foreach ($b->posts as $c) {
@@ -288,6 +292,17 @@ class PostController extends Controller
         }else{
             $addpost = Post::find($po);
             $addpost->batches()->attach($batch);
+            $postnoti = [
+            'id' => $addpost->id,
+            'title' => $addpost->title,
+            'topic_id' => $addpost->topic_id,
+            'user_id' => $addpost->user_id,
+            'batch' => $batch
+        ];
+       // dd($postnoti);
+
+            Notification::send($addpost,new PostNotification($postnoti));
+            event(new MyEvent($addpost));
             return redirect()->route('posts.index')->with('success','This Batch Post Assign is Successfully!!');
         }
     }
@@ -304,13 +319,20 @@ class PostController extends Controller
             if($pos->pivot->batch_id == $b->id){
          foreach($pos->unreadNotifications as $notification)
                 {
-
-                    array_push($noti_data, $notification);
-
+                    array_push($cs, $notification->data);
+                    
+                   
                 }
+
                
             }
             }
+            for($i=0;$i<count($cs);$i++){
+                if($cs[$i]['batch_id'] == $b->id){                        
+                       array_push($noti_data, $cs[$i]['batch_id']);
+                   }
+                
+                    }
             }
             return $noti_data;
             }

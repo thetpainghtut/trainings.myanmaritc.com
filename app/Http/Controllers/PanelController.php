@@ -17,7 +17,10 @@ use Carbon;
 use App\Projecttype;
 use App\Project;
 use App\Feedback;
-
+use App\Question;
+use App\Quizz;
+use App\Response;
+use App\Responsedetail;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetMail;
 use Illuminate\Support\Facades\Hash;
@@ -27,9 +30,10 @@ class PanelController extends Controller
 
     public function __construct($value='')
     {
-        $this->middleware('auth');
-        $this->middleware('role:Student');
+        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
+        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
     }
+ 
 
     public function index()
     {        
@@ -43,35 +47,72 @@ class PanelController extends Controller
 
     public function takelesson($batchid){
 
-    	$batch = Batch::find($batchid);
+        $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        /*change student batch condition*/
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $batchid){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
 
-    	$course = $batch->course;
+        	$batch = Batch::find($batchid);
 
-    	$subjects = $course->subjects;
+        	$course = $batch->course;
 
-    	return view('panel.takelesson',compact('batch','course','subjects'));
+        	$subjects = $course->subjects;
+
+        	return view('panel.takelesson',compact('batch','course','subjects'));
+        }else{
+            return back();
+        }
 
     }
 
     public function playcourse($batchid, $subjectid){
 
-    	$batch = Batch::find($batchid);
-    	// dd($batch);
-    	$course = $batch->course;
+        $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        /*change student batch condition*/
+        
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $batchid){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
+            $batch = Batch::find($batchid);
+            // dd($batch);
+            $course = $batch->course;
 
 
-    	$subject = Subject::find($subjectid);
-        $lessons = Lesson::where('subject_id','=',$subjectid)->get();
-
-        return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+            $subject = Subject::find($subjectid);
+            $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+            /*change order by sorting*/
+            return view('panel.video',compact('lessons','subject', 'batch', 'course'));
+        }else{
+            return back();
+        }
+    	
     }
 
     public function takequiz(){
         return vieW('panel.quiz');
     }
 
-    public function quizanswer(){
-        return vieW('panel.quizanswer');
+    public function quizanswer($id,Request $request){
+        $channel = $request->channel;
+        $quiz = Quizz::find($id);
+        $student_id = Auth::user()->student->id;
+        $questions = Question::where('quiz_id',$id)->get();
+        $responses = Response::where('quiz_id',$id)->where('student_id',$student_id)->first();
+        $responsedetail = Responsedetail::where('response_id',$responses->id)->get();
+        return vieW('panel.quizanswer', compact('quiz','questions','responses','responsedetail','channel'));
     }
 
     public function secret(){
@@ -116,11 +157,18 @@ class PanelController extends Controller
         $ptopic = $poid->topic_id;
         $puser = $poid->user_id;
         $p = $poid->batches;
-        foreach ($p as $key => $value) {
+        /*foreach ($p as $key => $value) {
             if($value->pivot->batch_id == $baid){
-                $poid->unreadNotifications()->update(['read_at' => now()]);
-                echo "Successful";
+                foreach ($poid->unreadNotifications as $s) {
+                   dd($s);
+                }
             }
+        }*/
+        foreach ($poid->unreadNotifications as $s) {
+           if($s->data['batch_id'] == $baid){
+            $poid->unreadNotifications()->update(['read_at' => now()]);
+                echo "Successful";
+           }
         }
  
 
@@ -140,17 +188,31 @@ class PanelController extends Controller
     
 
     public function channel($id){
+         $user = Auth::user();
+        $student = $user->student;
+        $student_batches = $student->batches;
+        $variable=0;
+        /*change student batch condition*/
+        foreach($student_batches as $student_batch){
+            if($student_batch->id == $id){
+                $variable =1;
+            }
+        }
+        if($variable == 1){
+        $channel = $id;
 
         $post = Post::whereHas('batches', function ($q) use ($id) {
   
                     $q->where('batch_id', $id);
                 })->get();
+        //dd($post);
         $b = Batch::find($id);
+        // dd($b->title);
         $enddate = $b->enddate;
-         $userid = Auth::user()->id;
+        $userid = Auth::user()->id;
         $student = Student::where('user_id',$userid)->get();
         $fee = Feedback::where('batch_id',$id)->where('student_id',$student[0]->id)->get();
-
+        // dd($post);
 
         if(count($post) > 0){
         $topics = Topic::all();
@@ -197,11 +259,15 @@ class PanelController extends Controller
             $q->where('batch_id',$id);
         })->get();
 
+
         
-        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate','fee'));
+        return view('panel.channel',compact('post','topics','batch','batchstudents','prj','b','ptypes','enddate','fee','channel'));
         }else{
             return redirect()->back();
         }
+    }else{
+        return redirect()->back();
+    }
     }
 
     public function allchannel(Request $request)
@@ -407,6 +473,40 @@ class PanelController extends Controller
         $user->password=Hash::make($password);
         $user->save();
         return redirect()->route('login')->with('success','Password reset success!');
+    }
+
+
+    // quiz
+    public function takequizz($id)
+    {
+        $quiz = Quizz::find($id);
+        $questions = Question::where('quiz_id',$id)->inRandomOrder()->limit(10)->get();
+        
+        return view('panel.takequizz',compact('questions','quiz'));
+    }
+
+    public function storeanswer(Request $request)
+    {
+        $score = $request->score;
+        $quiz_id = $request->quiz_id;
+        $data = $request->data;
+
+        $response = new Response;
+        $response->score = $score;
+        $response->status = 'Active';
+        $response->student_id = Auth::user()->student->id;
+        $response->quiz_id = $quiz_id;
+        $response->save();
+
+        foreach ($data as $value) {
+            $responsedetail = new Responsedetail;
+            $responsedetail->check_id = $value['answer'];
+            $responsedetail->question_id = $value['question'];
+            $responsedetail->response_id = $response->id;
+            $responsedetail->save();
+        }
+        return 'ok';
+
     }
 
     
