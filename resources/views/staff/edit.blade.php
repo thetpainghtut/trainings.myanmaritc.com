@@ -8,7 +8,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> Update Exiting Staff
-                <a href="{{route('staffs.index')}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-backward mr-2"></i> Go Back </a>
+                <a href="{{route('staffs.show',$user->id)}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-backward mr-2"></i> Go Back </a>
             </h5>
         </div>
         <div class="card-body">

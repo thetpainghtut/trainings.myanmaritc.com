@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold text-primary"> Create New Journal
+            <h5 class="m-0 font-weight-bold text-primary"> Edit Existing Journal
                 <a href="{{route('journals.index')}}" class="btn btn-outline-primary btn-sm d-inline-block float-right"><i class="fas fa-angle-double-left mr-2"></i>Go Back</a>
             </h5>
         </div>
