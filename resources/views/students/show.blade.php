@@ -307,6 +307,15 @@
                         </div>
                         @endif
                         @endforeach
+                        @if($project->isEmpty())
+                        <div class="row no-gutters bg-light position-relative mb-3">
+                                        
+                            <div class="col-md-12 p-4">
+                                <!-- Blog Title -->
+                                <h5 class="mt-0"> No Project Title  </h5>
+                            </div>
+                        </div>
+                        @endif
                         <!-- <div class="row no-gutters bg-light position-relative mb-3">
                                         
                             <div class="col-md-12 p-4">
@@ -322,7 +331,7 @@
                         </div> -->
 
                     </div>
-{{--
+
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                         <a class="card-title">
                             <i class="far fa-calendar-alt mr-3 icon"></i>
@@ -332,7 +341,7 @@
                     <div id="collapseFive" class="card-body collapse" data-parent="#accordion">
 
                         <div class="chart-pie pt-4 pb-2">
-		                    <canvas id="myPieChart"></canvas>
+		                    <canvas id="myPieChart" data-absencecount="{{$absencecount}}" data-presentcount="{{$presentcount}}" data-remaincount="{{$remaincount}}"></canvas>
 		                </div>
 		                <div class="mt-4 text-center small">
 		                    <span class="mr-2">
@@ -343,6 +352,10 @@
 		                      	<i class="fas fa-circle text-danger"></i> 
 		                      	Absencee
 		                    </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle "></i> 
+                                Remain
+                            </span>
 		                </div>
                     </div>
 
@@ -367,7 +380,7 @@
                                 <a href="viewanswer.html" class="btn btn-outline-primary btn-sm"> View Score </a>
                           </div>
                         </div>
-                    </div> --}}
+                    </div> 
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                         <a class="card-title">

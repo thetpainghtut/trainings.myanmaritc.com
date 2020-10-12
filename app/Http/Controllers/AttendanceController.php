@@ -24,6 +24,18 @@ class AttendanceController extends Controller
      */
     public function index(Request $request)
     {
+        $weekMap = [
+            0 => 'SU',
+            1 => 'MO',
+            2 => 'TU',
+            3 => 'WE',
+            4 => 'TH',
+            5 => 'FR',
+            6 => 'SA',
+        ];
+        $dayOfTheWeek = Carbon::now()->dayOfWeek;
+        $weekday = $weekMap[$dayOfTheWeek];
+//$sat = Carbon::now()->endOfWeek(Carbon::SATURDAY)->format('Y-m-d H:i:s');
 
         $user = Auth::user()->id;
         $role = Auth::user()->getRoleNames();
@@ -68,6 +80,9 @@ class AttendanceController extends Controller
 
         //dd($countabsence);
         if (request('batch')) {
+            if($weekday == 'MO' || $weekday == 'TU' || $weekday == 'WE' || $weekday == 'TH' || $weekday == 'FR'){
+    
+
             $bid = request('batch');
             $status = 1;
             $students = Student::whereHas('batches',function($q) use ($bid){
@@ -96,6 +111,12 @@ class AttendanceController extends Controller
        $countabsence = Attendance::where('status',1)->get();
         $aa = count($countabsence);
             return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status','teacher','couses'));
+        }else{
+             $status = 0;
+            $countabsence = 0;
+            $attcount =0;
+            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','teacher','couses'));
+        }
         }
         else{
         // Return 
@@ -115,6 +136,8 @@ class AttendanceController extends Controller
 
         $attendancenow = Attendance::where('date',$todayDate)->get();
         if (request('batch')) {
+            if($weekday == 'MO' || $weekday == 'TU' || $weekday == 'WE' || $weekday == 'TH' || $weekday == 'FR'){
+    
             $bid = request('batch');
             $status = 1;
             $students = Student::whereHas('batches',function($q) use ($bid){
@@ -143,6 +166,12 @@ class AttendanceController extends Controller
        $countabsence = Attendance::where('status',1)->get();
         $aa = count($countabsence);
             return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status','couses'));
+        }else{
+            $status = 0;
+            $countabsence = 0;
+            $attcount =0;
+            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','couses'));
+        }
         }
         else{
         // Return 
