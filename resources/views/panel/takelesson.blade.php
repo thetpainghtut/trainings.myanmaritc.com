@@ -56,7 +56,7 @@
                             @endforeach
 
                             @endforeach
-                            <!-- honey -->
+                            <!-- honey  course and teacher-->
                            
                             @foreach($subject->lessons as $lesson)
                                 @php
