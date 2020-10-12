@@ -23,13 +23,13 @@
 			$receiveno = $student_batch->pivot->receiveno;
 
 		@endphp
-		{{ $student_batch->course->name }} @
-		{{-- nyiyelin --}}
-		{{ $student_batch->location->city->name }}
+		
 
 		@endif
-		@endforeach 
-
+		@endforeach
+        <!-- by honey -->
+        {{$course_data->name}} @ {{$batch_data->location->city->name}}
+        <!-- by honey -->
         <a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right btn-sm"><i class="fas fa-angle-double-left"></i> Go Back</a>
 
     </h4>
@@ -52,12 +52,14 @@
 	            	<h3> {{ $student->namee }} </h3>
 
 	            	<p class="mb-3">
-	            		@foreach($student->batches as $student_batch)
+	            		{{--@foreach($student->batches as $student_batch)
 							@if($student_batch->pivot->status=="Active")
-					    		{{ $batch }}
+					    		
 					    	@endif
-					    @endforeach
+					    @endforeach--}}
+                        {{ $batch_data->title }}
 	            	</p>
+                    <!-- by honey -->
 
                     <!-- Student lesson count -->
                     @php
@@ -122,7 +124,7 @@
                             $percentage = round($percentage_decimal);
                         @endphp
                     @endif
-                    
+                    <!-- by honey -->
 	            	<div class="progress my-4">
                         <div class="progress-bar " role="progressbar" style="width: {{$percentage}}%; background-color: #004289" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
                     </div>

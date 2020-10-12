@@ -18,7 +18,7 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->longText('file');
             $table->string('duration');
-            $table->string('sorting');
+            $table->integer('sorting')->default(0);
 
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')

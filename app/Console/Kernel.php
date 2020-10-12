@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+
         \App\Console\Commands\ReportCommand::class
     ];
 
@@ -35,6 +36,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
+
         // $schedule->command('emails:send nyiyelin4@gmail.com --force')->everyMinute();
         // $schedule->command('nyiyelin4')
         //          ->everyMinute()

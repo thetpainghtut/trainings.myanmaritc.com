@@ -2,6 +2,7 @@
 @section('content')
     
     <h1 class="h3 mb-4 text-gray-800"> Students </h1>
+
     @if(session('msg'))
         <h6 class="text-success">{{session('msg')}}</h6>
     @endif
@@ -153,12 +154,3 @@
       });
   </script>
 @endsection
-
-
-
-
-
-
-
-
-

@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
         $user = Auth::user();
         $id = Auth::id();
         $now = Carbon\Carbon::now();
@@ -65,7 +65,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
         $user = Auth::user();
@@ -94,6 +94,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         
         /*$user = Auth::id();*/
        
@@ -166,7 +167,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+
         $post = Post::find($id);
         return view('posts.detail',compact('post'));
     }
@@ -179,7 +180,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
         $post = Post::find($id);
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
@@ -209,7 +209,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
         $request->validate([
             'title'=>'required',
             'content' => 'required',
@@ -268,7 +268,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
         $post = Post::find($id);
         $post->batches()->detach();
         $post->delete();

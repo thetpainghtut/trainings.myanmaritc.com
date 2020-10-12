@@ -23,7 +23,6 @@ class ProjecttypeController extends Controller
      */
     public function index()
     {
-        //
         $user = Auth::user();
         $id = Auth::id();
     
@@ -147,6 +146,7 @@ class ProjecttypeController extends Controller
     {
         //
     }
+
 
     public function assingpttype(Request $request){
         $pid = request('pid');

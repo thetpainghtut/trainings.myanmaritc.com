@@ -11,6 +11,7 @@ use App\Http\Resources\BatchStudentResource;
 use Auth;
 use App\Staff;
 use App\Teacher;
+
 class BackendController extends Controller
 {
     public function createGroup($value='')
@@ -54,7 +55,6 @@ class BackendController extends Controller
         // $students = Student::whereDoesntHave('groups', function (Builder $query) use ($bid) {
         //   $query->where('batch_id', $bid);
         // })->get();
-
         return response()->json($batch_students);
     }
 }

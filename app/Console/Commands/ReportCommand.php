@@ -54,7 +54,6 @@ class ReportCommand extends Command
     public function handle()
     {
 
-
     $lessons = Lesson::all();
     $students = Student::all();
     $date = date('Y-m-d');

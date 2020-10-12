@@ -172,7 +172,9 @@ class StudentController extends Controller
       // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
+
       // dd($request->batch_id);
+
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
@@ -259,6 +261,7 @@ class StudentController extends Controller
             $student->subjects()->attach($subjects);
 
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
             return 'ok';
 
         }
@@ -492,9 +495,6 @@ class StudentController extends Controller
         $user->email = $email;
         $user->save();
         return redirect('students/'.$id);
-
-
-
     }
 
     /**

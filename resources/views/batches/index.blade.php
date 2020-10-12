@@ -41,9 +41,9 @@
                                     <a href="{{route('batches.edit',$row->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                               
                              
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="alert('You cannot delete!!!!!')">
+                                    {{-- <button type="submit" class="btn btn-danger btn-sm" onclick="alert('You cannot delete!!!!!')">
                                         <i class="fas fa-trash"></i>
-                                    </button>
+                                    </button> --}}
                                 </td>
                             </tr>
                         @endforeach

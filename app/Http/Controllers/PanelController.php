@@ -37,16 +37,12 @@ class PanelController extends Controller
 
     public function index()
     {        
-        
         $auth = Auth::user();
         $studentinfo = $auth->student;
 
         $studentbatches = $studentinfo->batches;
 
         return view('panel.dashboard',compact('studentinfo','studentbatches'));
-              
-        
-       
     }
 
     public function takelesson($batchid){
@@ -515,4 +511,3 @@ class PanelController extends Controller
 
     
 }
-

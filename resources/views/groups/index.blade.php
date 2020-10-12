@@ -61,6 +61,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
+
                     <tbody class="tbody">
                         @php
                             $i = 1;
@@ -73,6 +74,7 @@
                                 <td>{{count($row->students)}}</td>
                                 <td>
                                     <a href="{{route('groups.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a></a>
+
 
                                     <form action="{{route('groups.edit',$row->id)}}"  method="post" class="d-inline-block">
                                         @csrf
@@ -88,12 +90,14 @@
                                         {{-- @if($row->trashed())
                                             <button type="submit" class="btn btn-danger">Restore</button>
                                         @else --}}
+
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         {{-- @endif --}}
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
+
                         @endif
                     </tbody>
                 </table>
@@ -105,5 +109,4 @@
 
 @section('script')
   <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
-  
 @endsection

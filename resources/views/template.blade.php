@@ -12,10 +12,7 @@
     <title> Myanmar IT Consulting </title>
 
     <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
-
     <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
-    
-
     <!-- Custom Font -->
     <link href="{{ asset('mmitui/css/font.css')}}" rel="stylesheet">
 
@@ -61,7 +58,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ route('frontend.index') }}">
                 <img src="{{ asset('mmitui/image/logo.jpg') }}" class="img-fluid" style="width: 120px; height: 50px">
             </a>
           
@@ -133,8 +130,8 @@
                           
                             <div class="dropdown-divider"></div>
                           
-                            <a class="dropdown-item" href="{{ route('frontend.account') }}"> My Account </a>
 
+                            <a class="dropdown-item" href="{{ route('frontend.account') }}"> My Account </a>
 
                             <a class="dropdown-item" href="{{ route('frontend.panel') }}"> 
                                 My Dashboard 
@@ -144,7 +141,6 @@
 
                             <a class="dropdown-item noti" href="{{ route('frontend.notification')}}"> Notifications 
                                 <span class="badge badge-pill badge-danger">0 </span> 
-                               
                             </a>
 
                             <div class="dropdown-divider"></div>
@@ -404,9 +400,8 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <script src="{{ asset('mmitui/vendor/chart.min.js') }}"></script>
-  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     
-
     <!-- Select2 -->
     <script src="{{asset('sb_admin2/vendor/select2/dist/js/select2.min.js')}}"></script>
     
