@@ -60,12 +60,17 @@ class PanelController extends Controller
         if($variable == 1){
 
         	$batch = Batch::find($batchid);
+            $batchteacher = $batch->teachers;
+            $staffs = array();
+            foreach ($batchteacher as $key => $value) {
+                array_push($staffs,$value->staff);
+            }
 
         	$course = $batch->course;
 
         	$subjects = $course->subjects;
-
-        	return view('panel.takelesson',compact('batch','course','subjects'));
+            //dd($subjects);
+        	return view('panel.takelesson',compact('batch','course','subjects','staffs'));
         }else{
             return back();
         }
@@ -90,9 +95,19 @@ class PanelController extends Controller
             // dd($batch);
             $course = $batch->course;
 
+            $subjects = $course->subjects;
+            $batchteacher = $batch->teachers;
+            $lessons = array();
+            foreach ($batchteacher as $teacher) {
+                $user_id= $teacher->staff->user_id;
+                $lessonarrays =Lesson::where('subject_id',$subjectid)->where('user_id',$user_id)->orderBy('sorting', 'asc')->get();
+                foreach($lessonarrays as $lesson){
+                    array_push($lessons, $lesson);
+                }
+            }
 
             $subject = Subject::find($subjectid);
-            $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+       
             /*change order by sorting*/
             return view('panel.video',compact('lessons','subject', 'batch', 'course'));
         }else{

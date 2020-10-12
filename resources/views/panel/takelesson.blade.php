@@ -37,10 +37,27 @@
                             <h5 class="card-title font-weight-bold"> {{ $subject->name }} </h5>
 
                             @php
-                                $lectures = $subject->lessons->count();
                                 $total = 0;
+                                $countlesson = 0;
                             @endphp
+                            <!-- honey -->
+                            @foreach($staffs as $staff)
+                            
 
+                            @foreach($subject->lessons as $lesson)
+
+                            @if($staff->user_id == $lesson->user_id)
+                            @php
+                            $stu_less =1;
+                            $countlesson  += $stu_less;
+                           
+                            @endphp
+                            @endif
+                            @endforeach
+
+                            @endforeach
+                            <!-- honey -->
+                           
                             @foreach($subject->lessons as $lesson)
                                 @php
                                     $duration = $lesson->duration;
@@ -64,7 +81,7 @@
                                 }
                             @endphp
 
-                            <p class="card-text"> {{ $lectures }} Lectures  •  {{ $totaltimes }} </p>
+                            <p class="card-text"> {{ $countlesson }} Lectures  •  {{ $totaltimes }} </p>
 
                             <!-- seen lesson count -->
                             @php
@@ -153,7 +170,7 @@
 
                             <!-- new show hide -->
                             @if($play_course_btn == 1)
-                                @if($lectures == $stu_less_count)
+                                @if($countlesson == $stu_less_count)
                                     <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
                                         Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
                                     </a>
@@ -168,7 +185,7 @@
                             @endif
                            
                             
-                             <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
+                             <p class="float-right"> {{ $stu_less_count }} / {{ $countlesson }} </p>
                         </div>
                     </div>
                 </div>

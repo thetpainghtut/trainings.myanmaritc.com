@@ -160,12 +160,12 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
-        $subject = Subject::find($id);
+        $subjects = Subject::all();
 
         $lesson = Lesson::find($id);
         $courses = Course::all();
 
-        return view('lessons.edit',compact('lesson','subject','courses'));
+        return view('lessons.edit',compact('lesson','subjects','courses'));
     }
 
     /**
