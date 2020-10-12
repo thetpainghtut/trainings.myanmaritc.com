@@ -27,8 +27,9 @@
 
 		@endif
 		@endforeach
+        <!-- by honey -->
         {{$course_data->name}} @ {{$batch_data->location->city->name}}
-
+        <!-- by honey -->
         <a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right btn-sm"><i class="fas fa-angle-double-left"></i> Go Back</a>
 
     </h4>
