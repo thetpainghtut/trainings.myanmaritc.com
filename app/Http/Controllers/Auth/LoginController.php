@@ -44,22 +44,19 @@ class LoginController extends Controller
         if($user->hasRole('Admin')){
             return redirect('/students');
         }
-
-        elseif(Auth::user()->staffs)
-        {   
+        elseif(Auth::user()->staffs){
             Auth::logout();
-            return redirect()->route('login')->with('msg','You are not our members anymore') ;
-            
+            return redirect()->route('login')->with('msg','You are not our members anymore') ;   
         }elseif($user->hasRole('Student')){
-        if(Auth::user()->student->batches){
-            foreach (Auth::user()->student->batches as  $value) {
-                if($value->pivot->status == "Active"){
-                    return redirect('/panel');
-                }else{
-                    Auth::logout();
-                return redirect()->route('login')->with('msg','You are not our student anymore') ;
+            if(Auth::user()->student->batches){
+                foreach (Auth::user()->student->batches as  $value) {
+                    if($value->pivot->status == "Active"){
+                        return redirect('/panel');
+                    }else{
+                        Auth::logout();
+                    return redirect()->route('login')->with('msg','You are not our student anymore') ;
+                    }
                 }
-            }
             }
         }
         

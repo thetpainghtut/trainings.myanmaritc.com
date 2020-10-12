@@ -28,8 +28,6 @@ class GradingController extends Controller
           $units = Unit::where('course_id', $value->course_id)->get();
         }
       };
-     
-      
       return view('grading.form',compact('student','units'));
   }
     /**

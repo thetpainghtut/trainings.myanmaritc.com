@@ -172,7 +172,9 @@ class StudentController extends Controller
       // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
+
       // dd($request->batch_id);
+
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
@@ -259,6 +261,7 @@ class StudentController extends Controller
             $student->subjects()->attach($subjects);
 
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
             return 'ok';
 
         }
@@ -335,8 +338,9 @@ class StudentController extends Controller
     public function show($id, Request $request)
     {
       $courseid = $request->course;
-      $batchid = $request->batch;
 
+      $batchid = $request->batch;
+      // dd($courseid);
       /* progressbar*/
       $course_data = Course::find($request->course);
       $batch_data = Batch::find($request->batch);
@@ -414,9 +418,6 @@ class StudentController extends Controller
       // dd($students_units);
 
 
-//The function returns the no. of business days between two dates
-
-// This will return 4
       $totaldate = $this->getWorkingDays($batch_data->startdate,$batch_data->enddate);
       //dd($totaldate);
       $students_attendancepresents = Student::whereHas('batches', function($q) use ($batchid)    {
@@ -435,7 +436,7 @@ class StudentController extends Controller
       $absencecount = count($students_attendanceabsences);
       $remaincount = $totaldate-($presentcount+$absencecount);
 
-      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data','absencecount','presentcount','remaincount'));
+      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data','absencecount','presentcount','remaincount','courseid'));
     }
 
     function getWorkingDays($startDate,$endDate){
@@ -480,6 +481,7 @@ class StudentController extends Controller
             // so we skip an entire weekend and subtract 2 days
             $no_remaining_days -= 2;
         }
+
     }
 
     //The no. of business days is: (number of weeks between the two dates) * (5 working days) + the remainder
@@ -570,9 +572,6 @@ class StudentController extends Controller
         $user->email = $email;
         $user->save();
         return redirect('students/'.$id);
-
-
-
     }
 
     /**
@@ -616,6 +615,7 @@ class StudentController extends Controller
                         'student_id' => 'required',
                         'status' => 'required',
             ]);
+      $course_id = $request->course_id;
       $student_id = $request->student_id;
       $batch_id = $request->batch_id;
       $status = $request->status;
@@ -657,7 +657,7 @@ class StudentController extends Controller
       $student = Student::find($student_id);
       // $student->status = $status;
       $student->save();
-      return response()->json('student');
+      return redirect('students?course='.$course_id."&batch=".$batch_id)->with('msg','Already remove!');
     }
 
 

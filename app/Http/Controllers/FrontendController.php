@@ -17,12 +17,12 @@ use Auth;
 use App\Response;
 use App\Http\Resources\StudentResource;
 use App\Lesson;
+
 class FrontendController extends Controller
 {
   public function index($value='')
   {
     return view('frontend.index');
-
   }
 
   public function csr($value='')
@@ -123,6 +123,7 @@ class FrontendController extends Controller
 
   public function studentRegister(Request $request)
   {
+   
     $inquireno = request('inquire_no');
     $oldemail = request('old_email');
 
@@ -260,8 +261,4 @@ class FrontendController extends Controller
       return back()->with('error','Current password does not match in our records!');
     }
   }
-
-
-
-
 }

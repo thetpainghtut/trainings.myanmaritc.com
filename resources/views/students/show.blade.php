@@ -23,13 +23,13 @@
 			$receiveno = $student_batch->pivot->receiveno;
 
 		@endphp
-		{{ $student_batch->course->name }} @
-		{{-- nyiyelin --}}
-		{{ $student_batch->location->city->name }}
+		
 
 		@endif
-		@endforeach 
-
+		@endforeach
+        <!-- by honey -->
+        {{$course_data->name}} @ {{$batch_data->location->city->name}}
+        <!-- by honey -->
         <a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right btn-sm"><i class="fas fa-angle-double-left"></i> Go Back</a>
 
     </h4>
@@ -52,12 +52,14 @@
 	            	<h3> {{ $student->namee }} </h3>
 
 	            	<p class="mb-3">
-	            		@foreach($student->batches as $student_batch)
+	            		{{--@foreach($student->batches as $student_batch)
 							@if($student_batch->pivot->status=="Active")
-					    		{{ $batch }}
+					    		
 					    	@endif
-					    @endforeach
+					    @endforeach--}}
+                        {{ $batch_data->title }}
 	            	</p>
+                    <!-- by honey -->
 
                     <!-- Student lesson count -->
                     @php
@@ -122,14 +124,14 @@
                             $percentage = round($percentage_decimal);
                         @endphp
                     @endif
-                    
+                    <!-- by honey -->
 	            	<div class="progress my-4">
                         <div class="progress-bar " role="progressbar" style="width: {{$percentage}}%; background-color: #004289" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
                     </div>
 
 	            	<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
 
-	            	<button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{ $student->id }}" data-batch_id = "{{$batchid}}" data-receive_no = "{{ $receiveno }}"><i class="fas fa-trash"></i>
+	            	<button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{ $student->id }}" data-batch_id = "{{$batchid}}" data-receive_no = "{{ $receiveno }}" data-course_id= '{{$courseid}}'><i class="fas fa-trash"></i>
 	            	</button>
 
 	          	</div>
@@ -453,11 +455,12 @@
                     </button>
                 </div>
         
-                <form id="student_leave">
+                <form action="{{route('student_status_change')}}" method="post">
                     @csrf
                         <input type="hidden" name="student_id" class="student_id">
                         <input type="hidden" name="batch_id" class="batch_id">
                         <input type="hidden" name="receive_no" class="receive_no">
+                        <input type="hidden" name="course_id" class="course_id">
 
                         <div class="modal-body">
                 
@@ -518,48 +521,17 @@
             var student_id = $(this).data('student_id');
             var batch_id = $(this).data('batch_id');
             var receive_no = $(this).data('receive_no');
-
+            var course_id = $(this).data('course_id');
             $('.student_id').val(student_id);
             $('.batch_id').val(batch_id);
             $('.receive_no').val(receive_no);
+            $('.course_id').val(course_id);
+
 
 
             $('#exampleModal').modal('show');
          })
 
-         $('#student_leave').submit(function(event) {
-             event.preventDefault();
-             var student_data = new FormData(this);
-             
-             $.ajax({
-                url : '{{route("student_status_change")}}',
-                type : 'post',
-                data : student_data,
-                processData: false,
-                contentType: false,
-
-                success:function(data) {
-                    if(data){
-                        $('#exampleModal').modal('hide');
-                        // location.reload();
-                    }
-                },
-                error:function (error) {
-                   if(error.status == 422){
-                    var errors = error.responseJSON;
-                    var data = errors.errors;
-                    $.each(data,function(i,v){
-                        showValidationErrors(i,v);
-                    });
-                    $('#exampleModal').modal('show');
-
-                   }
-                }
-
-
-
-             })
-         })
       });
   </script>
 @endsection

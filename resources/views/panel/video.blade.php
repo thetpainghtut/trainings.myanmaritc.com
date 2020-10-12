@@ -1,7 +1,6 @@
 @extends('template')
 @section('content')
 
-    <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -876,6 +875,7 @@
 
         $(document).ready(function(){
             window.player = player;
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -924,7 +924,6 @@
                 console.log(player);
 
                 // window.player = player;
-
                 // console.log(player.airPlay);
                 // player.forward(120);
 
@@ -952,6 +951,5 @@
 
             // });
     });
-
     </script>
 @endsection

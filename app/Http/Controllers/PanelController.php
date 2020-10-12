@@ -30,22 +30,19 @@ class PanelController extends Controller
 
     public function __construct($value='')
     {
-        $this->middleware('auth');
-        $this->middleware('role:Student');
+        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
+        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
     }
+ 
 
     public function index()
     {        
-        
         $auth = Auth::user();
         $studentinfo = $auth->student;
 
         $studentbatches = $studentinfo->batches;
 
         return view('panel.dashboard',compact('studentinfo','studentbatches'));
-              
-        
-       
     }
 
     public function takelesson($batchid){
@@ -514,4 +511,3 @@ class PanelController extends Controller
 
     
 }
-

@@ -31,7 +31,6 @@
             <div class="row justify-content-center">
 
                 @foreach($subjects as $subject)
-
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                     <div class="card my-3">
                         <div class="card-body">
@@ -47,7 +46,6 @@
                                     $duration = $lesson->duration;
 
                                     $total += $duration++;
-
                                 @endphp
                             @endforeach
 
@@ -171,7 +169,6 @@
                            
                             
                              <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
-                          
                         </div>
                     </div>
                 </div>
@@ -187,10 +184,7 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
             
-
         });
-
     </script>
 @endsection

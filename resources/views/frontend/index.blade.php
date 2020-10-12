@@ -55,7 +55,6 @@
             </div>
         </div>
     </div> 
-
     <!-- Header -->
 
     @if(session('status'))

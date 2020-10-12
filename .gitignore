@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/mmitui
 /public/mmitui/.DS_Store
 /storage/*.key
 /vendor
@@ -11,5 +12,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-Archive.zip
-public/mmitui/storage/video/lesson/1600870791.mp4
