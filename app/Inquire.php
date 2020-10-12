@@ -10,6 +10,7 @@ class Inquire extends Model
   use SoftDeletes;
 
     protected $fillable = [
+
         'inquireno', 'receiveno', 'name', 'gender', 'phone', 'installmentdate', 'installmentamount','status', 'knowledge',  'camp', 'acceptedyear', 'message', 'batch_id', 'education_id', 'user_id'
     ];
 

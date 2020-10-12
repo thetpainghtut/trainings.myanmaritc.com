@@ -17,7 +17,7 @@ class InquireController extends Controller
 {
      public function __construct($value='')
     {
-        $this->middleware('role:Admin|Reception');
+        $this->middleware('role:Admin|Business Development');
     }
     /**
      * Display a listing of the resource.
@@ -28,8 +28,6 @@ class InquireController extends Controller
     {
         $courses = Course::all();
         return view('inquires.index',compact('courses'));
-
-       
     }
 
     /**
@@ -37,17 +35,18 @@ class InquireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create(Request $request)
     {
         $batch_id = request('batch_id');
         $batch = Batch::find($batch_id);
         $batch_course = $batch->course;
-       
         $educations = Education::all();
         //$courses = Course::all();
         $courses = Course::has('batches')->get();
         $batches = Batch::all();
         $townships = Township::all();
+
         return view('inquires.create',compact('educations','batches','townships','courses','batch_course','batch'));
     }
 
@@ -127,8 +126,7 @@ class InquireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        
+    { 
         $batch = Batch::find($id);
          $no_payment_inquires = Inquire::where([['status',0],['batch_id',$id],['message','=',null]])->get();
         $first_payment_inquires = Inquire::where([['status',1],['batch_id',$id],['message','=',null]])->get();

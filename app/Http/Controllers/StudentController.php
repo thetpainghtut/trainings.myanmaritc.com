@@ -12,7 +12,7 @@ use App\Inquire;
 use App\Education;
 use App\Township;
 use App\Unit;
-
+use App\Response;
 use Rabbit;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -58,7 +58,46 @@ class StudentController extends Controller
           // Return 
           return view('students.index',compact('students','courses','batches','bid'));
         }
-      }else{
+      }elseif($role[0] == 'Business Development'){
+        $courses = Course::all();
+        $batches = Batch::all();
+
+        $bid = 0;
+
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+          }else{
+          $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
+      }elseif($role[0] == 'Recruitment'){
+        $courses = Course::all();
+        $batches = Batch::all();
+
+        $bid = 0;
+
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+          }else{
+          $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
+      }
+      elseif($role[0] == 'Teacher'){
         $userid = $user->id;
         $bid = 0;
         $batches = Batch::all();
@@ -71,6 +110,24 @@ class StudentController extends Controller
           array_push($courses,$value->course);
         }
        
+        if (request('batch')) {
+          $bid = request('batch');
+          $groups = Group::where('batch_id',$bid)->get();
+          $batch = Batch::find($bid);
+          // $students = Student::where('batch_id',$bid)->get();
+
+
+          return view('students.index',compact('courses','batches','groups','bid','batch'));
+        }else{
+            $students = Student::all();
+          // Return 
+          return view('students.index',compact('students','courses','batches','bid'));
+        }
+      }elseif($role[0] == 'Mentor'){
+        $staffs = Staff::where('user_id',$user->id)->get();
+        $courses = $staffs[0]->mentor[0]->course;
+         $batches = Batch::all();
+         $bid = 0;
         if (request('batch')) {
           $bid = request('batch');
           $groups = Group::where('batch_id',$bid)->get();
@@ -115,7 +172,9 @@ class StudentController extends Controller
       // dd($redirect_back->withInput(Input::flash()));
 
       // Validation
+
       // dd($request->batch_id);
+
       $request->validate([
         "namee" => 'required|min:5|max:191',
         "namem" => 'required|min:5|max:191',
@@ -202,6 +261,7 @@ class StudentController extends Controller
             $student->subjects()->attach($subjects);
 
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
+
             return 'ok';
 
         }
@@ -278,8 +338,9 @@ class StudentController extends Controller
     public function show($id, Request $request)
     {
       $courseid = $request->course;
-      $batchid = $request->course;
 
+      $batchid = $request->batch;
+      // dd($courseid);
       /* progressbar*/
       $course_data = Course::find($request->course);
       $batch_data = Batch::find($request->batch);
@@ -356,7 +417,7 @@ class StudentController extends Controller
       }
       // dd($students_units);
 
-      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data'));
+      return view('students.show',compact('student','batchid','students_units', 'units' ,'student_symbol_groups','course_data','batch_data','courseid'));
     }
 
     /**
@@ -434,9 +495,6 @@ class StudentController extends Controller
         $user->email = $email;
         $user->save();
         return redirect('students/'.$id);
-
-
-
     }
 
     /**
@@ -475,11 +533,12 @@ class StudentController extends Controller
     // leave student to change status
     public function student_status_change(Request $request)
     {
-      // dd($request);
+      
       $request->validate([
                         'student_id' => 'required',
                         'status' => 'required',
             ]);
+      $course_id = $request->course_id;
       $student_id = $request->student_id;
       $batch_id = $request->batch_id;
       $status = $request->status;
@@ -505,12 +564,23 @@ class StudentController extends Controller
             }
           }
         }
-      // }
-      // dd($/data);
+        foreach ($batch->students as $batch_student_status) {
+
+          foreach ($batch_student_status->responses as $response) {
+                     
+                 if($response->status == "Active"){
+                  $response = Response::find($response->id);
+                  $response->status = "Deactive";
+                  $response->save();
+                 
+             }
+          }
+        }
+      
       $student = Student::find($student_id);
       // $student->status = $status;
       $student->save();
-      return response()->json('student');
+      return redirect('students?course='.$course_id."&batch=".$batch_id)->with('msg','Already remove!');
     }
 
 

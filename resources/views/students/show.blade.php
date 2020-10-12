@@ -129,7 +129,7 @@
 
 	            	<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
 
-	            	<button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{ $student->id }}" data-batch_id = "{{$batchid}}" data-receive_no = "{{ $receiveno }}"><i class="fas fa-trash"></i>
+	            	<button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{ $student->id }}" data-batch_id = "{{$batchid}}" data-receive_no = "{{ $receiveno }}" data-course_id= '{{$courseid}}'><i class="fas fa-trash"></i>
 	            	</button>
 
 	          	</div>
@@ -272,44 +272,57 @@
                         <p> {{ $student->because }} </p>
                     </div>
 
-                    {{-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                         <a class="card-title">
                             <i class="icofont-chart-flow mr-3 icon fa-lg"></i>
                             Projects
                         </a>
                     </div>
                     <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
-
+                        @php
+                        $studentone = $student->id;
+                         $project = App\Project::whereHas('students',function($q) use ($studentone){ $q->where('student_id',$studentone);})->get(); @endphp
+                         @foreach($project as $p)
+                         @if($p->link != NULL)
                     	<div class="row no-gutters bg-light position-relative mb-3">
                                         
                             <div class="col-md-12 p-4">
                                 <!-- Blog Title -->
-                                <h5 class="mt-0"> Project Title  </h5>
-                                <h5 class="mt-0 float-right"> Web Design  </h5>
+                                <h5 class="mt-0">Project Title:{{$p->title}}   </h5>
+                                <h5 class="mt-0 float-right"> {{$p->projecttype->name}} </h5>
 
                                 <!-- Blog Body -->
-                                <p> Youn Thiri Naing, Student One </p>
+                                <p> @foreach($p->students as $stu) {{ $loop->first ? '' : ', ' }}{{$stu->namee}} @endforeach</p>
                                 
-                                <a href="" class="btn btn-outline-primary btn-sm"> View Link </a>
+                                <a href="//{{$p->link}}" target="_blank" class="btn btn-outline-primary btn-sm"> View Link </a>
                           </div>
                         </div>
-
+                        @else
                         <div class="row no-gutters bg-light position-relative mb-3">
                                         
                             <div class="col-md-12 p-4">
                                 <!-- Blog Title -->
+                                <h5 class="mt-0"> No Project Title  </h5>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                        <!-- <div class="row no-gutters bg-light position-relative mb-3">
+                                        
+                            <div class="col-md-12 p-4">
+                               
                                 <h5 class="mt-0"> Project Title  </h5>
                                 <h5 class="mt-0 float-right"> Laravel Project  </h5>
 
-                                <!-- Blog Body -->
+                              
                                 <p> Youn Thiri Naing, Student One </p>
                                 
                                 <a href="" class="btn btn-outline-primary btn-sm"> View Link </a>
                           </div>
-                        </div>
+                        </div> -->
 
                     </div>
-
+{{--
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                         <a class="card-title">
                             <i class="far fa-calendar-alt mr-3 icon"></i>
@@ -427,11 +440,12 @@
                     </button>
                 </div>
         
-                <form id="student_leave">
+                <form action="{{route('student_status_change')}}" method="post">
                     @csrf
                         <input type="hidden" name="student_id" class="student_id">
                         <input type="hidden" name="batch_id" class="batch_id">
                         <input type="hidden" name="receive_no" class="receive_no">
+                        <input type="hidden" name="course_id" class="course_id">
 
                         <div class="modal-body">
                 
@@ -492,47 +506,17 @@
             var student_id = $(this).data('student_id');
             var batch_id = $(this).data('batch_id');
             var receive_no = $(this).data('receive_no');
-
+            var course_id = $(this).data('course_id');
             $('.student_id').val(student_id);
             $('.batch_id').val(batch_id);
             $('.receive_no').val(receive_no);
+            $('.course_id').val(course_id);
+
 
 
             $('#exampleModal').modal('show');
          })
 
-         $('#student_leave').submit(function(event) {
-             event.preventDefault();
-             var student_data = new FormData(this);
-             $.ajax({
-                url : '{{route("student_status_change")}}',
-                type : 'post',
-                data : student_data,
-                processData: false,
-                contentType: false,
-
-                success:function(data) {
-                    if(data){
-                        $('#exampleModal').modal('hide');
-                        location.reload();
-                    }
-                },
-                error:function (error) {
-                   if(error.status == 422){
-                    var errors = error.responseJSON;
-                    var data = errors.errors;
-                    $.each(data,function(i,v){
-                        showValidationErrors(i,v);
-                    });
-                    $('#exampleModal').modal('show');
-
-                   }
-                }
-
-
-
-             })
-         })
       });
   </script>
 @endsection

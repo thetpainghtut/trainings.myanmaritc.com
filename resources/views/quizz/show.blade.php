@@ -13,7 +13,7 @@
     </div>
     <div class="col-2 mt-2">
          
-        <button class="btn btn-outline-primary btn-sm float-right add_new" data-id="{{$subject->id}}"> <i class="fas fa-plus mr-2"></i>Add Title </button>
+        <button class="btn btn-outline-primary btn-sm float-right add_new" data-id="{{$subject->id}}" data-course_id = "{{$course->id}}" > <i class="fas fa-plus mr-2"></i>Add Title </button>
           
     </div>
 </div> 
@@ -55,7 +55,7 @@
                             <i class="fas fa-info"></i>
                         </a>
 
-                        <button type="button" class="btn btn-outline-warning btn-sm edit_btn" data-id='{{$quizz->id}}' data-title='{{$quizz->title}}' data-photo='{{$quizz->photo}}' data-subject_id='{{$subject->id}}'>
+                        <button type="button" class="btn btn-outline-warning btn-sm edit_btn" data-id='{{$quizz->id}}' data-title='{{$quizz->title}}' data-photo='{{$quizz->photo}}' data-course_id = "{{$course->id}}" data-subject_id='{{$subject->id}}'>
                             <i class="fas fa-edit"></i>
                         </button>
 
@@ -87,6 +87,7 @@
             <form id="storequizz">
                 @csrf
                     <input type="hidden" name="subject_id" class="subject_id">
+                    <input type="hidden" name="course_id" class="course_id">
                     
                     <div class="modal-body">
                         
@@ -132,6 +133,8 @@
                 @csrf
                 @method('PUT')
                     <input type="hidden" name="subject_id" class="subject_id">
+                    <input type="hidden" name="course_id" class="course_id">
+
                     <input type="hidden" name="oldphoto" class="oldphotovalue">
                     <input type="hidden" name="id" class="edit_id">
 
@@ -236,7 +239,9 @@
 
        $('.add_new').click(function(){
         var subject = $(this).data('id');
+        var course_id = $(this).data('course_id');
         $('.subject_id').val(subject);
+        $('.course_id').val(course_id);
         $('#exampleModal').modal('show');
        })
 
@@ -255,6 +260,8 @@
                 success:function(data) {
                     if(data){
                         $('#editquizz').modal('hide');
+                        $('.course_id').val(data.id);
+                        
                         location.reload();
                     }
                 },

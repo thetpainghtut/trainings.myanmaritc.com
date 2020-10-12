@@ -43,8 +43,7 @@ $(document).ready(function(){
         console.log(input.files);
     }
     $("#imageUpload").change(function() {
-        readURL(this);
-        
+        readURL(this); 
     });
 
     $('.nav-tabs > li a[title]').tooltip();
@@ -85,7 +84,6 @@ $(document).ready(function(){
         $('.nav-tabs li.active').removeClass('active');
         $(this).addClass('active');
     });
-
 
 	$('.modal-image').on('click', function(){
 		alert('hello');
@@ -133,7 +131,6 @@ $(document).ready(function(){
 
     $(function() {
 
-
         $('#alltopics .gallery1').imagesGrid({
             image: ['mmitui/image/p1.jpg'],
             onGridItemRendered: function($item, image) { return true },
@@ -160,15 +157,16 @@ $(document).ready(function(){
 
             // images: images.slice(0, 5)
         });
+
         $('#alltopics .gallery3').imagesGrid({
             images: [
                 'mmitui/image/test/s1.jpg',
             	'mmitui/image/test/s2.jpg',
             	'mmitui/image/test/s3.jpg'
-
             ],
 
         });
+
         $('#alltopics .gallery4').imagesGrid({
             images: [
                 'mmitui/image/test/tip1.jpg',
@@ -195,10 +193,9 @@ $(document).ready(function(){
             	'mmitui/image/test/4.jpg',
             	'mmitui/image/test/5.jpg',
             	'mmitui/image/test/6.jpg'
-
-
             ],
         });
+
         $('#alltopics .gallery7').imagesGrid({
             images: [
                 'mmitui/image/test/p2.jpg',
@@ -220,4 +217,3 @@ $(document).ready(function(){
         });
 
     });
-

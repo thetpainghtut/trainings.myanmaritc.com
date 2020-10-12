@@ -17,6 +17,7 @@ use App\Journal;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use App\Response;
 use App\Http\Resources\StudentResource;
 use App\Lesson;
 class ReportCommand extends Command
@@ -53,7 +54,6 @@ class ReportCommand extends Command
     public function handle()
     {
 
-
     $lessons = Lesson::all();
     $students = Student::all();
     $date = date('Y-m-d');
@@ -62,18 +62,30 @@ class ReportCommand extends Command
     foreach ($batches as $batch) {
 
 
-        // if($batch->enddate = $date){
+        if($batch->enddate == $date){
 
-        // foreach ($batch->students as $batch_student_status) {
+        foreach ($batch->students as $batch_student_status) {
 
-        //     foreach ($batch_student_status->lessons as $student_lesson) {
+            foreach ($batch_student_status->lessons as $student_lesson) {
 
-        //       if($batch_student_status->pivot->status == 0){
-        //                 $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
-        //             }
-        //         }
-        //     }
-        // }
+              if($batch_student_status->pivot->status == 0){
+                        $batch_student_status->lessons()->updateExistingPivot($student_lesson->id,['status'=>1]);
+                    }
+                }
+
+            foreach ($batch_student_status->responses as $response) {
+                   
+                       if($response->status == "Active"){
+                        $response = Response::find($response->id);
+                        $response->status = "Deactive";
+                        $response->save();
+                       
+                   }
+                }
+            }
+
+
+        }
 
         $lessons = Lesson::all();
         $students = Student::all();

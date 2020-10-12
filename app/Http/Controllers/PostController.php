@@ -18,6 +18,10 @@ use App\Staff;
 use App\Teacher;
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher'])->except('getnoti');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +29,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
         $user = Auth::user();
         $id = Auth::id();
         $now = Carbon\Carbon::now();
@@ -33,7 +37,7 @@ class PostController extends Controller
         $posts = Post::whereHas('user',function($q) use ($id){
             $q->where('user_id',$id);
         })->get();
-
+        $batches = array();
         $staff = Staff::where('user_id',$id)->get();
         foreach ($staff[0]->teacher as $key => $value) {
            //dd($value->course->batches);
@@ -41,7 +45,7 @@ class PostController extends Controller
                $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
            }
         }
-        
+       // dd($batches);
         
        /* foreach ($batches as $key => $value) {
             $b = $value;
@@ -61,7 +65,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
         $user = Auth::user();
@@ -90,6 +94,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         
         /*$user = Auth::id();*/
        
@@ -162,7 +167,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+
         $post = Post::find($id);
         return view('posts.detail',compact('post'));
     }
@@ -175,7 +180,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
         $post = Post::find($id);
         $topics = Topic::all();
         $now = Carbon\Carbon::now();
@@ -205,7 +209,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
         $request->validate([
             'title'=>'required',
             'content' => 'required',
@@ -264,7 +268,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
         $post = Post::find($id);
         $post->batches()->detach();
         $post->delete();

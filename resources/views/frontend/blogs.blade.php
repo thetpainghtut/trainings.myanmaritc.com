@@ -31,7 +31,7 @@
 
 			        $subjects = $blog->subjects;
 			        $subject = $subjects[0]->name;
-			    @endphp
+			      @endphp
 
 	        	<div class="col-lg-4 col-md-4 col-sm-12 col-12 p-4">
 	                <div class="border">

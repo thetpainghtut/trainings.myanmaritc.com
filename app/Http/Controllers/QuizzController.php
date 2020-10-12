@@ -7,9 +7,14 @@ use App\Subject;
 use App\Course;
 use Auth;
 use Illuminate\Http\Request;
-
+use App\Teacher;
+use App\Staff;
 class QuizzController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +22,28 @@ class QuizzController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-        $subjects = Subject::all();
-        return view('quizz.index',compact('subjects','courses'));
+        //$courses = Course::all();
+        $user = Auth::user()->id;
+        //dd($user);
+       // $bid = request('batch');
+        $role  = Auth::user()->getRoleNames();
+        if($role[0] == 'Teacher'){
+            $staff = Staff::with('teacher')->where('user_id',$user)->get();
+           
+            $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+            $courses = array();
+            foreach ($teacher as $key => $value) {
+              array_push($courses,$value->course);
+            }
+            $subjects = Subject::all();
+            return view('quizz.index',compact('subjects','courses'));
+        }elseif($role[0] == 'Mentor'){
+            $staffs = Staff::where('user_id',$user)->get();
+            $courses = $staffs[0]->mentor[0]->course;
+            $subjects = Subject::all();
+            return view('quizz.index',compact('subjects','courses'));
+        }
     }
 
     /**
@@ -48,6 +72,7 @@ class QuizzController extends Controller
         $subject_id = $request->subject_id;
         $title = $request->title;
         $subject = Subject::find($subject_id);
+        $course = Course::find($request->course_id);
 
         if($request->hasfile('photo')){
             $photo = $request->file('photo');
@@ -65,7 +90,7 @@ class QuizzController extends Controller
         $quizz->subject_id = $subject_id;
         $quizz->user_id = Auth::id();
         $quizz->save();
-        return "ok";
+        return 'ok';
     }
 
     /**

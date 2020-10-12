@@ -47,7 +47,7 @@ class Batch extends Model
                     ->orderBy('batch_student.created_at', 'DESC');
     }
 
-     public function groups()
+    public function groups()
     {
         return $this->hasMany('App\Group');
     }
@@ -61,7 +61,6 @@ class Batch extends Model
     {
         return $this->hasMany('App\Feedback');
     }
-
 
     public function subjects()
     {
@@ -77,5 +76,4 @@ class Batch extends Model
     {
         return $this->belongsToMany('App\Quizz','batch_quiz','batch_id','quiz_id')->withTimestamps();
     }
-
 }

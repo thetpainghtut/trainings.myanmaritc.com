@@ -38,7 +38,6 @@
                                  <h5 class="my-4 text-center text-danger">{{session('msg')}}</h5>
                                 @elseif(session('success'))
                                  <h5 class="my-4 text-center text-success">{{session('success')}}</h5>
-
                                 @endif
                             </div>
                             <div class="card-body">
@@ -76,7 +75,6 @@
                                 </form>
 
                                 <a href="{{route('frontend.forgetpassword')}}">Forget password?</a>
-
                             </div>
                            
                         </div>

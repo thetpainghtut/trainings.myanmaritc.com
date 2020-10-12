@@ -23,10 +23,13 @@
             <form method="post" action="{{route('groups.update',$group->id)}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+<<<<<<< HEAD
+=======
 
                 <input type="hidden" name="batch_data_id" value="{{$batchid}}">
                 <input type="hidden" name="course_data_id" value="{{$courseid}}">
                 
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 <div class="form-group row">
                     <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
@@ -35,6 +38,8 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
+=======
                 <div class="form-row">
 
                         <label for="inputCourse" class="col-sm-2 col-form-label">Choose Students:</label>
@@ -61,6 +66,7 @@
                    
                 </div>
 
+>>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Update</button>

@@ -36,7 +36,7 @@ class FeedbackController extends Controller
         }else{
             return view('feedbacks.index',compact('courses'));
         }
-    }else{
+    }elseif($role[0] == 'Teacher'){
         $userid = $user->id;
         $batchid = 0;
         $courseid = 0;
@@ -50,6 +50,20 @@ class FeedbackController extends Controller
           array_push($courses,$value->course);
         }
 
+        if(request('batch')){
+            $batch = request('batch');
+            $feedbacks = Feedback::where('batch_id',$batch)->get();
+           
+            return view('feedbacks.index',compact('courses','feedbacks','batch'));
+        }else{
+            return view('feedbacks.index',compact('courses'));
+        }
+    }elseif($role[0]=='Mentor'){
+        $staffs = Staff::where('user_id',$user->id)->get();
+        $courses = $staffs[0]->mentor[0]->course;
+        $batchid = 0;
+        $courseid = 0;
+        $batches = Batch::all();
         if(request('batch')){
             $batch = request('batch');
             $feedbacks = Feedback::where('batch_id',$batch)->get();

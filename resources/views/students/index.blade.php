@@ -2,6 +2,7 @@
 @section('content')
     
     <h1 class="h3 mb-4 text-gray-800"> Students </h1>
+
     @if(session('msg'))
         <h6 class="text-success">{{session('msg')}}</h6>
     @endif
@@ -19,9 +20,14 @@
                         <label for="inputCourse">Choose Course:</label>
                         <select name="course" class="form-control" id="course">
                             <option> Choose Course </option>
+                            @role('Admin|Teacher|Business Development|Recruitment')
                             @foreach($courses as $row)
                                 <option value="{{$row->id}}">{{$row->name}} </option>
                             @endforeach
+                            @endrole
+                            @role('Mentor')
+                            <option value="{{$courses->id}}">{{$courses->name}}</option>
+                            @endrole
                         </select>
                     </div>
 
@@ -148,12 +154,3 @@
       });
   </script>
 @endsection
-
-
-
-
-
-
-
-
-

@@ -27,17 +27,17 @@ class Subject extends Model
 	}
 
 	public function journals()
-    {
-        return $this->belongsToMany('App\Journal');
-    }
+  {
+      return $this->belongsToMany('App\Journal');
+  }
 
-    public function batches()
-    {
-    	return $this->belongsToMany('App\Batch');
-    }
+  public function batches()
+  {
+  	return $this->belongsToMany('App\Batch');
+  }
 
-    public function quizzes()
-    {
-    	return $this->hasMany('App\Quizz');
-    }
+  public function quizzes()
+  {
+  	return $this->hasMany('App\Quizz');
+  }
 }

@@ -24,13 +24,13 @@ Route::get('blog_detail/{id}','FrontendController@blog_detail')->name('frontend.
 Route::post('oldstduent','FrontendController@oldstduent')->name('oldstduent');
 
 
+
 // nyiyelin
 Route::post('update_password','FrontendController@update_password')->name('frontend.update_password');
 
 Route::post('student_profile_update','FrontendController@student_profile_update')->name('frontend.student_profile_update');
 
 Route::post('secret_password_change','FrontendController@secret_password_change')->name('frontend.secret_password_change');
-
 
 
 
@@ -60,7 +60,7 @@ Route::get('dashboard',function (){
   return view('dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::resource('courses','CourseController')->middleware('role:Admin');
+Route::resource('courses','CourseController')->middleware('role:Admin|Business Development');
 
 Route::resource('batches','BatchController');
 
@@ -74,10 +74,10 @@ Route::resource('roles','RoleController')->middleware('role:Admin');
 
 Route::resource('students','StudentController');
 
+
 // nyiyelin
 Route::post('resend_mail','StudentController@resend_mail')->name('resend_mail');
 Route::post('student_status_change','StudentController@student_status_change')->name('student_status_change');
-
 
 Route::resource('units','UnitController');
 
@@ -150,15 +150,15 @@ Route::get('/report', 'ReportController@report')->name('report');
 Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch');
 
 //Attendance
-Route::group(['middleware' => ['role:Teacher']], function () {
+Route::group(['middleware' => ['role:Teacher|Mentor|Intern Mentor']], function () {
   Route::resource('/attendances','AttendanceController');
   Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
 });
-
+Route::group(['middleware'=>['role:Admin|Recruitment|Business Development']],function(){
 Route::get('/absence','AttendanceController@absence')->name('absence');
 Route::get('/absencesearch/action','AttendanceController@absencesearch')->name('absencesearch.action');
 Route::get('absence/{id}/print/{date}','PrintController@absence')->name('absenceprint');
-
+});
 // Grade Print
 Route::resource('grades','GradingController');
 Route::get('grade_print/{id}','PrintController@grade');
@@ -233,16 +233,12 @@ Route::resource('questions','QuestionController');
 Route::get('questions/create/{id}','QuestionController@createform')->name('questions_createform');
 Route::post('assign_batchquizz','QuizzController@assign_batchquizz')->name('assign_batchquizz');
 
-
-
-
 // Route::get('playcourse/{sid}/{bid}','PanelController@playcourse')->name('frontend.playcourse');
 
 Route::get('playcourse/{bid}/{sid}', [
     'as' => 'frontend.playcourse', 
     'uses' => 'PanelController@playcourse'
 ]);
-
 
 Route::post('postassign','PostController@postassign')->name('postassign');
 Route::post('assingpttype','ProjecttypeController@assingpttype')->name('assingpttype');
@@ -251,6 +247,7 @@ Route::post('projecttitle','PanelController@projecttitle')->name('projecttitle')
 
 Route::get('/getnoti', 'PostController@getnoti')->name('getnoti');
 Route::post('notiread','PanelController@notiread')->name('notiread');
+
 Route::get('notideail/{pid}/{bid}','PanelController@notideail')->name('notideail');
 Route::get('projectshow/{bid}/{pjid}','ProjectController@projectshow')->name('projectshow');
 Route::get('projectedit/{b}/{pj}','ProjectController@projectedit')->name('projectedit');

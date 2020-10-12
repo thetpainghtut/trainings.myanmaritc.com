@@ -12,6 +12,10 @@ use Auth;
 use App\Staff;
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Teacher|Mentor']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +44,10 @@ class ProjectController extends Controller
            }
 
            return view('projects.index',compact('courses'));
+        }elseif($role[0] == 'Mentor'){
+            $staffs = Staff::where('user_id',$user->id)->get();
+            $courses = $staffs[0]->mentor[0]->course;
+            return view('projects.index',compact('courses'));
         }
         
     }

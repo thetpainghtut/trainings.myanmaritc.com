@@ -77,4 +77,9 @@ class Student extends Model
         return $this->belongsToMany('App\Lesson','lesson_student')->withPivot('status')->withTimestamps()->wherePivot('status','=',0);
 
     }
+
+    public function responses($value='')
+    {
+        return $this->hasMany('App\Response');
+    }
 }

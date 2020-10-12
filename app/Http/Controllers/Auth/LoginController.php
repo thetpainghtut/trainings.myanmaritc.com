@@ -44,22 +44,19 @@ class LoginController extends Controller
         if($user->hasRole('Admin')){
             return redirect('/students');
         }
-
-        elseif(Auth::user()->staffs)
-        {   
+        elseif(Auth::user()->staffs){
             Auth::logout();
-            return redirect()->route('login')->with('msg','You are not our members anymore') ;
-            
+            return redirect()->route('login')->with('msg','You are not our members anymore') ;   
         }elseif($user->hasRole('Student')){
-        if(Auth::user()->student->batches){
-            foreach (Auth::user()->student->batches as  $value) {
-                if($value->pivot->status == "Active"){
-                    return redirect('/panel');
-                }else{
-                    Auth::logout();
-                return redirect()->route('login')->with('msg','You are not our student anymore') ;
+            if(Auth::user()->student->batches){
+                foreach (Auth::user()->student->batches as  $value) {
+                    if($value->pivot->status == "Active"){
+                        return redirect('/panel');
+                    }else{
+                        Auth::logout();
+                    return redirect()->route('login')->with('msg','You are not our student anymore') ;
+                    }
                 }
-            }
             }
         }
         
@@ -69,15 +66,17 @@ class LoginController extends Controller
         elseif($user->hasRole('Teacher')){
             return redirect('/students');
         }
-        elseif($user->hasRole('HR')){
+        /*elseif($user->hasRole('HR')){
             return redirect('/incomes');
-        }elseif($user->hasRole('Business Development')){
+        }*/elseif($user->hasRole('Business Development')){
             return redirect('/batches');
         }
         elseif($user->hasRole('Student')){
             return redirect('/panel');
         }
-
+        elseif($user->hasRole('Recruitment')){
+            return redirect('/incomes');
+        }
         else {
             return redirect('/');
         }
