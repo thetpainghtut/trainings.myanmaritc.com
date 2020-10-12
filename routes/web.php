@@ -86,6 +86,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('getBatchesByCourse','BatchController@getBatchesByCourse')->name('course.batches');
+Route::post('getBatchByCourse','BatchController@getBatchByCourse')->name('course.batch');
 
 // For Mentors
 Route::group(['middleware' => 'role:Teacher|Mentor'], function(){

@@ -16,7 +16,7 @@
                     <div class="form-group col-md-4">
                         <label for="inputCourse">Choose Course:</label>
                         @role('Teacher')
-                        <select name="course" class="form-control" id="course">
+                        <select name="course" class="form-control" id="coursem">
                             <option disabled selected="">Please Select Course</option>
                             @foreach($couses as $row)
                                 <option value="{{$row->id}}">{{$row->name}}</option>
@@ -24,7 +24,7 @@
                         </select>
                         @endrole
                         @role('Mentor')
-                        <select name="course" class="form-control" id="course">
+                        <select name="course" class="form-control" id="coursem">
                             <option disabled selected="">Please Select Course</option>
                             
                                 <option value="{{$couses->id}}">{{$couses->name}}</option>

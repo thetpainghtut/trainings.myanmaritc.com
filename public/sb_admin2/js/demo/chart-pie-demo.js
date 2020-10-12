@@ -4,12 +4,15 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
+var presentcount = ctx.dataset.presentcount;
+var remaincount = ctx.dataset.remaincount;
+var absencecount = ctx.dataset.absencecount;
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Present", "Absencee", 'Remain'],
+    labels: ["Present", "Absence", 'Remain'],
     datasets: [{
-      data: [55, 3, 20],
+      data: [presentcount, absencecount, remaincount],
       backgroundColor: ['#1cc88a', '#FF0000', '#D3D3D3'],
       hoverBackgroundColor: ['#17a673', '#b53737', '#C0C0C0'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",

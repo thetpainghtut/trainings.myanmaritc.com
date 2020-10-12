@@ -18,7 +18,7 @@ use App\Staff;
 class BatchController extends Controller
 {
     public function __construct(){
-        $this->middleware(['role:Admin|Teacher|Business Development'])->except('getBatchesByCourse');
+        $this->middleware(['role:Admin|Teacher|Business Development'])->except('getBatchesByCourse','getBatchByCourse');
     }
     /**
      * Display a listing of the resource.
@@ -259,5 +259,14 @@ class BatchController extends Controller
         $batches = Batch::where('course_id',$cid)->get();
 
         return $batches;
+    }
+
+    public function getBatchByCourse(Request $request)
+    {
+      $now = Carbon::now();
+      $cid = request('id');
+      $batches = Batch::where('course_id',$cid)->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+
+      return $batches;
     }
 }
