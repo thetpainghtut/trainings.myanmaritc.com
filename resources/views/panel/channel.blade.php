@@ -476,7 +476,12 @@
                                                         {{$quiz->title}} 
                                                     </h5>
                                                     <!-- Blog Body -->
-                                                    <p> ( 24.10.2020 ) </p>
+                                                     @php
+                                                        $strtotime = strtotime($quiz->created_at);
+                                                        
+                                                        $date = date('d-m-Y',$strtotime);
+                                                    @endphp
+                                                    <p> ( {{$date}} ) </p>
                                                     @php
                                                         $array = array();
                                                         $score = 0;

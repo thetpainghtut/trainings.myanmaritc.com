@@ -26,7 +26,7 @@ class StudentController extends Controller
 {
     public function __construct($value='')
     {
-        $this->middleware('role:Admin|Mentor|Recruitment|Business Development|Teacher');
+        $this->middleware('role:Admin|Mentor|Recruitment|Business Development|Teacher')->except('store');
     }
     
     /**
