@@ -122,6 +122,7 @@ class FrontendController extends Controller
 
   public function studentRegister(Request $request)
   {
+   
     $inquireno = request('inquire_no');
     $oldemail = request('old_email');
 

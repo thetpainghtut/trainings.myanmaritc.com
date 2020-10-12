@@ -13,6 +13,7 @@
         $file_extension = $file_arr[1];
         $date = date('M d, Y',strtotime($blog->created_at));
         // dd($file_extension);
+        $url= $_SERVER['SCRIPT_URI']; 
     @endphp
 
 	<!-- Header -->
@@ -24,7 +25,7 @@
                     <p> 
                         <span> By {{ $postuser }} </span> &nbsp; | &nbsp;
                         <span> {{ $date }} </span> &nbsp; | &nbsp;
-                        <a href="" class="btn btn-outline-light btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
+                        <a href="https://www.facebook.com/sharer.php?u={{ $url }}" target="_blank" class="btn btn-outline-light btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
                     </p> 
 
                 </div>
