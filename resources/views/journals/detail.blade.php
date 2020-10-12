@@ -12,6 +12,8 @@
         $file_extension = $file_arr[1];
         $date = date('M d, Y',strtotime($journal->created_at));
         // dd($file_extension);
+      
+      
     @endphp
 
     <h1 class="h3 mb-4 text-gray-800"> Journals </h1>

@@ -28,6 +28,6 @@ class ForgetMail extends Mailable
      */
     public function build()
     {
-        return $this->from('info@myanmarcodingbootcamp.com')->subject('Reset password!')->view('resetpassword')->with('data',$this->data);
+        return $this->from('info@myanmarcodingbootcamp.com','MMIT')->subject('Reset password!')->view('resetpassword')->with('data',$this->data);
     }
 }
