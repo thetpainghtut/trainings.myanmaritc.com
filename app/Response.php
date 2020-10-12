@@ -12,4 +12,9 @@ class Response extends Model
     {
     	return $this->hasMany('App\Responsedetail');
     }
+
+    public function quiz($value='')
+    {
+    	return $this->belongsTo('App\Quizz','quiz_id');
+    }
 }

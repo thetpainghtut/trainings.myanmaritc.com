@@ -30,8 +30,8 @@ class PanelController extends Controller
 
     public function __construct($value='')
     {
-        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
-        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
+        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword','change_password');
+        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword','change_password');
     }
  
 
@@ -461,11 +461,22 @@ class PanelController extends Controller
     public function resetpassword(Request $request)
     {
         $codeno = rand(10,999999);
-        
-        $data = array('email' => $request->email,'codeno'=>$codeno);
+        $array = array();
+        $users = User::all();
+        foreach ($users as $user) {
+            if($user->email == $request->email){
+                array_push($array, $user->email);
+            }
+        };
+        if($array != null){
+            $data = array('email' => $request->email,'codeno'=>$codeno);
 
-        Mail::to($request->email)->send(new ForgetMail($data));
-        return redirect()->back()->with('msg','Email Sent!');
+            Mail::to($request->email)->send(new ForgetMail($data));
+            return redirect()->back()->with('msg','Email Sent!');
+        }else{
+            return redirect()->back()->with('error','Your email does not match in our record!');
+        }
+        
     }
 
     public function resetandeditpassword(Request $request)

@@ -45,18 +45,22 @@
                                 
 
                                     <div class="form-group">
-                                        <label class="small mb-1" for="email"> Email </label>
-                                        <input class="form-control py-4 {{$errors->has('email') ? 'is-invalid' : ''}}" value="{{old('email')}}" id="email" type="email" name="email" placeholder="Email Address" />
+                                      
+                                      <label class="small mb-1" for="email"> Email </label>
+                                      <input class="form-control py-4 {{$errors->has('email') ? 'is-invalid' : ''}}" value="{{old('email')}}" id="email" type="email" name="email" placeholder="Email Address" />
                                         
 
 
-                                        @if($errors->has('email'))
-                                            <span class="text-danger">{{$errors->first('email')}}</span>
-                                        @endif
+                                      @if($errors->has('email'))
+                                          <span class="text-danger">{{$errors->first('email')}}</span>
+                                      @endif
+                                      @if(session('error'))
+                                       <span class="my-4 text-center font-weight-bold text-danger">{{session('error')}}</span>
+                                      @endif
                                         
                                     </div>
                                     
-                                    
+                                      
 
                                     <div class="form-group hideForm d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <button type="submit" class="btn btn-outline-primary btn-block"> Send </button>
