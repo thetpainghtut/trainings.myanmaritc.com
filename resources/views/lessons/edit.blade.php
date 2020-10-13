@@ -41,7 +41,7 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <input type="hidden" class="form-control" name="oldfile" value="{{$lesson->file}}">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="{{ asset($lesson->file) }}" allowfullscreen></iframe>
+                                    <iframe class="embed-responsive-item" src="{{ asset($lesson->file) }}" type="video/mp4" allowfullscreen></iframe>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -127,10 +127,7 @@
 
             $(function() {
                 var cid = $(".course_change").val();
-<<<<<<< HEAD
-=======
-                
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
+
                 $.post("/show_subject",{id:cid},function (res) {
                     var data = JSON.parse(res);
                     var html ='';

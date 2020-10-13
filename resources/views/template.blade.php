@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-  
+    @yield('metatag')
     <title> Myanmar IT Consulting </title>
 
     <link rel="icon" href="{{ asset('mmitui/image/favicon.jpg')}}" type="image/jpg" sizes="16x16">
@@ -54,7 +54,6 @@
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
 <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
@@ -162,7 +161,6 @@
         </div>
     </nav>
     <!-- Navigation -->
-
 
     <!-- /.Page Content -->
     <div id="page-content">

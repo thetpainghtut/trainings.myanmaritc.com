@@ -119,8 +119,7 @@ class ReportCommand extends Command
                       if($count == $s_count){
                         // var_dump($count.'/'.$s_count);
 
-                        $text = 'Your  tutorials are not finish.Watch and learn your tutorials! 
-                            http://localhost:8000/panel
+                        $text = 'Your  tutorials are not finish.Watch and learn your tutorials! '.env('APP_URL').'/panel
                             ';
                             
                             array_push($student,$batch_student->email);
@@ -134,7 +133,7 @@ class ReportCommand extends Command
 
                       if($count != $s_count){
                         $text = 'You have not watched  tutorial.Watch and learn tutorial
-                            http://localhost:8000/panel
+                            '.env('APP_URL').'/panel
                             ';
                             
                             array_push($data,$batch_student->email);
@@ -156,10 +155,10 @@ class ReportCommand extends Command
         foreach ($array as $email) {
             
 
-            $text = 'Your  tutorials are not finish.Watch and learn your tutorials! ( http://localhost:8000/panel ) ';
+            $text = 'Your  tutorials are not finish.Watch and learn your tutorials! ( '.env('APP_URL').'/panel ) ';
 
             Mail::raw($text,function($message) use ($email){
-                $message->from('nyiyl345@gmail.com');
+                $message->from(env('MAIL_USERNAME'),'MMIT');
                 $message->to($email)->subject('Alert for your tutorial!');
 
             });

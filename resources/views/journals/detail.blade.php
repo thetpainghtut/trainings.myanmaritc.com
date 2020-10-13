@@ -12,7 +12,6 @@
         $file_extension = $file_arr[1];
         $date = date('M d, Y',strtotime($journal->created_at));
         // dd($file_extension);
-
     @endphp
 
     <h1 class="h3 mb-4 text-gray-800"> Journals </h1>
@@ -25,7 +24,6 @@
             <p class="mt-3"> 
 	            <span> By {{ $postuser }} </span> &nbsp; | &nbsp;
 	            <span> {{ $date }} </span> &nbsp; | &nbsp;
-	            <a href="" class="btn btn-primary btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
 	        </p> 
         </div>
         <div class="card-body">

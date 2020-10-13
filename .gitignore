@@ -1,8 +1,8 @@
 /node_modules
 /public/hot
+/public/img/staff
 /public/storage
 /public/mmitui
-/public/mmitui/.DS_Store
 /storage/*.key
 /vendor
 .env

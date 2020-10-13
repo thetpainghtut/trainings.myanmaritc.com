@@ -11,7 +11,8 @@ use App\Course;
 use App\Batch;
 use Owenoj\LaravelGetId3\GetId3;
 use Carbon;
-
+use App\Staff;
+use App\Teacher;
 class LessonController extends Controller
 {
     public function __construct($value='')
@@ -43,7 +44,18 @@ class LessonController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
+        $user = Auth::user()->id;
+
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+
+        //$courses = Course::all();
         return view('lessons.create',compact('courses'));
 
     }
@@ -160,12 +172,22 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
-        $subject = Subject::find($id);
+        $subjects = Subject::all();
 
         $lesson = Lesson::find($id);
-        $courses = Course::all();
+       // $courses = Course::all();
+        $user = Auth::user()->id;
 
-        return view('lessons.edit',compact('lesson','subject','courses'));
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
+
+        return view('lessons.edit',compact('lesson','subjects','courses'));
     }
 
     /**
@@ -259,14 +281,14 @@ class LessonController extends Controller
         // $course = Course::find($course_id);
         // $batches = $course->batches;
         $today_date = Carbon\Carbon::now();
-        
+        $user = Auth::user()->id;
         // $batches = Batch::all();
         $batches = Batch::where([['startdate','<=',$today_date],['enddate','>=',$today_date],['course_id',$course_id]])->get();
        
         // dd($batches);
         $subject = Subject::find($subject_id);
 
-        $lessons = Lesson::where('subject_id','=',$subject_id)->orderBy('sorting', 'asc')->get();
+        $lessons = Lesson::where('subject_id','=',$subject_id)->orderBy('sorting', 'asc')->where('user_id','=',$user)->get();
         
         return view('lessons.video',compact('lessons','subject','batches','course_id'));
 
