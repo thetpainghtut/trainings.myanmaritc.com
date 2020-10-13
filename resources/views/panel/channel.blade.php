@@ -169,9 +169,8 @@
                               
                                 <div class="col-md-10 position-static p-4 pl-md-0">
                                 
-                                    @php $timestamp = strtotime($po->created_at);
- @endphp
-                                    <h5 class="mt-0"> {{$po->title}} ({{date('d', $timestamp)}}{{ $po->created_at->format('d.m.Y') }}  ) </h5>
+                                 
+                                    <h5 class="mt-0"> {{$po->title}} ({{ $po->created_at->format('d.m.Y') }}  ) </h5>
                                     <!-- Blog Body -->
                                     <!-- <p> Vue Cli repo </p> -->
                                     
