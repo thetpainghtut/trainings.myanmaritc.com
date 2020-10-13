@@ -79,7 +79,7 @@
 
 
                 <div class="form-group row">
-                    <label for="inputOutline" class="col-sm-2 col-form-label"> Content </label>
+                    <label for="inputOutline" class="col-sm-2 col-form-label"> Link </label>
                     <div class="col-sm-10">
                         <textarea id="summernote" class="form-control"  name="content">{!! $post->content !!}</textarea>
                     </div>

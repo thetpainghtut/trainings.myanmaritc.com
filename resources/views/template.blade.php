@@ -54,7 +54,6 @@
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
 <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <div class="container">
@@ -162,7 +161,6 @@
         </div>
     </nav>
     <!-- Navigation -->
-
 
     <!-- /.Page Content -->
     <div id="page-content">

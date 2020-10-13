@@ -139,7 +139,7 @@
                                 @foreach($courses as $course)
                                     <option value="{{$course->id}}"   @foreach($user->staff->teacher as $teacher) @if($course->id==$teacher->course_id) selected @endif   @endforeach >
 
-                                        {{$course->name}} ( {{$course->location->city->name}} )
+                                        {{$course->name}}{{--  ( {{$course->location->city->name}} ) --}}
                                     </option>
                                 @endforeach
                             </select>
