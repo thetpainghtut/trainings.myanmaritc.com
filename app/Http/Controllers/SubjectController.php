@@ -59,7 +59,17 @@ class SubjectController extends Controller
      */
     public function create()
     {   
-        $courses = Course::all();
+       // $courses = Course::all();
+        $user = Auth::user()->id;
+
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
         return view('subjects.create',compact('courses'));
     }
 
@@ -116,7 +126,17 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {   
-        $courses=Course::all();
+        //$courses=Course::all();
+        $user = Auth::user()->id;
+
+        $staff = Staff::with('teacher')->where('user_id',$user)->get();
+       
+        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+
+        $courses = array();
+        foreach ($teacher as $key => $value) {
+          array_push($courses,$value->course);
+        }
         return view('subjects.edit',compact('subject','courses'));
     }
 
