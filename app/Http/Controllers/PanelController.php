@@ -61,6 +61,7 @@ class PanelController extends Controller
 
         	$batch = Batch::find($batchid);
             $batchteacher = $batch->teachers;
+           
             $staffs = array();
             foreach ($batchteacher as $key => $value) {
                 array_push($staffs,$value->staff);
