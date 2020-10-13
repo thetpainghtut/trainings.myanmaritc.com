@@ -220,7 +220,7 @@ class PanelController extends Controller
         $post = Post::whereHas('batches', function ($q) use ($id) {
   
                     $q->where('batch_id', $id);
-                })->get();
+                })->orderBy('created_at','desc')->get();
         //dd($post);
         $b = Batch::find($id);
         // dd($b->title);
@@ -293,12 +293,12 @@ class PanelController extends Controller
         if($id == 0){
             $posts = Post::with('topic','user','user.staff')->whereHas('batches',function($q) use ($bid){
                 $q->where('batch_id',$bid);
-            })->get();
+            })->orderBy('created_at','desc')->get();
 
         }else{
             $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->whereHas('batches',function($q) use ($bid){
                 $q->where('batch_id',$bid);
-            })->get();
+            })->orderBy('created_at','desc')->get();
         }
        
         return response()->json(['posts'=>$posts]);
