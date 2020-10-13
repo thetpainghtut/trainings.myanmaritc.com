@@ -1133,11 +1133,10 @@
                                 <div class="col-md-10 position-static p-4 pl-md-0">`;
                                 
                                     
-                                    html+=`<!-- Blog Title --><h5 class="mt-0"> ${v.title} ( ${day}.${month}.${year} ) </h5>
-                                    <!-- Blog Body -->
-                                    <!-- <p> Vue Cli repo </p> -->
+                                    html+=`<!-- Blog Title --><h5 class="mt-0"> ${v.title} ( ${day}.${month}.${year} ) </h5>`;
+                                  var con = v.content.replace(/<\/?[^>]+(>|$)/g, "");
                                     
-                                    <a href="${v.content}" class="stretched-link" target="_blank"> Download </a>
+                                    html+=`<a href="${con}" class="stretched-link" target="_blank"> Download </a>
                               </div>
                             </div>
                             
@@ -1200,7 +1199,7 @@
                             <div class="row">`;
                             $.each(images,function(k,c){
                                 html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="${c}" alt="" class="img-fluid">
+                                    <img src="${c}" alt="" class="img-fluid"  onclick="showImage(this,'${c}')">
                                 </div>`;
                             });
                              html+=   `<div class="col-lg-6 col-md-6 col-sm-12 col-12">
