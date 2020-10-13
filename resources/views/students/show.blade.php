@@ -23,13 +23,13 @@
 			$receiveno = $student_batch->pivot->receiveno;
 
 		@endphp
-		{{ $student_batch->course->name }} @
-		{{-- nyiyelin --}}
-		{{ $student_batch->location->city->name }}
+		
 
 		@endif
-		@endforeach 
-
+		@endforeach
+        <!-- by honey -->
+        {{$course_data->name}} @ {{$batch_data->location->city->name}}
+        <!-- by honey -->
         <a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right btn-sm"><i class="fas fa-angle-double-left"></i> Go Back</a>
 
     </h4>
@@ -52,12 +52,14 @@
 	            	<h3> {{ $student->namee }} </h3>
 
 	            	<p class="mb-3">
-	            		@foreach($student->batches as $student_batch)
+	            		{{--@foreach($student->batches as $student_batch)
 							@if($student_batch->pivot->status=="Active")
-					    		{{ $batch }}
+					    		
 					    	@endif
-					    @endforeach
+					    @endforeach--}}
+                        {{ $batch_data->title }}
 	            	</p>
+                    <!-- by honey -->
 
                     <!-- Student lesson count -->
                     @php
@@ -122,7 +124,7 @@
                             $percentage = round($percentage_decimal);
                         @endphp
                     @endif
-                    
+                    <!-- by honey -->
 	            	<div class="progress my-4">
                         <div class="progress-bar " role="progressbar" style="width: {{$percentage}}%; background-color: #004289" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
                     </div>
@@ -307,6 +309,15 @@
                         </div>
                         @endif
                         @endforeach
+                        @if($project->isEmpty())
+                        <div class="row no-gutters bg-light position-relative mb-3">
+                                        
+                            <div class="col-md-12 p-4">
+                                <!-- Blog Title -->
+                                <h5 class="mt-0"> No Project Title  </h5>
+                            </div>
+                        </div>
+                        @endif
                         <!-- <div class="row no-gutters bg-light position-relative mb-3">
                                         
                             <div class="col-md-12 p-4">
@@ -322,7 +333,7 @@
                         </div> -->
 
                     </div>
-{{--
+
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                         <a class="card-title">
                             <i class="far fa-calendar-alt mr-3 icon"></i>
@@ -332,7 +343,7 @@
                     <div id="collapseFive" class="card-body collapse" data-parent="#accordion">
 
                         <div class="chart-pie pt-4 pb-2">
-		                    <canvas id="myPieChart"></canvas>
+		                    <canvas id="myPieChart" data-absencecount="{{$absencecount}}" data-presentcount="{{$presentcount}}" data-remaincount="{{$remaincount}}"></canvas>
 		                </div>
 		                <div class="mt-4 text-center small">
 		                    <span class="mr-2">
@@ -343,6 +354,10 @@
 		                      	<i class="fas fa-circle text-danger"></i> 
 		                      	Absencee
 		                    </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle "></i> 
+                                Remain
+                            </span>
 		                </div>
                     </div>
 
@@ -367,7 +382,7 @@
                                 <a href="viewanswer.html" class="btn btn-outline-primary btn-sm"> View Score </a>
                           </div>
                         </div>
-                    </div> --}}
+                    </div> 
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
                         <a class="card-title">

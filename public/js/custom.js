@@ -21,6 +21,24 @@ $(document).ready(function () {
 
       $('#batch').html(html);
     })
+  });
+
+  $('#coursem').change(function () {
+    var cid = $(this).val();
+    console.log(cid);
+    $.post("/getBatchByCourse",{id:cid},function (res) {
+      
+      $('#batch').prop('disabled',false);
+
+      var html = `<option value="">Choose Batch</option>`;
+      $.each(res,function (i,v) {
+          html +=`<option value="${v.id}">
+                  ${v.title}
+                </option>`;
+      })
+
+      $('#batch').html(html);
+    })
   })
 
   // Select 2
