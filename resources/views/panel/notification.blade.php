@@ -27,22 +27,28 @@
                     $user  = Auth::user();
                     $student = $user->student;
                     $batch = $student->batches;
+
                     $cs = array();
                     $v = array();
                     foreach($batch as $b){
                         foreach($b->posts as $pos){
                             if($pos->pivot->batch_id == $b->id){
+
                              foreach($pos->unreadNotifications as $notification)
                              {
-                                array_push($cs, $notification);
                                 
+                                array_push($cs, $notification);
+                                $bs = $notification->orderBy('created_at','desc')->get();
+
                             }
+
                         }
 
                     }
 
-                    foreach ($cs as $key => $value) {
+                    foreach ($bs as $key => $value) {
                                    //dd($value->data);
+
                       if($value->data['batch_id'] == $b->id){
                        $topid=$value->data['topic_id'];
                        $title=$value->data['title'];
@@ -95,6 +101,8 @@
                 <?php
 
 
+            }else{
+                break;
             }
 
 

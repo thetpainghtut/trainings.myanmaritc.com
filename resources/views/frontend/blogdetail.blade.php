@@ -13,8 +13,22 @@
         $file_extension = $file_arr[1];
         $date = date('M d, Y',strtotime($blog->created_at));
         // dd($file_extension);
-    @endphp
 
+        $url= $_SERVER['SCRIPT_URI']; 
+        // <!-- share facebook -->
+        $b = strip_tags($content);
+    @endphp
+    @section('metatag')
+
+    <meta property="og:url"           content="{{Request::url()}}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{$title}}" />
+    <meta property="og:description"   content="{{$b}}" />
+    <meta property="og:image"         content="{{ asset($file_string) }}" />
+
+    @endsection
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=1489681584710655&autoLogAppEvents=1" nonce="ADoCMBhz"></script>
 	<!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
@@ -24,7 +38,7 @@
                     <p> 
                         <span> By {{ $postuser }} </span> &nbsp; | &nbsp;
                         <span> {{ $date }} </span> &nbsp; | &nbsp;
-                        <a href="" class="btn btn-outline-light btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{Request::url()}}&amp;src=sdkpreparse" target="_blank" class="btn btn-outline-light btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
                     </p> 
 
                 </div>

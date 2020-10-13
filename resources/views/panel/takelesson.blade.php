@@ -37,17 +37,32 @@
                             <h5 class="card-title font-weight-bold"> {{ $subject->name }} </h5>
 
                             @php
-                                $lectures = $subject->lessons->count();
                                 $total = 0;
+                                $countlesson = 0;
                             @endphp
+                            <!-- honey -->
+                            @foreach($staffs as $staff)
+                            
 
-                            @foreach($subject->lessons as $lesson)
-                                @php
+                                @foreach($subject->lessons as $lesson)
+
+                                    @if($staff->user_id == $lesson->user_id)
+                                    @php
+                                    $stu_less =1;
+                                    $countlesson  += $stu_less;
+                                    
                                     $duration = $lesson->duration;
 
-                                    $total += $duration++;
-                                @endphp
+                                        $total += $duration++;
+                                    @endphp
+                                    @endif
+                                   
+                                @endforeach
+
                             @endforeach
+                            <!-- honey  course and teacher-->
+                           
+                            
 
                             @php
                                 if ($total) {
@@ -64,7 +79,7 @@
                                 }
                             @endphp
 
-                            <p class="card-text"> {{ $lectures }} Lectures  •  {{ $totaltimes }} </p>
+                            <p class="card-text"> {{ $countlesson }} Lectures  •  {{ $totaltimes }} </p>
 
                             <!-- seen lesson count -->
                             @php
@@ -95,31 +110,23 @@
                                     @endforeach
                                     <!-- get subject batch -->
 
-                                <!-- old student seen lesson count -->
-                                {{--@if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0)
-                                    @php
-                                       $stu_less =1;
-                                       $stu_less_count += $stu_less;
-                                       
-                                    @endphp                                   
-                                @endif--}}
-                                <!-- old student seen lesson count -->
-
+                               
                                 <!-- new student seen lesson count -->
                                 @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
                       
                                     @php
-                                        $stu_less =1;                                       
-                                       $stu_less_count += $stu_less;
+                                        $stu_seen_less =1;                                       
+                                       $stu_less_count += $stu_seen_less;
                                        
                                     @endphp  
 
                                 @endif
+
                                 @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0 && $batch->enddate >= $today_date)
                               
                                     @php
-                                        $stu_less =1;                                       
-                                       $stu_less_count += $stu_less;
+                                        $stu_seen_less =1;                                       
+                                       $stu_less_count += $stu_seen_less;
                                        
                                     @endphp  
                                                            
@@ -153,7 +160,7 @@
 
                             <!-- new show hide -->
                             @if($play_course_btn == 1)
-                                @if($lectures == $stu_less_count)
+                                @if($countlesson == $stu_less_count)
                                     <a href="{{ route('frontend.playcourse',  ['bid' => $batch->id, 'sid' => $subject->id] ) }}" class="btn btn-primary hvr-icon-pulse-grow">
                                         Play Course <i class="far fa-play-circle ml-2 hvr-icon"></i>
                                     </a>
@@ -168,7 +175,7 @@
                             @endif
                            
                             
-                             <p class="float-right"> {{ $stu_less_count }} / {{ $lectures }} </p>
+                             <p class="float-right"> {{ $stu_less_count }} / {{ $countlesson }} </p>
                         </div>
                     </div>
                 </div>

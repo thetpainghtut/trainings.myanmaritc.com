@@ -270,11 +270,6 @@
                         @enderror
                     </div>
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                     <button type="submit" class="btn btn-primary btn-block register_btn">Save Register</button>
                  
                 </form>
@@ -301,8 +296,6 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-=======
 
 {{-- check mail modal --}}
 <div class="modal fade " id="mailfunction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -323,7 +316,6 @@
         </div>
     </div>
 </div>
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
 @endsection
 
 @section('script')
@@ -347,9 +339,7 @@
                 contentType: false,
                 type: 'POST',
                 success: function(data){
-<<<<<<< HEAD
                     $('#exampleModal').modal('show');
-=======
                     
                     if(data=="ok"){
                         $('#exampleModal').modal('show');
@@ -357,7 +347,6 @@
                         $('#mailfunction').modal('show');
 
                     }
->>>>>>> 1b1e106a77ff3874d04bdc42f006b7c5c86ca7f7
                 },
                 error: function(request, status, error) {
                     console.log("error")

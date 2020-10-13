@@ -30,8 +30,8 @@ class PanelController extends Controller
 
     public function __construct($value='')
     {
-        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
-        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword');
+        $this->middleware('auth')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword','change_password');
+        $this->middleware('role:Student')->except('forgetpassword','resetpassword','resetandeditpassword','resetupdatepassword','change_password');
     }
  
 
@@ -60,12 +60,18 @@ class PanelController extends Controller
         if($variable == 1){
 
         	$batch = Batch::find($batchid);
+            $batchteacher = $batch->teachers;
+           
+            $staffs = array();
+            foreach ($batchteacher as $key => $value) {
+                array_push($staffs,$value->staff);
+            }
 
         	$course = $batch->course;
 
         	$subjects = $course->subjects;
-
-        	return view('panel.takelesson',compact('batch','course','subjects'));
+            //dd($subjects);
+        	return view('panel.takelesson',compact('batch','course','subjects','staffs'));
         }else{
             return back();
         }
@@ -90,9 +96,19 @@ class PanelController extends Controller
             // dd($batch);
             $course = $batch->course;
 
+            $subjects = $course->subjects;
+            $batchteacher = $batch->teachers;
+            $lessons = array();
+            foreach ($batchteacher as $teacher) {
+                $user_id= $teacher->staff->user_id;
+                $lessonarrays =Lesson::where('subject_id',$subjectid)->where('user_id',$user_id)->orderBy('sorting', 'asc')->get();
+                foreach($lessonarrays as $lesson){
+                    array_push($lessons, $lesson);
+                }
+            }
 
             $subject = Subject::find($subjectid);
-            $lessons = Lesson::where('subject_id','=',$subjectid)->orderBy('sorting', 'asc')->get();
+       
             /*change order by sorting*/
             return view('panel.video',compact('lessons','subject', 'batch', 'course'));
         }else{
@@ -204,7 +220,7 @@ class PanelController extends Controller
         $post = Post::whereHas('batches', function ($q) use ($id) {
   
                     $q->where('batch_id', $id);
-                })->get();
+                })->orderBy('created_at','desc')->get();
         //dd($post);
         $b = Batch::find($id);
         // dd($b->title);
@@ -277,12 +293,12 @@ class PanelController extends Controller
         if($id == 0){
             $posts = Post::with('topic','user','user.staff')->whereHas('batches',function($q) use ($bid){
                 $q->where('batch_id',$bid);
-            })->get();
+            })->orderBy('created_at','desc')->get();
 
         }else{
             $posts =  Post::with('topic','user','user.staff')->where('topic_id',$id)->whereHas('batches',function($q) use ($bid){
                 $q->where('batch_id',$bid);
-            })->get();
+            })->orderBy('created_at','desc')->get();
         }
        
         return response()->json(['posts'=>$posts]);
@@ -446,11 +462,22 @@ class PanelController extends Controller
     public function resetpassword(Request $request)
     {
         $codeno = rand(10,999999);
-        
-        $data = array('email' => $request->email,'codeno'=>$codeno);
+        $array = array();
+        $users = User::all();
+        foreach ($users as $user) {
+            if($user->email == $request->email){
+                array_push($array, $user->email);
+            }
+        };
+        if($array != null){
+            $data = array('email' => $request->email,'codeno'=>$codeno);
 
-        Mail::to($request->email)->send(new ForgetMail($data));
-        return redirect()->back()->with('msg','Email Sent!');
+            Mail::to($request->email)->send(new ForgetMail($data));
+            return redirect()->back()->with('msg','Email Sent!');
+        }else{
+            return redirect()->back()->with('error','Your email does not match in our record!');
+        }
+        
     }
 
     public function resetandeditpassword(Request $request)
