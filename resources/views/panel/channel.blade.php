@@ -1,6 +1,45 @@
 @extends('template')
 @section('content')
+<style type="text/css">
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 4;
+    padding-top: 100px;
+    margin-top: 50px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    vertical-align: middle;
+}
+.modal-content{
+    width: 80%;
+    max-width: 700px; 
+    height:500; 
+    margin: auto;
+    display: block;
+}
 
+.close {
+  position: absolute;
+  top: 70px;
+  right: 400px;
+  /*color: #f1f1f1;*/
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
     <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
@@ -150,38 +189,38 @@
                             <div class="col-11">
                                 <p class="username d-block mb-0"> {{$po->user->name}} </p>
 
-                            <small class="text-muted mr-3">
-                                <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-
-                            <div class="row no-gutters bg-light position-relative">
-                                <div class="col-md-2 mb-md-0 p-md-4">
-                                    <img src="{{asset($po->file)}}" class="img-fluid" alt="...">
-                                </div>
-                              
-                                <div class="col-md-10 position-static p-4 pl-md-0">
-                                
-                                 
-                                    <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
-                                    <!-- Blog Body -->
-                                    <!-- <p> Vue Cli repo </p> -->
-                                    
-                                    <a href="{{$po->content}}" class="stretched-link" target="_blank"> Download </a>
-                              </div>
+                                <small class="text-muted mr-3">
+                                    <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
+                                </small> •
+                                <small class="text-muted">
+                                    <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
+                                </small>
                             </div>
-                            
                         </div>
-                    </div>
+
+                        <div class="row mt-2">
+                            <div class="col-12">
+
+                                <div class="row no-gutters bg-light position-relative">
+                                    <div class="col-md-2 mb-md-0 p-md-4">
+                                        <img src="{{asset($po->file)}}" class="img-fluid" alt="..." onclick="showImage(this,'<?php echo $po->file ?>')">
+                                    </div>
+                                  
+                                    <div class="col-md-10 position-static p-4 pl-md-0">
+                                    
+                                     
+                                        <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
+                                        <!-- Blog Body -->
+                                        <!-- <p> Vue Cli repo </p> -->
+                                        @php $b = strip_tags($po->content); @endphp
+                                        <a href="{{$b}}" class="stretched-link" target="_blank"> Download </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
                     
-                </div>
+                    </div>
                         @else
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
                             <div class="row">
@@ -232,7 +271,7 @@
                                         @endphp
                                         @foreach($images as $image)
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <img src="{{asset($image)}}" alt="" class="img-fluid">
+                                            <img src="{{asset($image)}}" alt="" class="img-fluid" onclick="showImage(this,'<?php echo $image ?>')">
                                         </div>
                                         @endforeach
                                         <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -588,7 +627,11 @@
     </div>
     <!-- /.container -->
     <!-- Page Content -->
-
+ <div id="myModal" class="modal">
+        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+        <img class="modal-content" id="img">
+        <div id="caption"></div>
+    </div>
 @endsection
 
 @section('script')
@@ -1478,7 +1521,20 @@
                  // alert("The rating is set to " + data.rating + "!");
             });
         });
-    });
 
+
+    });
+function showImage(element,i){
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('myImg'+i);
+    var modalImg = document.getElementById("img");
+    var captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = element.src;
+        captionText.innerHTML = element.alt;
+   }
     </script>
 @endsection
