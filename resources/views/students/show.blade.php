@@ -23,12 +23,11 @@
 			$receiveno = $student_batch->pivot->receiveno;
 
 		@endphp
-		{{ $student_batch->course->name }} @
-		{{-- nyiyelin --}}
-		{{ $student_batch->location->city->name }}
-
 		@endif
 		@endforeach 
+        <!-- modified course name and city name duplicate -->
+        {{ $course_data->name}} @ {{$batch_data->location->city->name}}
+        <!-- modified course name and city name duplicate -->
 
         <a href="{{route('students.index')}}" class="btn btn-outline-primary d-inline-block float-right btn-sm"><i class="fas fa-angle-double-left"></i> Go Back</a>
 
@@ -52,20 +51,33 @@
 	            	<h3> {{ $student->namee }} </h3>
 
 	            	<p class="mb-3">
-	            		@foreach($student->batches as $student_batch)
-							@if($student_batch->pivot->status=="Active")
-					    		{{ $batch }}
-					    	@endif
-					    @endforeach
+	            	
+                        <!-- modified batch name duplicate -->
+                        {{ $batch_data->title }}
+                        <!-- modified batch name duplicate -->
+
 	            	</p>
 
-                    <!-- Student lesson count -->
+                    <!-- modified progress bar  -->
                     @php
                         $subject_batch_id = 0;
                         $seen_less_total = 0;
                         $lesson_total = 0;
                         $percentage = 0;
                         $today_date = Carbon\Carbon::now();
+                        $subject_lessons = array();
+                    @endphp
+
+                    @foreach($course_data->subjects as $subject)
+                        @foreach($subject->lessons as $lesson)
+                        @php
+                           array_push($subject_lessons,$lesson); 
+                        @endphp
+                        @endforeach
+                    @endforeach
+
+                    @php
+                        $subject_batch_id = 0;
                     @endphp
 
                     @foreach($student->lessons as $lesson)
@@ -105,17 +117,36 @@
                         @endif
                         
                     @endforeach
-                   
-                    <!-- End of Student lesson count -->
-                   
-                     @foreach($course_data->subjects as $subject) 
-                        @php
-                            $lesson_count = $subject->lessons->count();
-                            $lesson_total += $lesson_count;
-                        @endphp
+                 
+                    @php
+                    $batchteacher = $batch_data->teachers;
+                          $staffs = array();       
+                    
+                    
+                    foreach($batchteacher as $batchteacher)
+                    
+                    {
+                        array_push($staffs,$batchteacher->staff);
+                    }
+                    
+                    @endphp
+                    @foreach($staffs as $staff)
+                            
 
+                    @foreach($subject_lessons as $lesson)
+
+                    @if($staff->user_id == $lesson->user_id)
+                        @php
+                        $stu_less =1;
+                        $lesson_total  += $stu_less;
+                       
+                        @endphp
+                    @endif
                     @endforeach
 
+                    @endforeach
+                    <!--End modified progress bar  -->
+                    
                     @if($lesson_total > 0)
                         @php
                             $percentage_decimal = (($seen_less_total/$lesson_total)*100);

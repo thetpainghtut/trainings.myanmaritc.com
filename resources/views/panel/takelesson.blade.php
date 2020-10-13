@@ -44,27 +44,25 @@
                             @foreach($staffs as $staff)
                             
 
-                            @foreach($subject->lessons as $lesson)
+                                @foreach($subject->lessons as $lesson)
 
-                            @if($staff->user_id == $lesson->user_id)
-                            @php
-                            $stu_less =1;
-                            $countlesson  += $stu_less;
-                           
-                            @endphp
-                            @endif
-                            @endforeach
+                                    @if($staff->user_id == $lesson->user_id)
+                                    @php
+                                    $stu_less =1;
+                                    $countlesson  += $stu_less;
+                                    
+                                    $duration = $lesson->duration;
+
+                                        $total += $duration++;
+                                    @endphp
+                                    @endif
+                                   
+                                @endforeach
 
                             @endforeach
                             <!-- honey  course and teacher-->
                            
-                            @foreach($subject->lessons as $lesson)
-                                @php
-                                    $duration = $lesson->duration;
-
-                                    $total += $duration++;
-                                @endphp
-                            @endforeach
+                            
 
                             @php
                                 if ($total) {
@@ -112,31 +110,23 @@
                                     @endforeach
                                     <!-- get subject batch -->
 
-                                <!-- old student seen lesson count -->
-                                {{--@if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0)
-                                    @php
-                                       $stu_less =1;
-                                       $stu_less_count += $stu_less;
-                                       
-                                    @endphp                                   
-                                @endif--}}
-                                <!-- old student seen lesson count -->
-
+                               
                                 <!-- new student seen lesson count -->
                                 @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 1 && $batch->enddate <= $today_date)
                       
                                     @php
-                                        $stu_less =1;                                       
-                                       $stu_less_count += $stu_less;
+                                        $stu_seen_less =1;                                       
+                                       $stu_less_count += $stu_seen_less;
                                        
                                     @endphp  
 
                                 @endif
+
                                 @if($subject->id == $subject_pid && $batch->id == $subject_batch_id && $status == 0 && $batch->enddate >= $today_date)
                               
                                     @php
-                                        $stu_less =1;                                       
-                                       $stu_less_count += $stu_less;
+                                        $stu_seen_less =1;                                       
+                                       $stu_less_count += $stu_seen_less;
                                        
                                     @endphp  
                                                            
