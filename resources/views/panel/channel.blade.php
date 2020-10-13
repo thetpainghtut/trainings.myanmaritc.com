@@ -154,7 +154,7 @@
                                 <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
                             </small> •
                             <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} ago 
+                                <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
                             </small>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                                 <div class="col-md-10 position-static p-4 pl-md-0">
                                 
                                  
-                                    <h5 class="mt-0"> {{$po->title}} ({{ $po->created_at->format('j.m.Y') }}  ) </h5>
+                                    <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
                                     <!-- Blog Body -->
                                     <!-- <p> Vue Cli repo </p> -->
                                     

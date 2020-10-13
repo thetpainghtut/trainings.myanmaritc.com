@@ -25,7 +25,6 @@
             <p class="mt-3"> 
 	            <span> By {{ $postuser }} </span> &nbsp; | &nbsp;
 	            <span> {{ $date }} </span> &nbsp; | &nbsp;
-	            <a href="" class="btn btn-primary btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
 	        </p> 
         </div>
         <div class="card-body">

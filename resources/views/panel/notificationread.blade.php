@@ -134,7 +134,7 @@
                     </div>
 
                    
-                    <div class="signup-step-container">
+                    <!-- <div class="signup-step-container">
                         <div class="container">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-12">
@@ -314,7 +314,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -681,9 +681,7 @@
                     
                 </div>`;
 
-        var quizanswerURL = "{{ route('frontend.quizanswer') }}";
-        var quizURL = "{{ route('frontend.takequiz') }}";
-
+        
 
         html6 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
                     <div class="row">
@@ -998,7 +996,7 @@
             }*/
 
         });
-            
+        /*    
         $('.ptopics').on('click',function(){
             var id = $(this).data('id');
             var bid = $(this).data('bid');
@@ -1013,7 +1011,7 @@
             $('.signup-step-container').hide();
             $('#proj').show();
             $('#projtypeid').val(id);
-        })
+        })*/
     });
 
     </script>
