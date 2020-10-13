@@ -82,7 +82,7 @@
                     @endforeach
                    
                     <!-- End of Student lesson count -->
-                    <!-- course teacher -->
+                    <!-- batch teacher -->
                     @php
                     $batchteacher = $studentbatch->teachers;
                           $staffs = array();       

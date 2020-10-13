@@ -58,7 +58,7 @@
 
 	            	</p>
 
-                    <!-- modified progress bar  -->
+                    <!-- modified progress bar ourse teacher-->
                     @php
                         $subject_batch_id = 0;
                         $seen_less_total = 0;
@@ -145,8 +145,8 @@
                     @endforeach
 
                     @endforeach
-                    <!--End modified progress bar  -->
-                    
+                    <!--End modified progress bar  course teacher-->
+
                     @if($lesson_total > 0)
                         @php
                             $percentage_decimal = (($seen_less_total/$lesson_total)*100);
