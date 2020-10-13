@@ -22,11 +22,14 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\Staff;
 use App\Teacher;
+use App\EmailChecker;
+use App\Quizz;
 class StudentController extends Controller
 {
     public function __construct($value='')
     {
         $this->middleware('role:Admin|Mentor|Recruitment|Business Development|Teacher')->except('store');
+        $this->EmailChecker = new EmailChecker;
     }
     
     /**
@@ -266,7 +269,10 @@ class StudentController extends Controller
 
         }
         else{
-          // dd('hello');
+          $result = $this->EmailChecker->checkmail($request->email);
+
+              if($result == true){
+          
             $user = new User;
             $user->name = request('namee');
             $user->email=request('email');
@@ -296,7 +302,7 @@ class StudentController extends Controller
             $student->p2_relationship = $p2_rs;
             $student->because = $because;
             $student->township_id = $townshipid;
-            $student->user_id = $id;
+            $student->user_id = 1;
             $student->save();
 
 
@@ -309,17 +315,25 @@ class StudentController extends Controller
             $student->batches()->attach($batch_id,['receiveno' => $inquireno, 'status' => 'Active']);
 
             // mail
-
-            $data = array('name' => $request->namee,
+            
+            
+                 $data = array('name' => $request->namee,
                           'email' => $request->email,
                           'password' => '123456789',);
 
-            Mail::to($request->email)->send(new SendMail($data));
+                  Mail::to($request->email)->send(new SendMail($data));
+                return 'confirm';
+                
+              }elseif($result == false){
 
+                return "invalid";
 
+              }else{
 
-            return 'confirm';
-        }
+                return "time out error";
+
+              }
+            
         // Save Data
 
         // $user = User::firstOrNew(['email' =>  request('email'), 'name' => request('namee') ]);
@@ -328,6 +342,9 @@ class StudentController extends Controller
 
         
     }
+  }
+
+    
 
     /**
      * Display the specified resource.
@@ -748,5 +765,13 @@ class StudentController extends Controller
 
         return redirect()->route('students.create');
 
+    }
+
+
+    public function backend_viewscore($id)
+    {
+      $response = Response::find($id);
+      $quizes = Quizz::all();
+      return view('students.viewanswer',compact('response','quizes'));
     }
 }

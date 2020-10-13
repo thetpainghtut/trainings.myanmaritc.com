@@ -332,7 +332,7 @@
 
                     </div>
 
-                    <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                    {{-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                         <a class="card-title">
                             <i class="far fa-calendar-alt mr-3 icon"></i>
                             Attendance
@@ -357,7 +357,7 @@
                                 Remain
                             </span>
 		                </div>
-                    </div>
+                    </div> --}}
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                         <a class="card-title">
@@ -365,21 +365,33 @@
                             Quiz
                         </a>
                     </div>
-                    <div id="collapseSix" class="card-body collapse" data-parent="#accordion">
 
+                    <div id="collapseSix" class="card-body collapse" data-parent="#accordion">
+                        @if($student->responses)
+                        @foreach($student->responses as $response)
+                            
                         <div class="row no-gutters bg-light position-relative">
                                         
                             <div class="col-md-12 p-4">
                                 <!-- Blog Title -->
-                                <h5 class="mt-0"> Frontend Development Quizzes  </h5>
-                                <h5 class="mt-0 float-right"> 20 Marks  </h5>
+                                <h5 class="mt-0"> {{$response->quiz->title}}  </h5>
+                                <h5 class="mt-0 float-right"> {{$response->score}} Marks  </h5>
 
                                 <!-- Blog Body -->
-                                <p> ( 24.10.2020 ) </p>
+                                @php
+                                    $strtotime = strtotime($response->created_at);
+                                    
+                                    $date = date('d-m-Y',$strtotime);
+                                @endphp
+                                <p> ( {{ $date }} ) </p>
                                 
-                                <a href="viewanswer.html" class="btn btn-outline-primary btn-sm"> View Score </a>
+                                <a href="{{route('backend_viewscore',$response->id)}}" class="btn btn-outline-primary btn-sm"> View Score </a>
                           </div>
                         </div>
+                           
+                        @endforeach
+                        @endif
+
                     </div> 
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">

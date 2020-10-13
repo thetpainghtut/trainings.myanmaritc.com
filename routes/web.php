@@ -226,6 +226,9 @@ Route::post('resetupdatepassword','PanelController@resetupdatepassword')->name('
 Route::get('takequizz/{id}','PanelController@takequizz')->name('takequizz');
 Route::post('/storeanswer','PanelController@storeanswer')->name('storeanswer');
 
+Route::get('/backend_viewscore/{id}','StudentController@backend_viewscore')->name('backend_viewscore');
+
+
 
 
 // quizzes
