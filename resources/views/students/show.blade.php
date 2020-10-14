@@ -399,8 +399,14 @@
 
                     <div id="collapseSix" class="card-body collapse" data-parent="#accordion">
                         @if($student->responses)
+                        @php
+                            $array = array();
+                            $date = date('Y-m-d');
+                        @endphp
+                        
                         @foreach($student->responses as $response)
-                            
+                        @if($response->status == 'Active' && $batch_data->enddate >= $date)
+                        
                         <div class="row no-gutters bg-light position-relative">
                                         
                             <div class="col-md-12 p-4">
@@ -419,7 +425,26 @@
                                 <a href="{{route('backend_viewscore',$response->id)}}" class="btn btn-outline-primary btn-sm"> View Score </a>
                           </div>
                         </div>
-                           
+                        @elseif($response->status == 'Deactive' && $batch_data->enddate <= $date)
+                        <div class="row no-gutters bg-light position-relative">
+                                        
+                            <div class="col-md-12 p-4">
+                                <!-- Blog Title -->
+                                <h5 class="mt-0"> {{$response->quiz->title}}  </h5>
+                                <h5 class="mt-0 float-right"> {{$response->score}} Marks  </h5>
+
+                                <!-- Blog Body -->
+                                @php
+                                    $strtotime = strtotime($response->created_at);
+                                    
+                                    $date = date('d-m-Y',$strtotime);
+                                @endphp
+                                <p> ( {{ $date }} ) </p>
+                                
+                                <a href="{{route('backend_viewscore',$response->id)}}" class="btn btn-outline-primary btn-sm"> View Score </a>
+                          </div>
+                        </div>
+                        @endif
                         @endforeach
                         @endif
 
