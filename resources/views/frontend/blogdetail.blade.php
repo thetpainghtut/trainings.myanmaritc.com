@@ -14,7 +14,7 @@
         $date = date('M d, Y',strtotime($blog->created_at));
         // dd($file_extension);
 
-        $url= $_SERVER['SCRIPT_URI']; 
+ 
         // <!-- share facebook -->
         $b = strip_tags($content);
     @endphp
