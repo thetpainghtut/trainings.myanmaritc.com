@@ -316,6 +316,45 @@
         </div>
     </div>
 </div>
+{{-- mail error --}}
+<div class="modal fade " id="mailerror" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center">
+                
+                <p>Your email is invalid</p>
+
+                <a href="https://mail.google.com/" target="_blank">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </a>
+            </div>
+            <div class="modal-footer ">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- errro --}}
+<div class="modal fade " id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center">
+                
+                <p>Server Time out</p>
+
+                <a href="https://mail.google.com/" target="_blank">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                </a>
+            </div>
+            <div class="modal-footer ">
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -339,13 +378,15 @@
                 contentType: false,
                 type: 'POST',
                 success: function(data){
-                    $('#exampleModal').modal('show');
-                    
+
                     if(data=="ok"){
                         $('#exampleModal').modal('show');
-                    }else{
+                    }else if(data=="confirm"){
                         $('#mailfunction').modal('show');
-
+                    }else if(data == "invalid"){
+                        $('#mailerror').modal('show');
+                    }else{
+                        $('#error').modal('show');
                     }
                 },
                 error: function(request, status, error) {
