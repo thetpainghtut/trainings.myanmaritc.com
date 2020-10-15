@@ -1109,6 +1109,7 @@
                     var month = date.getMonth();
                     var year = date.getFullYear();
                     var images = v.file.split(',');
+                    var filetype = v.file.split('.').pop();
                     if(v.topic.name == 'Live Recording'){
                         html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
                     <div class="row">`;
@@ -1206,33 +1207,29 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> ${v.title} </p>
+                                <h5 class="mb-2"> ${v.title} </h5>
+                                <p class="">${v.content.replace(/<\/?[^>]+(>|$)/g, "")}</p>
                             </blockquote>
 
                             <div class="row">`;
+                            if(filetype == 'JPG' || filetype == 'jpg' || filetype == 'JPEG' || filetype == 'jpeg' || filetype == 'bmp' || filetype == 'png'){
                             $.each(images,function(k,c){
                                 html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                     <img src="${c}" alt="" class="img-fluid"  onclick="showImage(this,'${c}')">
                                 </div>`;
                             });
-                             html+=   `<div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_2.jpg" alt="" class="img-fluid">
-                                </div>
+                             }
+                             else if(filetype == "x-flv" || filetype == "mp4" || filetype == "x-mpegURL" || filetype == "MP2T" || filetype == "3gpp" || filetype == "quicktime" || filetype == "x-msvideo" || filetype == "x-ms-wmv" || filetype == "mov" || filetype == 'ogg'){
+                  html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12"><video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline >
+                       
+                    <source src="${v.file}" type="video/mp4" />
 
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_3.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_4.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_5.jpg" alt="" class="img-fluid">
-                                </div>
+                </video></div>`;
+                }else{
 
-                            </div>
+                }
+
+                            html+=`</div>
                             
                         </div>
                     </div>
