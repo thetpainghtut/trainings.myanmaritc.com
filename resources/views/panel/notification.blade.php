@@ -38,7 +38,7 @@
                              foreach($pos->unreadNotifications as $notification)
                              {
                                 
-                                $bs = $notification->orderBy('created_at','desc')->get();
+                                $bs = $notification->where('read_at','=',NULL)->orderBy('created_at','desc')->get();
 
 
 
@@ -47,6 +47,7 @@
                         }
 
                     }
+                   // dd($bs);
                     foreach ($bs as $key => $value) {
                                    //dd($value->data);
 

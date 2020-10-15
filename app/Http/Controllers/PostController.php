@@ -45,7 +45,6 @@ class PostController extends Controller
                $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
            }
         }
-       // dd($batches);
         
        /* foreach ($batches as $key => $value) {
             $b = $value;
