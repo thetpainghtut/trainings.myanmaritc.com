@@ -19,7 +19,8 @@ class CreateJournalsTable extends Migration
             $table->longText('content');
             $table->longText('file')->nullable();
             $table->string('type');
-
+            $table->string('count')->default(0);
+            
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')

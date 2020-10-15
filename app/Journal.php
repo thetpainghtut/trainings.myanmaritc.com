@@ -9,7 +9,7 @@ class Journal extends Model
 {
     use SoftDeletes;
 
-  	protected $fillable = ['title','content', 'file', 'type', 'user_id'];
+  	protected $fillable = ['title','content', 'file', 'type','count', 'user_id'];
 
   	public function user()
   	{

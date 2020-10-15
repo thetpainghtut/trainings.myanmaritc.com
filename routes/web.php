@@ -20,9 +20,10 @@ Route::get('contact','FrontendController@contact')->name('frontend.contact');
 // Frontend V2
 Route::get('blogs','FrontendController@blogs')->name('frontend.blogs');
 Route::get('blog_detail/{id}','FrontendController@blog_detail')->name('frontend.blog_detail');
-
 Route::post('oldstduent','FrontendController@oldstduent')->name('oldstduent');
 
+//Honey
+Route::post('share_count','FrontendController@share_count')->name('share_count');
 
 
 // nyiyelin
