@@ -178,49 +178,49 @@
                         @foreach($post as $po)
                         @if($po->topic->name == 'Live Recording')
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                        <div class="row">
-                            <div class="col-1"> 
-                                @if($po->user->getRoleNames()[0] =='Admin')
-                                    <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
-                                @else
-                                    <img src="{{asset($po->user->staff->photo)}}" class="userprofile mr-2 d-inline">
-                                @endif
-                            </div>  
-                            <div class="col-11">
-                                <p class="username d-block mb-0"> {{$po->user->name}} </p>
+                            <div class="row">
+                                <div class="col-1"> 
+                                    @if($po->user->getRoleNames()[0] =='Admin')
+                                        <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                    @else
+                                        <img src="{{asset($po->user->staff->photo)}}" class="userprofile mr-2 d-inline">
+                                    @endif
+                                </div>  
+                                <div class="col-11">
+                                    <p class="username d-block mb-0"> {{$po->user->name}} </p>
 
-                                <small class="text-muted mr-3">
-                                    <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
-                                </small> •
-                                <small class="text-muted">
-                                    <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-12">
-
-                                <div class="row no-gutters bg-light position-relative">
-                                    <div class="col-md-2 mb-md-0 p-md-4">
-                                        <img src="{{asset($po->file)}}" class="img-fluid" alt="..." onclick="showImage(this,'<?php echo $po->file ?>')">
-                                    </div>
-                                  
-                                    <div class="col-md-10 position-static p-4 pl-md-0">
-                                    
-                                     
-                                        <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
-                                        <!-- Blog Body -->
-                                        <!-- <p> Vue Cli repo </p> -->
-                                        @php $b = strip_tags($po->content); @endphp
-                                        <a href="{{$b}}" class="stretched-link" target="_blank"> Download </a>
-                                    </div>
+                                    <small class="text-muted mr-3">
+                                        <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
+                                    </small> •
+                                    <small class="text-muted">
+                                        <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
+                                    </small>
                                 </div>
-                                
                             </div>
-                        </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+
+                                    <div class="row no-gutters bg-light position-relative">
+                                        <div class="col-md-2 mb-md-0 p-md-4">
+                                            <img src="{{asset($po->file)}}" class="img-fluid" alt="..." onclick="showImage(this,'<?php echo $po->file ?>')">
+                                        </div>
+                                      
+                                        <div class="col-md-10 position-static p-4 pl-md-0">
+                                        
+                                         
+                                            <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
+                                            <!-- Blog Body -->
+                                            <!-- <p> Vue Cli repo </p> -->
+                                            @php $b = strip_tags($po->content); @endphp
+                                            <a href="{{$b}}" class="stretched-link" target="_blank"> Download </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                     
-                    </div>
+                        </div>
                         @else
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
                             <div class="row">
