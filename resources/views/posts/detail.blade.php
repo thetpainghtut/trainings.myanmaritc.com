@@ -10,6 +10,7 @@
     $file_string = $post->file;
 
     $file_arr = explode(',', $file_string);
+
     $filetype = pathinfo($file_string, PATHINFO_EXTENSION);
     
    
@@ -35,7 +36,7 @@
                   @foreach($file_arr as $farr)
                     <img src="{{ asset($farr) }}" class="img-fluid mx-auto d-block">
                     @endforeach
-                @elseif($filetype == "x-flv" || $filetype == "mp4" || $filetype == "x-mpegURL" || $filetype == "MP2T" || $filetype == "3gpp" || $filetype == "quicktime" || $filetype == "x-msvideo" || $filetype == "x-ms-wmv" || $filetype == "mov" || $filetype == 'ogg')
+                @elseif($filetype == "x-flv" || $filetype == "mp4" || $filetype == "x-mpegURL" || $filetype == "MP2T" || $filetype == "3gpp" || $filetype == "quicktime" || $filetype == "x-msvideo" || $filetype == "x-ms-wmv" || $filetype == "mov" || $filetype == 'ogg' || $filetype = "mkv")
                   <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline >
                        
                     <source src="{{ asset($post->file) }}" type="video/mp4" />
@@ -44,7 +45,7 @@
                 @else
 
                   <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="{{ asset($file_extension) }}" allowfullscreen></iframe>
+              <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
             </div>
 
                 @endif
