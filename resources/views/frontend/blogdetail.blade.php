@@ -86,6 +86,7 @@
 @endsection
 @section('script')
 <script type="text/javascript">
+    // share count
     $(document).ready(function(){
         $.ajaxSetup({
             headers: {
