@@ -262,18 +262,31 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <blockquote class="blockquote  text-primary">
-                                        <p class="mb-0"> {{$po->title}} </p>
+                                        <h5 class="mb-0"> {{$po->title}} </h5>
+                                        <p >{!!$po->content!!}</p>
                                     </blockquote>
 
                                     <div class="row">
                                         @php
                                         $images = explode(',',$po->file);
+                                        $filetype = pathinfo($po->file, PATHINFO_EXTENSION);
                                         @endphp
+                                        @if($filetype == 'JPG' || $filetype == 'jpg' || $filetype == 'JPEG' || $filetype == 'jpeg' || $filetype == 'bmp' || $filetype == 'png')
                                         @foreach($images as $image)
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="{{asset($image)}}" alt="" class="img-fluid" onclick="showImage(this,'<?php echo $image ?>')">
                                         </div>
                                         @endforeach
+                                        @elseif($filetype == "x-flv" || $filetype == "mp4" || $filetype == "x-mpegURL" || $filetype == "MP2T" || $filetype == "3gpp" || $filetype == "quicktime" || $filetype == "x-msvideo" || $filetype == "x-ms-wmv" || $filetype == "mov" || $filetype == 'ogg')
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                          <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline >
+                                               
+                                            <source src="{{ asset($po->file) }}" type="video/mp4" />
+
+                                            </video>
+                                        </div>
+                                        @else
+                                        @endif
                                         <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
                                         </div> -->
