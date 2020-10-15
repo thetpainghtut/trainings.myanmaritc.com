@@ -178,49 +178,49 @@
                         @foreach($post as $po)
                         @if($po->topic->name == 'Live Recording')
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                        <div class="row">
-                            <div class="col-1"> 
-                                @if($po->user->getRoleNames()[0] =='Admin')
-                                    <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
-                                @else
-                                    <img src="{{asset($po->user->staff->photo)}}" class="userprofile mr-2 d-inline">
-                                @endif
-                            </div>  
-                            <div class="col-11">
-                                <p class="username d-block mb-0"> {{$po->user->name}} </p>
+                            <div class="row">
+                                <div class="col-1"> 
+                                    @if($po->user->getRoleNames()[0] =='Admin')
+                                        <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                    @else
+                                        <img src="{{asset($po->user->staff->photo)}}" class="userprofile mr-2 d-inline">
+                                    @endif
+                                </div>  
+                                <div class="col-11">
+                                    <p class="username d-block mb-0"> {{$po->user->name}} </p>
 
-                                <small class="text-muted mr-3">
-                                    <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
-                                </small> •
-                                <small class="text-muted">
-                                    <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-12">
-
-                                <div class="row no-gutters bg-light position-relative">
-                                    <div class="col-md-2 mb-md-0 p-md-4">
-                                        <img src="{{asset($po->file)}}" class="img-fluid" alt="..." onclick="showImage(this,'<?php echo $po->file ?>')">
-                                    </div>
-                                  
-                                    <div class="col-md-10 position-static p-4 pl-md-0">
-                                    
-                                     
-                                        <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
-                                        <!-- Blog Body -->
-                                        <!-- <p> Vue Cli repo </p> -->
-                                        @php $b = strip_tags($po->content); @endphp
-                                        <a href="{{$b}}" class="stretched-link" target="_blank"> Download </a>
-                                    </div>
+                                    <small class="text-muted mr-3">
+                                        <i class="fas fa-video mr-1"></i> {{$po->topic->name}}
+                                    </small> •
+                                    <small class="text-muted">
+                                        <i class="far fa-clock ml-3"></i>{{$po->created_at->diffForHumans()}} 
+                                    </small>
                                 </div>
-                                
                             </div>
-                        </div>
+
+                            <div class="row mt-2">
+                                <div class="col-12">
+
+                                    <div class="row no-gutters bg-light position-relative">
+                                        <div class="col-md-2 mb-md-0 p-md-4">
+                                            <img src="{{asset($po->file)}}" class="img-fluid" alt="..." onclick="showImage(this,'<?php echo $po->file ?>')">
+                                        </div>
+                                      
+                                        <div class="col-md-10 position-static p-4 pl-md-0">
+                                        
+                                         
+                                            <h5 class="mt-0"> {{$po->title}} ( {{ $po->created_at->format('j.m.Y') }}  ) </h5>
+                                            <!-- Blog Body -->
+                                            <!-- <p> Vue Cli repo </p> -->
+                                            @php $b = strip_tags($po->content); @endphp
+                                            <a href="{{$b}}" class="stretched-link" target="_blank"> Download </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                     
-                    </div>
+                        </div>
                         @else
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
                             <div class="row">
@@ -262,18 +262,31 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <blockquote class="blockquote  text-primary">
-                                        <p class="mb-0"> {{$po->title}} </p>
+                                        <h5 class="mb-0"> {{$po->title}} </h5>
+                                        <p >{!!$po->content!!}</p>
                                     </blockquote>
 
                                     <div class="row">
                                         @php
                                         $images = explode(',',$po->file);
+                                        $filetype = pathinfo($po->file, PATHINFO_EXTENSION);
                                         @endphp
+                                        @if($filetype == 'JPG' || $filetype == 'jpg' || $filetype == 'JPEG' || $filetype == 'jpeg' || $filetype == 'bmp' || $filetype == 'png')
                                         @foreach($images as $image)
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="{{asset($image)}}" alt="" class="img-fluid" onclick="showImage(this,'<?php echo $image ?>')">
                                         </div>
                                         @endforeach
+                                        @elseif($filetype == "x-flv" || $filetype == "mp4" || $filetype == "x-mpegURL" || $filetype == "MP2T" || $filetype == "3gpp" || $filetype == "quicktime" || $filetype == "x-msvideo" || $filetype == "x-ms-wmv" || $filetype == "mov" || $filetype == 'ogg' || $filetype == 'mkv')
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                          <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline >
+                                               
+                                            <source src="{{ asset($po->file) }}" type="video/mp4" />
+
+                                            </video>
+                                        </div>
+                                        @else
+                                        @endif
                                         <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
                                         </div> -->
@@ -1096,6 +1109,7 @@
                     var month = date.getMonth();
                     var year = date.getFullYear();
                     var images = v.file.split(',');
+                    var filetype = v.file.split('.').pop();
                     if(v.topic.name == 'Live Recording'){
                         html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
                     <div class="row">`;
@@ -1193,33 +1207,29 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> ${v.title} </p>
+                                <h5 class="mb-2"> ${v.title} </h5>
+                                <p class="">${v.content.replace(/<\/?[^>]+(>|$)/g, "")}</p>
                             </blockquote>
 
                             <div class="row">`;
+                            if(filetype == 'JPG' || filetype == 'jpg' || filetype == 'JPEG' || filetype == 'jpeg' || filetype == 'bmp' || filetype == 'png'){
                             $.each(images,function(k,c){
                                 html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                     <img src="${c}" alt="" class="img-fluid"  onclick="showImage(this,'${c}')">
                                 </div>`;
                             });
-                             html+=   `<div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_2.jpg" alt="" class="img-fluid">
-                                </div>
+                             }
+                             else if(filetype == "x-flv" || filetype == "mp4" || filetype == "x-mpegURL" || filetype == "MP2T" || filetype == "3gpp" || filetype == "quicktime" || filetype == "x-msvideo" || filetype == "x-ms-wmv" || filetype == "mov" || filetype == 'ogg' || filetype == 'mkv'){
+                  html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12"><video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline >
+                       
+                    <source src="${v.file}" type="video/mp4" />
 
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_3.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_4.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_5.jpg" alt="" class="img-fluid">
-                                </div>
+                </video></div>`;
+                }else{
 
-                            </div>
+                }
+
+                            html+=`</div>
                             
                         </div>
                     </div>

@@ -90,36 +90,17 @@
         
         <div class="form-group row">
             <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
-            @role('Admin')
+            
+      
             <div class="col-sm-10">
                 <select class="form-control" name="batch" id="batchName">
                     <option>Choose One</option>
-                    
-                    <!-- @foreach($batches as $batch)
-                    @foreach($post->batches as $pb)
-                    @if($pb->id != $batch->id)
+                    @foreach($batches as $batch)
                         <option value="{{$batch->id}}">{{$batch->title}}</option>
-                    @endif
-                    @endforeach
-                    @if($post->batches->isEmpty())
-                    @endif
-                    @endforeach -->
-                    @foreach($batches as $batch)
-                    <option value="{{$batch->id}}">{{$batch->title}}</option>
                     @endforeach
                 </select>
             </div>
-            @endrole
-            @role('Teacher')
-            <div class="col-sm-10">
-                <select class="form-control" name="batch" id="batchName">
-                    <option>Choose One</option>
-                    @foreach($batches as $batch)
-                        <option value="{{$batch->batch_id}}">{{$batch->title}}</option>
-                    @endforeach
-                </select>
-            </div>
-            @endrole
+         
         </div>
         
       </div>

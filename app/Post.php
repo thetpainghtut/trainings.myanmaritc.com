@@ -3,14 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Notifications\PostNotification;
 use Illuminate\Notifications\Notifiable;
 
 class Post extends Model
 {
-    use SoftDeletes,Notifiable;
+    use Notifiable;
     
   	protected $fillable = ['title','content', 'file', 'topic_id', 'user_id'];
 

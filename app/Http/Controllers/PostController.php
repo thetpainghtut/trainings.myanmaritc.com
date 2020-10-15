@@ -45,7 +45,6 @@ class PostController extends Controller
                $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
            }
         }
-       // dd($batches);
         
        /* foreach ($batches as $key => $value) {
             $b = $value;
@@ -95,18 +94,23 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-        
         /*$user = Auth::id();*/
        
         //
         $request->validate([
             'title'=>'required',
-            'content' => 'required',
             'topic' => 'required',
-            'image' => 'sometimes',
-            'image.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'batch' => 'required'
         ]);
+        $topics = Topic::find($request->topic);
+        if($topics->name == 'Live Recording'){
+            $request->validate(['link'=> 'required']);
+            $content = $request->link;
+        }else{
+            $request->validate(['content' => 'required']);
+            $content = $request->content;
+        }
+        
         $subject = request('subject');
         if($subject){
             $request->validate([
@@ -131,7 +135,7 @@ class PostController extends Controller
 
         $post = new Post();
         $post->title = request('title');
-        $post->content = request('content');
+        $post->content = $content;
         $post->file = $photoString;
         $post->topic_id = request('topic');
         $post->user_id = Auth::id();
@@ -214,17 +218,11 @@ class PostController extends Controller
             'title'=>'required',
             'content' => 'required',
             'topic' => 'required',
-            'oldfile' => 'required',
             'batch' => 'required'
         ]);
        
         $data=[];
         if ($request->hasfile('file')) {
-            $request->validate([
-                'file' => 'required',
-                'file.*' => 'required|file|mimes:jpeg,png,jpg,gif,svg',
-            ]);
-            
             $oldphoto = explode(',', $request->oldfile);
             foreach($oldphoto as $old){
                 unlink(public_path($old));
@@ -239,9 +237,7 @@ class PostController extends Controller
                 $photoString = implode(',', $data);
             }
         }else{
-            $request->validate([
-                'oldfile' => 'required'
-            ]);
+
             $photoString = request('oldfile');
         }
         

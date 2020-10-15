@@ -30,6 +30,7 @@
 
                     $cs = array();
                     $v = array();
+                    $bs = array();
                     foreach($batch as $b){
                         foreach($b->posts as $pos){
                             if($pos->pivot->batch_id == $b->id){
@@ -37,15 +38,16 @@
                              foreach($pos->unreadNotifications as $notification)
                              {
                                 
-                                array_push($cs, $notification);
-                                $bs = $notification->orderBy('created_at','desc')->get();
+                                $bs = $notification->where('read_at','=',NULL)->orderBy('created_at','desc')->get();
+
+
 
                             }
 
                         }
 
                     }
-
+                   // dd($bs);
                     foreach ($bs as $key => $value) {
                                    //dd($value->data);
 

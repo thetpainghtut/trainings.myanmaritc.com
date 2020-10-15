@@ -1,6 +1,45 @@
 @extends('template')
 @section('content')
+<style type="text/css">
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 4;
+    padding-top: 100px;
+    margin-top: 50px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    vertical-align: middle;
+}
+.modal-content{
+    width: 80%;
+    max-width: 700px; 
+    height:500; 
+    margin: auto;
+    display: block;
+}
 
+.close {
+  position: absolute;
+  top: 70px;
+  right: 400px;
+  /*color: #f1f1f1;*/
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
     <!-- Header -->
     <header class="py-5 mb-5 header_img">
         <div class="container h-100">
@@ -68,7 +107,52 @@
 
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                     <div class="row" id="alltopics">
-                   
+                        @if($postid->topic->name == 'Live Recording')
+                        <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
+                        <div class="row">
+                            <div class="col-1"> 
+                                @if($postid->user->getRoleNames()[0] =='Admin')
+                                    <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
+                                @else
+                                    <img src="{{asset($postid->user->staff->photo)}}" class="userprofile mr-2 d-inline">
+                                @endif
+                            </div>  
+                            <div class="col-11">
+                                <p class="username d-block mb-0"> {{$postid->user->name}} </p>
+
+                                <small class="text-muted mr-3">
+                                    <i class="fas fa-video mr-1"></i> {{$postid->topic->name}}
+                                </small> •
+                                <small class="text-muted">
+                                    <i class="far fa-clock ml-3"></i>{{$postid->created_at->diffForHumans()}} 
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-12">
+
+                                <div class="row no-gutters bg-light position-relative">
+                                    <div class="col-md-2 mb-md-0 p-md-4">
+                                        <img src="{{asset($postid->file)}}" class="img-fluid" alt="..." onclick="showImage(this,'<?php echo $postid->file ?>')">
+                                    </div>
+                                  
+                                    <div class="col-md-10 position-static p-4 pl-md-0">
+                                    
+                                     
+                                        <h5 class="mt-0"> {{$postid->title}} ( {{ $postid->created_at->format('j.m.Y') }}  ) </h5>
+                                        <!-- Blog Body -->
+                                        <!-- <p> Vue Cli repo </p> -->
+                                        @php $b = strip_tags($postid->content); @endphp
+                                        <a href="{{$b}}" class="stretched-link" target="_blank"> Download </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    
+                    </div>
+                    @else
                         <div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
                             <div class="row">
                                 <div class="col-1">
@@ -109,18 +193,31 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <blockquote class="blockquote  text-primary">
-                                        <p class="mb-0"> {{$postid->title}} </p>
+                                        <h5 class="mb-0"> {{$postid->title}} </h5>
+                                        <p >{!!$postid->content!!}</p>
                                     </blockquote>
 
                                     <div class="row">
                                         @php
                                         $images = explode(',',$postid->file);
+                                        $filetype = pathinfo($postid->file, PATHINFO_EXTENSION);
                                         @endphp
+                                        @if($filetype == 'JPG' || $filetype == 'jpg' || $filetype == 'JPEG' || $filetype == 'jpeg' || $filetype == 'bmp' || $filetype == 'png')
                                         @foreach($images as $image)
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <img src="{{asset($image)}}" alt="" class="img-fluid">
+                                            <img src="{{asset($image)}}" alt="" class="img-fluid" onclick="showImage(this,'<?php echo $image ?>')">
                                         </div>
                                         @endforeach
+                                        @elseif($filetype == "x-flv" || $filetype == "mp4" || $filetype == "x-mpegURL" || $filetype == "MP2T" || $filetype == "3gpp" || $filetype == "quicktime" || $filetype == "x-msvideo" || $filetype == "x-ms-wmv" || $filetype == "mov" || $filetype == 'ogg' || $filetype == 'mkv')
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                          <video class="js-player lesson_video_play vidoe-js" controls crossorigin preload="auto" playsinline >
+                                               
+                                            <source src="{{ asset($postid->file) }}" type="video/mp4" />
+
+                                            </video>
+                                        </div>
+                                        @else
+                                        @endif
                                         <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
                                         </div> -->
@@ -130,6 +227,7 @@
                             </div>
                     
                         </div>
+                    @endif
                        
                     </div>
 
@@ -322,697 +420,30 @@
     </div>
     <!-- /.container -->
     <!-- Page Content -->
-
+<div id="myModal" class="modal">
+        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+        <img class="modal-content" id="img">
+        <div id="caption"></div>
+    </div>
 @endsection
-
 @section('script')
-    <script type="text/javascript">
-        $(document).ready(function(){
+<script type="text/javascript">
+   
+       
+        function showImage(element,i){
 
-            $(".js-example-basic-multiple").select2({
-              placeholder: "Choose At Least Two",
-              theme: 'bootstrap4',
-            });
-
-            $('#proj').hide();
-        var DURATION_IN_SECONDS = {
-          epochs: ['year', 'month', 'day', 'hour', 'minute'],
-          year: 31536000,
-          month: 2592000,
-          day: 86400,
-          hour: 3600,
-          minute: 60
-        };
-
-        function getDuration(seconds) {
-          var epoch, interval;
-
-          for (var i = 0; i < DURATION_IN_SECONDS.epochs.length; i++) {
-            epoch = DURATION_IN_SECONDS.epochs[i];
-            interval = Math.floor(seconds / DURATION_IN_SECONDS[epoch]);
-            if (interval >= 1) {
-              return {
-                interval: interval,
-                epoch: epoch
-              };
-            }
-          }
-
-        };
-
-        function timeSince(date) {
-          var seconds = Math.floor((new Date() - new Date(date)) / 1000);
-          var duration = getDuration(seconds);
-          var suffix = (duration.interval > 1 || duration.interval === 0) ? 's' : '';
-          return duration.interval + ' ' + duration.epoch + suffix;
-        };
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var html1=''; var html2=''; var html3=''; 
-        var html4=''; var html7=''; var html6='';
-        var html8='';
-
-        html1 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="fas fa-bullhorn mr-1"></i> Announcement
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> Final  Presentation </p>
-                            </blockquote>
-
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/an1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>`;
-
-        html1 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="fas fa-bullhorn mr-1"></i> Announcement
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> Tips  of Portfolio </p>
-                            </blockquote>
-
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/tip1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/tip2.jpg" alt="" class="img-fluid">
-                                </div>
-
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/tip3.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/tip4.jpg" alt="" class="img-fluid">
-                                </div>
-
-                            </div>
-
-                            
-                        </div>
-                    </div>
-                    
-                </div>`;
-
-        html2 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="far fa-check-square mr-1"></i> Assignment
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> PHP Assignment </p>
-                            </blockquote>
-
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_2.jpg" alt="" class="img-fluid">
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_3.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_4.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_5.jpg" alt="" class="img-fluid">
-                                </div>
-
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>`;
-
-        html7 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-class">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="icofont-calendar"></i> Schedule
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> Time Table </p>
-                            </blockquote>
-
-                            <div class="row">
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/s1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/s2.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/s3.jpg" alt="" class="img-fluid">
-                                </div>
-
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>`;
-
-
-        html3 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="fas fa-video mr-1"></i> Live Recording 
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-
-                            <div class="row no-gutters bg-light position-relative">
-                                <div class="col-md-2 mb-md-0 p-md-4">
-                                    <img src="mmitui/image/vue.png" class="img-fluid" alt="...">
-                                </div>
-                              
-                                <div class="col-md-10 position-static p-4 pl-md-0">
-                                    <!-- Blog Title -->
-                                    <h5 class="mt-0"> Vue Record ( 24.10.2020 ) </h5>
-                                    <!-- Blog Body -->
-                                    <p> Vue Cli repo </p>
-                                    
-                                    <a href="#" class="stretched-link"> Download </a>
-                              </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>`;
-
-
-        html2+= `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="far fa-check-square mr-1"></i> Assignment
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> CodeIgniter </p>
-                            </blockquote>
-
-                            <div class="row">
-
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <img src="mmitui/image/p1.jpg" alt="" class="img-fluid">
-                                </div>
-
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>`;
-
-
-        html4 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Hein Min Htet </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="fas fa-envelope mr-1"></i>Post
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote">
-                                <p class="mb-3 mmfont text-primary">
-                                    Laravel Upload တင်နည်းပါ (Without git)
-                                </p>
-                                <p class="mmfont text-muted"> 
-
-                                    Laravel Upload တင်တဲ့အခါ အရေးကြီးတဲ့နှစ်ချက်ရှိတယ်။ <br>
-                                    ၁။ Laravel Version မြင့်ပေးတာရယ်။ <br>
-                                    ၂။ .htaccess ထည့်ပေးတာရယ်။
-                                    ကျန်တာတွေက အရင် Pure တင်တဲ့အတိုင်းပါပဲနော်။
-                                    အသေးစိတ်ကို အောက်က Video မှာလုပ်ပြပေးထားပါတယ်။
-                                    Error များရှိခဲ့ပါက စုံစမ်းမေးမြန်းနိုင်ပါသည်။
-                                </p>
-                            </blockquote>
-
-                            <div class="embed-responsive embed-responsive-16by9">
-                                
-                                <video controls>
-                                    <source src="mmitui/about.mp4" type="video/mp4">
-                                </video>
-                            </div>
-
-                        </div>
-                    </div>
-                    
-                </div>`;
-
+            // Get the modal
+            var modal = document.getElementById('myModal');
         
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById('myImg'+i);
+            var modalImg = document.getElementById("img");
+            var captionText = document.getElementById("caption");
+                modal.style.display = "block";
+                modalImg.src = element.src;
+                captionText.innerHTML = element.alt;
+           }
+     
 
-        html6 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="icofont-question-circle"></i> Quizz
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-
-                            <div class="row no-gutters bg-light position-relative">
-                                
-                                <div class="col-md-12 p-4">
-                                    <!-- Blog Title -->
-                                    <h5 class="mt-0"> PHP Quizzes  </h5>
-                                    <!-- Blog Body -->
-                                    <p> ( 24.10.2020 ) </p>
-                                    
-                                    <a href="${quizURL}" class="btn btn-outline-primary btn-sm"> Start Quizz </a>
-                              </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>`;
-
-
-        html6 += `<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="mmitui/image/user.png" class="userprofile mr-2 d-inline">
-                            
-                        </div>
-                        <div class="col-11">
-                            <p class="username d-block mb-0"> Thet Paing Htut </p>
-
-                            <small class="text-muted mr-3">
-                                <i class="icofont-question-circle"></i> Quizz
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 25 minutes ago 
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-
-                            <div class="row no-gutters bg-light position-relative">
-                                
-                                <div class="col-md-12 p-4">
-                                    <!-- Blog Title -->
-                                    <h5 class="mt-0"> Frontend Development Quizzes  </h5>
-                                    <!-- Blog Body -->
-                                    <p> ( 24.10.2020 ) </p>
-                                    
-                                    <a href="${quizanswerURL}" class="btn btn-outline-primary btn-sm"> View Score </a>
-                              </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>`;
-
-        
-
-        /*$('#alltopics').html(html3+html7+html1+html2+html4);*/
-        $('.signup-step-container').hide();
-
-        $('.topics').on('click',function(){
-            var id = $(this).data('id');
-            var bid = $(this).data('bid');
-            
-            var html='';
-
-            $.post('/allchannel',{id:id,bid:bid},function(response){
-                //console.log(response.posts);
-                $.each(response.posts,function(i,v){
-                    console.log(v);
-                    var images = v.file.split(',');
-
-                    html+=`<div class="col-12 shadow p-3 mb-5 bg-white rounded mb-4">
-                    <div class="row">`;
-                    if(v.user.staff==null){
-                        html+= `<div class="col-1">
-                            <img src="{{asset('mmitui/image/user.png')}}" class="userprofile mr-2 d-inline">
-                            
-                        </div>`;
-                    }else{
-                        html+= `<div class="col-1">
-                            <img src="${v.user.staff.photo}" class="userprofile mr-2 d-inline">
-                            
-                        </div>`;
-                    }
-                        html+=`<div class="col-11">
-                            <p class="username d-block mb-0"> ${v.user.name}</p>
-
-                            
-                            <small class="text-muted mr-3">`;
-                                if(v.topic.name == 'Announcement'){
-                                html+=`<i class="fas fa-bullhorn mr-1"></i>`;
-                                }
-                                else if(v.topic.name == 'Schedule'){
-                                html+=`<i class="icofont-calendar"></i>`; } 
-                                else if(v.topic.name == 'Assignment'){
-                                html+=`<i class="far fa-check-square mr-1"></i>`;}
-                                else if(v.topic.name == 'Live Recording') {
-                                html+=`<i class="fas fa-video mr-1"></i>`;}
-                                else if(v.topic.name == 'Assignment'){ 
-                                html+=`<i class="far fa-check-square mr-1"></i>`;}
-                                else if(v.topic.name == 'Post'){
-                                html+=`<i class="fas fa-envelope mr-1"></i>`;
-                                }
-                                else{
-                                  html+=`<i class="icofont-question-circle"></i>`;
-                                }
-                                
-                                html+=`${v.topic.name}
-                            </small> •
-                            <small class="text-muted">
-                                <i class="far fa-clock ml-3"></i> 
-                                ${timeSince(v.created_at)} ago
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <blockquote class="blockquote  text-primary">
-                                <p class="mb-0"> ${v.title} </p>
-                            </blockquote>
-
-                            <div class="row">`;
-                            $.each(images,function(k,c){
-                                html+=`<div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="${c}" alt="" class="img-fluid">
-                                </div>`;
-                            });
-                             html+=   `<div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_1.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_2.jpg" alt="" class="img-fluid">
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_3.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_4.jpg" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                    <img src="mmitui/image/test/g5_5.jpg" alt="" class="img-fluid">
-                                </div>
-
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>`;
-               
-                });
-                 $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-                
-                $('#alltopics').show();
-                $('#alltopics').html(html);
-                $('.signup-step-container').hide();
-                $('#proj').hide();
-            });
-            /*if (id == 1) {
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-                
-                $('#alltopics').show();
-                $('#alltopics').html(html3+html7+html1+html2+html4);
-                $('.signup-step-container').hide();
-                
-            }
-
-            else if (id == 2) {
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-                
-                $('#alltopics').show();
-                $('#alltopics').html(html1);
-                $('.signup-step-container').hide();
-
-            }
-
-            else if (id == 3){
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-
-                $('#alltopics').show();
-                $('#alltopics').html(html2);
-                $('.signup-step-container').hide();
-
-            }
-            else if (id == 4){
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-
-                $('#alltopics').show();
-                $('#alltopics').html(html3);
-                $('.signup-step-container').hide();
-
-            }
-            else if (id == 5){
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-
-                $('#alltopics').show();
-                $('#alltopics').html(html4);
-                $('.signup-step-container').hide();
-
-
-            }
-
-            else if (id == 6){
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-                
-                $('#alltopics').show();
-                $('#alltopics').html(html7);
-                $('.signup-step-container').hide();
-
-            }
-
-            else if (id == 7){
-
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-
-                $('#alltopics').show();
-                $('#alltopics').html(html6);
-                $('.signup-step-container').hide();
-
-            }
-
-            else if (id == 8){
-                $('.list-group li.active a').removeClass('text-white');
-                $('.list-group li.active a').addClass('primarytext');
-                $('.list-group li.active').removeClass('active');
-
-                $('.topic'+id).addClass('active');
-                $('.list-group li.active a').addClass('text-white');
-                $('.list-group li.active a').removeClass('primarytext');
-
-                $('#alltopics').hide();
-                $('.signup-step-container').show();
-
-
-            }*/
-
-        });
-        /*    
-        $('.ptopics').on('click',function(){
-            var id = $(this).data('id');
-            var bid = $(this).data('bid');
-            $('.list-group li.active a').removeClass('text-white');
-            $('.list-group li.active a').addClass('primarytext');
-            $('.active').removeClass('active');
-
-            $('.ptopic'+id).addClass('active');
-            $('.list-group li.active a').addClass('text-white');
-            $('.list-group li.active a').removeClass('primarytext');
-            $('#alltopics').hide();
-            $('.signup-step-container').hide();
-            $('#proj').show();
-            $('#projtypeid').val(id);
-        })*/
-    });
-
-    </script>
+</script>
 @endsection
