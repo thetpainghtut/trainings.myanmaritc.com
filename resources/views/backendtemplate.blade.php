@@ -310,7 +310,7 @@
             @endrole
 
 
-            @role('Teacher|Mentor')
+            @role('Teacher')
 
 
                 <li class="nav-item {{ Request::segment(1) === 'quizzes' ? 'active' : '' }}">
