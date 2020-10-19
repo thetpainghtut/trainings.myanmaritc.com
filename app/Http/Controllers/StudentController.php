@@ -525,7 +525,9 @@ class StudentController extends Controller
 
         $student = Student::find($id);
         $townships = Township::all();
-        return view('students.edit',compact('student','townships'));
+        $courseid = request('course');
+        $batchid = request('batch');
+        return view('students.edit',compact('student','townships','courseid','batchid'));
     }
 
     /**
@@ -537,7 +539,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-      // dd($request);
+      
         $request->validate([
           'namee' => 'required',
           'namem' => 'required',
@@ -588,7 +590,8 @@ class StudentController extends Controller
         $user->name = $namee;
         $user->email = $email;
         $user->save();
-        return redirect('students/'.$id);
+       
+        return redirect()->route('students.show',$id.'?'.'course='.$request->course.'&&'.'batch='.$request->batch);
     }
 
     /**

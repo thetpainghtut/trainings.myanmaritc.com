@@ -158,7 +158,7 @@
                         <div class="progress-bar " role="progressbar" style="width: {{$percentage}}%; background-color: #004289" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
                     </div>
 
-	            	<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+	            	<a href="{{route('students.edit',$student->id)}}?course={{$courseid}}&&batch={{$batchid}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
 
 	            	<button type="submit" class="btn btn-danger btn-sm delete" data-student_id = "{{ $student->id }}" data-batch_id = "{{$batchid}}" data-receive_no = "{{ $receiveno }}" data-course_id= '{{$courseid}}'><i class="fas fa-trash"></i>
 	            	</button>
@@ -363,7 +363,7 @@
 
                     </div>
 
-                    {{-- <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
                         <a class="card-title">
                             <i class="far fa-calendar-alt mr-3 icon"></i>
                             Attendance
@@ -388,7 +388,7 @@
                                 Remain
                             </span>
 		                </div>
-                    </div> --}}
+                    </div> 
 
                     <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                         <a class="card-title">

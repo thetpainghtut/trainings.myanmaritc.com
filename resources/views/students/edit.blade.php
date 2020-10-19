@@ -16,6 +16,8 @@
             <form method="post" action="{{route('students.update',$student->id)}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                <input type="hidden" name="course" value="{{$courseid}}">
+                <input type="hidden" name="batch" value="{{$batchid}}">
                 <input type="hidden" name="oldphoto" value="{{$student->photo}}">
 
                 <div class="form-group row">
