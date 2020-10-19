@@ -32,11 +32,12 @@ class ProjecttypeController extends Controller
         $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
        //dd($teacher);
        $courses  = array();
-
+      
         foreach ($teacher as $k) {
 
             //array_push($course, $k->course);
-             $projecttypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->where('course_projecttype.course_id','=',$k->course->id)->get();
+             $projecttypes = Projecttype::join('course_projecttype','course_projecttype.projecttype_id','=','projecttypes.id')->where('course_projecttype.course_id','=',$k->course->id)->select('projecttypes.*')->get();
+            // var_dump($projecttypes);
            // array_push($courses, $k->course);
         }
         //dd($teacher->course);
@@ -50,6 +51,7 @@ class ProjecttypeController extends Controller
             dd($value->courses);
         }*/
        /*$projecttypes = Projecttype::with('courses','courses.batches','batches.teachers','batches.teachers.staff')->get();*/
+       
       
         $batches = Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->get();
         $userid = $id;
@@ -77,7 +79,7 @@ class ProjecttypeController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+      
         //
         $request->validate([
             'projecttype' => 'required',
