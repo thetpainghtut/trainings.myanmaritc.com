@@ -50,6 +50,8 @@
     <!-- Plyr -->
 
      <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-notifications.min.css')}}">
+
+     
 </head>
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}
@@ -424,10 +426,12 @@
         });
     </script>
     <script type="text/javascript">
-    /*$(document).ready(function(){
-      $('img').addClass('img-responsive');
-      $('img').css('max-width','100%');
-    });*/
+
+        $(document).ready(function(){
+          $('img').addClass('img-responsive');
+          $('img').css('max-width','100%');
+        });
+
   </script>
      
 </body>

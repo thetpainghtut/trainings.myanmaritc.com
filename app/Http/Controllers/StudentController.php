@@ -522,10 +522,13 @@ class StudentController extends Controller
      */
     public function edit(Request $request,$id)
     {
-
+        $batchid = $request->batch;
+        $courseid = $request->course;
         $student = Student::find($id);
         $townships = Township::all();
-        return view('students.edit',compact('student','townships'));
+
+        return view('students.edit',compact('student','townships','batchid','courseid'));
+
     }
 
     /**
@@ -537,7 +540,10 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
+
       // dd($request);
+        $batchid = $request->batchid;
+        $courseid = $request->courseid;
         $request->validate([
           'namee' => 'required',
           'namem' => 'required',
@@ -588,7 +594,10 @@ class StudentController extends Controller
         $user->name = $namee;
         $user->email = $email;
         $user->save();
-        return redirect('students/'.$id);
+
+
+        return redirect('students/'.$id.'?course='.$courseid.'&batch='.$batchid);
+
     }
 
     /**

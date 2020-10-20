@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="add_file" class="col-sm-2 col-form-label">Select File</label>
+                    <label for="add_file" class="col-sm-2 col-form-label">Select Image</label>
                     <div class="col-sm-10">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">

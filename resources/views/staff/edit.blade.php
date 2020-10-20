@@ -163,7 +163,7 @@
                             <select class="form-control form-control js-example-basic-multiple mentor" name="course_id[]" id="course" multiple="multiple">
                                 @foreach($courses as $course)
                                     <option value="{{$course->id}}"   @foreach($user->staff->mentor as $mentor) @if($course->id==$mentor->course_id) selected @endif   @endforeach >
-                                        {{$course->name}} ( {{$course->location->city->name}} )
+                                        {{$course->name}} 
                                     </option>
                                 @endforeach
                             </select>
