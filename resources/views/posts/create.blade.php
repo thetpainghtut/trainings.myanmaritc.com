@@ -10,7 +10,7 @@
             </h5>
         </div>
         <div class="card-body">
-            @if ($errors->any())
+            <!-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -18,7 +18,7 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif
+            @endif -->
 
             <form method="post" action="{{route('posts.store')}}" enctype="multipart/form-data">
                 @csrf
@@ -44,10 +44,9 @@
 
 
                 <div class="form-group row" id="other">
-                    <label for="inputLogo" class="col-sm-2 col-form-label"> Photo </label>
+                    <label for="inputLogo" class="col-sm-2 col-form-label"> File </label>
                     <div class="col-sm-10">
                         <input name="image[]" type="file" class="form-control" id="inputLogo" multiple>
-                        <span class="text-danger">{{ $errors->first('image') }}</span>
                         <div id="preview_img"></div>
                     </div>
                 </div>
@@ -71,10 +70,19 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="inputOutline" class="col-sm-2 col-form-label"> Link </label>
+                <div class="form-group row" id="othercontent">
+                    <label for="inputOutline" class="col-sm-2 col-form-label"> Content </label>
                     <div class="col-sm-10">
                         <textarea id="summernote" class="form-control"  name="content">{{ old('content') }}</textarea>
+                        <span class="text-danger">{{ $errors->first('content') }}</span>
+                    </div>
+                </div>
+
+                <div class="form-group row" id="livecontent">
+                    <label for="inputOutline" class="col-sm-2 col-form-label"> Link </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="link" class="form-control">
+                        <span class="text-danger">{{ $errors->first('link') }}</span>
                     </div>
                 </div>
 
@@ -86,19 +94,6 @@
                             <option>Choose One</option>
                             @foreach($batches as $batch)
                                 <option value="{{$batch->batch_id}}" id="b">{{$batch->title}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                @endrole
-                @role('Admin')
-                <div class="form-group row" id="subjectDiv">
-                    <label for="batchName" class="col-sm-2 col-form-label">Batch</label>
-                    <div class="col-sm-10">
-                        <select class="form-control" name="batch" id="batchName">
-                            <option>Choose One</option>
-                            @foreach($batches as $batch)
-                                <option value="{{$batch->id}}">{{$batch->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -126,7 +121,7 @@
             });
 
             $('#sub').hide();
-
+            $('#livecontent').hide();
             
             $('#inputLogo').on('change', function(){ //on file input change
 
@@ -166,9 +161,13 @@
                 if(topic == 'Live Recording'){
                     $('#other').hide();
                     $('#sub').show();
+                    $('#othercontent').hide();
+                    $('#livecontent').show();
                 }else{
                      $('#other').show();
                      $('#sub').hide();
+                     $('#othercontent').show();
+                     $('#livecontent').hide();
                 }
              })
 

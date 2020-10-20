@@ -8,7 +8,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary"> Update Exiting Student
-                <a href="{{route('students.show',$student->id)}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-backward mr-2"></i> Go Back </a>
+                <a href="{{route('students.show',$student->id)}}?course={{$courseid}}&&batch={{$batchid}}" class="btn btn-outline-primary float-right btn-sm"> <i class="fas fa-backward mr-2"></i> Go Back </a>
             </h5>
         </div>
         <div class="card-body">
@@ -16,6 +16,8 @@
             <form method="post" action="{{route('students.update',$student->id)}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                <input type="hidden" name="course" value="{{$courseid}}">
+                <input type="hidden" name="batch" value="{{$batchid}}">
                 <input type="hidden" name="oldphoto" value="{{$student->photo}}">
                 <input type="hidden" name="batchid" value="{{$batchid}}">
                 <input type="hidden" name="courseid" value="{{$courseid}}">

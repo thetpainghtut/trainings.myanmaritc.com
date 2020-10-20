@@ -163,10 +163,11 @@
                     @endphp
                     <ol>
                         @foreach($quizz->batches as $row)
-                            @if($row->enddate > $date)
-                                <li>{{$row->title}}</li>
+                        @php $courseid = $row->course_id;  @endphp
+                            
+                                <li>{{$courseid}}</li>
                                
-                            @endif
+                       
                         @endforeach
                     </ol>
                 </div>

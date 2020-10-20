@@ -426,10 +426,12 @@
         });
     </script>
     <script type="text/javascript">
+
         $(document).ready(function(){
           $('img').addClass('img-responsive');
           $('img').css('max-width','100%');
         });
+
   </script>
      
 </body>

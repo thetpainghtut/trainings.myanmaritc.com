@@ -261,4 +261,14 @@ class FrontendController extends Controller
       return back()->with('error','Current password does not match in our records!');
     }
   }
+
+  public function share_count(Request $request)
+  {
+    $id = request('journal_id');
+    $journal = Journal::find($id);
+    $journal->count = ++$journal->count;
+    $journal->save();
+
+    return $journal;
+  }
 }

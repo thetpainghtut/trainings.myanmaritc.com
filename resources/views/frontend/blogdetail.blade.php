@@ -38,7 +38,19 @@
                     <p> 
                         <span> By {{ $postuser }} </span> &nbsp; | &nbsp;
                         <span> {{ $date }} </span> &nbsp; | &nbsp;
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{Request::url()}}&amp;src=sdkpreparse" target="_blank" class="btn btn-outline-light btn-sm"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{Request::url()}}&amp;src=sdkpreparse" target="_blank" class="btn btn-outline-light btn-sm" id="share_count" data-id="{{$blog->id}}"> Share On <i class="fab fa-facebook-square ml-1"></i> </a>
+                         &nbsp;&nbsp;&nbsp;&nbsp;
+                         @if($blog->count != 0)
+                        <span id="count">{{$blog->count}} 
+                            @if($blog->count ==1)
+                            <em>share</em>
+                            @else 
+                            <em>shares</em> 
+                            @endif
+                        </span>
+                        @else
+                        <span id="count"></span>
+                        @endif
                     </p> 
 
                 </div>
@@ -71,4 +83,30 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+<script type="text/javascript">
+    // share count
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#share_count').click(function(){
+            var journal_id = $(this).data('id');
+            $.post('/share_count',{journal_id:journal_id},function(res){
+                var count_no = res.count;
+                if(count_no == 1){
+                var count = count_no + ' share';
+                $('#count').text(count);
+                }else{
+                    var count = count_no + ' shares';
+                    $('#count').text(count);
+                }
+
+            })
+        })
+    })
+</script>
 @endsection

@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="add_file" class="col-sm-2 col-form-label">Select File</label>
+                    <label for="add_file" class="col-sm-2 col-form-label">Select Image</label>
                     <div class="col-sm-10">
                         <input name="image[]" type="file" class="form-control-file" id="add_file" multiple>
                         <span class="text-danger">{{ $errors->first('image') }}</span>

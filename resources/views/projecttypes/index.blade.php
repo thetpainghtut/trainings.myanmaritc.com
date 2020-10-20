@@ -96,6 +96,7 @@
 });
         $('.asign').on('click',function(){
             var pid = $(this).data('id');
+            
             var userid = $(this).data('course');
             $.post('/assingpttype',{pid:pid,userid:userid},function(response){
                // console.log(response.batches.length);
