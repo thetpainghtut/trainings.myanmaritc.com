@@ -514,6 +514,7 @@ class PanelController extends Controller
 
     public function storeanswer(Request $request)
     {
+        // dd($request);
         $score = $request->score;
         $quiz_id = $request->quiz_id;
         $data = $request->data;

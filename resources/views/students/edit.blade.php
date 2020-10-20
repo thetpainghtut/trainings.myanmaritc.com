@@ -17,6 +17,9 @@
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="oldphoto" value="{{$student->photo}}">
+                <input type="hidden" name="batchid" value="{{$batchid}}">
+                <input type="hidden" name="courseid" value="{{$courseid}}">
+
 
                 <div class="form-group row">
                     <label for="inputprofile" class="col-sm-2 col-form-label">Profile</label>

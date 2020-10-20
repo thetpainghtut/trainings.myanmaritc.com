@@ -50,6 +50,8 @@
     <!-- Plyr -->
 
      <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-notifications.min.css')}}">
+
+     
 </head>
 
 {{-- <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;"> --}}

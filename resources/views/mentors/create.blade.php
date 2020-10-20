@@ -38,7 +38,7 @@
                         <select class="form-control form-control js-example-basic-multiple" name="course_id[]" id="course" multiple="multiple">
                             @foreach($courses as $course)
                                 <option value="{{$course->id}}">
-                                    {{$course->name}} ( {{$course->location->city->name}} )
+                                    {{$course->name}} 
                                 </option>
                             @endforeach
                         </select>
@@ -68,9 +68,5 @@
 
         </div>
     </div>
-  <h2>Add New Mentor</h2>
-
-    
-  
-
+ 
 @endsection
