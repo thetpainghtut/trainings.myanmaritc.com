@@ -269,15 +269,30 @@
                                         </div>
                                       
                                        <style>
-                                      @media screen and (max-width: 420px) {
-  .pcontent p a{
-    font-size: 14px;
-  }
+                                       @media only screen and (max-width: 600px) {
+  .example {background: red;}
 }
-@media screen and (min-width: 900px) {
-  .pcontent p a{
-    font-size: 20px;
-  }
+@media only screen and (min-width: 400px) {
+  .pcontent p a {font-size: 13px;}
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .pcontent p a {font-size: 16px;}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .pcontent p a {font-size: 17px;}
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .pcontent p a {font-size: 20px;}
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .pcontent p a {}
 }
                                            .pcontent p a{
                                              
