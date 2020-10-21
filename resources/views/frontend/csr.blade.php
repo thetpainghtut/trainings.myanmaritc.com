@@ -41,7 +41,7 @@
                             <div class="card__content">
                                 <a href="{{ route('frontend.blog_detail',$id) }}" class="text-decoration-none">
                                     <blockquote class="blockquote">
-                                        <h3 class="articletitle text-white mb-4 mmfont">
+                                        <h3 class="articletitle text-white mb-4">
                                             {{ $title }}
                                         </h3>
                                         
