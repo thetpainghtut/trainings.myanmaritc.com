@@ -165,7 +165,7 @@
                         @foreach($quizz->batches as $row)
                         @php $courseid = $row->course_id;  @endphp
                             
-                                <li>{{$courseid}}</li>
+                                <li>{{$row->title}}</li>
                                
                        
                         @endforeach

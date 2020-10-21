@@ -102,7 +102,7 @@
                                 <hr>
                                 <canvas id="oilChart" class="mx-auto d-block"></canvas>
 
-                                <a href="{{route('frontend.quizanswer',$quiz->id) }}" class="btn btn-outline-primary mx-auto"> View Answers </a>
+                                <a href="{{route('frontend.quizanswer',$quiz->id) }}" class="btn btn-outline-primary mx-auto viwe_btn"> View Answers </a>
 
                             </div>
                         </div>
@@ -407,6 +407,7 @@
                             responsive: false,
                         }
                     });
+                    $('.viwe_btn').hide();
                  }
             }
         });
