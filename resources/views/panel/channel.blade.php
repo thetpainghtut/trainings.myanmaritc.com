@@ -1213,7 +1213,7 @@
                             <blockquote class="blockquote  text-primary">
                                 <h5 class="mb-2"> ${v.title} </h5>
                                 <!--<p class="">${v.content.replace(/<\/?[^>]+(>|$)/g, "")}</p>-->
-                                <p class="">${v.content}</p>
+                                <div class="pcontent">${v.content}</p>
                             </blockquote>
 
                             <div class="row">`;
