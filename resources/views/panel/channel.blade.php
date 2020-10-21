@@ -263,7 +263,27 @@
                                 <div class="col-12">
                                     <blockquote class="blockquote  text-primary">
                                         <h5 class="mb-0"> {{$po->title}} </h5>
-                                        <p >{!!$po->content!!}</p>
+                                        
+                                        <div class="pcontent">
+                                          {!! $po->content !!}
+                                        </div>
+                                      
+                                       <style>
+                                      @media screen and (max-width: 420px) {
+  .pcontent p a{
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .pcontent p a{
+    font-size: 20px;
+  }
+}
+                                           .pcontent p a{
+                                             
+                                           }
+                                       
+                                       </style>
                                     </blockquote>
 
                                     <div class="row">
@@ -286,6 +306,7 @@
                                             </video>
                                         </div>
                                         @else
+                                        
                                         @endif
                                         <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                             <img src="mmitui/image/test/an2.jpg" alt="" class="img-fluid">
@@ -656,7 +677,9 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-
+           
+                   
+                                                
             $(".js-example-basic-multiple").select2({
               placeholder: "Choose At Least Two",
               theme: 'bootstrap4',

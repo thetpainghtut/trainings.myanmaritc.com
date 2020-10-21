@@ -50,7 +50,8 @@
     <!-- Plyr -->
 
      <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-notifications.min.css')}}">
-
+    
+    
      
 </head>
 
@@ -410,9 +411,10 @@
     <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-   
+  
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script type="text/javascript" src="{{asset('js/noti.js')}}"></script>
+
 @yield('script')
     <script type="text/javascript">
     //  var notificationsWrapper   = $('.dropdown-notifications');
