@@ -14,7 +14,7 @@ class TopicsTableSeeder extends Seeder
     public function run()
     {
         $topicLists = [
-            'Announcement', 'Assignment', 'Live Recording', 'Post', 'Project Title', 'Schedule', 'Survey'
+            'Announcement', 'Assignment', 'Live Recording', 'Post', 'Project Title', 'Schedule', 'Survey', 'Quiz'
         ];
 
         foreach ($topicLists as $topicList) 
