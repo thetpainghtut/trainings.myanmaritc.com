@@ -269,9 +269,9 @@ class StudentController extends Controller
 
         }
         else{
-          $result = $this->EmailChecker->checkmail($request->email);
+        //   $result = $this->EmailChecker->checkmail($request->email);
 
-              if($result == true){
+            // if(request('email')){
           
             $user = new User;
             $user->name = request('namee');
@@ -302,7 +302,7 @@ class StudentController extends Controller
             $student->p2_relationship = $p2_rs;
             $student->because = $because;
             $student->township_id = $townshipid;
-            $student->user_id = 1;
+            $student->user_id = $user->id;
             $student->save();
 
 
@@ -324,15 +324,15 @@ class StudentController extends Controller
                   Mail::to($request->email)->send(new SendMail($data));
                 return 'confirm';
                 
-              }elseif($result == false){
+            //   }elseif($result == false){
 
-                return "invalid";
+            //     return "invalid";
 
-              }else{
+            //   }else{
 
-                return "time out error";
+            //     return "time out error";
 
-              }
+            //   }
             
         // Save Data
 
@@ -623,11 +623,12 @@ class StudentController extends Controller
 
       $student_id = $request->student_id;
       $student = Student::find($student_id);
-
+    
       $data = array('name' => $student->namee,
                     'email' => $student->email,
                     'password' => '123456789',
                     );
+        
       Mail::to($student->email)->send(new SendMail($data));
       return 'ok';
     }

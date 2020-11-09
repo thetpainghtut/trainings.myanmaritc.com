@@ -25,7 +25,7 @@
 .close {
   position: absolute;
   top: 70px;
-  right: 400px;
+  right: 100px;
   /*color: #f1f1f1;*/
   color: black;
   font-size: 40px;
@@ -264,36 +264,33 @@
                                     <blockquote class="blockquote  text-primary">
                                         <h5 class="mb-0"> {{$po->title}} </h5>
                                         
-                                        <div class="pcontent">
+                                         <div class="pcontent">
                                           {!! $po->content !!}
                                         </div>
                                       
                                        <style>
                                        @media only screen and (max-width: 600px) {
-  .example {background: red;}
-}
-@media only screen and (min-width: 400px) {
-  .pcontent p a {font-size: 13px;}
-}
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .pcontent p a {font-size: 16px;}
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .pcontent p a {font-size: 17px;}
-} 
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  .pcontent p a {font-size: 20px;}
-} 
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  .pcontent p a {}
-}
+                                          .example {background: red;}
+                                        }
+                                        @media only screen and (min-width: 400px) {
+                                          .pcontent p a {font-size: 13px;}
+                                        }
+                                        /* Small devices (portrait tablets and large phones, 600px and up) */
+                                        @media only screen and (min-width: 600px) {
+                                          .pcontent p a {font-size: 16px;}
+                                        }
+                                        /* Medium devices (landscape tablets, 768px and up) */
+                                        @media only screen and (min-width: 768px) {
+                                          .pcontent p a {font-size: 17px;}
+                                        } 
+                                        /* Large devices (laptops/desktops, 992px and up) */
+                                        @media only screen and (min-width: 992px) {
+                                          .pcontent p a {font-size: 20px;}
+                                        } 
+                                        /* Extra large devices (large laptops and desktops, 1200px and up) */
+                                        @media only screen and (min-width: 1200px) {
+                                          .pcontent p a {}
+                                        }
                                            .pcontent p a{
                                              
                                            }

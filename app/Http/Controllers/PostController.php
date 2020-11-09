@@ -73,7 +73,15 @@ class PostController extends Controller
         $subjects = Subject::all();
 
         if($role[0] == 'Teacher'){
-        $batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('staff','staff.id','=','batch_teacher.teacher_id')->where('staff.user_id',$id)->get();
+        //$batches=Batch::where('startdate','<=',$now)->where('enddate','>=',$now)->join('batch_teacher','batch_teacher.batch_id','=','batches.id')->join('teachers','teachers.id','=','batch_teacher.teacher_id')->join('staff','staff.id','=','teachers.staff_id')->where('staff.user_id',$id)->get();
+        $batches = array();
+        $staff = Staff::where('user_id',$id)->get();
+        foreach ($staff[0]->teacher as $key => $value) {
+           //dd($value->course->batches);
+           foreach ($value->course->batches as $k) {
+               $batches = $k->where('startdate','<=',$now)->where('enddate','>=',$now)->get();
+           }
+        }
         //dd($batches);
         }
         elseif($role[0] == 'Admin'){
@@ -102,6 +110,8 @@ class PostController extends Controller
             'topic' => 'required',
             'batch' => 'required'
         ]);
+        
+        
         $topics = Topic::find($request->topic);
         if($topics->name == 'Live Recording'){
             $request->validate(['link'=> 'required']);

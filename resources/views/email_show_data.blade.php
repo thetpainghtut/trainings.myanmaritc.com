@@ -22,7 +22,7 @@
 
 				<p>Please veriry email and change your own password</p>
 
-				<a href="{{env('APP_URL')}}/change_password?email={{$data['email']}}">
+				<a href="http://beta.myanmarcodingbootcamp.com/change_password?email={{$data['email']}}">
 
 					<button type="submit" class="btn btn-outline-warning" style="color: white; padding: 10px;border: none; background-color: #61EA5F;border-radius: 5px">
 				        Verify Email
