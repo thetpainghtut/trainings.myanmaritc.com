@@ -93,7 +93,7 @@
                         <select class="form-control" name="batch" id="batchName">
                             <option>Choose One</option>
                             @foreach($batches as $batch)
-                                <option value="{{$batch->batch_id}}" id="b">{{$batch->title}}</option>
+                                <option value="{{$batch->id}}" id="b">{{$batch->title}}</option>
                             @endforeach
                         </select>
                     </div>

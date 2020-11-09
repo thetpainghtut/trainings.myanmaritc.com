@@ -29,7 +29,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        // dd($this->data)
-        return $this->from(env('MAIL_USERNAME'),'MMIT')->subject('Student registered success!')->view('email_show_data')->with('data',$this->data);
+        // dd(env('MAIL_USERNAME'));
+        return $this->from('info@myanmarcodingbootcamp.com','MMIT')->subject('Student registered success!')->view('email_show_data')->with('data',$this->data);
     }
 }
