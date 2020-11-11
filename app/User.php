@@ -122,4 +122,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Journal');
     }
+
+    public function installments()
+    {
+        return $this->hasMany('App\Installment');
+    }
 }

@@ -136,26 +136,29 @@ class FrontendController extends Controller
     $educations = Education::all();
     $townships = Township::all();
     $inquire = Inquire::where('receiveno','=',$inquireno)->first();
-    // dd($inquire);
 
-    $batchid = $inquire->batch_id;
-
-    $batch = Batch::find($batchid);
-    // dd($batch);
-
-    $oldstudent = $batch->students()->where('receiveno', $inquireno)->get();
-    // dd($oldstudent);
     if($inquire==null){
 
       return back()->with('status','Invalid Inquire Number');
 
-    }elseif(count($oldstudent) > 0 ){
-
-      return back()->with('status','Sorry, student is already exit in that receive number!');
     }
     else{
 
-      return view('frontend.registerForm',compact('subjects','courses','batches','inquire','educations','townships','inquireno','user'));
+      $batchid = $inquire->batch_id;
+
+      $batch = Batch::find($batchid);
+      // dd($batch);
+
+      $oldstudent = $batch->students()->where('receiveno', $inquireno)->get();
+      // dd($oldstudent);
+      if(count($oldstudent) > 0 ){
+
+        return back()->with('status','Sorry, student is already exit in that receive number!');
+      }
+      else{
+
+        return view('frontend.registerForm',compact('subjects','courses','batches','inquire','educations','townships','inquireno','user'));
+      }
     }
   }
 

@@ -129,7 +129,7 @@
 	<div class="header">
 		<h3 class="header_one">Myanmar IT Consulting</h3>
 		<h3 class="receive" style="color:#42c8f5;">Receive</h3>
-		<p class="receiveno">{{$inquire->receiveno}}</p>
+		<p class="receiveno">{{ $data['receiveno'] }}</p>
 	</div>
 	<div class="clear"></div>
 
@@ -138,14 +138,14 @@
 		Myanmar IT Consulting, Room No 8-A,
 		</p>
 		<p class="date">DATE:</p>
-		<p class="date1">{{$date}}</p>
+		<p class="date1">{{ $data['todaydate'] }}</p>
 	</div>
 	<div class="clear"></div>
 
 	<div class="header">
 		<p class="header_three">MTP Condo, Insein Rd</p>
 		<p class="invoice">INVOICE#</p>
-		<p class="course_name" style="text-align: center;">{{$course_name}}</p>
+		<p class="course_name" style="text-align: center;">{{ $data['coursename'] }}</p>
 	</div>
 	<div class="clear"></div>
 	<br> <br>
@@ -158,7 +158,7 @@
 			 <p>Email: info@myanmaritc.com</p>
 			 <br>
 			 <h3 class="inquire" style="color:#42c8f5;">Inquire No:</h3>
-			 <p class="inquireno" style="color:#42c8f5;">{{$inquire->inquireno}}</p>
+			 <p class="inquireno" style="color:#42c8f5;">{{ $data['inquireno'] }}</p>
 		</div>
 		<p class="for">FOR:</p>
 		<img src="mmit_receivelogo_one.png" style="width: 150px; height: 150px" alt="" id="image">
@@ -173,20 +173,70 @@
 				<th style="width: 325px; background: #42c8f5;">AMOUNT</th>
 			</tr>
 			<tr>
-				<td style="text-align: center;">Training Fees {{$inquire->name}}</td>
-				<td> &nbsp; &nbsp; &nbsp;{{$course_fees}} Kyats</td>
+				<td style="text-align: center;">Training Fees {{ $data['studentname'] }}</td>
+				<td> &nbsp; &nbsp; &nbsp;{{ number_format($data['coursefees']) }} Kyats</td>
 			</tr>
-			<tr>
-				<td style="text-align: center;">Paid Amount ( {{ date('d-m-Y', strtotime($preinstallment_date)) }} )</td>
-				<td> &nbsp; &nbsp; &nbsp; &nbsp;{{$preinstallment_amount}} Kyats</td>
-			</tr>
-			<tr>
-				<td style="text-align: center;">Second Paid Amount ( {{date('d-m-Y',strtotime($payment_date))}} )</td>
-				<td>&nbsp; &nbsp; &nbsp;{{$need_amount}} Kyats</td>
-			</tr>
+			@php $pay_amount =0; @endphp
+			@foreach($data['paidamounts'] as $paidamount)
+				@php
+					$amount = $paidamount->amount;
+					$paiddate = $paidamount->paiddate;
+					$type = $paidamount->type;
+					$courseFees = $data['coursefees'];
+                    $symbol = $paidamount->symbol;
+
+					$pay_amount += $amount;
+
+
+					if ($symbol ==1) {
+                        if ($courseFees == $pay_amount) {
+                            $installmentTitle = 'Full Installment';
+                        }
+                        else{
+                            $installmentTitle = 'First Installment';
+                        }
+                    }
+                    else if ($symbol ==2) {
+                        if ($courseFees == $pay_amount) {
+                            $installmentTitle = 'Last Installment';
+                        }
+                        else{
+                            $installmentTitle = 'Second Installment';
+                        }
+                    }
+                    else if ($symbol ==3) {
+                        if ($courseFees == $pay_amount) {
+                            $installmentTitle = 'Last Installment';
+                        }
+                        else{
+                            $installmentTitle = 'Third Installment';
+                        }
+                    }
+                    else {
+                        if ($courseFees == $pay_amount) {
+                            $installmentTitle = 'Full Installment';
+                        }
+                        else{
+                            $installmentTitle = 'Last Installment';
+                        }
+                    }
+
+				@endphp
+				<tr>
+					<td style="text-align: center;"> {{ $installmentTitle }} ( {{ $paiddate }} )</td>
+					<td> &nbsp; &nbsp; &nbsp; &nbsp;{{ number_format($amount)}} Kyats</td>
+				</tr>
+
+			@endforeach
+
+			@php 
+			$due_amount = $data['coursefees'] - $pay_amount;
+
+			@endphp
+
 			<tr>
 				<td style="text-align: center;">Due</td>
-				<td>&nbsp; &nbsp; &nbsp;0</td>
+				<td>&nbsp; &nbsp; &nbsp;{{ number_format($due_amount) }} Kyats</td>
 			</tr>
 		</table>
 	</div>
@@ -201,8 +251,8 @@
 	<br><br>
 	<div class="header">
 		<div class="time">
-			<p>Training start Date : {{$batch->startdate}}
-				<br> Time : ( {{$batch->time}} )</p>
+			<p>Training start Date : {{ $data['batchdate'] }}
+				<br> Time : ( {{ $data['batchtime'] }} )</p>
 		</div>
 		<div class="paid">
 			<p >PAID</p>

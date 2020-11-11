@@ -128,12 +128,12 @@ class InquireController extends Controller
     public function show($id)
     { 
         $batch = Batch::find($id);
-         $no_payment_inquires = Inquire::where([['status',0],['batch_id',$id],['message','=',null]])->get();
+         $no_payment_inquires = Inquire::where([['batch_id',$id],['message','=',null]])->get();
         $first_payment_inquires = Inquire::where([['status',1],['batch_id',$id],['message','=',null]])->get();
         $full_payment_inquires = Inquire::where([['status',2],['batch_id',$id],['message','=',null]])->get();
          //dd($no_payment_inquires,$first_payment_inquires,$full_payment_inquires);
 
-        return view('inquires.show',compact('batch','no_payment_inquires','first_payment_inquires','full_payment_inquires'));
+        return view('inquires.list',compact('batch','no_payment_inquires','first_payment_inquires','full_payment_inquires'));
     }
 
     /**
@@ -221,7 +221,7 @@ class InquireController extends Controller
         $zipcode = $city->zipcode;
 
         $inquire = Inquire::find($id);
-       // dd($inquire);
+        // dd($inquire);
         $preinstallment_date = $inquire->installmentdate;
         $preinstallment_amount = $inquire->installmentamount;
         $need_amount = request('amount');
@@ -316,4 +316,23 @@ class InquireController extends Controller
         $batches = $course->batches;
         return view('inquires.postpone_list',compact('batches','course'));
     }
+
+    public function searchinquires(){
+
+        $courses = Course::all();
+
+        if (request('batch')) {
+            $bid = request('batch');
+            $batch = Batch::find($bid);
+            // $students = Student::where('batch_id',$bid)->get();
+
+            $inquires = Inquire::where('batch_id',$bid)->get();
+            return view('inquires.search',compact('courses','inquires','bid','batch'));
+        }else{
+            // Return 
+            return view('inquires.search',compact('courses'));
+        }
+
+    }
+
 }

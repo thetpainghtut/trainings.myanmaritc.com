@@ -34,7 +34,7 @@
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-white">
-                    <h1 class="display-4 text-white mt-5 mb-2"> {{ $title }}  </h1>
+                    <h1 class="h1 text-white mt-5 mb-2"> {{ $title }}  </h1>
                     <p> 
                         <span> By {{ $postuser }} </span> &nbsp; | &nbsp;
                         <span> {{ $date }} </span> &nbsp; | &nbsp;

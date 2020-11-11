@@ -63,7 +63,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEducation"> Degree:</label>
-                            <input type="text" class="form-control @error('degree') is-invalid @enderror" id="inputCity" name="degree" @if($user) value="{{ $user->student->degree }}" @else value="{{ old('education') }}" @endif required autocomplete="degree" >
+                            <input type="text" class="j form-control @error('degree') is-invalid @enderror " id="inputCity" name="degree" @if($user) value="{{ $user->student->degree }}" @else value="{{ old('education') }}" @endif required autocomplete="degree" >
                             
                             @error('degree')
                                 <span class="invalid-feedback" role="alert">
@@ -74,7 +74,7 @@
                     
                         <div class="form-group col-md-4">
                             <label for="inputCity">City:</label>
-                            <select class="form-control @error('city') is-invalid @enderror" id="inputCity" placeholder="Yangon" name="city" value="{{ old('city') }}" required autocomplete="city" >
+                            <select class="js-example-basic-single form-control @error('city') is-invalid @enderror" id="inputCity" placeholder="Yangon" name="city" value="{{ old('city') }}" required autocomplete="city" >
                                 @foreach($townships as $township)
                                     <option value="{{$township->id}}" 
                                         @if($user) {{($township->id == $user->student->township_id)?"selected":""}} 
@@ -364,6 +364,11 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        $('.js-example-basic-single').select2({
+            theme: 'bootstrap4',
+
         });
 
         $('#inquireStudent').submit(function(event){

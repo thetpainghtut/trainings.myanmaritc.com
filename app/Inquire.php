@@ -33,4 +33,9 @@ class Inquire extends Model
     {
         return $this->hasOne('App\Student', 'inquire_no');
     }
+
+    public function installments()
+    {
+        return $this->hasMany('App\Installment');
+    }
 }

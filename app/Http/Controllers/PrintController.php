@@ -10,6 +10,10 @@ use App\Inquire;
 use App\Attendance;
 use Barryvdh\DomPDF\Facade as PDF;
 // use PDF;
+use App\Installment;
+use App\Location;
+use Anam\PhantomMagick\Converter;
+use View;
 
 use Illuminate\Http\Request;
 
@@ -225,6 +229,85 @@ class PrintController extends Controller
        $coursename = $course->name;
        $printpdf = PDF::loadView('pdf.absence', compact('studentname', 'totaldate' ,'batchname','coursename','remark'));
         return $printpdf->stream();
+    }
+
+    public function receive_print($inquireid){
+        $inquire = Inquire::find($inquireid);
+        $installments = Installment::where('inquire_id',$inquireid)->get();
+
+        $batch_id = $inquire->batch_id;
+        $batch = Batch::find($batch_id);
+
+        $course = $batch->course;
+        $codeno = $course->code_no;
+
+        $course_name = $batch->course->name;
+        $course_fees = $batch->course->fees;
+
+        $location_id = $batch->location_id;
+        $location = Location::find($location_id);
+
+        $city =$location->city;
+        $zipcode = $city->zipcode;
+
+        $receiveno = $inquire->receiveno;
+
+        if (!$receiveno) {
+
+            $lastInquire = Inquire::whereDate('updated_at',date('Y-m-d'))->where('receiveno','!=',null)->orderBy('updated_at','desc')->get();
+
+            if($lastInquire->isEmpty()){
+                // dd($lastInquire);
+                $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
+            }else
+            {
+                foreach ($lastInquire as $key => $value) {
+                    $databatch_id = $value->batch_id;
+
+                    $data_batch = Batch::find($databatch_id);
+                    $data_course = $data_batch->course;
+                    $data_codeno = $data_course->code_no;
+
+                    $datalocation_id = $data_batch->location_id;
+                    $data_location = Location::find($datalocation_id);
+
+                    $data_city = $data_location->city;
+                    $data_zipcode = $data_city->zipcode;
+                    // dd($data_batch);
+                    if($codeno == $data_codeno && $zipcode == $data_zipcode)
+                    {
+                        //dd($value->receiveno);
+                        $inquireno = $value->receiveno;
+                        $inquire_no = ++$inquireno;
+                        $inquire->receiveno = strval($inquire_no);
+                        break;
+                    }else{
+                        $inquire->receiveno = date('dmy').$codeno.$zipcode.'001';
+                    }
+                }
+            }
+            $inquire->status = 2;
+            $inquire->save();
+
+        }
+
+        $data =  array(
+            "receiveno"         =>  $inquire->receiveno,
+            "todaydate"         =>  date('d-m-Y'),
+            "coursename"        =>  $course_name,
+            "coursefees"        =>  $course_fees,
+            "inquireno"         =>  $inquire->inquireno,
+            "studentname"       =>  $inquire->name,
+            "paidamounts"       =>  $installments,
+            "batchdate"         =>  $batch->startdate,
+            "batchtime"         =>  $batch->time,
+        );
+
+        // dd($data);
+
+        $pdf = PDF::loadView('pdf.inquire',compact('data'));
+
+        return $pdf->stream();
     }
     
 }

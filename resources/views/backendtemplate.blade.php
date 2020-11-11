@@ -126,6 +126,13 @@
                         <span>Inquires</span>
                     </a>
                 </li>
+
+                <li class="nav-item {{ Request::segment(1) === 'searchinquires' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('searchinquires')}}">
+                        <i class="icofont-search-user"></i>
+                        <span>Search Inquires</span>
+                    </a>
+                </li>
             @endrole
           
             @role('Admin|Teacher|Mentor|Business Development|Recruitment')

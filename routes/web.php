@@ -259,3 +259,15 @@ Route::get('projectedit/{b}/{pj}','ProjectController@projectedit')->name('projec
 Route::post('frontendproject','PanelController@frontendproject')->name('frontendproject');
 Route::post('prj','PanelController@prj')->name('prj');
 Route::post('feedback','PanelController@feedback')->name('feedback');
+
+
+
+// Version(2.1)
+
+//Payment
+Route::post('firstpayment','InstallmentController@firstpayment')->name('firstpayment');
+Route::post('paymenthistory','InstallmentController@paymenthistory')->name('paymenthistory');
+Route::get('paymenthistory/{inquireid}','InstallmentController@paymenthistory')->name('paymenthistory');
+Route::get('receive_print/{inquireid}','PrintController@receive_print')->name('receive_print');
+
+Route::get('searchinquires','InquireController@searchinquires')->name('searchinquires');
