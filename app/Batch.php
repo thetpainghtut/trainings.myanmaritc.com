@@ -76,4 +76,9 @@ class Batch extends Model
     {
         return $this->belongsToMany('App\Quizz','batch_quiz','batch_id','quiz_id')->withTimestamps();
     }
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
 }

@@ -57,4 +57,33 @@ class BackendController extends Controller
         // })->get();
         return response()->json($batch_students);
     }
+
+    public function getmentorformembers(Request $request)
+    {
+        $bid = request('bid');
+
+        
+        $batch_mentor = Batch::with('teachers')->with('mentors')->find($bid);
+
+        $mentors = $batch_mentor->mentors;
+        $teachers = $batch_mentor->teachers;
+
+        $data = [];
+
+        foreach ($teachers as $teacher) {
+            $data[] =[
+                'id'              =>  $teacher->staff->user->id,
+                'name'           =>  $teacher->staff->user->name,
+            ];
+        }
+
+        foreach ($mentors as $mentor) {
+            $data[] =[
+                'id'              =>  $mentor->staff->user->id,
+                'name'           =>  $mentor->staff->user->name,
+            ];
+        }
+        // dd($data);
+        return response()->json($data);
+    }
 }

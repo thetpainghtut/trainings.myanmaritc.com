@@ -48,9 +48,13 @@ $(document).ready(function () {
   });
 
   $('#members').prop('disabled',true);
+  $('#mentors').prop('disabled',true);
+
 
   $('.batch_group').change(function () {
     $('#members').prop('disabled',false);
+    $('#mentors').prop('disabled',false);
+
     $(".js-example-basic-multiple").html('').select2({
       placeholder: "Choose members",
       theme: 'bootstrap4',
@@ -76,6 +80,22 @@ $(document).ready(function () {
       html += '</select>';
       $('#members').html(html);
     });
+
+    $.post('/getmentorformembers',{bid:bid},function (response) {
+      // console.log(response);
+
+      var html='<select class="js-example-basic-multiple form-control" name="members[]" multiple="multiple" id="members">';
+
+      $.each(response,function (i,v) {
+        
+          html += '<option value="'+v.id+'">'+v.name+'</option>'; 
+
+      })
+
+      html += '</select>';
+      $('#mentors').html(html);
+    });
+
   });
 
   

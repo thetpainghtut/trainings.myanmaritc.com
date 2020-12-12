@@ -8,7 +8,7 @@ class Attendance extends Model
 {
     //
     protected $fillable = [
-        'date', 'status', 'remark', 'student_id', 'user_id'
+        'date', 'status', 'remark', 'student_id', 'user_id', 'schedule_id'
     ];
 
     public function student()
@@ -20,4 +20,9 @@ class Attendance extends Model
   	{
     	return $this->belongsTo('App\User');
   	}
+
+    public function schedule()
+    {
+      return $this->belongsTo('App\Schedule');
+    }
 }

@@ -154,6 +154,7 @@ Route::post('/detailsearch','ReportController@detailsearch')->name('detailsearch
 //Attendance
 Route::group(['middleware' => ['role:Teacher|Mentor|Intern Mentor']], function () {
   Route::resource('/attendances','AttendanceController');
+  Route::post('/attendances/update','AttendanceController@update')->name('attendances.update');
   Route::get('/attendances_search/action', 'AttendanceController@action')->name('attendances_search.action');
 });
 Route::group(['middleware'=>['role:Admin|Recruitment|Business Development']],function(){
@@ -271,3 +272,16 @@ Route::get('paymenthistory/{inquireid}','InstallmentController@paymenthistory')-
 Route::get('receive_print/{inquireid}','PrintController@receive_print')->name('receive_print');
 
 Route::get('searchinquires','InquireController@searchinquires')->name('searchinquires');
+
+// Schedule
+Route::resource('schedules','ScheduleController');
+Route::get('getallSchedules','ScheduleController@getallSchedules')->name('getallSchedules');
+Route::post('/schedules/update/{id}','ScheduleController@update')->name('schedules.update');
+Route::post('getBatchByCourse_schedule','ScheduleController@getBatchByCourse_schedule')->name('getBatchByCourse_schedule');
+
+Route::post('getTeacherByBatch_schedule','ScheduleController@getTeacherByBatch_schedule')->name('getTeacherByBatch_schedule');
+
+Route::get('getschedule_byBatch/{id}','ScheduleController@getschedule_byBatch')->name('getschedule_byBatch/{id}');
+
+
+Route::post('/getmentorformembers','BackendController@getmentorformembers')->name('getmentorformembers');

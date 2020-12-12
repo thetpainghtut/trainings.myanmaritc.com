@@ -40,4 +40,9 @@ class Subject extends Model
   {
   	return $this->hasMany('App\Quizz');
   }
+
+  	public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
 }

@@ -1,3 +1,5 @@
+    @isset($batch)
+    
     <div class="modal detail_modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -263,6 +265,9 @@
         </div>
     </div>
 
+    @endif
+
+
 @section('script')
     <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 
@@ -390,6 +395,10 @@
 
                 console.log(balance);
 
+                $('#install_id').val(id);
+          
+                $('.install_modal').modal('show');
+
                 if (balance == 0) {
                     $('#edit_install_fees').removeClass('d-none');
                     $('#edit_install_fees').addClass('d-block');
@@ -408,9 +417,7 @@
                     $("#edit_install_balance").html('<span>'+CommaFormatted(balance.toString())+' Ks</span>');
 
                 }
-                $('#install_id').val(id);
-          
-                $('.install_modal').modal('show');
+                
             });
 
             $('tbody').on('click','.payment_history',function(){
@@ -426,173 +433,7 @@
                 $('.paymenthistory_modal').modal('show');
             });
 
-            function paymenthistoryFn(inquireid){
-
-
-                var url="{{route('paymenthistory',':id')}}";
-                url=url.replace(':id',inquireid);
-
-                $.ajax({
-                    url: url,
-                    dataType: 'json',
-                    processData: false,
-                    contentType: false,
-                    type: 'GET',
-                    success: function(data){
-                        if(data){
-                            var html=''; var pay_amount=0;
-                            var courseFees = "{{ $batch->course->fees }}";
-
-                            $.each(data, function(i,v){
-                                var amount = CommaFormatted(v.amount.toString());
-                                var paiddate = v.paiddate;
-                                var symbol = v.symbol;
-                                var type = v.type;
-
-                                pay_amount += v.amount ++;
-
-                                console.log(pay_amount);
-                                if (symbol ==1) {
-                                    if (courseFees == pay_amount) {
-                                        var installmentTitle = 'Full Installment';
-                                    }
-                                    else{
-                                        var installmentTitle = 'First Installment';
-                                    }
-                                }
-                                else if (symbol ==2) {
-                                    if (courseFees == pay_amount) {
-                                        var installmentTitle = 'Full Installment';
-                                    }
-                                    else{
-                                        var installmentTitle = 'Second Installment';
-                                    }
-                                }
-                                else if (symbol ==3) {
-                                    if (courseFees == pay_amount) {
-                                        var installmentTitle = 'Full Installment';
-                                    }
-                                    else{
-                                        var installmentTitle = 'Third Installment';
-                                    }
-                                }
-                                else {
-                                    if (courseFees == pay_amount) {
-                                        var installmentTitle = 'Full Installment';
-                                    }
-                                    else{
-                                        var installmentTitle = 'Last Installment';
-                                    }
-                                }
-
-                                if (type == "Cash Money") {
-                                    var banklogo = "{{ asset('payment/cash.jpg') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "AYA") {
-                                    var banklogo = "{{ asset('payment/aya_bank.png') }}";
-                                    var bank = type+' Bank';
-                                }
-                                else if (type == "CB") {
-                                    var banklogo = "{{ asset('payment/cb_bank.png') }}";
-                                    var bank = type+' Bank';
-                                }
-                                else if (type == "KBZ") {
-                                    var banklogo = "{{ asset('payment/kbz_bank.png') }}";
-                                    var bank = type+' Bank';
-                                }
-                                else if (type == "KBZ Pay") {
-                                    var banklogo = "{{ asset('payment/k_pay.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "Wave Money") {
-                                    var banklogo = "{{ asset('payment/wavemoney.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "Wave Pay") {
-                                    var banklogo = "{{ asset('payment/wavepay.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "MAB Bank") {
-                                    var banklogo = "{{ asset('payment/mab_bank.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "Yoma Bank") {
-                                    var banklogo = "{{ asset('payment/yoma_bank.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "AGD Bank") {
-                                    var banklogo = "{{ asset('payment/agd_bank.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "One Pay") {
-                                    var banklogo = "{{ asset('payment/onepay.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "MPT Money") {
-                                    var banklogo = "{{ asset('payment/mpt_money.jpg') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "True Money") {
-                                    var banklogo = "{{ asset('payment/truemoney.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "Visa") {
-                                    var banklogo = "{{ asset('payment/visa.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "Master") {
-                                    var banklogo = "{{ asset('payment/master.png') }}";
-                                    var bank = type;
-                                }
-                                else if (type == "PayPal") {
-                                    var banklogo = "{{ asset('payment/paypal.png') }}";
-                                    var bank = type;
-                                }
-                                else{
-                                    var banklogo = "{{ asset('payment/jcb.png') }}";
-                                    var bank = type;
-                                }
-
-                                
-
-                                const d = new Date(paiddate);
-                                const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
-                                const mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d)
-                                const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
-
-                                console.log()
-                                
-                                // console.log(newDate);
-
-                                var pretty_paiddate = `${mo} ${da},${ye}`;
-
-                                html += `<div class="col-12 mb-2">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${installmentTitle}</h5>
-                                                    <p class="card-text"> ${amount} Ks</p>
-                                                    <div class="row">
-                                                        <div class="col-8">
-                                                            <small> ${pretty_paiddate} </small>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <img src="${banklogo}" style="width: 30px; height: 30px;">
-                                                            ${bank}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>`;
-
-                            });
-
-                            $('#installmentDiv').html(html);
-
-                        }
-                    }
-                })
-            }
+            
 
             $('tbody').on('click','.postpone',function(){
                 var id = $(this).data('id');

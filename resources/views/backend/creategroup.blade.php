@@ -59,6 +59,15 @@
                 </div>
 
                 <div class="form-row">
+
+                    <div class="form-group col-md-12">
+                        <label for="inputCourse">Choose Mentors:</label>
+                        <select class="js-example-basic-multiple form-control" name="users[]" multiple="multiple" id="mentors">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-lg btn-primary btn-block">Create</button>
                     </div>

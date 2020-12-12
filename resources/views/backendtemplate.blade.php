@@ -39,6 +39,18 @@
     <!-- yearpicker -->
     <link rel="stylesheet" href="{{asset('yearpicker.css')}}">
 
+    <!-- Full Calendar -->
+    <link rel="stylesheet" href="{{asset('sb_admin2/vendor/fullcalendar/lib/main.css')}}">
+
+    <!-- Color Picker -->
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/colorpicker.css') }}">
+
+    <!-- DateTime Picker -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/datetimepicker/normalize.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('sb_admin2/vendor/datetimepicker/css/datepicker.css') }}">
+
+
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 </head>
 
@@ -88,7 +100,14 @@
                 </li>
             @endrole
 
-            @role('Admin|Teacher|Mentor')
+            @role('Admin|Teacher|Mentor|Business Development')
+
+                <li class="nav-item {{ Request::segment(1) === 'schedules' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('schedules.index')}}">
+                        <i class="icofont-ui-calendar fa-lg"></i>
+                        <span>Schedules</span>
+                    </a>
+                </li>
 
                 <li class="nav-item {{ Request::segment(1) === 'groups' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('groups.index')}}">
@@ -96,6 +115,8 @@
                         <span>Groups</span>
                     </a>
                 </li>
+
+                
             @endrole
 
 
@@ -645,7 +666,18 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('sb_admin2/vendor/jquery/jquery.min.js')}}"></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script> --}}
+
+
     <script src="{{asset('sb_admin2/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+    <!-- Full Calendar -->
+    {{-- <script src="{{ asset('sb_admin2/vendor/fullcalendar/lib/moment.min.js') }}"></script> --}}
+    <script src="{{ asset('sb_admin2/vendor/fullcalendar/lib/main.min.js') }}"></script>
+
+
+    
 
     <!-- datatable -->
     <script src="{{asset('sb_admin2/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -669,9 +701,21 @@
     <!-- summernote -->
     <script src="{{ asset('sb_admin2/vendor/summernote/summernote-bs4.min.js') }}"></script>
 
+    
+    <!-- DateTime Picker -->
+    <!-- Schedule -->
+    <script src="{{ asset('sb_admin2/vendor/datetimepicker/moment.min.js') }}"></script>
+    <script src="{{ asset('sb_admin2/vendor/datetimepicker/js/datepicker.all.js') }}"></script>
+    <script src="{{ asset('sb_admin2/vendor/datetimepicker/js/datepicker.en.js') }}"></script>
+
+
+
     <!-- admin change password -->
 
     <script type="text/javascript">
+
+
+
         function showpassword()
         {
            var password = document.getElementById('password');
@@ -686,6 +730,7 @@
 
         $(document).ready(function(){
             $('.msg').hide(10000);
+            $('[data-toggle=tooltip]').tooltip();
         })
     </script>
 

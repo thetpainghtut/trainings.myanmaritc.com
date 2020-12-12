@@ -20,5 +20,8 @@ class Group extends Model
     	return $this->belongsTo('App\Batch');
   	}
 
-  
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

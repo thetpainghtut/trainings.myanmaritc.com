@@ -189,11 +189,11 @@
 
         </div>
     </div>
-
+    @endif
     @include('inquires/modalbox')
 
 
-    @endif
+    
 
 @endsection
 

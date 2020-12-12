@@ -1,0 +1,97 @@
+.radio-group-control {
+  background: #f7f7f7;
+  border: 1px solid #c7c7c7;
+  border-radius: 3px;
+  font-size: 0;
+  text-align: center;
+  font-family: "HelveticaNeue-Light", helvetica, arial, sans-serif;
+  /*-webkit-box-shadow: inset 3px 3px 0 2px #f0f0f0;*/
+  /*box-shadow: inset 3px 3px 0 2px #f0f0f0;*/
+  position: relative;
+  overflow: hidden;
+  width:500px;
+}
+
+.radio-group-control * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.radio-group-control input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  font-size: 0;
+}
+
+.radio-group-control label .radio-group-label__text {
+  width: 25%;
+  display: inline-block;
+  font-size: 14px !important;
+  color: #333;
+  font-family: "HelveticaNeue-Light", helvetica, arial, sans-serif;
+  cursor: pointer;
+  margin-bottom: 0;
+  padding: 10px 0;
+  border-left: 1px solid #c7c7c7;
+}
+
+.radio-group-control label span.radio-group-tick {
+  position: relative;
+}
+
+.radio-group-control label.radio-group-label {
+display: inline;
+  position: relative;
+  color: #333;
+}
+
+.radio-group-control input[type="radio"]:checked + .radio-group-label__text {
+  background: #fff;
+  font-weight: 700;
+}
+
+.radio-group-control label:first-child .radio-group-label__text {
+  border-left: 0 !important;
+}
+
+.radio-group-control label span.radio-group-tick:before {
+  content: "";
+  position: absolute;
+  color: #c60d30;
+  left: -25px;
+  width: 20px;
+  height: 20px;
+  top: -2px;
+}
+
+.radio-group-control
+  input[type="radio"]:checked
+  + .radio-group-label__text
+  > span.radio-group-tick:before {
+  content: "✔";
+  position: absolute;
+  color: #c60d30;
+  left: -25px;
+  width: 20px;
+  height: 20px;
+  top: -2px;
+}
+
+
+/*@media screen and (max-width:767px)
+{
+  .radio-group-control label .radio-group-label__text
+  {
+    width:100%;
+    border-left:0px;
+    border-top:1px solid #c7c7c7;
+  }
+  .radio-group-control label:first-child .radio-group-label__text
+  {
+    border-top:0px
+  }
+  .radio-group-control label.radio-group-label
+  {
+    display:block;
+  }
+}*/

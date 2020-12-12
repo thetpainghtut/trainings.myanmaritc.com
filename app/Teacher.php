@@ -32,4 +32,9 @@ class Teacher extends Model
     {
         return $this->belongsToMany('App\Batch');
     }
+
+    public function schedules()
+    {
+        return $this->belongsToMany('App\Schedule');
+    }
 }

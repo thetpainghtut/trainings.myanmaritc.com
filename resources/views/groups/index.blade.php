@@ -58,6 +58,7 @@
                             <th>No</th>
                             <th>Name</th>
                             <th>No of Students</th>
+                            <th>Mentor</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -72,6 +73,14 @@
                                 <td>{{$i++}}</td>
                                 <td>{{$row->name}}</td>
                                 <td>{{count($row->students)}}</td>
+                                <td> 
+                                    @foreach($row->users as $user)
+                                    
+                                    <span class="badge badge-pill badge-secondary">
+                                        {{ $user->name }}
+                                    </span>
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a href="{{route('groups.show',$row->id)}}" class="btn btn-primary btn-sm"><i class="fas fa-info"></i></a></a>
 

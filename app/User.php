@@ -127,4 +127,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Installment');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group');
+    }
 }

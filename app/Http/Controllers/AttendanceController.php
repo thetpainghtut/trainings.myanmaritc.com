@@ -14,374 +14,208 @@ use DB;
 use App\Teacher;
 use App\Staff;
 use App\Mentor;
+use App\Schedule;
+
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $weekMap = [
-            0 => 'SU',
-            1 => 'MO',
-            2 => 'TU',
-            3 => 'WE',
-            4 => 'TH',
-            5 => 'FR',
-            6 => 'SA',
-        ];
-        $dayOfTheWeek = Carbon::now()->dayOfWeek;
-        $weekday = $weekMap[$dayOfTheWeek];
-//$sat = Carbon::now()->endOfWeek(Carbon::SATURDAY)->format('Y-m-d H:i:s');
+    public function index(){
+        $user = Auth::user();
+        $role = $user->getRoleNames();
 
-        $user = Auth::user()->id;
-        $role = Auth::user()->getRoleNames();
-        if($role[0] == 'Teacher'){
-        //dd($user);
-       // $bid = request('batch');
-        $staff = Staff::with('teacher')->where('user_id',$user)->get();
-       
-        $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
+        if ($role[0] == 'Teacher') {
+            // Courses => Teacher
+            $staff = Staff::with('teacher')->where('user_id',$user->id)->get();
+            $teacher = Teacher::with('course')->where('staff_id',$staff[0]->id)->get();
 
-        $couses = array();
-        foreach ($teacher as $key => $value) {
-          array_push($couses,$value->course);
+            $courses = array();
+            foreach ($teacher as $key => $value) {
+              array_push($courses,$value->course);
+            }
         }
+        elseif($role[0] == 'Mentor' || $role[0] == 'Intern Mentor'){
+            // Courses => Mentor |or| Intern Mentor
 
-        $courses = Course::all();
-        $batches = Batch::all();
-        $attend = Attendance::all();
-        $todayDate = date("Y-m-d");
+            $staff = Staff::with('mentor')->where('user_id',$user->id)->get();
+            $mentor = Mentor::with('course')->where('staff_id',$staff[0]->id)->get();
 
-        $attendancenow = Attendance::where('date',$todayDate)->get();
-       
-      //  $studentss = Student::where('batch_id',$bid)->get();
-
-      /*  $studentall=[];
-        foreach ($studentss as $key => $value) {
-
-            $studentall[] = Attendance::where('student_id',$value->id)->where('date',$todayDate)->get();
-        }*/
-        
-
-       /* $v=[];
-        foreach ($studentall as $tcount) {
-            $v = $tcount;
-        }
-        $attcount = count($v);*/
-
-        /*$attendancenow = Attendance::join('students','students.id','=','student_id')->join('batches','batches.id','=','students.batch_id')->where('date',$todayDate)->get();*/
-      // dd($attendancenow);
-       /* $countabsence = Attendance::where('status',1)->get();
-        $aa = count($countabsence);*/
-
-        //dd($countabsence);
-        if (request('batch')) {
-            if($weekday == 'MO' || $weekday == 'TU' || $weekday == 'WE' || $weekday == 'TH' || $weekday == 'FR'){
-    
-
-            $bid = request('batch');
-            $status = 1;
-            $students = Student::whereHas('batches',function($q) use ($bid){
-                $q->where('batch_id',$bid);
-            })->get();
-            //dd($students);
-            $studentss = Student::whereHas('batches',function($q) use ($bid){
-                $q->where('batch_id',$bid);
-            })->get();
-
-        $studentall=[];
-        foreach ($studentss as $key => $value) {
-
-            $studentall[] = Attendance::where('student_id',$value->id)->where('date',$todayDate)->get();
-        }
-        
-
-        $v=[];
-        foreach ($studentall as $tcount) {
-            $v = $tcount;
-        }
-        $attcount = count($v);
-
-        $attendancenow = Attendance::join('students','students.id','=','student_id')->join('batch_student','batch_student.student_id','=','students.id')->join('batches','batches.id','=','batch_student.batch_id')->where('date',$todayDate)->get();
-     // dd($attendancenow);
-       $countabsence = Attendance::where('status',1)->get();
-        $aa = count($countabsence);
-            return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status','teacher','couses'));
-        }else{
-             $status = 0;
-            $countabsence = 0;
-            $attcount =0;
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','teacher','couses'));
-        }
+            $courses = array();
+            foreach ($mentor as $key => $value) {
+              array_push($courses,$value->course);
+            }
         }
         else{
-        // Return 
-            $status = 0;
-            $countabsence = 0;
-            $attcount =0;
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','teacher','couses'));
+            // Courses
+            $courses = Course::all();
         }
-    }else{
-        $staffs = Staff::where('user_id',$user)->get();
-        $couses = $staffs[0]->mentor[0]->course;
-       // dd($couses);
-        $courses = Course::all();
-        $batches = Batch::all();
-        $attend = Attendance::all();
-        $todayDate = date("Y-m-d");
 
-        $attendancenow = Attendance::where('date',$todayDate)->get();
         if (request('batch')) {
-            if($weekday == 'MO' || $weekday == 'TU' || $weekday == 'WE' || $weekday == 'TH' || $weekday == 'FR'){
-    
             $bid = request('batch');
+
+            $batch = Batch::find($bid);
+
             $status = 1;
-            $students = Student::whereHas('batches',function($q) use ($bid){
-                $q->where('batch_id',$bid);
-            })->get();
-            //dd($students);
-            $studentss = Student::whereHas('batches',function($q) use ($bid){
-                $q->where('batch_id',$bid);
-            })->get();
 
-        $studentall=[];
-        foreach ($studentss as $key => $value) {
+            if($role[0] == 'Mentor' || $role[0] == 'Intern Mentor'){
+            }
+            else{
+                $students = Student::whereHas('batches',function($q) use ($bid){
+                    $q->where('batch_id',$bid);
+                })->get();
+            }
 
-            $studentall[] = Attendance::where('student_id',$value->id)->where('date',$todayDate)->get();
-        }
-        
+            
 
-        $v=[];
-        foreach ($studentall as $tcount) {
-            $v = $tcount;
-        }
-        $attcount = count($v);
+            $now = Carbon::now();
 
-        $attendancenow = Attendance::join('students','students.id','=','student_id')->join('batch_student','batch_student.student_id','=','students.id')->join('batches','batches.id','=','batch_student.batch_id')->where('date',$todayDate)->get();
-     // dd($attendancenow);
-       $countabsence = Attendance::where('status',1)->get();
-        $aa = count($countabsence);
-            return view('attendances.create',compact('students','courses','batches','todayDate','attendancenow','countabsence','attcount','attend','status','couses'));
+            $todaydate = $now->formatLocalized('%A, %d %B  %Y'); 
+
+            $today = Carbon::parse($todaydate)->format('Y-m-d');
+
+            $currentTime = $now;
+            // dd($today);
+            // $currentTime = Carbon::parse('15:00:00');
+
+            $schedules = Schedule::with('attendances')
+                    ->where('batch_id',$bid)
+                    ->where('date_event',$today)
+                    ->where('type','!=','Holiday')
+                    ->orderBy('time_event')
+                    ->get();
+
+            $schedule_now = [];
+
+
+            foreach ($schedules as $key => $schedule) {
+                if ($schedule->time_event) {
+                    $time_str = $schedule->time_event;
+                    $time_arr = explode('-',$time_str);
+
+                    $starttime = trim($time_arr[0]);
+                    $endtime = trim($time_arr[1]);
+
+                    $starttimeFormat = Carbon::create($starttime)->format('h:i:s');
+                    $endtimeFormat = Carbon::create($endtime)->format('h:i:s');
+
+                    // $interval = $starttimeFormat->diff($endtimeFormat);
+
+                    $interval = $currentTime->between(Carbon::parse($starttime), Carbon::parse($endtime));
+
+                    // dd($interval);
+                    $att_scheduleid = $schedule->id;
+                    
+                    if ($interval) {
+
+                        if(!count($schedule->attendances)){
+                            // $schedule_now[$key]['id'] =  $att_scheduleid;
+
+                            array_push($schedule_now,$att_scheduleid);
+                        }
+                    }
+                }
+
+                // dd($schedule_now);
+
+                // echo $schedule->id." => ".$starttime." - ".$endtime."<br>";
+            }
+
+            // dd($schedule_now);
+
+            return view('attendances.create',compact('courses', 'batch', 'students','todaydate','schedules','schedule_now'));
+
         }else{
-            $status = 0;
-            $countabsence = 0;
-            $attcount =0;
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','couses'));
+            return view('attendances.create',compact('courses'));
         }
-        }
-        else{
-        // Return 
-            $status = 0;
-            $countabsence = 0;
-            $attcount =0;
-            return view('attendances.create',compact('todayDate','courses','batches','attendancenow','countabsence','attcount','attend','status','couses'));
-        }
-    }
-    
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-       
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //dd($request->date);
-       
-       
+    public function store(Request $request){
         $students = request('studentid');
         $remarks = request('remark');
-       // dd($remarks);
-       // foreach ($students as $student) {
-         
+        $scheduleid = request('scheduleid');
+
+        $attendanceStataus = $request->attendanceStataus;        
 
         for ($i=0; $i < (count($students)); $i++) {
 
+            $studentid = $students[$i];
+
+            $status = $attendanceStataus[$studentid];
+            $remark = $remarks[$i];
+
             $attendances = new Attendance();
             $attendances->date = Carbon::now();
-           /* $attendances->date = request('date');*/
-           // echo $remarks[$i];
+            $attendances->status = $status;
+           
 
             if($remarks[$i]!=''){
-             $attendances->status = 1;
-              $attendances->remark = $remarks[$i];
+                $attendances->remark = $remark;
+            }
 
-                
+            else{
+                $attendances->remark = 'NULL';
+            }
 
-           }else{
-                     $attendances->status = 0;
-              $attendances->remark = 'NULL';
-
-
-           }
-       // die();
-
-        $attendances->student_id = $students[$i];
-        $attendances->user_id = Auth::user()->id;
+            $attendances->student_id = $studentid;
+            $attendances->user_id = Auth::user()->id;
+            $attendances->schedule_id = $scheduleid;
         
-         $attendances->save();
-           
-       }
-         return redirect()->route('attendances.index');
-
-      
-       //dd($attendances->student_id);  
-       
-        
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function action(Request $request)
-    {
-    
-      $query = $request->get('searchquery');
-      if($query != '')
-      {
-        $group = Group::with('students');
-
-       $search = Student::with('groups')->where('namee', 'like', '%'.$query.'%')
-         ->get();
-       /*  $search =$group->whereHas('students', function($q) use($query) {
-                $q -> where('namee', 'LIKE', '%'. $query .'%');
-            }) -> get();*/
-         
-      }
-    // dd($search);
-      
-
-      return response()->json($search);
-    
-    }
-
-    public function absence(Request $request)
-    {
-        $courses = Course::all();
-        $batches = Batch::all();
-        $requestbatch = request('batch');
-       // dd($requestbatch);
-        if($requestbatch){
-            $status = 1;
-           
-            $students = Student::whereHas('batches',function($q) use ($requestbatch){
-                $q->where('batch_id',$requestbatch);
-            })
-                        ->whereHas('attendance',function($q1){
-                            return $q1->where('status','=','1');
-                        })
-                        ->get();             
-
-
-
-
-            return view('attendances.absencelist',compact('courses','batches','status','students','requestbatch'));
-        }else{
-            $status = 0;
-            return view('attendances.absencelist',compact('courses','batches','status'));
-        }
-    }
-
-
-    public function absencesearch(Request $request)
-    {
-        $startdate = request('startdate');
-        $enddate = request('enddate');
-        $batch = request('batch_id');
-        $students = Student::whereHas('batches',function($q) use($batch){
-                    $q->where('batch_id',$batch);
-                        })
-                        ->whereHas('attendance',function( $q1 ) use ($startdate , $enddate) {
-                            $q1->whereBetween('date', [$startdate,$enddate])->where('status','=','1');
-                        })
-                        ->get(); 
-        //dd($students);
-
-        $stucount = count($students);
-         for($i=0;$i<$stucount;$i++){
-
-        $scount[] = $students[$i]->attendance;
-    }
-        
-        
-       /* $su = Attendance::whereBetween('date', [$startdate,$enddate])->where('status','=','1')->get();
-        foreach($su as $object)
-        {
-            //$arrays[] = $object->toArray();
-            $arrays[] = $object->student_id;
+            $attendances->save();
+            // echo ."<br>";
         }
 
-        $s = Student::whereIn('id',$arrays)->get();*/
-        if(count($students)>0){
-        
-        return response()->json(array(
-                    'success' => true,
-                    'students' => $students,
-                    'attendances' => $scount
-                )); 
-    }else{
-        return response()->json(array('error'=>false));
-    }
-       
+        return redirect()->route('attendances.index');
 
     }
+
+
+    public function update(Request $request){
+        $id = $request->attupdid;
+        $status = $request->attupdstatus;
+
+        if ($status == 0) {
+            $remark = 'NULL';
+        }elseif ($status == 2) {
+            $remark = $request->attupdlatetime;
+        }
+        else{
+            $remark = $request->attupdreason;
+        }
+
+        if (!$remark) {
+            $remark = 'NULL';
+        }
+
+
+        $attendance = Attendance::find($id);
+
+        $batchid = $attendance->schedule->batch_id;
+        $courseid = $attendance->schedule->batch->course->id;
+
+
+        $attendance->status = $status;
+        $attendance->remark = $remark;
+        $attendance->save();
+
+        return redirect()->back();
+
+    }   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

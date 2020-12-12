@@ -116,7 +116,9 @@ class GroupController extends Controller
             "course" => 'required',
             "batch" => 'required',
             "name" => 'required|max:100',
-            "members" => 'required'
+            "members" => 'required',
+            "users" => 'required'
+
         ]);
 
         $group = new Group;
@@ -128,6 +130,9 @@ class GroupController extends Controller
         $group->save();
 
         $group->students()->attach(request('members'));
+
+        $group->users()->attach(request('users'));
+
 
         return back()->with('status',$group->name." Group created successfully");
     }
@@ -154,7 +159,29 @@ class GroupController extends Controller
         $batchid = $request->batch_data_id;
         $courseid = $request->course_data_id;
         $batch_data = Batch::find($request->batch_data_id);
-        return view('groups.edit',compact('group','batch_data','batchid','courseid'));
+
+        $batch_users = [];
+
+        $mentors = $batch_data->mentors;
+        $teachers = $batch_data->teachers;
+
+        foreach ($teachers as $teacher) {
+            $batch_users[] =[
+                'id'              =>  $teacher->staff->user->id,
+                'name'           =>  $teacher->staff->user->name,
+            ];
+        }
+
+        foreach ($mentors as $mentor) {
+            $batch_users[] =[
+                'id'              =>  $mentor->staff->user->id,
+                'name'           =>  $mentor->staff->user->name,
+            ];
+        }
+
+        // dd($batch_users);
+
+        return view('groups.edit',compact('group','batch_data','batchid','courseid','batch_users'));
     }
 
     /**
@@ -177,9 +204,14 @@ class GroupController extends Controller
         $group->name = request('name');
         $group->batch_id = request('batch_id');
         $members = $request->members;
+        $users = $request->users;
+
         $group->save();
         $group->students()->detach();
         $group->students()->attach($members);
+
+        $group->users()->detach();
+        $group->users()->attach($users);
 
         return redirect('groups?course='.$courseid.'&batch='.$batchid)->with('msg','Successfully Update!');
     }
