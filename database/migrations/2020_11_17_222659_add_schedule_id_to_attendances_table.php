@@ -14,7 +14,7 @@ class AddScheduleIdToAttendancesTable extends Migration
     public function up()
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->unsignedBigInteger('schedule_id');
+            $table->unsignedBigInteger('schedule_id')->nullable();
             $table->foreign('schedule_id')
                   ->references('id')->on('schedules')
                   ->onDelete('cascade');
